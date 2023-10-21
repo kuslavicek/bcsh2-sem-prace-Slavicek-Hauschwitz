@@ -10,7 +10,7 @@ namespace backend
 
         public static OracleConnection GetConnection()
         {
-            string connectionString = "User Id=ST67103;Password=abcde;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=fei-sql3.upceucebny.cz)(PORT=1521))(CONNECT_DATA=(SID=BDAS)(SERVER=DEDICATED)));Connection Timeout=120;";
+            string connectionString = "User Id=jmeno;Password=heslo;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=fei-sql3.upceucebny.cz)(PORT=1521))(CONNECT_DATA=(SID=BDAS)(SERVER=DEDICATED)));Connection Timeout=120;";
             return new OracleConnection(connectionString);
         }
 
