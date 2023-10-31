@@ -1,4 +1,5 @@
 ﻿using Oracle.ManagedDataAccess.Client;
+using System.Data;
 
 namespace WebApplication1
 {
@@ -6,7 +7,7 @@ namespace WebApplication1
     {
         public static OracleConnection getConnection()
         {
-             String connectionString = "User Id=id;Password=pass;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=fei-sql3.upceucebny.cz)(PORT=1521))(CONNECT_DATA=(SID=BDAS)(SERVER=DEDICATED)))";
+             String connectionString = "User Id=ST67265;Password=abcde;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=fei-sql3.upceucebny.cz)(PORT=1521))(CONNECT_DATA=(SID=BDAS)(SERVER=DEDICATED)))";
             OracleConnection connection = new OracleConnection(connectionString);
             return connection;
         }
@@ -30,5 +31,49 @@ namespace WebApplication1
             connection.Close();
 
         }
+
+        public static DataSet getData(string command)
+        {
+            DataSet dataset = new DataSet();
+            OracleConnection connection = getConnection();
+            connection.Open();
+            using (OracleDataAdapter adapter = new OracleDataAdapter(command, connection))
+            {
+                adapter.Fill(dataset);
+            }
+            connection.Close();
+            return dataset;
+        }
+        public static object? runProcedure(string procedureName, Param[] parameters)
+        {
+            OracleConnection connection = getConnection();
+            connection.Open();
+            OracleCommand comm = new OracleCommand();
+            comm.Connection = connection;
+            comm.CommandText = procedureName;
+            comm.CommandType = CommandType.StoredProcedure;
+            if (parameters != null)
+            {
+                foreach (Param parameter in parameters)
+                {
+                    comm.Parameters.Add(parameter.Name, parameter.type).Value = parameter.Value;
+                }
+            }
+            comm.Parameters.Add("result", OracleDbType.Clob).Direction = ParameterDirection.Output;
+            comm.ExecuteNonQuery();
+            return comm.Parameters["result"].Value;
+
+
+
+
+        }
     }
+
+    public class Param
+    {
+        public string Name { get; set; }
+        public OracleDbType type { get; set; }
+        public object Value { get; set; }
+    }
+
 }
