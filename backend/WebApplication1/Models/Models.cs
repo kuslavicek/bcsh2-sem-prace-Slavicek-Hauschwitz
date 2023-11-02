@@ -13,7 +13,7 @@ namespace WebApplication1.Models
         public static Adresa FromString(string jsonString)
         {
             return JsonConvert.DeserializeObject<Adresa>(jsonString);
-        }
+    }
     }
 
     public class Akce
@@ -26,7 +26,7 @@ namespace WebApplication1.Models
         public static Akce FromString(string jsonString)
         {
             return JsonConvert.DeserializeObject<Akce>(jsonString);
-        }
+    }
     }
 
     public class Cider
@@ -37,7 +37,7 @@ namespace WebApplication1.Models
         public static Cider FromString(string jsonString)
         {
             return JsonConvert.DeserializeObject<Cider>(jsonString);
-        }
+    }
     }
 
     public class ObjednaneZbozi
@@ -50,7 +50,7 @@ namespace WebApplication1.Models
         public static ObjednaneZbozi FromString(string jsonString)
         {
             return JsonConvert.DeserializeObject<ObjednaneZbozi>(jsonString);
-        }
+    }
     }
 
     public class Objednavka
@@ -64,7 +64,7 @@ namespace WebApplication1.Models
         public static Objednavka FromString(string jsonString)
         {
             return JsonConvert.DeserializeObject<Objednavka>(jsonString);
-        }
+    }
     }
 
     public class Pivo
@@ -75,7 +75,7 @@ namespace WebApplication1.Models
         public static Pivo FromString(string jsonString)
         {
             return JsonConvert.DeserializeObject<Pivo>(jsonString);
-        }
+    }
     }
 
     public class Pivovar
@@ -88,7 +88,7 @@ namespace WebApplication1.Models
         public static Pivovar FromString(string jsonString)
         {
             return JsonConvert.DeserializeObject<Pivovar>(jsonString);
-        }
+    }
     }
 
     public class PracovniPozice
