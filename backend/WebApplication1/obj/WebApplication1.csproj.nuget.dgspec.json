@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP\\source\\repos\\BCSH2-SemPrace\\bcsh2-sem-prace-Slavicek-Hauschwitz\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {}
+    "C:\\Users\\HP\\source\\repos\\BCSH2-SemPrace\\bcsh2-sem-prace-Slavicek-Hauschwitz\\backend\\WebApplication1\\WebApplication1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\source\\repos\\BCSH2-SemPrace\\bcsh2-sem-prace-Slavicek-Hauschwitz\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {
+    "C:\\Users\\HP\\source\\repos\\BCSH2-SemPrace\\bcsh2-sem-prace-Slavicek-Hauschwitz\\backend\\WebApplication1\\WebApplication1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\source\\repos\\BCSH2-SemPrace\\bcsh2-sem-prace-Slavicek-Hauschwitz\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\source\\repos\\BCSH2-SemPrace\\bcsh2-sem-prace-Slavicek-Hauschwitz\\backend\\WebApplication1\\WebApplication1.csproj",
         "projectName": "WebApplication1",
-        "projectPath": "C:\\Users\\HP\\source\\repos\\BCSH2-SemPrace\\bcsh2-sem-prace-Slavicek-Hauschwitz\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+        "projectPath": "C:\\Users\\HP\\source\\repos\\BCSH2-SemPrace\\bcsh2-sem-prace-Slavicek-Hauschwitz\\backend\\WebApplication1\\WebApplication1.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\source\\repos\\BCSH2-SemPrace\\bcsh2-sem-prace-Slavicek-Hauschwitz\\WebApplication1\\WebApplication1\\obj\\",
+        "outputPath": "C:\\Users\\HP\\source\\repos\\BCSH2-SemPrace\\bcsh2-sem-prace-Slavicek-Hauschwitz\\backend\\WebApplication1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +39,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
             "Oracle.ManagedDataAccess.Core": {
               "target": "Package",
               "version": "[3.21.120, )"

@@ -16,7 +16,6 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
-            Database.TestConnection();
             return View();
         }
 
