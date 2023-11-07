@@ -10,7 +10,7 @@ namespace WebApplication1
     {
         public static OracleConnection getConnection()
         {
-             String connectionString = "User Id=id;Password=pass;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=fei-sql3.upceucebny.cz)(PORT=1521))(CONNECT_DATA=(SID=BDAS)(SERVER=DEDICATED)))";
+             String connectionString = "User Id=ST67103;Password=abcde;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=fei-sql3.upceucebny.cz)(PORT=1521))(CONNECT_DATA=(SID=BDAS)(SERVER=DEDICATED)))";
             OracleConnection connection = new OracleConnection(connectionString);
             return connection;
         }

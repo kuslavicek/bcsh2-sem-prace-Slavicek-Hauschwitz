@@ -28,7 +28,7 @@ namespace WebApplication1.Controllers
                 new Param()
                 {
                     Name="p_id",
-                    type = Oracle.ManagedDataAccess.Client.OracleDbType.Decimal,
+                    type = OracleDbType.Int64,
                     Value=id
                 }
             });
@@ -53,19 +53,19 @@ namespace WebApplication1.Controllers
                     {
                         Name = "p_mesto",
                         type = OracleDbType.Varchar2,
-                        Value = HttpContext.Request.Query["ulice"]
+                        Value = HttpContext.Request.Query["mesto"]
                     },
                     new Param
                     {
                         Name = "p_psc",
                         type = OracleDbType.Int64,
-                        Value = HttpContext.Request.Query["psc"]
+                        Value = Convert.ToInt64(HttpContext.Request.Query["psc"])
                     },
                     new Param
                     {
                         Name = "p_cislo_popisne",
                         type = OracleDbType.Int64,
-                        Value = HttpContext.Request.Query["cislo_popisne"]
+                        Value = Convert.ToInt64(HttpContext.Request.Query["cislo_popisne"])
                     },
                     new Param
                     {
@@ -73,47 +73,50 @@ namespace WebApplication1.Controllers
                         type = OracleDbType.Varchar2,
                         Value = HttpContext.Request.Query["stat"]
                     } };
-            string result = Database.runProcedure("InsertZakaznik", adresa);
+            string result = Database.runProcedure("CreateAdresa", adresa);
             return result;
         }
         // PUT: api/<AdresaController>/5
         [HttpPut("{id}")]
         public string Put(int id)
         {
-            Param[] parameters = new Param[]
-               {
-                   new Param
+            Param[] adresa = new Param[]
+            { new Param{
+                Name = "p_id",
+                type = OracleDbType.Int64,
+                Value = id
+            },
+                new Param{
+                Name = "p_ulice",
+                type = OracleDbType.Varchar2,
+                Value = HttpContext.Request.Query["ulice"]
+            },
+                    new Param
                     {
-                        Name = "p_id",
+                        Name = "p_mesto",
                         type = OracleDbType.Varchar2,
-                        Value = HttpContext.Request.Query["id"]
+                        Value = HttpContext.Request.Query["mesto"]
                     },
                     new Param
                     {
-                        Name = "p_jmeno",
-                        type = OracleDbType.Varchar2,
-                        Value = HttpContext.Request.Query["jmeno"]
-                    },
-                    new Param
-                    {
-                        Name = "p_email",
-                        type = OracleDbType.Varchar2,
-                        Value = HttpContext.Request.Query["email"]
-                    },
-                    new Param
-                    {
-                        Name = "p_telefon",
+                        Name = "p_psc",
                         type = OracleDbType.Int64,
-                        Value = HttpContext.Request.Query["telefon"]
+                        Value = Convert.ToInt64(HttpContext.Request.Query["psc"])
                     },
                     new Param
                     {
-                        Name = "p_adresa_id",
+                        Name = "p_cislo_popisne",
                         type = OracleDbType.Int64,
-                        Value = id
+                        Value = Convert.ToInt64(HttpContext.Request.Query["cislo_popisne"])
                     },
-            };
-            string result = Database.runProcedure("UpdateAdresa", parameters);
+                    new Param
+                    {
+                        Name = "p_stat",
+                        type = OracleDbType.Varchar2,
+                        Value = HttpContext.Request.Query["stat"]
+                    } };
+        
+            string result = Database.runProcedure("UpdateAdresa", adresa);
             return result;
         }
         // DELETE api/<AdresaController>/5
