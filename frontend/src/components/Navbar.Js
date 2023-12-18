@@ -7,6 +7,7 @@ function Navbar(){
             <a href="/zakaznici">Zákazníci</a>
             <a href="/zamestnanci">Zaměstnanci</a>
             <a href="/adresy">Adresy</a>
+            <a href="/akce">Akce</a>
         </div>
     )
 }

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-function Adresy(){
+function Akce(){
     
     const [data, setData] = useState([]);
 
   useEffect(() => {
     // Replace 'API_ENDPOINT' with your actual API endpoint
-    fetch("https://localhost:7043/api/Adresa",{mode:'cors'})
+    fetch("https://localhost:7043/api/akce",{mode:'cors'})
       .then((response) => response.json())
       .then((result) => setData(result))
       .catch((error) => console.error('Error fetching data:', error));
@@ -15,28 +15,26 @@ function Adresy(){
   
     return(
         <div>
-            <button>Přidat novou adresu</button>
+            <button>Přidat novou akci</button>
             <table>
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Street</th>
-		    <th>City</th>
-                    <th>PSC</th>
-                    <th>number of descriptive</th>
-                    <th>Country</th>
+		    <th>Number of persons</th>
+                    <th>Date</th>
+                    <th>Type ID</th>
+                    <th>Order ID</th>
                     <th>Editations</th>
                 </tr>
                 </thead>
                 <tbody>
-                {data.map((adress) => (
-                    <tr key={adress.idAdresa}>
-                    <td>{adress.idAdresa}</td>
-                    <td>{adress.ulice}</td>
-                    <td>{adress.mesto}</td>
-                    <td>{adress.psc}</td>
-                    <td>{adress.cisloPopisne}</td>
-                    <td>{adress.stat}</td>
+                {data.map((event) => (
+                    <tr key={event.idAkce}>
+                    <td>{event.idAkce}</td>
+                    <td>{event.pocetOsob}</td>
+                    <td>{event.datum}</td>
+                    <td>{event.idTypAkce}</td>
+                    <td>{event.idObjednavka}</td>
                     <td><button>Upravit</button><button>Smazat</button></td>
                     </tr>
                 ))}
@@ -46,4 +44,4 @@ function Adresy(){
     )
 
 }
-export default Adresy;
+export default Akce;

@@ -21,7 +21,7 @@ function Zamestnanci(){
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-		    <th>Prijmeni</th>
+		    <th>Surname</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Provozovna ID</th>
