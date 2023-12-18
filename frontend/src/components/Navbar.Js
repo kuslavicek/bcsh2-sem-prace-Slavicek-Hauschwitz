@@ -8,6 +8,7 @@ function Navbar(){
             <a href="/zamestnanci">Zaměstnanci</a>
             <a href="/adresy">Adresy</a>
             <a href="/akce">Akce</a>
+            <a href="/pivovar">Pivovary</a>
         </div>
     )
 }
