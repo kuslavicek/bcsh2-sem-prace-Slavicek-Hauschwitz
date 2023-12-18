@@ -11,7 +11,7 @@ function App() {
       <Navbar/>
       <BrowserRouter>
         <Routes>
-          <Route></Route>
+          <Route path="zakaznik-form" element={<ZakazniciForm/>}></Route>
           <Route path="zakaznici" element={<Zakaznici/>}></Route>
           <Route path="zamestnanci" element={<Zamestnanci/>}></Route>
           <Route></Route>

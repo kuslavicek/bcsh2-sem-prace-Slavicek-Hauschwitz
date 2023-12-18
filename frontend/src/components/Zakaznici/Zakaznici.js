@@ -12,10 +12,13 @@ function Zakaznici(){
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
-  
+  function smazatZakaznika(id){
+    fetch("https://localhost:7043/api/zakaznik/"+toString(id), { mode: 'cors', method: 'DELETE' })
+        .then(() => setStatus('Delete successful'));
+  };
     return(
         <div>
-            <button>Přidat nového zákazníka</button>
+            <button onclick={(e)=> redirect("/zakaznik-form")}>Přidat nového zákazníka</button>
             <table>
                 <thead>
                 <tr>
@@ -35,7 +38,7 @@ function Zakaznici(){
                     <td>{customer.telefon}</td>
                     <td>{customer.email}</td>
                     <td>{customer.idAdresa}</td>
-                    <td><button>Upravit</button><button>Smazat</button></td>
+                    <td><button onclick={(e)=> redirect("/zakaznik-form/:"+toString(customer.idZakaznik))}>Upravit</button><button onclick={(e)=> smazatZakaznika(customer.idZakaznik)}>Smazat</button></td>
                     </tr>
                 ))}
                 </tbody>
