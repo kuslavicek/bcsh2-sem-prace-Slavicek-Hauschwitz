@@ -1,7 +1,9 @@
+import './Navbar.css'
+
 function Navbar(){
     return(
-        <div class="navbar">
-            <span class="title"></span>
+        <div class="navigation">
+            <span class="nazev">Aplikace</span>
             <a href="/zakaznici">Zákazníci</a>
         </div>
     )

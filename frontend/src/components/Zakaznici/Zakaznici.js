@@ -2,11 +2,20 @@ import React, { useState, useEffect } from 'react';
 
 function Zakaznici(){
     
-    const data = fetch("localhost:7043/api/zakaznik");
-    console.log(data);  
+    const [data, setData] = useState([]);
+
+  useEffect(() => {
+    // Replace 'API_ENDPOINT' with your actual API endpoint
+    fetch("https://localhost:7043/api/zakaznik",{mode:'cors'})
+      .then((response) => response.json())
+      .then((result) => setData(result))
+      .catch((error) => console.error('Error fetching data:', error));
+  }, []);
+
   
     return(
         <div>
+            <button>Přidat nového zákazníka</button>
             <table>
                 <thead>
                 <tr>
@@ -15,6 +24,7 @@ function Zakaznici(){
                     <th>Phone</th>
                     <th>Email</th>
                     <th>Address ID</th>
+                    <th>Editations</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -25,6 +35,7 @@ function Zakaznici(){
                     <td>{customer.telefon}</td>
                     <td>{customer.email}</td>
                     <td>{customer.idAdresa}</td>
+                    <td><button>Upravit</button><button>Smazat</button></td>
                     </tr>
                 ))}
                 </tbody>

@@ -16,7 +16,7 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 app.UseCors(builder =>
         builder
-        .WithOrigins("http://localhost")
+        .AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader());
 app.UseRouting();
