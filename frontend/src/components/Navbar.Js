@@ -6,6 +6,11 @@ function Navbar(){
             <span class="nazev">Aplikace</span>
             <a href="/zakaznici">Zákazníci</a>
             <a href="/zamestnanci">Zaměstnanci</a>
+            <a href="/adresy">Adresy</a>
+            <a href="/akce">Akce</a>
+            <a href="/pivovar">Pivovary</a>
+            <a href="/pracovni_pozice">Pracovní pozice</a>
+            <a href="/objednavka">Objednávky</a>
         </div>
     )
 }

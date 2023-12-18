@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-function Zamestnanci(){
+function Objednavky(){
     
     const [data, setData] = useState([]);
 
   useEffect(() => {
     // Replace 'API_ENDPOINT' with your actual API endpoint
-    fetch("https://localhost:7043/api/zamestnanec",{mode:'cors'})
+    fetch("https://localhost:7043/api/objednavka",{mode:'cors'})
       .then((response) => response.json())
       .then((result) => setData(result))
       .catch((error) => console.error('Error fetching data:', error));
@@ -20,27 +20,23 @@ function Zamestnanci(){
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-		    <th>Surname</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Provozovna ID</th>
-                    <th>Pracovni_pozice ID</th>
+                    <th>Creation date</th>
+		    <th>Price</th>
                     <th>Address ID</th>
+                    <th>Customer ID</th>
+                    <th>Employee ID</th>
                     <th>Editations</th>
                 </tr>
                 </thead>
                 <tbody>
-                {data.map((employee) => (
-                    <tr key={employee.idZamestnanec}>
-                    <td>{employee.idZamestnanec}</td>
-                    <td>{employee.jmeno}</td>
-                    <td>{employee.prijmeni}</td>
-                    <td>{employee.email}</td>
-                    <td>{employee.telefon}</td>
-                    <td>{employee.idProvozovna}</td>
-                    <td>{employee.idPracovniPozice}</td>
-                    <td>{employee.idAdresa}</td>
+                {data.map((order) => (
+                    <tr key={order.idObjednavka}>
+                    <td>{order.idObjednavka}</td>
+                    <td>{order.datumZalozeni}</td>
+                    <td>{order.cena}</td>
+                    <td>{order.idAdresa}</td>
+                    <td>{order.idZakaznik}</td>
+                    <td>{order.idZamestnanec}</td>
                     <td><button>Upravit</button><button>Smazat</button></td>
                     </tr>
                 ))}
@@ -50,4 +46,4 @@ function Zamestnanci(){
     )
 
 }
-export default Zamestnanci;
+export default Objednavky;
