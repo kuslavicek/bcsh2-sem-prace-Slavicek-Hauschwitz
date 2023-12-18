@@ -9,6 +9,7 @@ function Navbar(){
             <a href="/adresy">Adresy</a>
             <a href="/akce">Akce</a>
             <a href="/pivovar">Pivovary</a>
+            <a href="/pracovni_pozice">Pracovní pozice</a>
         </div>
     )
 }
