@@ -3,6 +3,7 @@ import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Navbar from './components/Navbar.js';
 import Zakaznici from './components/Zakaznici/Zakaznici.js'
+import Zamestnanci from './components/Zamestnanci/Zamestnanci.js'
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Routes>
           <Route></Route>
           <Route path="zakaznici" element={<Zakaznici/>}></Route>
-          <Route></Route>
+          <Route path="zamestnanci" element={<Zamestnanci/>}></Route>
           <Route></Route>
         </Routes>
       
