@@ -6,6 +6,7 @@ function Navbar(){
             <span class="nazev">Aplikace</span>
             <a href="/zakaznici">Zákazníci</a>
             <a href="/zamestnanci">Zaměstnanci</a>
+            <a href="/adresy">Adresy</a>
         </div>
     )
 }
