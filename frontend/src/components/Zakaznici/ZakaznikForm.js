@@ -71,25 +71,107 @@ function ZakaznikForm({ id }) {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="jmeno" value={formData.jmeno} onChange={handleInputChange} />
-                <input type="text" name="ulice" value={formData.ulice} onChange={handleInputChange} />
-                <input type="text" name="mesto" value={formData.mesto} onChange={handleInputChange} />
+        <div className="container">
+        <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+                <label htmlFor="jmeno" className="form-label">Jméno:</label>
                 <input
                     type="text"
-                    name="cislo_popisne"
-                    value={formData.cislo_popisne}
+                    id="jmeno"
+                    name="jmeno"
+                    value={formData.jmeno}
                     onChange={handleInputChange}
+                    placeholder="Zadejte jméno"
+                    className="form-control"
                 />
-                <input type="text" name="psc" value={formData.psc} onChange={handleInputChange} />
-                <input type="text" name="telefon" value={formData.telefon} onChange={handleInputChange} />
-                <input type="text" name="email" value={formData.email} onChange={handleInputChange} />
-                <input type="text" name="stat" value={formData.stat} onChange={handleInputChange} />
-
-                <button type="submit">{id === 0 ? 'Odeslat' : 'Upravit'}</button>
-            </form>
+            </div>
+            <div className="mb-3">
+                <label htmlFor="ulice" className="form-label">Ulice:</label>
+                <input
+                    type="text"
+                    id="ulice"
+                    name="ulice"
+                    value={formData.ulice}
+                    onChange={handleInputChange}
+                    placeholder="Zadejte ulici"
+                    className="form-control"
+                />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="mesto" className="form-label">Město:</label>
+                <input
+                    type="text"
+                    id="mesto"
+                    name="mesto"
+                    value={formData.mesto}
+                    onChange={handleInputChange}
+                    placeholder="Zadejte město"
+                    className="form-control"
+                />
+            </div>
+            <div className="mb-3">
+        <label htmlFor="cislo_popisne" className="form-label">Číslo popisné:</label>
+        <input
+            type="text"
+            id="cislo_popisne"
+            name="cislo_popisne"
+            value={formData.cislo_popisne}
+            onChange={handleInputChange}
+            placeholder="Zadejte číslo popisné"
+            className="form-control"
+        />
+    </div>
+    <div className="mb-3">
+        <label htmlFor="psc" className="form-label">PSČ:</label>
+        <input
+            type="text"
+            id="psc"
+            name="psc"
+            value={formData.psc}
+            onChange={handleInputChange}
+            placeholder="Zadejte PSČ"
+            className="form-control"
+        />
+    </div>
+    <div className="mb-3">
+        <label htmlFor="telefon" className="form-label">Telefon:</label>
+        <input
+            type="text"
+            id="telefon"
+            name="telefon"
+            value={formData.telefon}
+            onChange={handleInputChange}
+            placeholder="Zadejte telefon"
+            className="form-control"
+        />
+    </div>
+    <div className="mb-3">
+        <label htmlFor="email" className="form-label">Email:</label>
+        <input
+            type="text"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            placeholder="Zadejte email"
+            className="form-control"
+        />
         </div>
+    <div className="mb-3">
+    <label htmlFor="stat" className="form-label">Stát:</label>
+    <input
+        type="text"
+        id="stat"
+        name="stat"
+        value={formData.stat}
+        onChange={handleInputChange}
+        placeholder="Zadejte stát"
+        className="form-control"
+    />
+    </div>
+            <button type="submit" className="btn btn-primary">{id === 0 ? 'Odeslat' : 'Upravit'}</button>
+        </form>
+    </div>
     );
 }
 

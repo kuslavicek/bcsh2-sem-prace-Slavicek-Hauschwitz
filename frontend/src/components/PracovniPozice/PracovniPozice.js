@@ -6,7 +6,7 @@ function PracovniPozice(){
 
   useEffect(() => {
     // Replace 'API_ENDPOINT' with your actual API endpoint
-    fetch("https://localhost:7043/api/pracovni_pozice",{mode:'cors'})
+    fetch("https://localhost:7043/api/pracpozice",{mode:'cors'})
       .then((response) => response.json())
       .then((result) => setData(result))
       .catch((error) => console.error('Error fetching data:', error));
