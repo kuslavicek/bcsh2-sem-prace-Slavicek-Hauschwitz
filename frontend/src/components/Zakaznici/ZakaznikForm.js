@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {redirect} from 'react-router-dom'
 
-function ZakaznikForm({ id }) {
+function ZakaznikForm({ id=0 }) {
+    console.log(id);
     const [formData, setFormData] = useState({
         jmeno: '',
         ulice: '',
@@ -44,24 +44,15 @@ function ZakaznikForm({ id }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const requestOptions = {
-                method: id === 0 ? 'POST' : 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            };
-
-            const response = await fetch(
-                id === 0
-                    ? 'https://localhost:7043/api/zakaznik'
-                    : `https://localhost:7043/api/zakaznik/${id}`,
-                requestOptions
-            );
+            const response = null;
+            const text = `jmeno=${formData.jmeno}&ulice=${formData.ulice}&mesto=${formData.mesto}&cislo_popisne=${formData.cislo_popisne}&psc=${formData.psc}&telefon=${formData.telefon}&email=${formData.email}&stat=${formData.stat}`
+            id===0 ? response=fetch(`https://localhost:7043/api/zakaznik?${text}`, {method: 'POST', mode: 'cors'}): 
+            response =fetch(`https://localhost:7043/api/zakaznik/${id}?${text}`,{method: 'POST', mode: 'cors'});
+            
 
             if (response.ok) {
                 // Zde můžeš zpracovat odpověď, pokud je potřeba
-                redirect("/zakaznici")
+                window.location.href="/zakaznici";
             } else {
                 throw new Error('Nepodařilo se odeslat data');
             }
@@ -169,7 +160,7 @@ function ZakaznikForm({ id }) {
         className="form-control"
     />
     </div>
-            <button type="submit" className="btn btn-primary">{id === 0 ? 'Odeslat' : 'Upravit'}</button>
+            <button type="submit" className="btn btn-primary">{id == 0 ? 'Odeslat' : 'Upravit'}</button>
         </form>
     </div>
     );

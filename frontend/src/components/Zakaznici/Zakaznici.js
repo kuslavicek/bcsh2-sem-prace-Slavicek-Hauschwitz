@@ -13,11 +13,12 @@ function Zakaznici(){
   }, []);
 
   function smazatZakaznika(id){
-    fetch("https://localhost:7043/api/zakaznik/"+toString(id), { mode: 'cors', method: 'DELETE' });
+    fetch("https://localhost:7043/api/zakaznik/"+id, { mode: 'cors', method: 'DELETE' });
+    window.location.reload();
   };
     return(
         <div>
-            <button onclick={(e)=> redirect("/zakaznik-form")}>Přidat nového zákazníka</button>
+            <button onClick={(e)=> window.location.href='/zakaznik-form'}>Přidat nového zákazníka</button>
             <table>
                 <thead>
                 <tr>
@@ -37,7 +38,7 @@ function Zakaznici(){
                     <td>{customer.telefon}</td>
                     <td>{customer.email}</td>
                     <td>{customer.idAdresa}</td>
-                    <td><button onclick={(e)=> redirect("/zakaznik-form/:"+toString(customer.idZakaznik))}>Upravit</button><button onclick={(e)=> smazatZakaznika(customer.idZakaznik)}>Smazat</button></td>
+                    <td><button onClick={(e)=>window.location.href=(`/zakaznik-form?id=${customer.idZakaznik}`)}>Upravit</button><button onClick={(e)=> smazatZakaznika(customer.idZakaznik)}>Smazat</button></td>
                     </tr>
                 ))}
                 </tbody>
