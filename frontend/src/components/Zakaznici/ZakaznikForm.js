@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {redirect} from 'react-router-dom'
 
 function ZakaznikForm({ id }) {
     const [formData, setFormData] = useState({
@@ -15,7 +16,7 @@ function ZakaznikForm({ id }) {
     const fetchZakaznikData = async () => {
         if (id !== 0) {
             try {
-                const response = await fetch(`https://localhost:7043/api/zakaznik?id=${id}`);
+                const response = await fetch(`https://localhost:7043/api/zakaznik/${id}`);
                 if (response.ok) {
                     const data = await response.json();
                     setFormData(data); // Nastavení dat získaných z API
@@ -54,12 +55,13 @@ function ZakaznikForm({ id }) {
             const response = await fetch(
                 id === 0
                     ? 'https://localhost:7043/api/zakaznik'
-                    : `https://localhost:7043/api/zakaznik?id=${id}`,
+                    : `https://localhost:7043/api/zakaznik/${id}`,
                 requestOptions
             );
 
             if (response.ok) {
                 // Zde můžeš zpracovat odpověď, pokud je potřeba
+                redirect("/zakaznici")
             } else {
                 throw new Error('Nepodařilo se odeslat data');
             }

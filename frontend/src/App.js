@@ -3,6 +3,7 @@ import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Navbar from './components/Navbar.js';
 import Zakaznici from './components/Zakaznici/Zakaznici.js'
+import ZakaznikForm from './components/Zakaznici/ZakaznikForm.js'
 import Zamestnanci from './components/Zamestnanci/Zamestnanci.js'
 import Adresy from './components/Adresy/Adresy.js'
 import Akce from './components/Akce/Akce.js'
@@ -16,7 +17,7 @@ function App() {
       <Navbar/>
       <BrowserRouter>
         <Routes>
-          <Route path="zakaznik-form" element={<ZakazniciForm/>}></Route>
+          <Route path="zakaznik-form" element={<ZakaznikForm/>}></Route>
           <Route path="zakaznici" element={<Zakaznici/>}></Route>
           <Route path="zamestnanci" element={<Zamestnanci/>}></Route>
           <Route path="adresy" element={<Adresy/>}></Route>
