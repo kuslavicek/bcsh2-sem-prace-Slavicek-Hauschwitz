@@ -48,25 +48,37 @@ function ZakaznikForm({ id=0 }) {
         }));
     };
 
+    function validInputs(){
+        if(formData.email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/) && formData.telefon.match(/^\d{9}$/) &&formData.cislo_popisne.match(/^\d+$/) && formData.psc.match(/^\d+$/)){
+            return true;
+        }
+        return false;
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const response = null;
-            const text = `jmeno=${formData.jmeno}&ulice=${formData.ulice}&mesto=${formData.mesto}&cislo_popisne=${formData.cislo_popisne}&psc=${formData.psc}&telefon=${formData.telefon}&email=${formData.email}&stat=${formData.stat}`
-            id===0 ? response=fetch(`https://localhost:7043/api/zakaznik?${text}`, {method: 'POST', mode: 'cors'}): 
-            response =fetch(`https://localhost:7043/api/zakaznik/${id}?${text}`,{method: 'PUT', mode: 'cors'});
+        if(validInputs()){
+            try {
             
-
-            if (response.ok) {
-                // Zde můžeš zpracovat odpověď, pokud je potřeba
+                const response = null;
+                const text = `jmeno=${formData.jmeno}&ulice=${formData.ulice}&mesto=${formData.mesto}&cislo_popisne=${formData.cislo_popisne}&psc=${formData.psc}&telefon=${formData.telefon}&email=${formData.email}&stat=${formData.stat}`
+                id===0 ? response=fetch(`https://localhost:7043/api/zakaznik?${text}`, {method: 'POST', mode: 'cors'}): 
+                response =fetch(`https://localhost:7043/api/zakaznik/${id}?${text}`,{method: 'PUT', mode: 'cors'});
                 
-            } else {
-                throw new Error('Nepodařilo se odeslat data');
-            }
+    
+                if (response.ok) {
+                    // Zde můžeš zpracovat odpověď, pokud je potřeba
+                    
+                } else {
+                    throw new Error('Nepodařilo se odeslat data');
+                }
+            
+            
         } catch (error) {
             console.error(error);
         }
         window.location.href="/zakaznici";
+        }
+        
     };
 
     return (
