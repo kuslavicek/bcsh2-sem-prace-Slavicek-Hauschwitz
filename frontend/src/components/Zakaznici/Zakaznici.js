@@ -12,9 +12,9 @@ function Zakaznici(){
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
-  function smazatZakaznika(id){
-    fetch("https://localhost:7043/api/zakaznik/"+id, { mode: 'cors', method: 'DELETE' });
-    window.location.reload();
+  function smazatZakaznika(e, id){
+    e.preventDefault();
+    fetch("https://localhost:7043/api/zakaznik/"+id, { mode: 'cors', method: 'DELETE' }).then((response)=> console.log(response)).then( window.location.reload());
   };
     return(
         <div>
@@ -38,7 +38,7 @@ function Zakaznici(){
                     <td>{customer.telefon}</td>
                     <td>{customer.email}</td>
                     <td>{customer.idAdresa}</td>
-                    <td><button onClick={(e)=>window.location.href=(`/zakaznik-form?id=${customer.idZakaznik}`)}>Upravit</button><button onClick={(e)=> smazatZakaznika(customer.idZakaznik)}>Smazat</button></td>
+                    <td><button onClick={(e)=>window.location.href=(`/zakaznik-form?id=${customer.idZakaznik}`)}>Upravit</button><button onClick={(e)=>smazatZakaznika(e, customer.idZakaznik)}>Smazat</button></td>
                     </tr>
                 ))}
                 </tbody>

@@ -43,7 +43,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public string Post()
         {
-            
+
             Param[] adresa = new Param[]
             { new Param{
                 Name = "p_ulice",
@@ -59,20 +59,20 @@ namespace WebApplication1.Controllers
                     new Param
                     {
                         Name = "p_psc",
-                        type = OracleDbType.Int64,
-                        Value = Convert.ToInt64(HttpContext.Request.Query["psc"])
+                        type = OracleDbType.Int32,
+                        Value = Convert.ToInt32(HttpContext.Request.Query["psc"])
                     },
                     new Param
                     {
                         Name = "p_cislo_popisne",
-                        type = OracleDbType.Int64,
-                        Value = Convert.ToInt64(HttpContext.Request.Query["cislo_popisne"])
+                        type = OracleDbType.Int32,
+                        Value = Convert.ToInt32(HttpContext.Request.Query["cislo_popisne"])
                     },
                     new Param
                     {
                         Name = "p_stat",
                         type = OracleDbType.Varchar2,
-                        Value = Convert.ToInt64(HttpContext.Request.Query["stat"])
+                        Value = HttpContext.Request.Query["stat"]
                     } };
             string adresaId = Database.runProcedure("GetIdAdresa", adresa);
             if (adresaId.Equals("0"))
@@ -92,21 +92,22 @@ namespace WebApplication1.Controllers
                     },
                     new Param
                     {
+                        Name = "p_telefon",
+                        type = OracleDbType.Int32,
+                        Value = Convert.ToInt32(HttpContext.Request.Query["telefon"])
+                    },
+                    new Param
+                    {
                         Name = "p_email",
                         type = OracleDbType.Varchar2,
                         Value = HttpContext.Request.Query["email"]
                     },
-                    new Param
-                    {
-                        Name = "p_telefon",
-                        type = OracleDbType.Int64,
-                        Value = Convert.ToInt64(HttpContext.Request.Query["telefon"])
-                    },
+                    
                     new Param
                     {
                         Name = "p_id_adresa",
-                        type = OracleDbType.Int64,
-                        Value = Convert.ToInt64(adresaId)
+                        type = OracleDbType.Int32,
+                        Value = adresaId
                     },
             };
 
@@ -167,7 +168,7 @@ namespace WebApplication1.Controllers
                     {
                         Name = "p_id",
                         type = OracleDbType.Varchar2,
-                        Value = HttpContext.Request.Query["id"]
+                        Value = id
                     },
                     new Param
                     {
@@ -177,16 +178,17 @@ namespace WebApplication1.Controllers
                     },
                     new Param
                     {
+                        Name = "p_telefon",
+                        type = OracleDbType.Int32,
+                        Value = Convert.ToInt32(HttpContext.Request.Query["telefon"])
+                    },
+                    new Param
+                    {
                         Name = "p_email",
                         type = OracleDbType.Varchar2,
                         Value = HttpContext.Request.Query["email"]
                     },
-                    new Param
-                    {
-                        Name = "p_telefon",
-                        type = OracleDbType.Int64,
-                        Value = Convert.ToInt64(HttpContext.Request.Query["telefon"])
-                    },
+                    
                     new Param
                     {
                         Name = "p_id_adresa",

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 function ZakaznikForm({ id=0 }) {
+    const searchParams = new URLSearchParams(document.location.search)
+    searchParams.get('id') != undefined ? id=searchParams.get('id') : id=0;
     console.log(id);
     const [formData, setFormData] = useState({
         jmeno: '',
@@ -14,11 +16,16 @@ function ZakaznikForm({ id=0 }) {
     });
 
     const fetchZakaznikData = async () => {
-        if (id !== 0) {
+        if (id !== 0) { 
             try {
                 const response = await fetch(`https://localhost:7043/api/zakaznik/${id}`);
                 if (response.ok) {
-                    const data = await response.json();
+                    var data = await response.json();
+                    const adresaId = data.idAdresa;
+                    const adresa = await fetch(`https://localhost:7043/api/adresa/${adresaId}`).then((response1)=> response1.json());
+                    console.log(adresa);
+                    data = Object.assign({}, data,adresa);
+                    data.cislo_popisne = adresa.cisloPopisne;
                     setFormData(data); // Nastavení dat získaných z API
                 } else {
                     throw new Error('Nepodařilo se načíst data z API');
@@ -47,18 +54,19 @@ function ZakaznikForm({ id=0 }) {
             const response = null;
             const text = `jmeno=${formData.jmeno}&ulice=${formData.ulice}&mesto=${formData.mesto}&cislo_popisne=${formData.cislo_popisne}&psc=${formData.psc}&telefon=${formData.telefon}&email=${formData.email}&stat=${formData.stat}`
             id===0 ? response=fetch(`https://localhost:7043/api/zakaznik?${text}`, {method: 'POST', mode: 'cors'}): 
-            response =fetch(`https://localhost:7043/api/zakaznik/${id}?${text}`,{method: 'POST', mode: 'cors'});
+            response =fetch(`https://localhost:7043/api/zakaznik/${id}?${text}`,{method: 'PUT', mode: 'cors'});
             
 
             if (response.ok) {
                 // Zde můžeš zpracovat odpověď, pokud je potřeba
-                window.location.href="/zakaznici";
+                
             } else {
                 throw new Error('Nepodařilo se odeslat data');
             }
         } catch (error) {
             console.error(error);
         }
+        window.location.href="/zakaznici";
     };
 
     return (
