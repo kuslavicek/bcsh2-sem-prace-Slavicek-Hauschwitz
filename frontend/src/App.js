@@ -12,25 +12,34 @@ import PracovniPozice from './components/PracovniPozice/PracovniPozice.js'
 import Objednavky from './components/Objednavky/Objednavky.js'
 
 function App() {
-  return (
+  const savedUser = localStorage.getItem('user');
+  if( savedUser!=null && savedUser != ''){
+    return (
+      <div className="App">
+        <Navbar/>
+        <BrowserRouter>
+          <Routes>
+            <Route path="zakaznik-form" element={<ZakaznikForm/>}></Route>
+            <Route path="zakaznici" element={<Zakaznici/>}></Route>
+            <Route path="zamestnanci" element={<Zamestnanci/>}></Route>
+            <Route path="adresy" element={<Adresy/>}></Route>
+            <Route path="akce" element={<Akce/>}></Route>
+            <Route path="pivovar" element={<Pivovar/>}></Route>
+            <Route path="pracovni_pozice" element={<PracovniPozice/>}></Route>
+            <Route path="objednavka" element={<Objednavky/>}></Route>
+            <Route></Route>
+          </Routes>
+        
+        </BrowserRouter>
+      </div>
+    );
+  }else{
     <div className="App">
-      <Navbar/>
-      <BrowserRouter>
-        <Routes>
-          <Route path="zakaznik-form" element={<ZakaznikForm/>}></Route>
-          <Route path="zakaznici" element={<Zakaznici/>}></Route>
-          <Route path="zamestnanci" element={<Zamestnanci/>}></Route>
-          <Route path="adresy" element={<Adresy/>}></Route>
-          <Route path="akce" element={<Akce/>}></Route>
-          <Route path="pivovar" element={<Pivovar/>}></Route>
-          <Route path="pracovni_pozice" element={<PracovniPozice/>}></Route>
-          <Route path="objednavka" element={<Objednavky/>}></Route>
-          <Route></Route>
-        </Routes>
-      
-      </BrowserRouter>
+        <Navbar/>
+        <UserForm/>
     </div>
-  );
+  }
+  
 }
 
 export default App;
