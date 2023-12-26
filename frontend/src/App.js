@@ -10,6 +10,7 @@ import Akce from './components/Akce/Akce.js'
 import Pivovar from './components/Pivovar/Pivovar.js'
 import PracovniPozice from './components/PracovniPozice/PracovniPozice.js'
 import Objednavky from './components/Objednavky/Objednavky.js'
+import Provozovny from './components/Provozovny/Provozovny.js'
 import UserForm from './components/UserForm.js';
 import Main from './components/Main.js'
 
@@ -31,6 +32,7 @@ function App() {
             <Route path="pivovar" element={<Pivovar/>}></Route>
             <Route path="pracovni_pozice" element={<PracovniPozice/>}></Route>
             <Route path="objednavka" element={<Objednavky/>}></Route>
+            <Route path="provozovna" element={<Provozovny/>}></Route>
             <Route path="/" element={<Main/>}></Route>
             <Route></Route>
           </Routes>

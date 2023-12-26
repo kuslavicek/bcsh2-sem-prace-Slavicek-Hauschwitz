@@ -11,6 +11,7 @@ function Navbar(){
             <a href="/pivovar">Pivovary</a>
             <a href="/pracovni_pozice">Pracovní pozice</a>
             <a href="/objednavka">Objednávky</a>
+            <a href="/provozovna">Provozovny</a>
         </div>
     )
 }
