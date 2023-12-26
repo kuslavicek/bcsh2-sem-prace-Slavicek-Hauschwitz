@@ -7,16 +7,20 @@ function UserForm({ setUser }) {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const response = await fetch(`http://localhost:7043/api/user/login?username=${username}&password=${password}`, {
-      method: 'POST',
+    const response = await fetch(`http://localhost:7043/api/user?username=${username}&password=${password}`, {
+      method: 'GET',
       mode: 'cors'
     });
 
     const data = await response.json();
 
     if (response.ok) {
-      localStorage.setItem('user', JSON.stringify(data.user));
-      setUser(data.user);
+      const message = JSON.stringify(data.message);
+      if(message.contains("success")){
+        localStorage.setItem('user', JSON.stringify(data.user));
+        setUser(data.user);
+        window.location.href="/";
+      }
     } else {
       alert('Login failed');
     }
@@ -24,7 +28,7 @@ function UserForm({ setUser }) {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    const response = await fetch(`http://localhost:7043/api/user/register?username=${username}&password=${password}`, {
+    const response = await fetch(`http://localhost:7043/api/user?username=${username}&password=${password}`, {
       method: 'POST',
       mode: 'cors'
     });
@@ -32,8 +36,12 @@ function UserForm({ setUser }) {
     const data = await response.json();
 
     if (response.ok) {
-      localStorage.setItem('user', JSON.stringify(data.user));
-      setUser(data.user);
+      const message = JSON.stringify(data.message)
+      if(message.contains("success")){
+        localStorage.setItem('user', JSON.stringify(data.user));
+        setUser(data.user);
+        window.location.href="/";
+      }
     } else {
       alert('Login failed');
     }
