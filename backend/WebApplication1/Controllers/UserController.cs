@@ -11,7 +11,7 @@ namespace WebApplication1.Controllers
     {
         // GET: api/<UserController>
         [HttpGet]
-        public string Login()
+        public string Get()
         {
             string username = HttpContext.Request.Query["username"];
             string password= HttpContext.Request.Query["password"];
@@ -20,7 +20,7 @@ namespace WebApplication1.Controllers
             {
                 new Param()
                 {
-                    Name="p_username",
+                    Name="p_name",
                     type = OracleDbType.Varchar2,
                     Value=username
                 },
@@ -36,16 +36,16 @@ namespace WebApplication1.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public string Register()
+        public string Post()
         {
             string username = HttpContext.Request.Query["username"];
             string password = HttpContext.Request.Query["password"];
 
-            string result = Database.runProcedure("Register", new Param[]
+            string result = Database.runProcedure("Register_User", new Param[]
             {
                 new Param()
                 {
-                    Name="p_username",
+                    Name="p_name",
                     type = OracleDbType.Varchar2,
                     Value=username
                 },

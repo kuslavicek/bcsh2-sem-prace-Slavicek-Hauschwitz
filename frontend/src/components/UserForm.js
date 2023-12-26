@@ -7,18 +7,19 @@ function UserForm({ setUser }) {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const response = await fetch(`http://localhost:7043/api/user?username=${username}&password=${password}`, {
+    const response = await fetch(`https://localhost:7043/api/user?username=${username}&password=${password}`, {
       method: 'GET',
       mode: 'cors'
     });
 
-    const data = await response.json();
+    const data =await response.json();
 
     if (response.ok) {
+      console.log(data)
       const message = JSON.stringify(data.message);
-      if(message.contains("success")){
+      if(message.includes("success")){
         localStorage.setItem('user', JSON.stringify(data.user));
-        setUser(data.user);
+        setUsername(data.user);
         window.location.href="/";
       }
     } else {
@@ -28,7 +29,7 @@ function UserForm({ setUser }) {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    const response = await fetch(`http://localhost:7043/api/user?username=${username}&password=${password}`, {
+    const response = await fetch(`https://localhost:7043/api/user?username=${username}&password=${password}`, {
       method: 'POST',
       mode: 'cors'
     });
@@ -37,13 +38,13 @@ function UserForm({ setUser }) {
 
     if (response.ok) {
       const message = JSON.stringify(data.message)
-      if(message.contains("success")){
+      if(message.includes("success")){
         localStorage.setItem('user', JSON.stringify(data.user));
-        setUser(data.user);
+        setUsername(data.user);
         window.location.href="/";
       }
     } else {
-      alert('Login failed');
+      alert('Registration failed');
     }
   };
 
@@ -61,8 +62,8 @@ function UserForm({ setUser }) {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onclick={handleLogin}>Přihlásit se</button>
-      <button onclick={handleRegister}>Registrovat</button>
+      <button onClick={handleLogin}>Přihlásit se</button>
+      <button onClick={handleRegister}>Registrovat</button>
     </form>
   );
 }

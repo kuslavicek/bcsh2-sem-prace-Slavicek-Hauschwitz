@@ -32,7 +32,6 @@ function App() {
             <Route path="pracovni_pozice" element={<PracovniPozice/>}></Route>
             <Route path="objednavka" element={<Objednavky/>}></Route>
             <Route path="/" element={<Main/>}></Route>
-            <Route path="*" element={<Navigate to="/"/>}></Route>
             <Route></Route>
           </Routes>
         
@@ -40,18 +39,19 @@ function App() {
       </div>
     );
   }else{
+    return(
     <div className="App">
         <Navbar/>
         <BrowserRouter>
           <Routes>
             <Route path="user-form" element={<UserForm/>}></Route>
             <Route path="/" element={<Main/>}></Route>
-            <Route path="*" element={<Navigate to="/"/>}></Route>
             
           </Routes>
         
         </BrowserRouter>
     </div>
+    )
   }
   
 }
