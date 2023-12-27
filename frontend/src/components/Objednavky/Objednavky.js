@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {redirect} from 'react-router-dom'
 
 function Objednavky(){
     
@@ -8,14 +9,17 @@ function Objednavky(){
     // Replace 'API_ENDPOINT' with your actual API endpoint
     fetch("https://localhost:7043/api/objednavka",{mode:'cors'})
       .then((response) => response.json())
-      .then((result) => setData(result))
+      .then((data) => setData(data))
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
-  
+   function smazatObjednavku(e, id){
+    e.preventDefault();
+    fetch("https://localhost:7043/api/objednavka/"+id, { mode: 'cors', method: 'DELETE' }).then((response)=> console.log(response)).then( window.location.reload());
+  };
     return(
         <div>
-            <button>Přidat nového zamestnance</button>
+            <button onClick={(e)=> window.location.href='/objednavka-form'}>Přidat novou objednávku</button>
             <table>
                 <thead>
                 <tr>
@@ -37,7 +41,7 @@ function Objednavky(){
                     <td>{order.idAdresa}</td>
                     <td>{order.idZakaznik}</td>
                     <td>{order.idZamestnanec}</td>
-                    <td><button>Upravit</button><button>Smazat</button></td>
+                    <td><button onClick={(e)=>window.location.href=(`/objednavka-form?id=${order.idObjednavka}`)}>Upravit</button><button onClick={(e)=>smazatObjednavku(e, order.idObjednavky)}>Smazat</button></td>
                     </tr>
                 ))}
                 </tbody>

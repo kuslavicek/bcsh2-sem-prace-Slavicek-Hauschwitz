@@ -14,6 +14,7 @@ import PivovarForm from './components/Pivovar/PivovarForm.js'
 import PracovniPozice from './components/PracovniPozice/PracovniPozice.js'
 import PracovniPoziceForm from './components/PracovniPozice/PracovniPoziceForm.js'
 import Objednavky from './components/Objednavky/Objednavky.js'
+import ObjednavkaForm from './components/Objednavky/ObjednavkaForm.js'
 import Provozovny from './components/Provozovny/Provozovny.js'
 import ProvozovnaForm from './components/Provozovny/ProvozovnaForm.js'
 import UserForm from './components/UserForm.js';
@@ -41,6 +42,7 @@ function App() {
             <Route path="pracovni_pozice" element={<PracovniPozice/>}></Route>
             <Route path="pracpozice-form" element={<PracovniPoziceForm/>}></Route>
             <Route path="objednavka" element={<Objednavky/>}></Route>
+            <Route path="objednavka-form" element={<ObjednavkaForm/>}></Route>
             <Route path="provozovna" element={<Provozovny/>}></Route>
             <Route path="provozovna-form" element={<ProvozovnaForm/>}></Route>
             <Route path="/" element={<Main/>}></Route>
