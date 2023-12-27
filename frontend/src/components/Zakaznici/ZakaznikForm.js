@@ -28,7 +28,7 @@ function ZakaznikForm({ id=0 }) {
                     data.cislo_popisne = adresa.cisloPopisne;
                     setFormData(data); // Nastavení dat získaných z API
                 } else {
-                    throw new Error('Nepodařilo se načíst data z API');
+                    alert('Nepodařilo se načíst data z API');
                 }
             } catch (error) {
                 console.error(error);
@@ -69,7 +69,7 @@ function ZakaznikForm({ id=0 }) {
                     // Zde můžeš zpracovat odpověď, pokud je potřeba
                     
                 } else {
-                    throw new Error('Nepodařilo se odeslat data');
+                    alert('Nepodařilo se odeslat data');
                 }
             
             
