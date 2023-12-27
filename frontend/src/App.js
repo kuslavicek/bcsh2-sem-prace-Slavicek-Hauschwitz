@@ -11,6 +11,7 @@ import AdresaForm from './components/Adresy/AdresaForm.js'
 import Akce from './components/Akce/Akce.js'
 import Pivovar from './components/Pivovar/Pivovar.js'
 import PracovniPozice from './components/PracovniPozice/PracovniPozice.js'
+import PracovniPoziceForm from './components/PracovniPozice/PracovniPoziceForm.js'
 import Objednavky from './components/Objednavky/Objednavky.js'
 import Provozovny from './components/Provozovny/Provozovny.js'
 import ProvozovnaForm from './components/Provozovny/ProvozovnaForm.js'
@@ -36,6 +37,7 @@ function App() {
             <Route path="akce" element={<Akce/>}></Route>
             <Route path="pivovar" element={<Pivovar/>}></Route>
             <Route path="pracovni_pozice" element={<PracovniPozice/>}></Route>
+            <Route path="pracpozice-form" element={<PracovniPoziceForm/>}></Route>
             <Route path="objednavka" element={<Objednavky/>}></Route>
             <Route path="provozovna" element={<Provozovny/>}></Route>
             <Route path="provozovna-form" element={<ProvozovnaForm/>}></Route>
