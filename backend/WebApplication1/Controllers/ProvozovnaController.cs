@@ -32,7 +32,7 @@ namespace WebApplication1.Controllers
                     Value=id
                 }
             });
-            return Provozovna.FromString(result);
+            return JsonConvert.DeserializeObject<Provozovna>(result);
         }
 
         // POST api/<ProvozovnaController>
