@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {redirect} from 'react-router-dom'
 
 function Pivovar(){
     
@@ -7,15 +8,18 @@ function Pivovar(){
   useEffect(() => {
     // Replace 'API_ENDPOINT' with your actual API endpoint
     fetch("https://localhost:7043/api/pivovar",{mode:'cors'})
-      .then((response) => response.json())
-      .then((result) => setData(result))
+      .then((response) => response.json()) // Convert response to JSON
+      .then((data) => setData(data))
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
-  
+  function smazatPivovar(e, id){
+    e.preventDefault();
+    fetch("https://localhost:7043/api/pivovar/"+id, { mode: 'cors', method: 'DELETE' }).then((response)=> console.log(response)).then( window.location.reload());
+  };
     return(
         <div>
-            <button>Přidat nový pivovar</button>
+            <button onClick={(e)=> window.location.href='/pivovar-form'}>Přidat nový pivovar</button>
             <table>
                 <thead>
                 <tr>
@@ -33,7 +37,7 @@ function Pivovar(){
                     <td>{pivovar.nazev}</td>
                     <td>{pivovar.kategorie}</td>
                     <td>{pivovar.idAdresa}</td>
-                    <td><button>Upravit</button><button>Smazat</button></td>
+                    <td><button onClick={(e)=>window.location.href=(`/pivovar-form?id=${pivovar.idPivovar}`)}>Upravit</button><button onClick={(e)=>smazatPivovar(e, pivovar.idPivovar)}>Smazat</button></td>
                     </tr>
                 ))}
                 </tbody>
