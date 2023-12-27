@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 function ProvozovnaForm({ id=0 }) {
     const searchParams = new URLSearchParams(document.location.search)
     searchParams.get('id') != undefined ? id=searchParams.get('id') : id=0;
-    console.log(id);
     const [formData, setFormData] = useState({
         nazev: '',
         pocet_zamestnancu: '',
@@ -27,10 +26,11 @@ function ProvozovnaForm({ id=0 }) {
                     const adresa = await fetch(`https://localhost:7043/api/adresa/${adresaId}`).then((response1)=> response1.json());
                     console.log(adresa);
                     data = Object.assign({}, data,adresa);
+                    data.pocet_zamestnancu= data.pocetZamestnancu;
                     data.cislo_popisne = adresa.cisloPopisne;
                     setFormData(data); // Nastavení dat získaných z API
                 } else {
-                    throw new Error('Nepodařilo se načíst data z API');
+                    alert('Nepodařilo se načíst data z API');
                 }
             } catch (error) {
                 console.error(error);
@@ -71,7 +71,7 @@ function ProvozovnaForm({ id=0 }) {
                     // Zde můžeš zpracovat odpověď, pokud je potřeba
                     
                 } else {
-                    throw new Error('Nepodařilo se odeslat data');
+                    alert('Nepodařilo se odeslat data');
                 }
             
             
