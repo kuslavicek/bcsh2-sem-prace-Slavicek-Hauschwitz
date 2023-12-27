@@ -13,6 +13,7 @@ function Navbar(){
             <a href="/pracovni_pozice">Pracovní pozice</a>
             <a href="/objednavka">Objednávky</a>
             <a href="/provozovna">Provozovny</a>
+            <a href="/typakce">Typy akce</a>
         </div>
     )
 }

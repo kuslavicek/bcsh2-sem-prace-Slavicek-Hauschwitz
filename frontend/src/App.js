@@ -9,6 +9,8 @@ import ZamestnanecForm from './components/Zamestnanci/ZamestnanecForm.js'
 import Adresy from './components/Adresy/Adresy.js'
 import AdresaForm from './components/Adresy/AdresaForm.js'
 import Akce from './components/Akce/Akce.js'
+import TypyAkce from './components/TypAkce/TypyAkce.js'
+import TypyAkceForm from './components/TypAkce/TypAkceForm.js'
 import Pivovar from './components/Pivovar/Pivovar.js'
 import PivovarForm from './components/Pivovar/PivovarForm.js'
 import PracovniPozice from './components/PracovniPozice/PracovniPozice.js'
@@ -37,6 +39,8 @@ function App() {
             <Route path="adresy" element={<Adresy/>}></Route>
             <Route path="adresa-form" element={<AdresaForm/>}></Route>
             <Route path="akce" element={<Akce/>}></Route>
+            <Route path="typakce" element={<TypyAkce/>}></Route>
+            <Route path="typakce-form" element={<TypyAkceForm/>}></Route>
             <Route path="pivovar" element={<Pivovar/>}></Route>
             <Route path="pivovar-form" element={<PivovarForm/>}></Route>
             <Route path="pracovni_pozice" element={<PracovniPozice/>}></Route>
