@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function ZakaznikForm({ id=0 }) {
+function ProvozovnaForm({ id=0 }) {
     const searchParams = new URLSearchParams(document.location.search)
     searchParams.get('id') != undefined ? id=searchParams.get('id') : id=0;
     console.log(id);
