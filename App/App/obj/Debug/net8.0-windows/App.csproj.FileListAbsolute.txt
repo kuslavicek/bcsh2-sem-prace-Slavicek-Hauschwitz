@@ -1,0 +1,17 @@
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\bin\Debug\net8.0-windows\App.exe
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\bin\Debug\net8.0-windows\App.deps.json
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\bin\Debug\net8.0-windows\App.runtimeconfig.json
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\bin\Debug\net8.0-windows\App.dll
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\bin\Debug\net8.0-windows\App.pdb
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Form1.resources
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.csproj.GenerateResource.cache
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.AssemblyInfoInputs.cache
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.AssemblyInfo.cs
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.csproj.CoreCompileInputs.cache
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.sourcelink.json
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.dll
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\refint\App.dll
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.pdb
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.genruntimeconfig.cache
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\ref\App.dll
