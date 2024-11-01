@@ -15,3 +15,15 @@ C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\
 C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.pdb
 C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.genruntimeconfig.cache
 C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\ref\App.dll
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\bin\Debug\net8.0-windows\Oracle.ManagedDataAccess.dll
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.csproj.AssemblyReference.cache
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.csproj.Up2Date
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\bin\Debug\net8.0-windows\System.Configuration.ConfigurationManager.dll
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\bin\Debug\net8.0-windows\System.Diagnostics.EventLog.dll
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\bin\Debug\net8.0-windows\System.DirectoryServices.Protocols.dll
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\bin\Debug\net8.0-windows\runtimes\linux\lib\net8.0\System.DirectoryServices.Protocols.dll
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\bin\Debug\net8.0-windows\runtimes\osx\lib\net8.0\System.DirectoryServices.Protocols.dll
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.DirectoryServices.Protocols.dll
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Forms.InsertZboziForm.resources
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Forms.UpdateZboziForm.resources
