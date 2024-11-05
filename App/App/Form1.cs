@@ -2,7 +2,6 @@ using System.Data;
 using Oracle.ManagedDataAccess.Client;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using App.Forms;
 namespace App
 {
     public partial class Form1 : Form
@@ -11,211 +10,277 @@ namespace App
         public Form1()
         {
             InitializeComponent();
-            lvPiva.View = View.Details; // Set view to Details to show columns
-            lvPiva.Columns.Add("", 150);  
-            lvPiva.Columns.Add("Název", 150);  // Product name column
-            lvPiva.Columns.Add("Obsah Alkoholu", 120);  // Alcohol content column
-            lvPiva.Columns.Add("Cena", 100);  // Price column
-            lvPiva.Columns.Add("Stupòovitost", 100);  // Degree column
-            lvPiva.Columns.Add("Sklad", 150);  // Warehouse name column
-
-            // Configure the ListView to allow row selection
-            lvPiva.FullRowSelect = true;   // Makes the full row selectable
-            lvPiva.HideSelection = false;  // Keeps selection highlighted when control loses focus
-            lvPiva.MultiSelect = false;    // Optional: set to true if you want multi-row selection
-
-            lvCidery.FullRowSelect = true;
-            lvCidery.HideSelection = false;
-            lvCidery.MultiSelect = false;
-
-            // Configure lvCidery (for Cider)
-            lvCidery.View = View.Details; // Set view to Details to show columns
-            lvCidery.Columns.Add("", 150); 
-            lvCidery.Columns.Add("Název", 150);  // Product name column
-            lvCidery.Columns.Add("Obsah Alkoholu", 120);  // Alcohol content column
-            lvCidery.Columns.Add("Cena", 100);  // Price column
-            lvCidery.Columns.Add("Odrùda jablek", 100);  // Degree column
-            lvCidery.Columns.Add("Sklad", 150);  // Warehouse name column
-            this.Load += new EventHandler(Form1_Load);
-
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            LoadZbozi();  // Naète data pøi spuštìní formuláøe
+            InitializeLvPiva();
+            InitializeInputPanel();
+            LoadSkladData();
+            LoadZbozi();
+            LoadSuroviny();
+            InitializeLvSurovina();
         }
         #region Zbozi
-        private int selectedZboziId = -1;
-        private ListViewItem selectedZbozi = null;
-        private char selectedtyp;
+
+        private Panel inputPanel;
+        private TextBox txtNazev;
+        private TextBox txtObsahAlkoholu;
+        private TextBox txtCena;
+        private ComboBox comboSklad;
+        private ComboBox comboTyp;
+        private TextBox txtSpecificValue;
+        private Button btnSave;
+        private Button btnCancel;
+        private void InitializeLvPiva()
+        {
+            lvPiva.View = View.Details;
+            lvPiva.FullRowSelect = true;
+            lvPiva.Columns.Add("Název", 150);
+            lvPiva.Columns.Add("Obsah alkoholu", 100);
+            lvPiva.Columns.Add("Cena", 100);
+            lvPiva.Columns.Add("Typ", 100);
+            lvPiva.Columns.Add("Název skladu", 150);
+            lvPiva.Columns.Add("Stupòovitost/odrùda", 150);
+        }
+
+        private void InitializeInputPanel()
+        {
+            inputPanel = new Panel();
+            inputPanel.Visible = false;
+            inputPanel.Size = new System.Drawing.Size(300, 300);
+            inputPanel.Location = new System.Drawing.Point(50, 50);
+
+            Label lblNazev = new Label();
+            lblNazev.Text = "Název:";
+            lblNazev.Location = new System.Drawing.Point(10, 10);
+            inputPanel.Controls.Add(lblNazev);
+
+            txtNazev = new TextBox();
+            txtNazev.Location = new System.Drawing.Point(130, 10);
+            inputPanel.Controls.Add(txtNazev);
+
+            Label lblObsahAlkoholu = new Label();
+            lblObsahAlkoholu.Text = "Obsah alkoholu:";
+            lblObsahAlkoholu.Location = new System.Drawing.Point(10, 40);
+            inputPanel.Controls.Add(lblObsahAlkoholu);
+
+            txtObsahAlkoholu = new TextBox();
+            txtObsahAlkoholu.Location = new System.Drawing.Point(130, 40);
+            inputPanel.Controls.Add(txtObsahAlkoholu);
+
+            Label lblCena = new Label();
+            lblCena.Text = "Cena:";
+            lblCena.Location = new System.Drawing.Point(10, 70);
+            inputPanel.Controls.Add(lblCena);
+
+            txtCena = new TextBox();
+            txtCena.Location = new System.Drawing.Point(130, 70);
+            inputPanel.Controls.Add(txtCena);
+
+            Label lblSklad = new Label();
+            lblSklad.Text = "Sklad:";
+            lblSklad.Location = new System.Drawing.Point(10, 100);
+            inputPanel.Controls.Add(lblSklad);
+
+            comboSklad = new ComboBox();
+            comboSklad.Location = new System.Drawing.Point(130, 100);
+            inputPanel.Controls.Add(comboSklad);
+
+            Label lblTyp = new Label();
+            lblTyp.Text = "Typ:";
+            lblTyp.Location = new System.Drawing.Point(10, 130);
+            inputPanel.Controls.Add(lblTyp);
+
+            comboTyp = new ComboBox();
+            comboTyp.Location = new System.Drawing.Point(130, 130);
+            comboTyp.Items.AddRange(new object[] { "p", "c" });
+            inputPanel.Controls.Add(comboTyp);
+
+            Label lblSpecificValue = new Label();
+            lblSpecificValue.Text = "Stupòovitost/odrùda";
+            lblSpecificValue.Location = new System.Drawing.Point(10, 160);
+            inputPanel.Controls.Add(lblSpecificValue);
+
+            txtSpecificValue = new TextBox();
+            txtSpecificValue.Location = new System.Drawing.Point(130, 160);
+            inputPanel.Controls.Add(txtSpecificValue);
+
+            btnSave = new Button();
+            btnSave.Text = "Save";
+            btnSave.Location = new System.Drawing.Point(10, 190);
+            btnSave.Click += BtnSave_Click;
+            inputPanel.Controls.Add(btnSave);
+
+            btnCancel = new Button();
+            btnCancel.Text = "Cancel";
+            btnCancel.Location = new System.Drawing.Point(100, 190);
+            btnCancel.Click += BtnCancel_Click;
+            inputPanel.Controls.Add(btnCancel);
+
+            this.Controls.Add(inputPanel);
+        }
+
+
+
+
+        private void LoadSkladData()
+        {
+            string query = "SELECT id, nazev FROM view_sklad_id_nazev";
+            var data = GetDataFromView(query); // Assuming GetDataFromView returns IEnumerable<Dictionary<string, object>>
+
+            DataTable skladDataTable = ConvertToDataTable(data);
+
+            comboSklad.DisplayMember = "nazev";
+            comboSklad.ValueMember = "id";
+            comboSklad.DataSource = skladDataTable;
+        }
         private void LoadZbozi()
         {
+            string queryPivo = "SELECT pivo_id, zbozi_nazev, obsah_alkoholu, cena, stupnovitost, sklad_nazev FROM v_pivo";
+            string queryCider = "SELECT cider_id, zbozi_nazev, obsah_alkoholu, cena, odruda_jablek, sklad_nazev FROM v_cider";
+
+            var dataPivo = GetDataFromView(queryPivo);
+            var dataCider = GetDataFromView(queryCider);
+
             lvPiva.Items.Clear();
-            lvCidery.Items.Clear();
 
-            // Load pivo data with sklad_nazev
-            var pivoData = GetDataFromView(@"
-SELECT pivo_id, zbozi_nazev, obsah_alkoholu, cena, stupnovitost, sklad_nazev
-FROM v_pivo");
-
-            foreach (var item in pivoData)
+            foreach (var row in dataPivo)
             {
-                ListViewItem lvItem = new ListViewItem();
-                lvItem.Tag = item["PIVO_ID"].ToString();
-                lvItem.SubItems.Add(item["ZBOZI_NAZEV"].ToString());
-                lvItem.SubItems.Add(item["OBSAH_ALKOHOLU"].ToString());
-                lvItem.SubItems.Add(item["CENA"].ToString());
-                lvItem.SubItems.Add(item["STUPNOVITOST"].ToString());
-                lvItem.SubItems.Add(item["SKLAD_NAZEV"].ToString());
-                lvPiva.Items.Add(lvItem);
+                var item = new ListViewItem(new[]
+                {
+                row["ZBOZI_NAZEV"].ToString(),
+                row["OBSAH_ALKOHOLU"].ToString(),
+                row["CENA"].ToString(),
+                "pivo",
+                row["SKLAD_NAZEV"].ToString(),
+                row["STUPNOVITOST"].ToString()
+            });
+                item.Tag = row["PIVO_ID"];
+                lvPiva.Items.Add(item);
             }
 
-            // Load cider data with sklad_nazev
-            var ciderData = GetDataFromView(@"
-SELECT cider_id, zbozi_nazev, obsah_alkoholu, cena, odruda_jablek, sklad_nazev
-FROM v_cider");
-
-            foreach (var item in ciderData)
+            foreach (var row in dataCider)
             {
-                ListViewItem lvItem = new ListViewItem();
-                lvItem.Tag = item["CIDER_ID"].ToString();
-                lvItem.SubItems.Add(item["ZBOZI_NAZEV"].ToString());
-                lvItem.SubItems.Add(item["OBSAH_ALKOHOLU"].ToString());
-                lvItem.SubItems.Add(item["CENA"].ToString());
-                lvItem.SubItems.Add(item["ODRUDA_JABLEK"].ToString());
-                lvItem.SubItems.Add(item["SKLAD_NAZEV"].ToString());
-                lvCidery.Items.Add(lvItem);
+                var item = new ListViewItem(new[]
+                {
+                row["ZBOZI_NAZEV"].ToString(),
+                row["OBSAH_ALKOHOLU"].ToString(),
+                row["CENA"].ToString(),
+                "cider",
+                row["SKLAD_NAZEV"].ToString(),
+                row["ODRUDA_JABLEK"].ToString()
+            });
+                item.Tag = row["CIDER_ID"];
+                lvPiva.Items.Add(item);
             }
         }
 
         private void updateZboziBtn_Click(object sender, EventArgs e)
         {
-            if (selectedZboziId == -1)
+            if (lvPiva.SelectedItems.Count == 0)
             {
                 MessageBox.Show("Please select a row to update.");
                 return;
             }
-            else
-            {
-                PopulateUpdateForm(selectedZbozi);
-            }
-            
+
+            var selectedItem = lvPiva.SelectedItems[0];
+            inputPanel.Tag = selectedItem.Tag;
+            inputPanel.Visible = true;
+            inputPanel.BringToFront();
+
+            txtNazev.Text = selectedItem.SubItems[0].Text;
+            txtObsahAlkoholu.Text = selectedItem.SubItems[1].Text;
+            txtCena.Text = selectedItem.SubItems[2].Text;
+            comboSklad.SelectedIndex = comboSklad.FindStringExact(selectedItem.SubItems[4].Text);
+            comboTyp.SelectedIndex = comboTyp.FindStringExact(selectedItem.SubItems[3].Text.Substring(0, 1).ToLower());
+            txtSpecificValue.Text = selectedItem.SubItems[5].Text;
+
         }
 
         private void InsertZboziBtn_Click(object sender, EventArgs e)
         {
-            using (var insertForm = new InsertZboziForm())
-            {
-                if (insertForm.ShowDialog() == DialogResult.OK)
-                {
-                    // Get the data from the form
-                    string nazev = insertForm.Nazev;
-                    decimal obsahAlkoholu = insertForm.ObsahAlkoholu;
-                    decimal cena = insertForm.Cena;
-                    int idSklad = insertForm.IdSklad;
-                    char typ = insertForm.Typ;
-
-                    // Create a dictionary with the parameters
-                    var parameters = new Dictionary<string, object>
-            {
-                { "p_nazev", nazev },
-                { "p_obsah_alkoholu", obsahAlkoholu },
-                { "p_cena", cena },
-                { "p_id_sklad", idSklad },
-                { "p_typ", typ }
-            };
-
-                    // Execute the insert procedure
-                    ExecuteProcedure("insert_zbozi", parameters);
-                }
-            }
+            inputPanel.Tag = null;
+            inputPanel.Show();
+            inputPanel.BringToFront();
+            ClearInputFields();
         }
 
         private void DeleteZboziBtn_Click(object sender, EventArgs e)
         {
-            if(selectedZboziId == -1)
+            if (lvPiva.SelectedItems.Count == 0)
             {
-                MessageBox.Show("Vyberte zboží");
+                MessageBox.Show("Please select a row to delete.");
+                return;
+            }
+
+            var selectedItem = lvPiva.SelectedItems[0];
+            var parameters = new Dictionary<string, object>
+        {
+            { "p_id", selectedItem.Tag }
+        };
+
+            try
+            {
+                ExecuteProcedure("delete_zbozi", parameters);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            LoadZbozi();
+        }
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+
+
+            if (inputPanel.Tag == null)
+            {
+                var parameters = new Dictionary<string, object>
+        {
+                    { "p_nazev", txtNazev.Text },
+                    { "p_obsah_alkoholu", double.Parse(txtObsahAlkoholu.Text) },
+                    { "p_cena", double.Parse(txtCena.Text) },
+                    { "p_id_sklad", comboSklad.SelectedValue },
+                    { "p_typ", comboTyp.SelectedItem.ToString() },
+                    { "p_odruda_jablek", comboTyp.SelectedItem.ToString() == "c" ? txtSpecificValue.Text : "" },
+                    { "p_stupnovitost", comboTyp.SelectedItem.ToString() == "p" ? double.Parse(txtSpecificValue.Text) : 0 }
+                };
+                ExecuteProcedure("insert_zbozi", parameters);
             }
             else
             {
                 var parameters = new Dictionary<string, object>
-            {
-                { "p_id", selectedZboziId }
-            };
-
-                // Execute the delete procedure
-                ExecuteProcedure("delete_zbozi", parameters);
-                LoadZbozi();
-            }
-        }
-        private void PopulateUpdateForm(ListViewItem selectedItem)
-        {
-            if (selectedItem != null)
-            {
-                // Extract data from the selected ListViewItem
-                int zboziId = Convert.ToInt32(selectedItem.Tag);
-                string nazev = selectedItem.SubItems[1].Text;
-                decimal obsahAlkoholu = Convert.ToDecimal(selectedItem.SubItems[2].Text);
-                decimal cena = Convert.ToDecimal(selectedItem.SubItems[3].Text);
-                int idSklad = Convert.ToInt32(selectedItem.SubItems[5].Text); // Assuming the sklad_nazev is in the 6th column
-                char typ = selectedtyp; // Assuming the type is in the 1st column
-
-                // Open the update form and populate it with the data
-                using (var updateForm = new UpdateZboziForm())
                 {
-                    updateForm.Id = zboziId;
-                    updateForm.Nazev = nazev;
-                    updateForm.ObsahAlkoholu = obsahAlkoholu;
-                    updateForm.Cena = cena;
-                    updateForm.IdSklad = idSklad;
-                    updateForm.Typ = typ;
-
-                    if (updateForm.ShowDialog() == DialogResult.OK)
-                    {
-                        // Update the zbozi record
-                        var parameters = new Dictionary<string, object>
-                {
-                    { "p_id", updateForm.Id },
-                    { "p_nazev", updateForm.Nazev },
-                    { "p_obsah_alkoholu", updateForm.ObsahAlkoholu },
-                    { "p_cena", updateForm.Cena },
-                    { "p_id_sklad", updateForm.IdSklad },
-                    { "p_typ", updateForm.Typ }
+                   { "p_id", inputPanel.Tag },
+                   { "p_nazev", txtNazev.Text },
+                    { "p_obsah_alkoholu", double.Parse(txtObsahAlkoholu.Text) },
+                    { "p_cena", double.Parse(txtCena.Text) },
+                    { "p_id_sklad", comboSklad.SelectedValue },
+                    { "p_typ", comboTyp.SelectedItem.ToString() },
+                    { "p_odruda_jablek", comboTyp.SelectedItem.ToString() == "c" ? txtSpecificValue.Text : "" },
+                    { "p_stupnovitost", comboTyp.SelectedItem.ToString() == "p" ? double.Parse(txtSpecificValue.Text) : 0 }
                 };
 
-                        ExecuteProcedure("update_zbozi", parameters);
-                    }
-                }
+                ExecuteProcedure("update_zbozi", parameters);
             }
+
+            inputPanel.Visible = false;
+            LoadZbozi();
         }
-        private void lvPiva_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
-            
-            var args = e as ListViewItemSelectionChangedEventArgs;
-            if (args != null && args.IsSelected)
-            {
-                lvCidery.SelectedItems.Clear();
-
-                // Store the selected ID
-                selectedZboziId = Convert.ToInt32(args.Item.Tag);
-                selectedZbozi = args.Item;
-                selectedtyp = 'p';
-            }
+            inputPanel.Visible = false;
         }
 
-        private void lvCidery_SelectedIndexChanged(object sender, EventArgs e)
+        private void ClearInputFields()
         {
-            var args = e as ListViewItemSelectionChangedEventArgs;
-            if (args != null && args.IsSelected)
-            {
-                lvPiva.SelectedItems.Clear();
-
-                // Store the selected ID
-                selectedZboziId = Convert.ToInt32(args.Item.SubItems[0].Tag);
-                selectedZbozi = args.Item;
-                selectedtyp = 'c';
-            }
+            txtNazev.Text = "";
+            txtObsahAlkoholu.Text = "";
+            txtCena.Text = "";
+            comboSklad.SelectedIndex = -1;
+            comboTyp.SelectedIndex = 0;
+            txtSpecificValue.Text = "";
         }
+
+
 
 
 
@@ -223,6 +288,73 @@ FROM v_cider");
 
         #endregion
 
+        #region Objednávka
+        private void InsertObjednávkaBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UpdateObjednavkaBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeleteObjednavkaBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region Surovina
+
+        private void InitializeLvSurovina()
+        {
+            lvSuroviny.View = View.Details;
+            lvSuroviny.FullRowSelect = true;
+            lvSuroviny.Columns.Add("Název", 200);
+            lvSuroviny.Columns.Add("Množství", 100);
+            lvSuroviny.Columns.Add("Název skladu", 150);
+        }
+        private void LoadSuroviny()
+        {
+            string query = "SELECT id, nazev, mnozstvi, nazev_sklad FROM v_surovina";
+
+
+            var data = GetDataFromView(query);
+
+
+            lvSuroviny.Items.Clear();
+
+            foreach (var row in data)
+            {
+                var item = new ListViewItem(new[]
+                {
+                row["NAZEV"].ToString(),
+                row["MNOZSTVI"].ToString(),
+                row["NAZEV_SKLAD"].ToString(),
+
+            });
+                item.Tag = row["ID"];
+                lvSuroviny.Items.Add(item);
+            }
+
+        }
+        private void InsertSurovinaBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UpdateSurovinaBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeleteSurovinaBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
 
         private IEnumerable<Dictionary<string, object>> GetDataFromView(string query)
         {
@@ -295,7 +427,33 @@ FROM v_cider");
                 }
             }
         }
+        public DataTable ConvertToDataTable(IEnumerable<Dictionary<string, object>> data)
+        {
+            DataTable table = new DataTable();
 
-        
+            // Check if there is any data
+            if (data == null || !data.Any())
+                return table;
+
+            // Use the first dictionary to create the columns
+            var firstDict = data.First();
+            foreach (var key in firstDict.Keys)
+            {
+                table.Columns.Add(key, firstDict[key]?.GetType() ?? typeof(object));
+            }
+
+            // Add rows to the DataTable
+            foreach (var dict in data)
+            {
+                var row = table.NewRow();
+                foreach (var key in dict.Keys)
+                {
+                    row[key] = dict[key] ?? DBNull.Value;
+                }
+                table.Rows.Add(row);
+            }
+
+            return table;
+        }
     }
 }
