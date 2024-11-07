@@ -51,11 +51,15 @@
             label2 = new Label();
             lvSuroviny = new ListView();
             tabZakaznici = new TabPage();
-            tabZaměstnanci = new TabPage();
-            label3 = new Label();
-            lvZamestnanci = new ListView();
-            label4 = new Label();
             lvZakaznici = new ListView();
+            label3 = new Label();
+            tabZaměstnanci = new TabPage();
+            label4 = new Label();
+            lvZamestnanci = new ListView();
+            tabNadrizeni = new TabPage();
+            lvNadrizeni = new ListView();
+            FakturaBtn = new Button();
+            objZboziBtn = new Button();
             tabControl1.SuspendLayout();
             tabZbozi.SuspendLayout();
             tabProfil.SuspendLayout();
@@ -63,6 +67,7 @@
             tabSuroviny.SuspendLayout();
             tabZakaznici.SuspendLayout();
             tabZaměstnanci.SuspendLayout();
+            tabNadrizeni.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -73,6 +78,7 @@
             tabControl1.Controls.Add(tabSuroviny);
             tabControl1.Controls.Add(tabZakaznici);
             tabControl1.Controls.Add(tabZaměstnanci);
+            tabControl1.Controls.Add(tabNadrizeni);
             tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -174,6 +180,8 @@
             // 
             // tabObjednávky
             // 
+            tabObjednávky.Controls.Add(objZboziBtn);
+            tabObjednávky.Controls.Add(FakturaBtn);
             tabObjednávky.Controls.Add(DeleteObjednavkaBtn);
             tabObjednávky.Controls.Add(UpdateObjednavkaBtn);
             tabObjednávky.Controls.Add(InsertObjednávkaBtn);
@@ -310,6 +318,24 @@
             tabZakaznici.Text = "Zákazníci";
             tabZakaznici.UseVisualStyleBackColor = true;
             // 
+            // lvZakaznici
+            // 
+            lvZakaznici.Location = new Point(39, 92);
+            lvZakaznici.Name = "lvZakaznici";
+            lvZakaznici.Size = new Size(847, 595);
+            lvZakaznici.TabIndex = 1;
+            lvZakaznici.UseCompatibleStateImageBehavior = false;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.Location = new Point(32, 28);
+            label3.Name = "label3";
+            label3.Size = new Size(74, 21);
+            label3.TabIndex = 0;
+            label3.Text = "Zákazníci";
+            // 
             // tabZaměstnanci
             // 
             tabZaměstnanci.Controls.Add(label4);
@@ -322,24 +348,6 @@
             tabZaměstnanci.Text = "Zaměstnanci";
             tabZaměstnanci.UseVisualStyleBackColor = true;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(32, 28);
-            label3.Name = "label3";
-            label3.Size = new Size(74, 21);
-            label3.TabIndex = 0;
-            label3.Text = "Zákazníci";
-            // 
-            // lvZamestnanci
-            // 
-            lvZamestnanci.Location = new Point(45, 127);
-            lvZamestnanci.Name = "lvZamestnanci";
-            lvZamestnanci.Size = new Size(838, 565);
-            lvZamestnanci.TabIndex = 0;
-            lvZamestnanci.UseCompatibleStateImageBehavior = false;
-            // 
             // label4
             // 
             label4.AutoSize = true;
@@ -350,13 +358,52 @@
             label4.TabIndex = 1;
             label4.Text = "Zaměstnanci";
             // 
-            // lvZakaznici
+            // lvZamestnanci
             // 
-            lvZakaznici.Location = new Point(39, 92);
-            lvZakaznici.Name = "lvZakaznici";
-            lvZakaznici.Size = new Size(847, 595);
-            lvZakaznici.TabIndex = 1;
-            lvZakaznici.UseCompatibleStateImageBehavior = false;
+            lvZamestnanci.Location = new Point(45, 127);
+            lvZamestnanci.Name = "lvZamestnanci";
+            lvZamestnanci.Size = new Size(838, 565);
+            lvZamestnanci.TabIndex = 0;
+            lvZamestnanci.UseCompatibleStateImageBehavior = false;
+            // 
+            // tabNadrizeni
+            // 
+            tabNadrizeni.Controls.Add(lvNadrizeni);
+            tabNadrizeni.Location = new Point(4, 24);
+            tabNadrizeni.Name = "tabNadrizeni";
+            tabNadrizeni.Padding = new Padding(3);
+            tabNadrizeni.Size = new Size(1288, 757);
+            tabNadrizeni.TabIndex = 6;
+            tabNadrizeni.Text = "Nadřízení";
+            tabNadrizeni.UseVisualStyleBackColor = true;
+            // 
+            // lvNadrizeni
+            // 
+            lvNadrizeni.Location = new Point(34, 56);
+            lvNadrizeni.Name = "lvNadrizeni";
+            lvNadrizeni.Size = new Size(1175, 645);
+            lvNadrizeni.TabIndex = 0;
+            lvNadrizeni.UseCompatibleStateImageBehavior = false;
+            // 
+            // FakturaBtn
+            // 
+            FakturaBtn.Location = new Point(1004, 248);
+            FakturaBtn.Name = "FakturaBtn";
+            FakturaBtn.Size = new Size(190, 23);
+            FakturaBtn.TabIndex = 5;
+            FakturaBtn.Text = "Faktura";
+            FakturaBtn.UseVisualStyleBackColor = true;
+            FakturaBtn.Click += FakturaBtn_Click;
+            // 
+            // objZboziBtn
+            // 
+            objZboziBtn.Location = new Point(1004, 312);
+            objZboziBtn.Name = "objZboziBtn";
+            objZboziBtn.Size = new Size(190, 23);
+            objZboziBtn.TabIndex = 6;
+            objZboziBtn.Text = "Objednané zboží";
+            objZboziBtn.UseVisualStyleBackColor = true;
+            objZboziBtn.Click += objZboziBtn_Click;
             // 
             // Form1
             // 
@@ -378,6 +425,7 @@
             tabZakaznici.PerformLayout();
             tabZaměstnanci.ResumeLayout(false);
             tabZaměstnanci.PerformLayout();
+            tabNadrizeni.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -411,5 +459,9 @@
         private ListView lvZakaznici;
         private Label label4;
         private ListView lvZamestnanci;
+        private TabPage tabNadrizeni;
+        private ListView lvNadrizeni;
+        private Button objZboziBtn;
+        private Button FakturaBtn;
     }
 }

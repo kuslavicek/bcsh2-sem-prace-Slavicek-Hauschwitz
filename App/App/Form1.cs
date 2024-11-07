@@ -11,11 +11,16 @@ namespace App
         {
             InitializeComponent();
             InitializeLvPiva();
+            InitializeLvObjednavky();
+            InitializeLvSurovina();
+            InitializeLvZakaznici();
             InitializeInputPanel();
             LoadSkladData();
             LoadZbozi();
+            LoadObjednavky();
+            LoadZakaznici();
             LoadSuroviny();
-            InitializeLvSurovina();
+            
         }
         #region Zbozi
 
@@ -123,7 +128,7 @@ namespace App
         private void LoadSkladData()
         {
             string query = "SELECT id, nazev FROM view_sklad_id_nazev";
-            var data = GetDataFromView(query); // Assuming GetDataFromView returns IEnumerable<Dictionary<string, object>>
+            var data = GetDataFromView(query);
 
             DataTable skladDataTable = ConvertToDataTable(data);
 
@@ -189,6 +194,8 @@ namespace App
             txtObsahAlkoholu.Text = selectedItem.SubItems[1].Text;
             txtCena.Text = selectedItem.SubItems[2].Text;
             comboSklad.SelectedIndex = comboSklad.FindStringExact(selectedItem.SubItems[4].Text);
+            comboTyp.Items.Clear();
+            comboTyp.Items.AddRange(new object[] { selectedItem.SubItems[3].Text.Substring(0, 1).ToLower() });
             comboTyp.SelectedIndex = comboTyp.FindStringExact(selectedItem.SubItems[3].Text.Substring(0, 1).ToLower());
             txtSpecificValue.Text = selectedItem.SubItems[5].Text;
 
@@ -262,12 +269,16 @@ namespace App
             }
 
             inputPanel.Visible = false;
+            comboTyp.Items.Clear();
+            comboTyp.Items.AddRange(new object[] { "p", "c" });
             LoadZbozi();
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             inputPanel.Visible = false;
+            comboTyp.Items.Clear();
+            comboTyp.Items.AddRange(new object[] { "p", "c" });
         }
 
         private void ClearInputFields()
@@ -289,6 +300,40 @@ namespace App
         #endregion
 
         #region Objednávka
+
+        private void InitializeLvObjednavky()
+        {
+            lvObjednavky.View = View.Details;
+            lvObjednavky.FullRowSelect = true;
+            lvObjednavky.Columns.Add("Datum založení", 100);
+            lvObjednavky.Columns.Add("Cena", 100);
+            lvObjednavky.Columns.Add("Zákazník", 150);
+            lvObjednavky.Columns.Add("Faktura", 150);
+        }
+        private void LoadObjednavky()
+        {
+            string query = "SELECT id, datum_zalozeni, cena, zakaznik, faktura FROM v_objednavka";
+
+
+            var data = GetDataFromView(query);
+
+
+            lvObjednavky.Items.Clear();
+
+            foreach (var row in data)
+            {
+                var item = new ListViewItem(new[]
+                {
+                row["DATUM_ZALOZENI"].ToString(),
+                row["CENA"].ToString(),
+                row["ZAKAZNIK"].ToString(),
+                row["FAKTURA"].ToString()
+            });
+                item.Tag = row["ID"];
+                lvObjednavky.Items.Add(item);
+            }
+        }
+
         private void InsertObjednávkaBtn_Click(object sender, EventArgs e)
         {
 
@@ -300,6 +345,16 @@ namespace App
         }
 
         private void DeleteObjednavkaBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void objZboziBtn_Click(object sender, EventArgs e)
+        {
+                
+        }
+
+        private void FakturaBtn_Click(object sender, EventArgs e)
         {
 
         }
@@ -356,6 +411,48 @@ namespace App
 
         #endregion
 
+        #region Zakazník
+        private void InitializeLvZakaznici()
+        {
+            lvZakaznici.View = View.Details;
+            lvZakaznici.FullRowSelect = true;
+            lvZakaznici.Columns.Add("Jmeno", 100);
+            lvZakaznici.Columns.Add("Telefon", 100);
+            lvZakaznici.Columns.Add("Email", 100);
+            lvZakaznici.Columns.Add("Adresa", 250);
+        }
+        private void LoadZakaznici()
+        {
+            string query = "SELECT id, jmeno, telefon, email, adresa FROM v_zakaznik";
+
+
+            var data = GetDataFromView(query);
+
+
+            lvZakaznici.Items.Clear();
+
+            foreach (var row in data)
+            {
+                var item = new ListViewItem(new[]
+                {
+                row["JMENO"].ToString(),
+                row["TELEFON"].ToString(),
+                row["EMAIL"].ToString(),
+                row["ADRESA"].ToString()
+            });
+                item.Tag = row["ID"];
+                lvZakaznici.Items.Add(item);
+            }
+        }
+
+        #endregion
+
+        #region Zamìstnanec
+
+        #endregion
+
+
+
         private IEnumerable<Dictionary<string, object>> GetDataFromView(string query)
         {
             var result = new List<Dictionary<string, object>>();
@@ -402,7 +499,7 @@ namespace App
             {
                 command.CommandType = CommandType.StoredProcedure;
 
-                // Pøidání parametrù do pøíkazu
+
                 if (parameters != null)
                 {
                     foreach (var param in parameters)
@@ -431,18 +528,18 @@ namespace App
         {
             DataTable table = new DataTable();
 
-            // Check if there is any data
+
             if (data == null || !data.Any())
                 return table;
 
-            // Use the first dictionary to create the columns
+
             var firstDict = data.First();
             foreach (var key in firstDict.Keys)
             {
                 table.Columns.Add(key, firstDict[key]?.GetType() ?? typeof(object));
             }
 
-            // Add rows to the DataTable
+
             foreach (var dict in data)
             {
                 var row = table.NewRow();
@@ -455,5 +552,7 @@ namespace App
 
             return table;
         }
+
+        
     }
 }
