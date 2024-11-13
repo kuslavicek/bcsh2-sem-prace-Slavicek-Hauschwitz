@@ -10,6 +10,7 @@ namespace App
     public partial class Form1 : Form
     {
         private ZboziData _zboziData;
+        private SurovinaRepo _surovinaRepo;
         public Form1()
         {
             InitializeComponent();
@@ -17,12 +18,13 @@ namespace App
             _zboziData = new ZboziData();
             LoadZbozi();
 
+            _surovinaRepo = new SurovinaRepo();
+            LoadSuroviny();
+
             InitializeLvObjednavky();
-            InitializeLvSurovina();
             InitializeLvZakaznici();
             LoadObjednavky();
             LoadZakaznici();
-            LoadSuroviny();
             
         }
         #region Zbozi
@@ -72,7 +74,7 @@ namespace App
 
             var selectedItem = lvPiva.SelectedItems[0];
             double stupnovitost = 0;
-            if (selectedItem.SubItems[3].Text == "p" && double.TryParse(selectedItem.SubItems[6].Text, out double parsedStupnovitost))
+            if (selectedItem.SubItems[3].Text == "p" && double.TryParse(selectedItem.SubItems[5].Text, out double parsedStupnovitost))
             {
                 stupnovitost = parsedStupnovitost;
             }
@@ -90,7 +92,7 @@ namespace App
 
             try
             {
-                ZboziDialog zboziDialog = new ZboziDialog(_zboziData, zbozi);
+                ZboziDialog zboziDialog = new ZboziDialog(_zboziData, zbozi,true);
                 if (zboziDialog.ShowDialog() == DialogResult.OK)
                 {
                     this.LoadZbozi();
@@ -105,7 +107,7 @@ namespace App
         }
         private void InsertZboziBtn_Click(object sender, EventArgs e)
         {
-            ZboziDialog zboziDialog = new ZboziDialog(_zboziData,null);
+            ZboziDialog zboziDialog = new ZboziDialog(_zboziData,null,false);
             DialogResult result = zboziDialog.ShowDialog();
 
             if (result == DialogResult.OK || result==DialogResult.Cancel)
@@ -203,51 +205,102 @@ namespace App
 
         #region Surovina
 
-        private void InitializeLvSurovina()
+        private void LoadSuroviny()
         {
             lvSuroviny.View = View.Details;
             lvSuroviny.FullRowSelect = true;
-            lvSuroviny.Columns.Add("Název", 200);
+            lvSuroviny.Columns.Add("Název", 150);
             lvSuroviny.Columns.Add("Množství", 100);
             lvSuroviny.Columns.Add("Název skladu", 150);
+
+            var surovinaList = _surovinaRepo.Load();
+            lvSuroviny.Items.Clear();
+
+            foreach (var surovina in surovinaList)
+            {
+                var item = new ListViewItem(new[]
+                {
+                    surovina.Nazev,
+                    surovina.Mnozstvi.ToString(),
+                    surovina.NazevSklad
+                });
+
+                item.Tag = surovina.Id;
+                lvSuroviny.Items.Add(item);
+            }
         }
-        private void LoadSuroviny()
-        {
-            //string query = "SELECT id, nazev, mnozstvi, nazev_sklad FROM v_surovina";
 
-
-            //var data = _database.GetDataFromView(query);
-
-
-            //lvSuroviny.Items.Clear();
-
-            //foreach (var row in data)
-            //{
-            //    var item = new ListViewItem(new[]
-            //    {
-            //    row["NAZEV"].ToString(),
-            //    row["MNOZSTVI"].ToString(),
-            //    row["NAZEV_SKLAD"].ToString(),
-
-            //});
-            //    item.Tag = row["ID"];
-            //    lvSuroviny.Items.Add(item);
-            //}
-
-        }
         private void InsertSurovinaBtn_Click(object sender, EventArgs e)
         {
+            SurovinaDialog zboziDialog = new SurovinaDialog(_surovinaRepo, null,false);
+            DialogResult result = zboziDialog.ShowDialog();
 
+            if (result == DialogResult.OK || result == DialogResult.Cancel)
+            {
+                this.LoadSuroviny();
+            }
         }
 
         private void UpdateSurovinaBtn_Click(object sender, EventArgs e)
         {
+            if (lvSuroviny.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
 
+            var selectedItem = lvSuroviny.SelectedItems[0];
+            double mnozstvi = 0;
+            if (double.TryParse(selectedItem.SubItems[1].Text, out double parsedMnozstvi))
+            {
+                mnozstvi = parsedMnozstvi;
+            }
+
+            var surovina = new Surovina(
+                id: (int)selectedItem.Tag,
+                nazev: selectedItem.SubItems[0].Text,
+                mnozstvi: mnozstvi,
+                nazevSklad: selectedItem.SubItems[2].Text
+            );
+
+            try
+            {
+                SurovinaDialog surovinaDialog = new SurovinaDialog(_surovinaRepo, surovina,true);
+                if (surovinaDialog.ShowDialog() == DialogResult.OK)
+                {
+                    this.LoadSuroviny();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadSuroviny();
         }
 
         private void DeleteSurovinaBtn_Click(object sender, EventArgs e)
         {
+            if (lvSuroviny.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to delete.");
+                return;
+            }
 
+            var selectedItem = lvSuroviny.SelectedItems[0];
+            var surovinaId = (int)selectedItem.Tag;
+
+            try
+            {
+                _surovinaRepo.DeleteSurovina(surovinaId);
+                MessageBox.Show("Surovina byl úspìšnì smazána.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadSuroviny();
         }
 
         #endregion

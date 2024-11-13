@@ -8,11 +8,13 @@ namespace App.Dialogs
         private ZboziData _zboziData;
         public bool IsEditMode { get; set; } = false;
         private Zbozi zbozi { get; set; }
-        public ZboziDialog(ZboziData zboziData, Zbozi zbozi)
+        public ZboziDialog(ZboziData zboziData, Zbozi zbozi, bool edit)
         {
             InitializeComponent();
+            this.IsEditMode = edit;
             this.zbozi=zbozi;
             _zboziData = zboziData;
+            if (this.IsEditMode) { this.fillData();}
         }
 
         private void btnSave_Click(object sender, EventArgs e)
