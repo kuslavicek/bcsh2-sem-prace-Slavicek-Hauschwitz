@@ -11,6 +11,7 @@ namespace App
     {
         private ZboziData _zboziData;
         private SurovinaRepo _surovinaRepo;
+        private ZakaznikRepo _zakaznikRepo;
         public Form1()
         {
             InitializeComponent();
@@ -21,11 +22,11 @@ namespace App
             _surovinaRepo = new SurovinaRepo();
             LoadSuroviny();
 
-            InitializeLvObjednavky();
-            InitializeLvZakaznici();
-            LoadObjednavky();
+            _zakaznikRepo = new ZakaznikRepo();
             LoadZakaznici();
-            
+
+            InitializeLvObjednavky();
+            LoadObjednavky();
         }
         #region Zbozi
 
@@ -317,27 +318,33 @@ namespace App
         }
         private void LoadZakaznici()
         {
-            //string query = "SELECT id, jmeno, telefon, email, adresa FROM v_zakaznik";
+            lvZakaznici.View = View.Details;
+            lvZakaznici.FullRowSelect = true;
+            lvZakaznici.Columns.Add("Jméno", 150);
+            lvZakaznici.Columns.Add("Telefon", 100);
+            lvZakaznici.Columns.Add("Email", 200);
+            lvZakaznici.Columns.Add("Adresa", 300);
 
+            var zakazniciList = _zakaznikRepo.Load();
+            lvZakaznici.Items.Clear();
 
-            //var data = _database.GetDataFromView(query);
+            foreach (var zakaznik in zakazniciList)
+            {
+                string adresa = $"{zakaznik.Adresa.Mesto}, {zakaznik.Adresa.Ulice}, {zakaznik.Adresa.CisloPopisne}, {zakaznik.Adresa.Stat}";
 
+                var item = new ListViewItem(new[]
+                {
+                    zakaznik.Jmeno,
+                    zakaznik.Telefon.ToString(),
+                    zakaznik.Email,
+                    adresa
+                });
 
-            //lvZakaznici.Items.Clear();
-
-            //foreach (var row in data)
-            //{
-            //    var item = new ListViewItem(new[]
-            //    {
-            //    row["JMENO"].ToString(),
-            //    row["TELEFON"].ToString(),
-            //    row["EMAIL"].ToString(),
-            //    row["ADRESA"].ToString()
-            //});
-            //    item.Tag = row["ID"];
-            //    lvZakaznici.Items.Add(item);
-            //}
+                item.Tag = zakaznik.Id;
+                lvZakaznici.Items.Add(item);
+            }
         }
+
 
         #endregion
 
@@ -345,6 +352,6 @@ namespace App
 
         #endregion
 
-        
+
     }
 }

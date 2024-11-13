@@ -4,6 +4,9 @@
     <Compile Update="Dialogs\SurovinaDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Dialogs\ZakaznikDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Dialogs\ZboziDialog.cs">
       <SubType>Form</SubType>
     </Compile>
