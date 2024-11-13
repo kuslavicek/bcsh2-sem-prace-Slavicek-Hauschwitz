@@ -1,0 +1,25 @@
+# Ignorovat složky pro sestavení
+bin/
+obj/
+
+# Ignorovat složky Visual Studio
+.vs/
+
+# Ignorovat soubory pro sestavení a cache
+*.pdb
+*.exe
+*.dll
+*.cache
+
+# Ignorovat soubory s databázemi
+*.db
+*.sqlite
+
+# Ignorovat uživatelsky specifické soubory ve Visual Studiu
+*.user
+*.userosscache
+*.suo
+
+# Ignorovat soubory pro konfigurace IDE
+.vscode/
+.idea/

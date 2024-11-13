@@ -44,14 +44,14 @@ namespace App
             foreach (var zbozi in zboziList)
             {
                 // Urèíme hodnotu pro specifický sloupec podle typu
-                string specificValue = zbozi.Typ == "c" ? zbozi.OdrudaJablek : zbozi.Stupnovitost.ToString();
+                string specificValue = zbozi.Typ == 'c' ? zbozi.OdrudaJablek : zbozi.Stupnovitost.ToString();
 
                 var item = new ListViewItem(new[]
                 {
                     zbozi.Nazev,
                     zbozi.ObsahAlkoholu.ToString(),
                     zbozi.Cena.ToString(),
-                    zbozi.Typ,
+                    zbozi.Typ.ToString(),
                     zbozi.SkladNazev.ToString(),
                     specificValue
                 });
@@ -82,7 +82,7 @@ namespace App
                 nazev: selectedItem.SubItems[0].Text,
                 obsahAlkoholu: double.Parse(selectedItem.SubItems[1].Text),
                 cena: double.Parse(selectedItem.SubItems[2].Text),
-                typ: selectedItem.SubItems[3].Text,
+                typ: selectedItem.SubItems[3].Text[0],
                 skladNazev: selectedItem.SubItems[4].Text,
                 odrudaJablek: selectedItem.SubItems[3].Text == "c" ? selectedItem.SubItems[5].Text : null,
                 stupnovitost: stupnovitost
@@ -106,8 +106,9 @@ namespace App
         private void InsertZboziBtn_Click(object sender, EventArgs e)
         {
             ZboziDialog zboziDialog = new ZboziDialog(_zboziData,null);
+            DialogResult result = zboziDialog.ShowDialog();
 
-            if (zboziDialog.ShowDialog() == DialogResult.OK)
+            if (result == DialogResult.OK || result==DialogResult.Cancel)
             {
                 this.LoadZbozi();
             }
