@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using App.Repositories;
 using App.Model;
 using App.Dialogs;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace App
 {
     public partial class Form1 : Form
@@ -13,6 +14,7 @@ namespace App
         private SurovinaRepo _surovinaRepo;
         private ZakaznikRepo _zakaznikRepo;
         private AdresaRepo _adresaRepo;
+        private ObjednavkaRepo _objednavkaRepo;
         public Form1()
         {
             InitializeComponent();
@@ -27,8 +29,7 @@ namespace App
             LoadZakaznici();
 
             _adresaRepo = new AdresaRepo();
-
-            InitializeLvObjednavky();
+            _objednavkaRepo = new ObjednavkaRepo();
             LoadObjednavky();
         }
         #region Zbozi
@@ -149,37 +150,22 @@ namespace App
 
         #region Objednávka
 
-        private void InitializeLvObjednavky()
+        private void LoadObjednavky()
         {
+            lvObjednavky.Columns.Clear();
             lvObjednavky.View = View.Details;
             lvObjednavky.FullRowSelect = true;
             lvObjednavky.Columns.Add("Datum založení", 100);
             lvObjednavky.Columns.Add("Cena", 100);
             lvObjednavky.Columns.Add("Zákazník", 150);
             lvObjednavky.Columns.Add("Faktura", 150);
-        }
-        private void LoadObjednavky()
-        {
-            //string query = "SELECT id, datum_zalozeni, cena, zakaznik, faktura FROM v_objednavka";
 
-
-            //var data = _database.GetDataFromView(query);
-
-
-            //lvObjednavky.Items.Clear();
-
-            //foreach (var row in data)
-            //{
-            //    var item = new ListViewItem(new[]
-            //    {
-            //    row["DATUM_ZALOZENI"].ToString(),
-            //    row["CENA"].ToString(),
-            //    row["ZAKAZNIK"].ToString(),
-            //    row["FAKTURA"].ToString()
-            //});
-            //    item.Tag = row["ID"];
-            //    lvObjednavky.Items.Add(item);
-            //}
+            var orderList = _objednavkaRepo.Load();
+            lvObjednavky.Items.Clear();
+            foreach (var order in orderList)
+            {
+                lvObjednavky.Items.Add(order);
+            }
         }
 
         private void InsertObjednávkaBtn_Click(object sender, EventArgs e)
