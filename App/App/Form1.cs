@@ -12,6 +12,7 @@ namespace App
         private ZboziData _zboziData;
         private SurovinaRepo _surovinaRepo;
         private ZakaznikRepo _zakaznikRepo;
+        private AdresaRepo _adresaRepo;
         public Form1()
         {
             InitializeComponent();
@@ -25,6 +26,8 @@ namespace App
             _zakaznikRepo = new ZakaznikRepo();
             LoadZakaznici();
 
+            _adresaRepo = new AdresaRepo();
+
             InitializeLvObjednavky();
             LoadObjednavky();
         }
@@ -32,6 +35,7 @@ namespace App
 
         private void LoadZbozi()
         {
+            lvPiva.Columns.Clear();
             lvPiva.View = View.Details;
             lvPiva.FullRowSelect = true;
             lvPiva.Columns.Add("Název", 150);
@@ -208,6 +212,7 @@ namespace App
 
         private void LoadSuroviny()
         {
+            lvSuroviny.Columns.Clear();
             lvSuroviny.View = View.Details;
             lvSuroviny.FullRowSelect = true;
             lvSuroviny.Columns.Add("Název", 150);
@@ -307,17 +312,9 @@ namespace App
         #endregion
 
         #region Zakazník
-        private void InitializeLvZakaznici()
-        {
-            lvZakaznici.View = View.Details;
-            lvZakaznici.FullRowSelect = true;
-            lvZakaznici.Columns.Add("Jmeno", 100);
-            lvZakaznici.Columns.Add("Telefon", 100);
-            lvZakaznici.Columns.Add("Email", 100);
-            lvZakaznici.Columns.Add("Adresa", 250);
-        }
         private void LoadZakaznici()
         {
+            lvZakaznici.Columns.Clear();
             lvZakaznici.View = View.Details;
             lvZakaznici.FullRowSelect = true;
             lvZakaznici.Columns.Add("Jméno", 150);
@@ -330,7 +327,7 @@ namespace App
 
             foreach (var zakaznik in zakazniciList)
             {
-                string adresa = $"{zakaznik.Adresa.Mesto}, {zakaznik.Adresa.Ulice}, {zakaznik.Adresa.CisloPopisne}, {zakaznik.Adresa.Stat}";
+                string adresa = $"{zakaznik.Adresa.Mesto}, {zakaznik.Adresa.Ulice}, {zakaznik.Adresa.CisloPopisne}, {zakaznik.Adresa.Psc}, {zakaznik.Adresa.Stat}";
 
                 var item = new ListViewItem(new[]
                 {
@@ -341,8 +338,60 @@ namespace App
                 });
 
                 item.Tag = zakaznik.Id;
+                item.SubItems[3].Tag = zakaznik.Adresa.Id;
                 lvZakaznici.Items.Add(item);
             }
+        }
+
+        private void InsertZakaznikBtn_Click(object sender, EventArgs e)
+        {
+            ZakaznikDialog zakaznikDialog = new ZakaznikDialog(_zakaznikRepo, null, false);
+            DialogResult result = zakaznikDialog.ShowDialog();
+
+            if (result == DialogResult.OK || result == DialogResult.Cancel)
+            {
+                this.LoadZakaznici();
+            }
+        }
+
+        private void UpdateZakaznikBtn_Click(object sender, EventArgs e)
+        {
+            if (lvZakaznici.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
+
+            var selectedItem = lvZakaznici.SelectedItems[0];
+
+            var zakaznik = new Zakaznik(
+                id: (int)selectedItem.Tag,
+                jmeno: selectedItem.SubItems[0].Text,
+                telefon: double.Parse(selectedItem.SubItems[1].Text),
+                email: selectedItem.SubItems[2].Text,
+                adresa: _adresaRepo.ParseAdresa(selectedItem.SubItems[3].Text+", " + selectedItem.SubItems[3].Tag)
+            );
+
+            try
+            {
+                ZakaznikDialog zakaznikDialog = new ZakaznikDialog(_zakaznikRepo, zakaznik, true);
+                if (zakaznikDialog.ShowDialog() == DialogResult.OK)
+                {
+                    LoadZakaznici();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadZakaznici();
+        }
+
+
+        private void DeleteZakaznikBtn_Click(object sender, EventArgs e)
+        {
+
         }
 
 

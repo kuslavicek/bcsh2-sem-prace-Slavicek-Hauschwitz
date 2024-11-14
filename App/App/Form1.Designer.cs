@@ -318,6 +318,46 @@
             tabZakaznici.Text = "Zákazníci";
             tabZakaznici.UseVisualStyleBackColor = true;
             // 
+            // DeleteZakaznikBtn
+            // 
+            DeleteZakaznikBtn = new Button();
+            DeleteZakaznikBtn.Location = new Point(900, 202);  // Pozice tlačítka pro smazání
+            DeleteZakaznikBtn.Name = "DeleteZakaznikBtn";
+            DeleteZakaznikBtn.Size = new Size(227, 26);
+            DeleteZakaznikBtn.TabIndex = 4;
+            DeleteZakaznikBtn.Text = "Smazat Zákazníka";
+            DeleteZakaznikBtn.UseVisualStyleBackColor = true;
+            DeleteZakaznikBtn.Click += DeleteZakaznikBtn_Click;
+
+            // 
+            // UpdateZakaznikBtn
+            // 
+            UpdateZakaznikBtn = new Button();
+            UpdateZakaznikBtn.Location = new Point(900, 135);  // Pozice tlačítka pro úpravu
+            UpdateZakaznikBtn.Name = "UpdateZakaznikBtn";
+            UpdateZakaznikBtn.Size = new Size(227, 23);
+            UpdateZakaznikBtn.TabIndex = 3;
+            UpdateZakaznikBtn.Text = "Upravit Zákazníka";
+            UpdateZakaznikBtn.UseVisualStyleBackColor = true;
+            UpdateZakaznikBtn.Click += UpdateZakaznikBtn_Click;
+
+            // 
+            // InsertZakaznikBtn
+            // 
+            InsertZakaznikBtn = new Button();
+            InsertZakaznikBtn.Location = new Point(900, 60);  // Pozice tlačítka pro vložení
+            InsertZakaznikBtn.Name = "InsertZakaznikBtn";
+            InsertZakaznikBtn.Size = new Size(227, 26);
+            InsertZakaznikBtn.TabIndex = 2;
+            InsertZakaznikBtn.Text = "Vložit Zákazníka";
+            InsertZakaznikBtn.UseVisualStyleBackColor = true;
+            InsertZakaznikBtn.Click += InsertZakaznikBtn_Click;
+
+            // Přidání tlačítek do tabulky (karty pro Zákazníky)
+            tabZakaznici.Controls.Add(DeleteZakaznikBtn);
+            tabZakaznici.Controls.Add(UpdateZakaznikBtn);
+            tabZakaznici.Controls.Add(InsertZakaznikBtn);
+            // 
             // lvZakaznici
             // 
             lvZakaznici.Location = new Point(39, 92);
@@ -462,6 +502,9 @@
         private TabPage tabNadrizeni;
         private ListView lvNadrizeni;
         private Button objZboziBtn;
+        private Button UpdateZakaznikBtn;
+        private Button InsertZakaznikBtn;
+        private Button DeleteZakaznikBtn;
         private Button FakturaBtn;
     }
 }

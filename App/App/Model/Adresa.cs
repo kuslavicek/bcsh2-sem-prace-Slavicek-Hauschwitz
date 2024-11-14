@@ -8,17 +8,22 @@ namespace App.Model
 {
     public class Adresa
     {
+        public int? Id { get; set; }
         public string Mesto { get; set; }
         public string Ulice { get; set; }
-        public string CisloPopisne { get; set; }
+        public int CisloPopisne { get; set; }
+        public int Psc { get; set; }
         public string Stat { get; set; }
 
-        public Adresa(string mesto, string ulice, string cisloPopisne, string stat)
+        public Adresa(int? id, string mesto, string ulice, int cisloPopisne, int psc, string stat)
         {
+            Id = id;
             Mesto = mesto;
             Ulice = ulice;
             CisloPopisne = cisloPopisne;
+            Psc = psc;
             Stat = stat;
         }
     }
+
 }

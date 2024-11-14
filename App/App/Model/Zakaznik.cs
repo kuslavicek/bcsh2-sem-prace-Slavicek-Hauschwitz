@@ -8,13 +8,13 @@ namespace App.Model
 {
     public class Zakaznik
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Jmeno { get; set; }
-        public int Telefon { get; set; }
+        public double Telefon { get; set; }
         public string Email { get; set; }
         public Adresa Adresa { get; set; }
 
-        public Zakaznik(int id, string jmeno, int telefon, string email, Adresa adresa)
+        public Zakaznik(int? id, string jmeno, double telefon, string email, Adresa adresa)
         {
             Id = id;
             Jmeno = jmeno;
