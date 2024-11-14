@@ -41,7 +41,7 @@
             tabObjednávky = new TabPage();
             DeleteObjednavkaBtn = new Button();
             UpdateObjednavkaBtn = new Button();
-            InsertObjednávkaBtn = new Button();
+            InsertObjednavkaBtn = new Button();
             labelObj = new Label();
             lvObjednavky = new ListView();
             tabSuroviny = new TabPage();
@@ -184,7 +184,7 @@
             tabObjednávky.Controls.Add(FakturaBtn);
             tabObjednávky.Controls.Add(DeleteObjednavkaBtn);
             tabObjednávky.Controls.Add(UpdateObjednavkaBtn);
-            tabObjednávky.Controls.Add(InsertObjednávkaBtn);
+            tabObjednávky.Controls.Add(InsertObjednavkaBtn);
             tabObjednávky.Controls.Add(labelObj);
             tabObjednávky.Controls.Add(lvObjednavky);
             tabObjednávky.Location = new Point(4, 24);
@@ -217,13 +217,13 @@
             // 
             // InsertObjednávkaBtn
             // 
-            InsertObjednávkaBtn.Location = new Point(1004, 37);
-            InsertObjednávkaBtn.Name = "InsertObjednávkaBtn";
-            InsertObjednávkaBtn.Size = new Size(190, 23);
-            InsertObjednávkaBtn.TabIndex = 2;
-            InsertObjednávkaBtn.Text = "Vložit Objednávku";
-            InsertObjednávkaBtn.UseVisualStyleBackColor = true;
-            InsertObjednávkaBtn.Click += InsertObjednávkaBtn_Click;
+            InsertObjednavkaBtn.Location = new Point(1004, 37);
+            InsertObjednavkaBtn.Name = "InsertObjednávkaBtn";
+            InsertObjednavkaBtn.Size = new Size(190, 23);
+            InsertObjednavkaBtn.TabIndex = 2;
+            InsertObjednavkaBtn.Text = "Vložit Objednávku";
+            InsertObjednavkaBtn.UseVisualStyleBackColor = true;
+            InsertObjednavkaBtn.Click += InsertObjednavkaBtn_Click;
             // 
             // labelObj
             // 
@@ -484,7 +484,7 @@
         private TabPage tabObjednávky;
         private Button DeleteObjednavkaBtn;
         private Button UpdateObjednavkaBtn;
-        private Button InsertObjednávkaBtn;
+        private Button InsertObjednavkaBtn;
         private Label labelObj;
         private ListView lvObjednavky;
         private TabPage tabSuroviny;

@@ -6,6 +6,8 @@ using App.Repositories;
 using App.Model;
 using App.Dialogs;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Windows.Forms.DataFormats;
+using System.Globalization;
 namespace App
 {
     public partial class Form1 : Form
@@ -168,14 +170,45 @@ namespace App
             }
         }
 
-        private void InsertObjednávkaBtn_Click(object sender, EventArgs e)
+        private void InsertObjednavkaBtn_Click(object sender, EventArgs e)
         {
 
         }
 
         private void UpdateObjednavkaBtn_Click(object sender, EventArgs e)
         {
+            if (lvObjednavky.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
 
+            var selectedItem = lvObjednavky.SelectedItems[0];
+            string dateString = selectedItem.SubItems[0].Text;
+            string format = "dd.MM.yyyy H:mm:ss";
+            DateTime date = DateTime.ParseExact(dateString, format, CultureInfo.InvariantCulture);
+            var objednavka = new Objednavka(
+                Convert.ToInt32(selectedItem.Tag.ToString()),
+                date,
+                double.Parse(selectedItem.SubItems[1].Text.ToString()),
+                Convert.ToInt32(selectedItem.SubItems[2].Tag.ToString()),
+                Convert.ToInt32(selectedItem.SubItems[3].Tag.ToString())
+            );
+
+            try
+            {
+                ObjednavkaDialog objednavkaDialog = new ObjednavkaDialog(_objednavkaRepo, objednavka, true);
+                if (objednavkaDialog.ShowDialog() == DialogResult.OK)
+                {
+                    this.LoadZbozi();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadZbozi();
         }
 
         private void DeleteObjednavkaBtn_Click(object sender, EventArgs e)
@@ -355,7 +388,8 @@ namespace App
                 jmeno: selectedItem.SubItems[0].Text,
                 telefon: double.Parse(selectedItem.SubItems[1].Text),
                 email: selectedItem.SubItems[2].Text,
-                adresa: _adresaRepo.ParseAdresa(selectedItem.SubItems[3].Text+", " + selectedItem.SubItems[3].Tag)
+                adresa: _adresaRepo.ParseAdresa(selectedItem.SubItems[3].Text+", " + selectedItem.SubItems[3].Tag),
+                null
             );
 
             try

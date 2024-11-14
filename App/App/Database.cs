@@ -10,18 +10,18 @@ namespace App
 {
     public class Database
     {
-        private string connectionString;
+        public string ConnectionString { get; set; }
 
         public Database()
         {
-            connectionString = "User Id=ST67103;Password=abcde;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=fei-sql3.upceucebny.cz)(PORT=1521))(CONNECT_DATA=(SID=BDAS)(SERVER=DEDICATED)))";
+            ConnectionString = "User Id=ST67103;Password=abcde;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=fei-sql3.upceucebny.cz)(PORT=1521))(CONNECT_DATA=(SID=BDAS)(SERVER=DEDICATED)))";
         }
 
         public IEnumerable<Dictionary<string, object>> GetDataFromView(string query)
         {
             var result = new List<Dictionary<string, object>>();
 
-            using (var connection = new OracleConnection(connectionString))
+            using (var connection = new OracleConnection(ConnectionString))
             using (var command = new OracleCommand(query, connection))
             {
                 try
@@ -58,7 +58,7 @@ namespace App
 
         public void ExecuteProcedure(string procedureName, Dictionary<string, object> parameters)
         {
-            using (var connection = new OracleConnection(connectionString))
+            using (var connection = new OracleConnection(ConnectionString))
             using (var command = new OracleCommand(procedureName, connection))
             {
                 command.CommandType = CommandType.StoredProcedure;

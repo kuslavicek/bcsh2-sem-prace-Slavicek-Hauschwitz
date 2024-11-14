@@ -18,7 +18,7 @@ namespace App.Repositories
 
         public List<ListViewItem> Load()
         {
-            string queryObjednavka = "SELECT id, datum_zalozeni, cena, zakaznik, faktura FROM v_objednavka";
+            string queryObjednavka = "SELECT id, datum_zalozeni, cena, zakaznik, faktura, id_faktura, id_zakaznik FROM v_objednavka";
 
             var dataObjednavka = _database.GetDataFromView(queryObjednavka);
 
@@ -32,7 +32,9 @@ namespace App.Repositories
                 row["CENA"].ToString(),
                 row["ZAKAZNIK"].ToString(),
                 row["FAKTURA"].ToString()
-            });
+                });
+                item.SubItems[2].Tag = row["ID_FAKTURA"];
+                item.SubItems[3].Tag = row["ID_ZAKAZNIK"];
                 item.Tag = row["ID"];
                 objednavkaList.Add(item);
             }

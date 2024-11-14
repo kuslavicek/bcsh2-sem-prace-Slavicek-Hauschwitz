@@ -1,9 +1,14 @@
 ﻿using App.Model;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Oracle.ManagedDataAccess.Types;
 
 namespace App.Repositories
 {
@@ -40,7 +45,8 @@ namespace App.Repositories
                         jmeno: row["JMENO"].ToString(),
                         telefon: Convert.ToInt32(row["TELEFON"]),
                         email: row["EMAIL"].ToString(),
-                        adresa: adresa
+                        adresa: adresa,
+                        null
                     );
 
                     zakaznikList.Add(zakaznik);
@@ -101,14 +107,58 @@ namespace App.Repositories
             }
         }
 
-
-
-
-
         public void DeleteZakaznik(int zakaznikId)
         {
             var parameters = new Dictionary<string, object> { { "p_id", zakaznikId } };
             _database.ExecuteProcedure("delete_zakaznik", parameters);
         }
+
+        public Zakaznik GetZakaznikById(int id)
+        {
+            Zakaznik zakaznik = null;
+            string query = "BEGIN :result := GetZakaznikById(:id); END;";
+
+            using (var connection = new OracleConnection(_database.ConnectionString))
+            {
+                connection.Open();
+                using (var command = new OracleCommand(query, connection))
+                {
+                    var resultParam = new OracleParameter("result", OracleDbType.RefCursor) { Direction = ParameterDirection.Output };
+                    command.Parameters.Add(resultParam);
+                    command.Parameters.Add(new OracleParameter("id", OracleDbType.Int32) { Value = id });
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+
+                        using (var reader = ((OracleRefCursor)resultParam.Value).GetDataReader())
+                        {
+                            if (reader.Read())
+                            {
+                                zakaznik = new Zakaznik(
+                                    reader.GetInt32(reader.GetOrdinal("id")),
+                                    reader.GetString(reader.GetOrdinal("jmeno")),
+                                    reader.GetDouble(reader.GetOrdinal("telefon")),
+                                    reader.GetString(reader.GetOrdinal("email")),
+                                    null,
+                                    reader.GetInt32(reader.GetOrdinal("id_adresa"))
+                                );
+                            }
+                        }
+                    }
+                    catch (OracleException ex)
+                    {
+                        throw ex;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+            }
+
+            return zakaznik;
+        }
+
     }
 }

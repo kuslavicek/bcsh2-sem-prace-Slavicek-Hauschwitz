@@ -69,7 +69,8 @@ namespace App.Dialogs
                         textBoxJmeno.Text,
                         double.Parse(textBoxTelefon.Text),
                         textBoxEmail.Text,
-                        adresa
+                        adresa,
+                        null
                     );
                     _zakaznikRepo.UpdateZakaznik(zakaznik);
                     MessageBox.Show("Zakaznik byl úspěšně přidán.");
