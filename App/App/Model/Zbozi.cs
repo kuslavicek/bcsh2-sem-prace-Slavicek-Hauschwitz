@@ -18,6 +18,9 @@ namespace App.Model
         public string? OdrudaJablek { get; set; } // Pouze pro cider ("c")
         public double? Stupnovitost { get; set; } // Pouze pro pivo ("p")
 
+        public Zbozi()
+        {
+        }
         public Zbozi(string nazev, double obsahAlkoholu, double cena, char typ, double skladId, string odrudaJablek, double stupnovitost)
         {
             Nazev = nazev;

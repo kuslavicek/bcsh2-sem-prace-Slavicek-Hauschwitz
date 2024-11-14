@@ -1,17 +1,9 @@
-﻿
-namespace App.Dialogs
+﻿namespace App.Dialogs
 {
     partial class ObjednavkaDialog
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -23,10 +15,6 @@ namespace App.Dialogs
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -140,8 +128,16 @@ namespace App.Dialogs
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
 
+            // ListView pro zobrazení zboží
+            this.listViewZbozi = new System.Windows.Forms.ListView();
+            this.listViewZbozi.Location = new System.Drawing.Point(400, 60);
+            this.listViewZbozi.Name = "listViewZbozi";
+            this.listViewZbozi.Size = new System.Drawing.Size(450, 300);
+            this.listViewZbozi.View = View.Details;
+            this.Controls.Add(this.listViewZbozi);
+
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(500, 270);
+            this.ClientSize = new System.Drawing.Size(1000, 500);
             this.Controls.Add(this.labelDatum);
             this.Controls.Add(this.dateTimePickerDatum);
             this.Controls.Add(this.labelCena);
@@ -154,6 +150,7 @@ namespace App.Dialogs
             this.Controls.Add(this.buttonEditFaktura);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.listViewZbozi);
             this.Name = "ObjednavkaDialog";
         }
 
@@ -171,5 +168,6 @@ namespace App.Dialogs
         private System.Windows.Forms.Button buttonEditFaktura;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.ListView listViewZbozi;
     }
 }
