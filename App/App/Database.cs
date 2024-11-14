@@ -63,12 +63,22 @@ namespace App
             {
                 command.CommandType = CommandType.StoredProcedure;
 
-
                 if (parameters != null)
                 {
                     foreach (var param in parameters)
                     {
                         var oracleParam = new OracleParameter(param.Key, param.Value ?? DBNull.Value);
+
+                        if (param.Value == null)
+                        {
+                            oracleParam.Direction = ParameterDirection.Output;
+                            oracleParam.OracleDbType = OracleDbType.Int32;
+                        }
+                        else
+                        {
+                            oracleParam.Direction = ParameterDirection.Input;
+                        }
+
                         command.Parameters.Add(oracleParam);
                     }
                 }
@@ -77,6 +87,15 @@ namespace App
                 {
                     connection.Open();
                     command.ExecuteNonQuery();
+
+                    foreach (var param in command.Parameters)
+                    {
+                        var oracleParam = (OracleParameter)param;
+                        if (oracleParam.Direction == ParameterDirection.Output || oracleParam.Direction == ParameterDirection.InputOutput)
+                        {
+                            parameters[oracleParam.ParameterName] = oracleParam.Value;
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -88,6 +107,7 @@ namespace App
                 }
             }
         }
+
         public DataTable ConvertToDataTable(IEnumerable<Dictionary<string, object>> data)
         {
             DataTable table = new DataTable();

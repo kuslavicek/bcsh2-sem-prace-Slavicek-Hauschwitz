@@ -69,14 +69,7 @@ namespace App.Repositories
             parametersZ.Add("p_jmeno", zakaznik.Jmeno);
             parametersZ.Add("p_telefon", zakaznik.Telefon);
             parametersZ.Add("p_email", zakaznik.Email);
-            if (zakaznik.Adresa.Id != null) {
-                parametersZ.Add("p_id_adresa", zakaznik.Adresa.Id);
-            }
 
-            if (zakaznik.Adresa.Id != null)
-            {
-                parametersA.Add("p_id", zakaznik.Adresa.Id);
-            }
             parametersA.Add("p_ulice", zakaznik.Adresa.Ulice);
             parametersA.Add("p_mesto", zakaznik.Adresa.Mesto);
             parametersA.Add("p_psc", zakaznik.Adresa.Psc);
@@ -85,15 +78,31 @@ namespace App.Repositories
 
             if (zakaznik.Id == null)
             {
+                parametersA.Add("p_out_id", null);
+
                 _database.ExecuteProcedure("insert_adresa", parametersA);
+
+                var novaAdresaId = parametersA["p_out_id"];
+
+                parametersZ.Add("p_id_adresa", novaAdresaId);
+
                 _database.ExecuteProcedure("insert_zakaznik", parametersZ);
             }
             else
             {
-                _database.ExecuteProcedure("update_adresa", parametersA);
+                // Aktualizace adresy i zákazníka
+                if (zakaznik.Adresa.Id != null)
+                {
+                    parametersA.Add("p_id", zakaznik.Adresa.Id);
+                    _database.ExecuteProcedure("update_adresa", parametersA);
+                }
+
+                parametersZ.Add("p_id_adresa", zakaznik.Adresa.Id);
                 _database.ExecuteProcedure("update_zakaznik", parametersZ);
             }
         }
+
+
 
 
 
