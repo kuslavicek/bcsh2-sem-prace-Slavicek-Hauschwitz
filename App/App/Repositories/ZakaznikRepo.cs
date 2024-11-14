@@ -90,7 +90,6 @@ namespace App.Repositories
             }
             else
             {
-                // Aktualizace adresy i zákazníka
                 if (zakaznik.Adresa.Id != null)
                 {
                     parametersA.Add("p_id", zakaznik.Adresa.Id);

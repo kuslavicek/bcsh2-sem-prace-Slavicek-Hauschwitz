@@ -391,7 +391,26 @@ namespace App
 
         private void DeleteZakaznikBtn_Click(object sender, EventArgs e)
         {
+            if (lvZakaznici.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to delete.");
+                return;
+            }
 
+            var selectedItem = lvZakaznici.SelectedItems[0];
+            var zakaznikId = (int)selectedItem.Tag;
+
+            try
+            {
+                _zakaznikRepo.DeleteZakaznik(zakaznikId);
+                MessageBox.Show("Zákazník byl úspìšnì smazán.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadZakaznici();
         }
 
 
