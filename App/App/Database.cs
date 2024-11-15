@@ -17,7 +17,7 @@ namespace App
             ConnectionString = "User Id=ST67103;Password=abcde;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=fei-sql3.upceucebny.cz)(PORT=1521))(CONNECT_DATA=(SID=BDAS)(SERVER=DEDICATED)))";
         }
 
-        public IEnumerable<Dictionary<string, object>> GetDataFromView(string query)
+        public IEnumerable<Dictionary<string, object>> GetDataFromView(string query, Dictionary<string, object> parameters = null)
         {
             var result = new List<Dictionary<string, object>>();
 
@@ -27,6 +27,14 @@ namespace App
                 try
                 {
                     connection.Open();
+
+                    if (parameters != null)
+                    {
+                        foreach (var param in parameters)
+                        {
+                            command.Parameters.Add(new OracleParameter(param.Key, param.Value ?? DBNull.Value));
+                        }
+                    }
 
                     using (var reader = command.ExecuteReader())
                     {
@@ -55,6 +63,7 @@ namespace App
 
             return result;
         }
+
 
         public void ExecuteProcedure(string procedureName, Dictionary<string, object> parameters)
         {

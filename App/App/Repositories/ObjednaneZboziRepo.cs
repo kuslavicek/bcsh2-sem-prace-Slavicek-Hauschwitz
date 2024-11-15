@@ -23,65 +23,58 @@ namespace App.Repositories
         {
             var objednaneZboziList = new List<KeyValuePair<ObjednaneZbozi, Zbozi>>();
 
-            using (var connection = new OracleConnection(_database.ConnectionString))
+            string query = "SELECT * FROM v_objednane_zbozi WHERE id_objednavka = :id";
+
+            try
             {
-                connection.Open();
-
-                using (var command = new OracleCommand("BEGIN :result := get_objednane_zbozi_by_objednavka(:id); END;", connection))
+                var parameters = new Dictionary<string, object>
                 {
+                    { "id_objednavka", id }
+                };
 
-                    OracleParameter refCursorParam = new OracleParameter("result", OracleDbType.RefCursor){Direction = ParameterDirection.Output};
-                    command.Parameters.Add(refCursorParam);
-                    command.Parameters.Add(new OracleParameter("id", OracleDbType.Int32) { Value = id });
+                var data = _database.GetDataFromView("SELECT * FROM v_objednane_zbozi WHERE id_objednavka = :id_objednavka", parameters);
 
-                    try
+                foreach (var row in data)
+                {
+                    var objednaneZbozi = new ObjednaneZbozi
                     {
-                        command.ExecuteNonQuery();
+                        Id = Convert.ToInt32(row["OBJEDNANE_ZBOZI_ID"]),
+                        Mnozstvi = Convert.ToInt32(row["MNOZSTVI"]),
+                        IdObjednavka = Convert.ToInt32(row["ID_OBJEDNAVKA"]),
+                        IdZbozi = Convert.ToInt32(row["ID_ZBOZI"])
+                    };
 
-                        using (var reader = ((OracleRefCursor)refCursorParam.Value).GetDataReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var objednaneZbozi = new ObjednaneZbozi
-                                {
-                                    Id = reader.GetInt32(reader.GetOrdinal("id")),
-                                    Mnozstvi = reader.GetInt32(reader.GetOrdinal("mnozstvi")),
-                                    IdObjednavka = reader.GetInt32(reader.GetOrdinal("id_objednavka")),
-                                    IdZbozi = reader.GetInt32(reader.GetOrdinal("id_zbozi"))
-                                };
-
-                                var zbozi = new Zbozi
-                                {
-                                    Id = reader.GetInt32(reader.GetOrdinal("id_zbozi")),
-                                    Nazev = reader.GetString(reader.GetOrdinal("nazev")),
-                                    ObsahAlkoholu = reader.GetDouble(reader.GetOrdinal("obsah_alkoholu")),
-                                    Cena = reader.GetDouble(reader.GetOrdinal("cena")),
-                                    Typ = reader.GetString(reader.GetOrdinal("typ"))[0],
-                                    SkladId = reader.GetInt32(reader.GetOrdinal("id_sklad")),
-                                };
-
-                                if (zbozi.Typ == 'c')
-                                {
-                                    zbozi.OdrudaJablek = reader.GetString(reader.GetOrdinal("odruda_jablek"));
-                                }
-                                else if (zbozi.Typ == 'p')
-                                {
-                                    zbozi.Stupnovitost = reader.GetDouble(reader.GetOrdinal("stupnovitost"));
-                                }
-
-                                objednaneZboziList.Add(new KeyValuePair<ObjednaneZbozi, Zbozi>(objednaneZbozi, zbozi));
-                            }
-                        }
-                    }
-                    catch (Exception ex)
+                    var zbozi = new Zbozi
                     {
-                        Console.WriteLine("Chyba při volání funkce: " + ex.Message);
+                        Id = Convert.ToInt32(row["ID_ZBOZI"]),
+                        Nazev = row["NAZEV"].ToString(),
+                        ObsahAlkoholu = Convert.ToDouble(row["OBSAH_ALKOHOLU"]),
+                        Cena = Convert.ToDouble(row["CENA"]),
+                        Typ = row["TYP"].ToString()[0],
+                        SkladId = Convert.ToInt32(row["ID_SKLAD"])
+                    };
+
+                    // Specifické údaje podle typu
+                    if (zbozi.Typ == 'c' && row["ODRUDA_JABLEK"] != DBNull.Value)
+                    {
+                        zbozi.OdrudaJablek = row["ODRUDA_JABLEK"].ToString();
                     }
+                    else if (zbozi.Typ == 'p' && row["STUPNOVITOST"] != DBNull.Value)
+                    {
+                        zbozi.Stupnovitost = Convert.ToDouble(row["STUPNOVITOST"]);
+                    }
+
+                    objednaneZboziList.Add(new KeyValuePair<ObjednaneZbozi, Zbozi>(objednaneZbozi, zbozi));
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Chyba při načítání objednaného zboží: " + ex.Message);
             }
 
             return objednaneZboziList;
         }
+
 
     }
 }
