@@ -103,5 +103,49 @@ namespace App.Repositories
             }
         }
 
+        public Zbozi LoadById(int id)
+        {
+            string queryPivo = "SELECT pivo_id, zbozi_nazev, obsah_alkoholu, cena, stupnovitost, sklad_nazev FROM v_pivo WHERE pivo_id = :id";
+            string queryCider = "SELECT cider_id, zbozi_nazev, obsah_alkoholu, cena, odruda_jablek, sklad_nazev FROM v_cider WHERE cider_id = :id";
+            var parameters = new Dictionary<string, object>
+                {
+                    { "id", id }
+                };
+            var dataPivo = _database.GetDataFromView(queryPivo, parameters);
+            var dataCider = _database.GetDataFromView(queryCider, parameters);
+
+            Zbozi zbozi = null;
+
+            if (dataPivo.Any())
+            {
+                var row = dataPivo.First();
+                zbozi = new Zbozi(
+                    id: Convert.ToInt32(row["PIVO_ID"]),
+                    nazev: row["ZBOZI_NAZEV"].ToString(),
+                    obsahAlkoholu: Convert.ToDouble(row["OBSAH_ALKOHOLU"]),
+                    cena: Convert.ToDouble(row["CENA"]),
+                    typ: 'p',
+                    skladNazev: row["SKLAD_NAZEV"].ToString(),
+                    odrudaJablek: string.Empty,
+                    stupnovitost: Convert.ToDouble(row["STUPNOVITOST"])
+                );
+            }
+            else if (dataCider.Any())
+            {
+                var row = dataCider.First();
+                zbozi = new Zbozi(
+                    id: Convert.ToInt32(row["CIDER_ID"]),
+                    nazev: row["ZBOZI_NAZEV"].ToString(),
+                    obsahAlkoholu: Convert.ToDouble(row["OBSAH_ALKOHOLU"]),
+                    cena: Convert.ToDouble(row["CENA"]),
+                    typ: 'c',
+                    skladNazev: row["SKLAD_NAZEV"].ToString(),
+                    odrudaJablek: row["ODRUDA_JABLEK"].ToString(),
+                    stupnovitost: 0
+                );
+            }
+
+            return zbozi;
+        }
     }
 }

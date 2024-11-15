@@ -1,4 +1,5 @@
-﻿namespace App.Dialogs
+﻿
+namespace App.Dialogs
 {
     partial class ObjednavkaDialog
     {
@@ -127,6 +128,15 @@
             this.buttonCancel.Text = "Zrušit";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // Tlačítko pro zrušení
+            this.buttonAddZbozi = new System.Windows.Forms.Button();
+            this.buttonAddZbozi.Location = new System.Drawing.Point(400, 30);
+            this.buttonAddZbozi.Name = "buttonAddZbozi";
+            this.buttonAddZbozi.Size = new System.Drawing.Size(75, 23);
+            this.buttonAddZbozi.TabIndex = 13;
+            this.buttonAddZbozi.Text = "Přidat zboží";
+            this.buttonAddZbozi.UseVisualStyleBackColor = true;
+            this.buttonAddZbozi.Click += new System.EventHandler(this.buttonAddZbozi_Click);
 
             // ListView pro zobrazení zboží
             this.listViewZbozi = new System.Windows.Forms.ListView();
@@ -151,6 +161,7 @@
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.listViewZbozi);
+            this.Controls.Add(this.buttonAddZbozi);
             this.Name = "ObjednavkaDialog";
         }
 
@@ -163,6 +174,7 @@
         private System.Windows.Forms.Label labelZakaznik;
         private System.Windows.Forms.TextBox textBoxZakaznik;
         private System.Windows.Forms.Button buttonEditZakaznik;
+        private System.Windows.Forms.Button buttonAddZbozi;
         private System.Windows.Forms.Label labelFaktura;
         private System.Windows.Forms.TextBox textBoxFaktura;
         private System.Windows.Forms.Button buttonEditFaktura;
