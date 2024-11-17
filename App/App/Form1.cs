@@ -20,6 +20,7 @@ namespace App
         public Form1()
         {
             InitializeComponent();
+            this.initBtns();
 
             _zboziData = new ZboziData();
             LoadZbozi();
@@ -41,12 +42,12 @@ namespace App
             lvPiva.Columns.Clear();
             lvPiva.View = View.Details;
             lvPiva.FullRowSelect = true;
-            lvPiva.Columns.Add("Název", 150);
+            lvPiva.Columns.Add("Název", 220);
             lvPiva.Columns.Add("Obsah alkoholu", 100);
-            lvPiva.Columns.Add("Cena", 100);
+            lvPiva.Columns.Add("Cena", 150);
             lvPiva.Columns.Add("Typ", 100);
-            lvPiva.Columns.Add("Název skladu", 150);
-            lvPiva.Columns.Add("Stupòovitost/odrùda", 150);
+            lvPiva.Columns.Add("Název skladu", 200);
+            lvPiva.Columns.Add("Stupòovitost/odrùda", 100);
 
             var zboziList = _zboziData.Load();
             lvPiva.Items.Clear();
@@ -100,7 +101,7 @@ namespace App
 
             try
             {
-                ZboziDialog zboziDialog = new ZboziDialog(_zboziData, zbozi,true);
+                ZboziDialog zboziDialog = new ZboziDialog(_zboziData, zbozi, true);
                 if (zboziDialog.ShowDialog() == DialogResult.OK)
                 {
                     this.LoadZbozi();
@@ -115,10 +116,10 @@ namespace App
         }
         private void InsertZboziBtn_Click(object sender, EventArgs e)
         {
-            ZboziDialog zboziDialog = new ZboziDialog(_zboziData,null,false);
+            ZboziDialog zboziDialog = new ZboziDialog(_zboziData, null, false);
             DialogResult result = zboziDialog.ShowDialog();
 
-            if (result == DialogResult.OK || result==DialogResult.Cancel)
+            if (result == DialogResult.OK || result == DialogResult.Cancel)
             {
                 this.LoadZbozi();
             }
@@ -218,7 +219,7 @@ namespace App
 
         private void objZboziBtn_Click(object sender, EventArgs e)
         {
-                
+
         }
 
         private void FakturaBtn_Click(object sender, EventArgs e)
@@ -257,7 +258,7 @@ namespace App
 
         private void InsertSurovinaBtn_Click(object sender, EventArgs e)
         {
-            SurovinaDialog zboziDialog = new SurovinaDialog(_surovinaRepo, null,false);
+            SurovinaDialog zboziDialog = new SurovinaDialog(_surovinaRepo, null, false);
             DialogResult result = zboziDialog.ShowDialog();
 
             if (result == DialogResult.OK || result == DialogResult.Cancel)
@@ -290,7 +291,7 @@ namespace App
 
             try
             {
-                SurovinaDialog surovinaDialog = new SurovinaDialog(_surovinaRepo, surovina,true);
+                SurovinaDialog surovinaDialog = new SurovinaDialog(_surovinaRepo, surovina, true);
                 if (surovinaDialog.ShowDialog() == DialogResult.OK)
                 {
                     this.LoadSuroviny();
@@ -388,7 +389,7 @@ namespace App
                 jmeno: selectedItem.SubItems[0].Text,
                 telefon: double.Parse(selectedItem.SubItems[1].Text),
                 email: selectedItem.SubItems[2].Text,
-                adresa: _adresaRepo.ParseAdresa(selectedItem.SubItems[3].Text+", " + selectedItem.SubItems[3].Tag),
+                adresa: _adresaRepo.ParseAdresa(selectedItem.SubItems[3].Text + ", " + selectedItem.SubItems[3].Tag),
                 null
             );
 
@@ -440,6 +441,6 @@ namespace App
 
         #endregion
 
-
     }
 }
+
