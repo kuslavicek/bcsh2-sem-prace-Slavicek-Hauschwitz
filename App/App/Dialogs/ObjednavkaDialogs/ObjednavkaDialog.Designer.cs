@@ -156,10 +156,10 @@ namespace App.Dialogs
             // 
             // buttonAddZbozi
             // 
-            buttonAddZbozi.Location = new Point(481, 38);
+            buttonAddZbozi.Location = new Point(481, 29);
             buttonAddZbozi.Margin = new Padding(4, 3, 4, 3);
             buttonAddZbozi.Name = "buttonAddZbozi";
-            buttonAddZbozi.Size = new Size(303, 27);
+            buttonAddZbozi.Size = new Size(303, 36);
             buttonAddZbozi.TabIndex = 13;
             buttonAddZbozi.Text = "Přidat zboží";
             buttonAddZbozi.UseVisualStyleBackColor = true;
@@ -186,12 +186,13 @@ namespace App.Dialogs
             // 
             // buttonAddAkce
             // 
-            buttonAddAkce.Location = new Point(791, 40);
+            buttonAddAkce.Location = new Point(791, 29);
             buttonAddAkce.Name = "buttonAddAkce";
-            buttonAddAkce.Size = new Size(300, 23);
+            buttonAddAkce.Size = new Size(300, 34);
             buttonAddAkce.TabIndex = 15;
             buttonAddAkce.Text = "Přidat Akci";
             buttonAddAkce.UseVisualStyleBackColor = true;
+            buttonAddAkce.Click += buttonAddAkce_Click;
             // 
             // ObjednavkaDialog
             // 

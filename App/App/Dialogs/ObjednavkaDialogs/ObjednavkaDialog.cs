@@ -39,6 +39,7 @@ namespace App.Dialogs
             this.originalCount = this.ZboziSeznam.Count;
 
             if (this.IsEditMode) { this.fillData(); }
+            this.LoadStyles();
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -74,10 +75,11 @@ namespace App.Dialogs
 
         private void fillData()
         {
-            if (this.IsEditMode) {
-                this.textBoxCena.Text=this.Objednavka.Cena.ToString();
+            if (this.IsEditMode)
+            {
+                this.textBoxCena.Text = this.Objednavka.Cena.ToString();
                 this.dateTimePickerDatum.Value = this.Objednavka.DatumZalozeni;
-                this.textBoxZakaznik.Text=this.Zakaznik.Jmeno.ToString();
+                this.textBoxZakaznik.Text = this.Zakaznik.Jmeno.ToString();
                 this.listViewZbozi.Items.Clear();
                 LoadZboziListView();
                 LoadAkceListView();
@@ -185,6 +187,37 @@ namespace App.Dialogs
             catch (Exception ex)
             {
                 MessageBox.Show("Chyba při přidávání zboží: " + ex.Message);
+            }
+        }
+
+        private void AkceDialog_AkceAdded(Akce akce)
+        {
+            this.AkceSeznam.Add(akce);
+            this.LoadAkceListView();
+        }
+
+        private void LoadStyles()
+        {
+            GlobalStyles.ApplyButtonStyle(this.buttonAddAkce);
+            GlobalStyles.ApplyButtonStyle(this.buttonAddZbozi);
+        }
+
+        private void buttonAddAkce_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                AkceManipulationDialog akceDialog = new AkceManipulationDialog();
+
+                akceDialog.AkceAdded += AkceDialog_AkceAdded;
+
+                if (akceDialog.ShowDialog() == DialogResult.OK)
+                {
+                    akceDialog.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

@@ -11,7 +11,7 @@ namespace App.Dialogs.ObjednavkaDialogs
         public delegate void ZboziAddedEventHandler(List<ObjednaneZbozi> objednaneZbozi);
         public event ZboziAddedEventHandler ZboziAdded;
         private ZboziData _zboziRepo { get; set; }
-        private List<ObjednaneZbozi> _objednaneZbozi { get; set; }  // Seznam objednaného zboží
+        private List<ObjednaneZbozi> _objednaneZbozi { get; set; }
 
         public ZboziManipulationDialog()
         {
@@ -47,8 +47,6 @@ namespace App.Dialogs.ObjednavkaDialogs
             };
 
             _objednaneZbozi.Add(objednaneZbozi);
-
-            MessageBox.Show($"Zboží s ID {zboziId} a množstvím {mnozstvi} bylo přidáno do seznamu.", "Úspěch", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BtnSave_Click(object sender, EventArgs e)

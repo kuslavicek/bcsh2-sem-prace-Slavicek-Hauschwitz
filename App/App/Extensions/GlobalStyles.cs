@@ -17,9 +17,6 @@ public static class GlobalStyles
         {
             button.Size = new Size(370, 40);
         }
-        else {
-            button.Size = new Size(100, 40);
-        }
 
         button.MouseEnter += (sender, e) =>
         {

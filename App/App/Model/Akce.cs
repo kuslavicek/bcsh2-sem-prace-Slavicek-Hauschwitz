@@ -8,15 +8,15 @@ namespace App.Model
 {
     public class Akce
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int PocetOsob { get; set; }
         public DateTime Datum { get; set; }
         public int IdTypAkce { get; set; }
-        public int IdObjednavka { get; set; }
+        public int? IdObjednavka { get; set; }
 
         public Akce() { }
 
-        public Akce(int id, int pocetOsob, DateTime datum, int idTypAkce, int idObjednavka)
+        public Akce(int? id, int pocetOsob, DateTime datum, int idTypAkce, int? idObjednavka)
         {
             Id = id;
             PocetOsob = pocetOsob;
