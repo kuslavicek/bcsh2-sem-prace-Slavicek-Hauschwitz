@@ -10,9 +10,9 @@ namespace App.Utils
 {
     public static class InvoiceGenerator
     {
-        public static MemoryStream GenerateInvoice(string customerName, IEnumerable<dynamic> ZboziItems, IEnumerable<dynamic> AkceItems)
+        public static MemoryStream GenerateInvoice(string fileName,string customerName, IEnumerable<dynamic> ZboziItems, IEnumerable<dynamic> AkceItems)
         {
-            string invoiceNumber = GenerateInvoiceNumber();
+            string invoiceNumber = fileName;
 
             MemoryStream stream = new MemoryStream();
             Document document = new Document(PageSize.A4);
@@ -75,7 +75,7 @@ namespace App.Utils
             return stream;
         }
 
-        private static string GenerateInvoiceNumber()
+        public static string GenerateInvoiceNumber()
         {
             Random random = new Random();
             return $"INV-{DateTime.Now:yyyyMMdd}-{random.Next(1000, 9999)}";

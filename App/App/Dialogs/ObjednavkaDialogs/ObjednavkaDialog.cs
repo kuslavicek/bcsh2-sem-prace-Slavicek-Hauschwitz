@@ -76,12 +76,13 @@ namespace App.Dialogs
                     Quantity = akce.PocetOsob,
                     Price = 0.0
                 }).ToList();
-
-                MemoryStream fakturaStream = InvoiceGenerator.GenerateInvoice(customerName, zboziItems, akceItems);
-                file = new FileStream("faktura.pdf", FileMode.Create, FileAccess.ReadWrite);
+                string fileName = "faktura-"+InvoiceGenerator.GenerateInvoiceNumber()+".pdf";
+                MemoryStream fakturaStream = InvoiceGenerator.GenerateInvoice(fileName,customerName, zboziItems, akceItems);
+                file = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
                 fakturaStream.CopyTo(file);
                 file.Flush();
                 file.Position = 0;
+                this.textBoxFaktura.Text = fileName;
                 this.btnSaveFaktura.Enabled = true;
                 MessageBox.Show("Faktura byla úspěšně vygenerována.");
             } catch (Exception ex) {
