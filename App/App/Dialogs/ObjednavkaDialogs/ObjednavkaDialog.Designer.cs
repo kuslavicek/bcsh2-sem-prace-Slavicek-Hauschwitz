@@ -18,151 +18,207 @@ namespace App.Dialogs
 
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 800);
-            this.Text = "Objednavka Dialog";
-
-            // Label pro datum
-            this.labelDatum = new System.Windows.Forms.Label();
-            this.labelDatum.AutoSize = true;
-            this.labelDatum.Location = new System.Drawing.Point(20, 60);
-            this.labelDatum.Name = "labelDatum";
-            this.labelDatum.Size = new System.Drawing.Size(40, 13);
-            this.labelDatum.TabIndex = 2;
-            this.labelDatum.Text = "Datum:";
-
-            // DateTimePicker pro datum
-            this.dateTimePickerDatum = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePickerDatum.Location = new System.Drawing.Point(120, 60);
-            this.dateTimePickerDatum.Name = "dateTimePickerDatum";
-            this.dateTimePickerDatum.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePickerDatum.TabIndex = 3;
-
-            // Label pro cenu
-            this.labelCena = new System.Windows.Forms.Label();
-            this.labelCena.AutoSize = true;
-            this.labelCena.Location = new System.Drawing.Point(20, 100);
-            this.labelCena.Name = "labelCena";
-            this.labelCena.Size = new System.Drawing.Size(34, 13);
-            this.labelCena.TabIndex = 4;
-            this.labelCena.Text = "Cena:";
-
-            // TextBox pro cenu
-            this.textBoxCena = new System.Windows.Forms.TextBox();
-            this.textBoxCena.Location = new System.Drawing.Point(120, 100);
-            this.textBoxCena.Name = "textBoxCena";
-            this.textBoxCena.Size = new System.Drawing.Size(200, 20);
-            this.textBoxCena.TabIndex = 5;
-
-            // Label pro zákazníka
-            this.labelZakaznik = new System.Windows.Forms.Label();
-            this.labelZakaznik.AutoSize = true;
-            this.labelZakaznik.Location = new System.Drawing.Point(20, 140);
-            this.labelZakaznik.Name = "labelZakaznik";
-            this.labelZakaznik.Size = new System.Drawing.Size(56, 13);
-            this.labelZakaznik.TabIndex = 6;
-            this.labelZakaznik.Text = "Zákazník:";
-
-            // TextBox pro jméno zákazníka (disabled)
-            this.textBoxZakaznik = new System.Windows.Forms.TextBox();
-            this.textBoxZakaznik.Location = new System.Drawing.Point(120, 140);
-            this.textBoxZakaznik.Name = "textBoxZakaznik";
-            this.textBoxZakaznik.Size = new System.Drawing.Size(200, 20);
-            this.textBoxZakaznik.TabIndex = 7;
-            this.textBoxZakaznik.Enabled = false; // Disabled, aby uživatel nemohl editovat
-
-            // Tlačítko pro úpravu zákazníka
-            this.buttonEditZakaznik = new System.Windows.Forms.Button();
-            this.buttonEditZakaznik.Location = new System.Drawing.Point(330, 140);
-            this.buttonEditZakaznik.Name = "buttonEditZakaznik";
-            this.buttonEditZakaznik.Size = new System.Drawing.Size(75, 23);
-            this.buttonEditZakaznik.TabIndex = 8;
-            this.buttonEditZakaznik.Text = "Upravit";
-            this.buttonEditZakaznik.UseVisualStyleBackColor = true;
-            this.buttonEditZakaznik.Click += new System.EventHandler(this.buttonEditZakaznik_Click);
-
-            // Label pro fakturu
-            this.labelFaktura = new System.Windows.Forms.Label();
-            this.labelFaktura.AutoSize = true;
-            this.labelFaktura.Location = new System.Drawing.Point(20, 180);
-            this.labelFaktura.Name = "labelFaktura";
-            this.labelFaktura.Size = new System.Drawing.Size(46, 13);
-            this.labelFaktura.TabIndex = 9;
-            this.labelFaktura.Text = "Faktura:";
-
-            // TextBox pro název faktury (disabled)
-            this.textBoxFaktura = new System.Windows.Forms.TextBox();
-            this.textBoxFaktura.Location = new System.Drawing.Point(120, 180);
-            this.textBoxFaktura.Name = "textBoxFaktura";
-            this.textBoxFaktura.Size = new System.Drawing.Size(200, 20);
-            this.textBoxFaktura.TabIndex = 10;
-            this.textBoxFaktura.Enabled = false; // Disabled, aby uživatel nemohl editovat
-
-            // Tlačítko pro úpravu faktury
-            this.buttonEditFaktura = new System.Windows.Forms.Button();
-            this.buttonEditFaktura.Location = new System.Drawing.Point(330, 180);
-            this.buttonEditFaktura.Name = "buttonEditFaktura";
-            this.buttonEditFaktura.Size = new System.Drawing.Size(75, 23);
-            this.buttonEditFaktura.TabIndex = 11;
-            this.buttonEditFaktura.Text = "Upravit";
-            this.buttonEditFaktura.UseVisualStyleBackColor = true;
-            this.buttonEditFaktura.Click += new System.EventHandler(this.buttonEditFaktura_Click);
-
-            // Tlačítko pro uložení
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.buttonSave.Location = new System.Drawing.Point(120, 220);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
-            this.buttonSave.TabIndex = 12;
-            this.buttonSave.Text = "Uložit";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
-
-            // Tlačítko pro zrušení
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonCancel.Location = new System.Drawing.Point(200, 220);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 13;
-            this.buttonCancel.Text = "Zrušit";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // Tlačítko pro zrušení
-            this.buttonAddZbozi = new System.Windows.Forms.Button();
-            this.buttonAddZbozi.Location = new System.Drawing.Point(400, 30);
-            this.buttonAddZbozi.Name = "buttonAddZbozi";
-            this.buttonAddZbozi.Size = new System.Drawing.Size(75, 23);
-            this.buttonAddZbozi.TabIndex = 13;
-            this.buttonAddZbozi.Text = "Přidat zboží";
-            this.buttonAddZbozi.UseVisualStyleBackColor = true;
-            this.buttonAddZbozi.Click += new System.EventHandler(this.buttonAddZbozi_Click);
-
-            // ListView pro zobrazení zboží
-            this.listViewZbozi = new System.Windows.Forms.ListView();
-            this.listViewZbozi.Location = new System.Drawing.Point(400, 60);
-            this.listViewZbozi.Name = "listViewZbozi";
-            this.listViewZbozi.Size = new System.Drawing.Size(450, 300);
-            this.listViewZbozi.View = View.Details;
-            this.Controls.Add(this.listViewZbozi);
-
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(1000, 500);
-            this.Controls.Add(this.labelDatum);
-            this.Controls.Add(this.dateTimePickerDatum);
-            this.Controls.Add(this.labelCena);
-            this.Controls.Add(this.textBoxCena);
-            this.Controls.Add(this.labelZakaznik);
-            this.Controls.Add(this.textBoxZakaznik);
-            this.Controls.Add(this.buttonEditZakaznik);
-            this.Controls.Add(this.labelFaktura);
-            this.Controls.Add(this.textBoxFaktura);
-            this.Controls.Add(this.buttonEditFaktura);
-            this.Controls.Add(this.buttonSave);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.listViewZbozi);
-            this.Controls.Add(this.buttonAddZbozi);
-            this.Name = "ObjednavkaDialog";
+            labelDatum = new Label();
+            dateTimePickerDatum = new DateTimePicker();
+            labelCena = new Label();
+            textBoxCena = new TextBox();
+            labelZakaznik = new Label();
+            textBoxZakaznik = new TextBox();
+            buttonEditZakaznik = new Button();
+            labelFaktura = new Label();
+            textBoxFaktura = new TextBox();
+            buttonGenerateFaktura = new Button();
+            buttonSave = new Button();
+            buttonCancel = new Button();
+            buttonAddZbozi = new Button();
+            listViewZbozi = new ListView();
+            listViewAkce = new ListView();
+            buttonAddAkce = new Button();
+            SuspendLayout();
+            // 
+            // labelDatum
+            // 
+            labelDatum.AutoSize = true;
+            labelDatum.Location = new Point(23, 69);
+            labelDatum.Margin = new Padding(4, 0, 4, 0);
+            labelDatum.Name = "labelDatum";
+            labelDatum.Size = new Size(46, 15);
+            labelDatum.TabIndex = 2;
+            labelDatum.Text = "Datum:";
+            // 
+            // dateTimePickerDatum
+            // 
+            dateTimePickerDatum.Location = new Point(140, 69);
+            dateTimePickerDatum.Margin = new Padding(4, 3, 4, 3);
+            dateTimePickerDatum.Name = "dateTimePickerDatum";
+            dateTimePickerDatum.Size = new Size(233, 23);
+            dateTimePickerDatum.TabIndex = 3;
+            // 
+            // labelCena
+            // 
+            labelCena.AutoSize = true;
+            labelCena.Location = new Point(23, 115);
+            labelCena.Margin = new Padding(4, 0, 4, 0);
+            labelCena.Name = "labelCena";
+            labelCena.Size = new Size(37, 15);
+            labelCena.TabIndex = 4;
+            labelCena.Text = "Cena:";
+            // 
+            // textBoxCena
+            // 
+            textBoxCena.Location = new Point(140, 115);
+            textBoxCena.Margin = new Padding(4, 3, 4, 3);
+            textBoxCena.Name = "textBoxCena";
+            textBoxCena.Size = new Size(233, 23);
+            textBoxCena.TabIndex = 5;
+            // 
+            // labelZakaznik
+            // 
+            labelZakaznik.AutoSize = true;
+            labelZakaznik.Location = new Point(23, 162);
+            labelZakaznik.Margin = new Padding(4, 0, 4, 0);
+            labelZakaznik.Name = "labelZakaznik";
+            labelZakaznik.Size = new Size(56, 15);
+            labelZakaznik.TabIndex = 6;
+            labelZakaznik.Text = "Zákazník:";
+            // 
+            // textBoxZakaznik
+            // 
+            textBoxZakaznik.Enabled = false;
+            textBoxZakaznik.Location = new Point(140, 162);
+            textBoxZakaznik.Margin = new Padding(4, 3, 4, 3);
+            textBoxZakaznik.Name = "textBoxZakaznik";
+            textBoxZakaznik.Size = new Size(233, 23);
+            textBoxZakaznik.TabIndex = 7;
+            // 
+            // buttonEditZakaznik
+            // 
+            buttonEditZakaznik.Location = new Point(385, 162);
+            buttonEditZakaznik.Margin = new Padding(4, 3, 4, 3);
+            buttonEditZakaznik.Name = "buttonEditZakaznik";
+            buttonEditZakaznik.Size = new Size(88, 27);
+            buttonEditZakaznik.TabIndex = 8;
+            buttonEditZakaznik.Text = "Upravit";
+            buttonEditZakaznik.UseVisualStyleBackColor = true;
+            buttonEditZakaznik.Click += buttonEditZakaznik_Click;
+            // 
+            // labelFaktura
+            // 
+            labelFaktura.AutoSize = true;
+            labelFaktura.Location = new Point(23, 208);
+            labelFaktura.Margin = new Padding(4, 0, 4, 0);
+            labelFaktura.Name = "labelFaktura";
+            labelFaktura.Size = new Size(49, 15);
+            labelFaktura.TabIndex = 9;
+            labelFaktura.Text = "Faktura:";
+            // 
+            // textBoxFaktura
+            // 
+            textBoxFaktura.Enabled = false;
+            textBoxFaktura.Location = new Point(140, 208);
+            textBoxFaktura.Margin = new Padding(4, 3, 4, 3);
+            textBoxFaktura.Name = "textBoxFaktura";
+            textBoxFaktura.Size = new Size(233, 23);
+            textBoxFaktura.TabIndex = 10;
+            // 
+            // buttonGenerateFaktura
+            // 
+            buttonGenerateFaktura.Location = new Point(385, 205);
+            buttonGenerateFaktura.Margin = new Padding(4, 3, 4, 3);
+            buttonGenerateFaktura.Name = "buttonGenerateFaktura";
+            buttonGenerateFaktura.Size = new Size(88, 27);
+            buttonGenerateFaktura.TabIndex = 11;
+            buttonGenerateFaktura.Text = "Generovat";
+            buttonGenerateFaktura.UseVisualStyleBackColor = true;
+            buttonGenerateFaktura.Click += buttonEditFaktura_Click;
+            // 
+            // buttonSave
+            // 
+            buttonSave.Location = new Point(140, 254);
+            buttonSave.Margin = new Padding(4, 3, 4, 3);
+            buttonSave.Name = "buttonSave";
+            buttonSave.Size = new Size(88, 27);
+            buttonSave.TabIndex = 12;
+            buttonSave.Text = "Uložit";
+            buttonSave.UseVisualStyleBackColor = true;
+            buttonSave.Click += buttonSave_Click;
+            // 
+            // buttonCancel
+            // 
+            buttonCancel.Location = new Point(233, 254);
+            buttonCancel.Margin = new Padding(4, 3, 4, 3);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new Size(88, 27);
+            buttonCancel.TabIndex = 13;
+            buttonCancel.Text = "Zrušit";
+            buttonCancel.UseVisualStyleBackColor = true;
+            buttonCancel.Click += buttonCancel_Click;
+            // 
+            // buttonAddZbozi
+            // 
+            buttonAddZbozi.Location = new Point(481, 38);
+            buttonAddZbozi.Margin = new Padding(4, 3, 4, 3);
+            buttonAddZbozi.Name = "buttonAddZbozi";
+            buttonAddZbozi.Size = new Size(303, 27);
+            buttonAddZbozi.TabIndex = 13;
+            buttonAddZbozi.Text = "Přidat zboží";
+            buttonAddZbozi.UseVisualStyleBackColor = true;
+            buttonAddZbozi.Click += buttonAddZbozi_Click;
+            // 
+            // listViewZbozi
+            // 
+            listViewZbozi.Location = new Point(481, 69);
+            listViewZbozi.Margin = new Padding(4, 3, 4, 3);
+            listViewZbozi.Name = "listViewZbozi";
+            listViewZbozi.Size = new Size(300, 350);
+            listViewZbozi.TabIndex = 0;
+            listViewZbozi.UseCompatibleStateImageBehavior = false;
+            listViewZbozi.View = View.Details;
+            // 
+            // listViewAkce
+            // 
+            listViewAkce.Location = new Point(791, 69);
+            listViewAkce.Name = "listViewAkce";
+            listViewAkce.Size = new Size(300, 350);
+            listViewAkce.TabIndex = 14;
+            listViewAkce.UseCompatibleStateImageBehavior = false;
+            listViewAkce.View = View.Details;
+            // 
+            // buttonAddAkce
+            // 
+            buttonAddAkce.Location = new Point(791, 40);
+            buttonAddAkce.Name = "buttonAddAkce";
+            buttonAddAkce.Size = new Size(300, 23);
+            buttonAddAkce.TabIndex = 15;
+            buttonAddAkce.Text = "Přidat Akci";
+            buttonAddAkce.UseVisualStyleBackColor = true;
+            // 
+            // ObjednavkaDialog
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1167, 577);
+            Controls.Add(buttonAddAkce);
+            Controls.Add(listViewAkce);
+            Controls.Add(labelDatum);
+            Controls.Add(dateTimePickerDatum);
+            Controls.Add(labelCena);
+            Controls.Add(textBoxCena);
+            Controls.Add(labelZakaznik);
+            Controls.Add(textBoxZakaznik);
+            Controls.Add(buttonEditZakaznik);
+            Controls.Add(labelFaktura);
+            Controls.Add(textBoxFaktura);
+            Controls.Add(buttonGenerateFaktura);
+            Controls.Add(buttonSave);
+            Controls.Add(buttonCancel);
+            Controls.Add(listViewZbozi);
+            Controls.Add(buttonAddZbozi);
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "ObjednavkaDialog";
+            Text = "Objednavka Dialog";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -177,9 +233,13 @@ namespace App.Dialogs
         private System.Windows.Forms.Button buttonAddZbozi;
         private System.Windows.Forms.Label labelFaktura;
         private System.Windows.Forms.TextBox textBoxFaktura;
-        private System.Windows.Forms.Button buttonEditFaktura;
+        private System.Windows.Forms.Button buttonGenerateFaktura;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.ListView listViewZbozi;
+        private ListView listView1;
+        private Button button1;
+        private Button buttonAddAkce;
+        private ListView listViewAkce;
     }
 }

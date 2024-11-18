@@ -1,16 +1,10 @@
 ﻿using App.Dialogs.ObjednavkaDialogs;
 using App.Model;
 using App.Repositories;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
+using System.Reflection.Metadata;
 
 namespace App.Dialogs
 {
@@ -20,10 +14,12 @@ namespace App.Dialogs
         private ZakaznikRepo _zakaznikRepo;
         private ObjednaneZboziRepo _objednaneZboziRepo;
         private ZboziData _zboziRepo;
+        private AkceRepo _akceRepo;
         public bool IsEditMode { get; set; } = false;
         private Objednavka Objednavka { get; set; }
         private Zakaznik Zakaznik { get; set; }
         private List<KeyValuePair<ObjednaneZbozi, Zbozi>> ZboziSeznam { get; set; }
+        private List<Akce> AkceSeznam { get; set; }
         private int originalCount = 0;
 
         public ObjednavkaDialog(ObjednavkaRepo objednavkaRepo, Objednavka objednavka, bool edit)
@@ -34,10 +30,14 @@ namespace App.Dialogs
             this._zakaznikRepo = new ZakaznikRepo();
             this._objednaneZboziRepo = new ObjednaneZboziRepo();
             this._zboziRepo = new ZboziData();
+            this._akceRepo = new AkceRepo();
             this.Objednavka = objednavka;
+
             this.Zakaznik = _zakaznikRepo.GetZakaznikById(this.Objednavka.IdZakaznik);
             this.ZboziSeznam = _objednaneZboziRepo.GetObjednaneZboziByObjednavka(this.Objednavka.Id);
+            this.AkceSeznam = _akceRepo.GetAkceByIdObjednavka(this.Objednavka.Id);
             this.originalCount = this.ZboziSeznam.Count;
+
             if (this.IsEditMode) { this.fillData(); }
         }
 
@@ -80,6 +80,7 @@ namespace App.Dialogs
                 this.textBoxZakaznik.Text=this.Zakaznik.Jmeno.ToString();
                 this.listViewZbozi.Items.Clear();
                 LoadZboziListView();
+                LoadAkceListView();
             }
         }
 
@@ -109,6 +110,33 @@ namespace App.Dialogs
                 }
 
                 listViewZbozi.Items.Add(item);
+            }
+        }
+
+        private void LoadAkceListView()
+        {
+            listViewAkce.Columns.Clear();
+            listViewAkce.Columns.Add("Počet osob", 100);
+            listViewAkce.Columns.Add("Datum", 150);
+            listViewAkce.Columns.Add("Typ akce", 100);
+            listViewAkce.Columns.Add("Objednávka ID", 100);
+            listViewAkce.Items.Clear();
+
+
+            for (int i = 0; i < AkceSeznam.Count; i++)
+            {
+                var akce = AkceSeznam[i];
+                var item = new ListViewItem(new[]
+                {
+                    akce.PocetOsob.ToString(),
+                    akce.Datum.ToShortDateString(),
+                    akce.IdTypAkce.ToString(),
+                    akce.IdObjednavka.ToString(),
+                });
+
+                item.Tag = akce.Id;
+
+                listViewAkce.Items.Add(item);
             }
         }
 
