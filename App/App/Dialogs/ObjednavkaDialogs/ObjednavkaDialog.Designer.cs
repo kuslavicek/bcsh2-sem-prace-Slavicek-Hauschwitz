@@ -36,12 +36,17 @@ namespace App.Dialogs
             buttonAddAkce = new Button();
             btnDeleteZbozi = new Button();
             btnOdebratAkci = new Button();
+            panel1 = new Panel();
+            btnSaveFaktura = new Button();
+            labelakce = new Label();
+            labelZbozi = new Label();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // labelDatum
             // 
             labelDatum.AutoSize = true;
-            labelDatum.Location = new Point(23, 69);
+            labelDatum.Location = new Point(472, 35);
             labelDatum.Margin = new Padding(4, 0, 4, 0);
             labelDatum.Name = "labelDatum";
             labelDatum.Size = new Size(46, 15);
@@ -50,7 +55,7 @@ namespace App.Dialogs
             // 
             // dateTimePickerDatum
             // 
-            dateTimePickerDatum.Location = new Point(140, 69);
+            dateTimePickerDatum.Location = new Point(526, 33);
             dateTimePickerDatum.Margin = new Padding(4, 3, 4, 3);
             dateTimePickerDatum.Name = "dateTimePickerDatum";
             dateTimePickerDatum.Size = new Size(233, 23);
@@ -59,7 +64,7 @@ namespace App.Dialogs
             // labelCena
             // 
             labelCena.AutoSize = true;
-            labelCena.Location = new Point(23, 115);
+            labelCena.Location = new Point(791, 35);
             labelCena.Margin = new Padding(4, 0, 4, 0);
             labelCena.Name = "labelCena";
             labelCena.Size = new Size(37, 15);
@@ -68,7 +73,7 @@ namespace App.Dialogs
             // 
             // textBoxCena
             // 
-            textBoxCena.Location = new Point(140, 115);
+            textBoxCena.Location = new Point(836, 33);
             textBoxCena.Margin = new Padding(4, 3, 4, 3);
             textBoxCena.Name = "textBoxCena";
             textBoxCena.Size = new Size(233, 23);
@@ -77,7 +82,7 @@ namespace App.Dialogs
             // labelZakaznik
             // 
             labelZakaznik.AutoSize = true;
-            labelZakaznik.Location = new Point(23, 162);
+            labelZakaznik.Location = new Point(462, 65);
             labelZakaznik.Margin = new Padding(4, 0, 4, 0);
             labelZakaznik.Name = "labelZakaznik";
             labelZakaznik.Size = new Size(56, 15);
@@ -87,7 +92,7 @@ namespace App.Dialogs
             // textBoxZakaznik
             // 
             textBoxZakaznik.Enabled = false;
-            textBoxZakaznik.Location = new Point(140, 162);
+            textBoxZakaznik.Location = new Point(526, 62);
             textBoxZakaznik.Margin = new Padding(4, 3, 4, 3);
             textBoxZakaznik.Name = "textBoxZakaznik";
             textBoxZakaznik.Size = new Size(233, 23);
@@ -95,19 +100,19 @@ namespace App.Dialogs
             // 
             // buttonEditZakaznik
             // 
-            buttonEditZakaznik.Location = new Point(385, 162);
+            buttonEditZakaznik.Location = new Point(170, 9);
             buttonEditZakaznik.Margin = new Padding(4, 3, 4, 3);
             buttonEditZakaznik.Name = "buttonEditZakaznik";
-            buttonEditZakaznik.Size = new Size(88, 27);
+            buttonEditZakaznik.Size = new Size(152, 36);
             buttonEditZakaznik.TabIndex = 8;
-            buttonEditZakaznik.Text = "Upravit";
+            buttonEditZakaznik.Text = "Zákazník";
             buttonEditZakaznik.UseVisualStyleBackColor = true;
             buttonEditZakaznik.Click += buttonEditZakaznik_Click;
             // 
             // labelFaktura
             // 
             labelFaktura.AutoSize = true;
-            labelFaktura.Location = new Point(23, 208);
+            labelFaktura.Location = new Point(779, 65);
             labelFaktura.Margin = new Padding(4, 0, 4, 0);
             labelFaktura.Name = "labelFaktura";
             labelFaktura.Size = new Size(49, 15);
@@ -117,7 +122,7 @@ namespace App.Dialogs
             // textBoxFaktura
             // 
             textBoxFaktura.Enabled = false;
-            textBoxFaktura.Location = new Point(140, 208);
+            textBoxFaktura.Location = new Point(836, 65);
             textBoxFaktura.Margin = new Padding(4, 3, 4, 3);
             textBoxFaktura.Name = "textBoxFaktura";
             textBoxFaktura.Size = new Size(233, 23);
@@ -125,21 +130,21 @@ namespace App.Dialogs
             // 
             // buttonGenerateFaktura
             // 
-            buttonGenerateFaktura.Location = new Point(385, 205);
+            buttonGenerateFaktura.Location = new Point(9, 9);
             buttonGenerateFaktura.Margin = new Padding(4, 3, 4, 3);
             buttonGenerateFaktura.Name = "buttonGenerateFaktura";
-            buttonGenerateFaktura.Size = new Size(88, 27);
+            buttonGenerateFaktura.Size = new Size(153, 36);
             buttonGenerateFaktura.TabIndex = 11;
-            buttonGenerateFaktura.Text = "Generovat";
+            buttonGenerateFaktura.Text = "Generovat fakturu";
             buttonGenerateFaktura.UseVisualStyleBackColor = true;
             buttonGenerateFaktura.Click += buttonEditFaktura_Click;
             // 
             // buttonSave
             // 
-            buttonSave.Location = new Point(140, 254);
+            buttonSave.Location = new Point(9, 421);
             buttonSave.Margin = new Padding(4, 3, 4, 3);
             buttonSave.Name = "buttonSave";
-            buttonSave.Size = new Size(88, 27);
+            buttonSave.Size = new Size(153, 36);
             buttonSave.TabIndex = 12;
             buttonSave.Text = "Uložit";
             buttonSave.UseVisualStyleBackColor = true;
@@ -147,10 +152,10 @@ namespace App.Dialogs
             // 
             // buttonCancel
             // 
-            buttonCancel.Location = new Point(233, 254);
+            buttonCancel.Location = new Point(170, 421);
             buttonCancel.Margin = new Padding(4, 3, 4, 3);
             buttonCancel.Name = "buttonCancel";
-            buttonCancel.Size = new Size(88, 27);
+            buttonCancel.Size = new Size(152, 36);
             buttonCancel.TabIndex = 13;
             buttonCancel.Text = "Zrušit";
             buttonCancel.UseVisualStyleBackColor = true;
@@ -158,7 +163,7 @@ namespace App.Dialogs
             // 
             // buttonAddZbozi
             // 
-            buttonAddZbozi.Location = new Point(481, 29);
+            buttonAddZbozi.Location = new Point(9, 240);
             buttonAddZbozi.Margin = new Padding(4, 3, 4, 3);
             buttonAddZbozi.Name = "buttonAddZbozi";
             buttonAddZbozi.Size = new Size(153, 36);
@@ -170,10 +175,10 @@ namespace App.Dialogs
             // listViewZbozi
             // 
             listViewZbozi.FullRowSelect = true;
-            listViewZbozi.Location = new Point(481, 69);
+            listViewZbozi.Location = new Point(472, 135);
             listViewZbozi.Margin = new Padding(4, 3, 4, 3);
             listViewZbozi.Name = "listViewZbozi";
-            listViewZbozi.Size = new Size(300, 350);
+            listViewZbozi.Size = new Size(300, 372);
             listViewZbozi.TabIndex = 0;
             listViewZbozi.UseCompatibleStateImageBehavior = false;
             listViewZbozi.View = View.Details;
@@ -181,18 +186,18 @@ namespace App.Dialogs
             // listViewAkce
             // 
             listViewAkce.FullRowSelect = true;
-            listViewAkce.Location = new Point(791, 69);
+            listViewAkce.Location = new Point(779, 135);
             listViewAkce.Name = "listViewAkce";
-            listViewAkce.Size = new Size(300, 350);
+            listViewAkce.Size = new Size(300, 372);
             listViewAkce.TabIndex = 14;
             listViewAkce.UseCompatibleStateImageBehavior = false;
             listViewAkce.View = View.Details;
             // 
             // buttonAddAkce
             // 
-            buttonAddAkce.Location = new Point(791, 31);
+            buttonAddAkce.Location = new Point(9, 282);
             buttonAddAkce.Name = "buttonAddAkce";
-            buttonAddAkce.Size = new Size(140, 34);
+            buttonAddAkce.Size = new Size(153, 34);
             buttonAddAkce.TabIndex = 15;
             buttonAddAkce.Text = "Přidat Akci";
             buttonAddAkce.UseVisualStyleBackColor = true;
@@ -200,9 +205,9 @@ namespace App.Dialogs
             // 
             // btnDeleteZbozi
             // 
-            btnDeleteZbozi.Location = new Point(641, 29);
+            btnDeleteZbozi.Location = new Point(169, 240);
             btnDeleteZbozi.Name = "btnDeleteZbozi";
-            btnDeleteZbozi.Size = new Size(140, 36);
+            btnDeleteZbozi.Size = new Size(153, 36);
             btnDeleteZbozi.TabIndex = 16;
             btnDeleteZbozi.Text = "Odebrat zboží";
             btnDeleteZbozi.UseVisualStyleBackColor = true;
@@ -210,22 +215,69 @@ namespace App.Dialogs
             // 
             // btnOdebratAkci
             // 
-            btnOdebratAkci.Location = new Point(937, 31);
+            btnOdebratAkci.Location = new Point(169, 282);
             btnOdebratAkci.Name = "btnOdebratAkci";
-            btnOdebratAkci.Size = new Size(154, 34);
+            btnOdebratAkci.Size = new Size(153, 34);
             btnOdebratAkci.TabIndex = 17;
             btnOdebratAkci.Text = "Odebrat akci";
             btnOdebratAkci.UseVisualStyleBackColor = true;
             btnOdebratAkci.Click += btnOdebratAkci_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Silver;
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(btnSaveFaktura);
+            panel1.Controls.Add(btnDeleteZbozi);
+            panel1.Controls.Add(btnOdebratAkci);
+            panel1.Controls.Add(buttonAddZbozi);
+            panel1.Controls.Add(buttonCancel);
+            panel1.Controls.Add(buttonAddAkce);
+            panel1.Controls.Add(buttonSave);
+            panel1.Controls.Add(buttonGenerateFaktura);
+            panel1.Controls.Add(buttonEditZakaznik);
+            panel1.Location = new Point(12, 35);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(338, 472);
+            panel1.TabIndex = 18;
+            // 
+            // btnSaveFaktura
+            // 
+            btnSaveFaktura.Enabled = false;
+            btnSaveFaktura.Location = new Point(9, 51);
+            btnSaveFaktura.Name = "btnSaveFaktura";
+            btnSaveFaktura.Size = new Size(153, 35);
+            btnSaveFaktura.TabIndex = 18;
+            btnSaveFaktura.Text = "Stáhnout fakturu";
+            btnSaveFaktura.UseVisualStyleBackColor = true;
+            btnSaveFaktura.Click += btnSaveFaktura_Click;
+            // 
+            // labelakce
+            // 
+            labelakce.AutoSize = true;
+            labelakce.Location = new Point(779, 117);
+            labelakce.Name = "labelakce";
+            labelakce.Size = new Size(33, 15);
+            labelakce.TabIndex = 19;
+            labelakce.Text = "Akce";
+            // 
+            // labelZbozi
+            // 
+            labelZbozi.AutoSize = true;
+            labelZbozi.Location = new Point(472, 117);
+            labelZbozi.Name = "labelZbozi";
+            labelZbozi.Size = new Size(36, 15);
+            labelZbozi.TabIndex = 20;
+            labelZbozi.Text = "Zboží";
+            // 
             // ObjednavkaDialog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1167, 577);
-            Controls.Add(btnOdebratAkci);
-            Controls.Add(btnDeleteZbozi);
-            Controls.Add(buttonAddAkce);
+            ClientSize = new Size(1105, 577);
+            Controls.Add(labelZbozi);
+            Controls.Add(labelakce);
+            Controls.Add(panel1);
             Controls.Add(listViewAkce);
             Controls.Add(labelDatum);
             Controls.Add(dateTimePickerDatum);
@@ -233,17 +285,13 @@ namespace App.Dialogs
             Controls.Add(textBoxCena);
             Controls.Add(labelZakaznik);
             Controls.Add(textBoxZakaznik);
-            Controls.Add(buttonEditZakaznik);
             Controls.Add(labelFaktura);
             Controls.Add(textBoxFaktura);
-            Controls.Add(buttonGenerateFaktura);
-            Controls.Add(buttonSave);
-            Controls.Add(buttonCancel);
             Controls.Add(listViewZbozi);
-            Controls.Add(buttonAddZbozi);
             Margin = new Padding(4, 3, 4, 3);
             Name = "ObjednavkaDialog";
             Text = "Objednavka Dialog";
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -269,5 +317,9 @@ namespace App.Dialogs
         private Button buttonAddAkce;
         private ListView listViewAkce;
         private Button btnDeleteZbozi;
+        private Panel panel1;
+        private Label labelakce;
+        private Label labelZbozi;
+        private Button btnSaveFaktura;
     }
 }
