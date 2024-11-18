@@ -1,4 +1,5 @@
 ﻿using App.Model;
+using App.Model.Enums;
 using App.Repositories;
 using System;
 using System.Collections.Generic;
@@ -45,13 +46,17 @@ namespace App.Dialogs.ObjednavkaDialogs
 
         }
 
-        private void fill() {
+        private void fill()
+        {
             comboBox1.Items.Clear();
-            comboBox1.Items.Add("Konference");
-            comboBox1.Items.Add("Workshop");
-            comboBox1.Items.Add("Seminář");
 
-            if (comboBox1.Items.Count > 0) {
+            foreach (TypyAkce typ in Enum.GetValues(typeof(TypyAkce)))
+            {
+                comboBox1.Items.Add(typ.ToString());
+            }
+
+            if (comboBox1.Items.Count > 0)
+            {
                 comboBox1.SelectedIndex = 0;
             }
         }

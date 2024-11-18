@@ -1,4 +1,5 @@
 ﻿using App.Model;
+using App.Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,6 +66,18 @@ namespace App.Repositories
             }
 
             return akceList;
+        }
+
+        public string GetTypAkceById(int id)
+        {
+            if (Enum.IsDefined(typeof(TypyAkce), id))
+            {
+                return ((TypyAkce)id).ToString();
+            }
+            else
+            {
+                return "Neznámý typ akce";
+            }
         }
     }
 }

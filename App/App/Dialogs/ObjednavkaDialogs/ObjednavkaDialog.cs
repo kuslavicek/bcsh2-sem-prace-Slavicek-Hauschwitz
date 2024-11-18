@@ -1,5 +1,6 @@
 ﻿using App.Dialogs.ObjednavkaDialogs;
 using App.Model;
+using App.Model.Enums;
 using App.Repositories;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -123,7 +124,6 @@ namespace App.Dialogs
             listViewAkce.Columns.Add("Počet osob", 100);
             listViewAkce.Columns.Add("Datum", 150);
             listViewAkce.Columns.Add("Typ akce", 100);
-            listViewAkce.Columns.Add("Objednávka ID", 100);
             listViewAkce.Items.Clear();
 
 
@@ -134,8 +134,7 @@ namespace App.Dialogs
                 {
                     akce.PocetOsob.ToString(),
                     akce.Datum.ToShortDateString(),
-                    akce.IdTypAkce.ToString(),
-                    akce.IdObjednavka.ToString(),
+                    Enum.GetName(typeof(TypyAkce), akce.IdTypAkce)
                 });
 
                 item.Tag = akce.Id;
