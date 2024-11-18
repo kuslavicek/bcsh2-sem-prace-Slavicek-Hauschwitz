@@ -34,6 +34,8 @@ namespace App.Dialogs
             listViewZbozi = new ListView();
             listViewAkce = new ListView();
             buttonAddAkce = new Button();
+            btnDeleteZbozi = new Button();
+            btnOdebratAkci = new Button();
             SuspendLayout();
             // 
             // labelDatum
@@ -159,7 +161,7 @@ namespace App.Dialogs
             buttonAddZbozi.Location = new Point(481, 29);
             buttonAddZbozi.Margin = new Padding(4, 3, 4, 3);
             buttonAddZbozi.Name = "buttonAddZbozi";
-            buttonAddZbozi.Size = new Size(303, 36);
+            buttonAddZbozi.Size = new Size(153, 36);
             buttonAddZbozi.TabIndex = 13;
             buttonAddZbozi.Text = "Přidat zboží";
             buttonAddZbozi.UseVisualStyleBackColor = true;
@@ -167,6 +169,7 @@ namespace App.Dialogs
             // 
             // listViewZbozi
             // 
+            listViewZbozi.FullRowSelect = true;
             listViewZbozi.Location = new Point(481, 69);
             listViewZbozi.Margin = new Padding(4, 3, 4, 3);
             listViewZbozi.Name = "listViewZbozi";
@@ -177,6 +180,7 @@ namespace App.Dialogs
             // 
             // listViewAkce
             // 
+            listViewAkce.FullRowSelect = true;
             listViewAkce.Location = new Point(791, 69);
             listViewAkce.Name = "listViewAkce";
             listViewAkce.Size = new Size(300, 350);
@@ -186,19 +190,41 @@ namespace App.Dialogs
             // 
             // buttonAddAkce
             // 
-            buttonAddAkce.Location = new Point(791, 29);
+            buttonAddAkce.Location = new Point(791, 31);
             buttonAddAkce.Name = "buttonAddAkce";
-            buttonAddAkce.Size = new Size(300, 34);
+            buttonAddAkce.Size = new Size(140, 34);
             buttonAddAkce.TabIndex = 15;
             buttonAddAkce.Text = "Přidat Akci";
             buttonAddAkce.UseVisualStyleBackColor = true;
             buttonAddAkce.Click += buttonAddAkce_Click;
+            // 
+            // btnDeleteZbozi
+            // 
+            btnDeleteZbozi.Location = new Point(641, 29);
+            btnDeleteZbozi.Name = "btnDeleteZbozi";
+            btnDeleteZbozi.Size = new Size(140, 36);
+            btnDeleteZbozi.TabIndex = 16;
+            btnDeleteZbozi.Text = "Odebrat zboží";
+            btnDeleteZbozi.UseVisualStyleBackColor = true;
+            btnDeleteZbozi.Click += btnDeleteZbozi_Click;
+            // 
+            // btnOdebratAkci
+            // 
+            btnOdebratAkci.Location = new Point(937, 31);
+            btnOdebratAkci.Name = "btnOdebratAkci";
+            btnOdebratAkci.Size = new Size(154, 34);
+            btnOdebratAkci.TabIndex = 17;
+            btnOdebratAkci.Text = "Odebrat akci";
+            btnOdebratAkci.UseVisualStyleBackColor = true;
+            btnOdebratAkci.Click += btnOdebratAkci_Click;
             // 
             // ObjednavkaDialog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1167, 577);
+            Controls.Add(btnOdebratAkci);
+            Controls.Add(btnDeleteZbozi);
             Controls.Add(buttonAddAkce);
             Controls.Add(listViewAkce);
             Controls.Add(labelDatum);
@@ -239,8 +265,9 @@ namespace App.Dialogs
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.ListView listViewZbozi;
         private ListView listView1;
-        private Button button1;
+        private Button btnOdebratAkci;
         private Button buttonAddAkce;
         private ListView listViewAkce;
+        private Button btnDeleteZbozi;
     }
 }

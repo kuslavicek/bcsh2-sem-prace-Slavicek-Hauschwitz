@@ -20,7 +20,8 @@ namespace App.Dialogs
         private Zakaznik Zakaznik { get; set; }
         private List<KeyValuePair<ObjednaneZbozi, Zbozi>> ZboziSeznam { get; set; }
         private List<Akce> AkceSeznam { get; set; }
-        private int originalCount = 0;
+        private int originalCountZbozi = 0;
+        private int originalCountAkce = 0;
 
         public ObjednavkaDialog(ObjednavkaRepo objednavkaRepo, Objednavka objednavka, bool edit)
         {
@@ -36,7 +37,8 @@ namespace App.Dialogs
             this.Zakaznik = _zakaznikRepo.GetZakaznikById(this.Objednavka.IdZakaznik);
             this.ZboziSeznam = _objednaneZboziRepo.GetObjednaneZboziByObjednavka(this.Objednavka.Id);
             this.AkceSeznam = _akceRepo.GetAkceByIdObjednavka(this.Objednavka.Id);
-            this.originalCount = this.ZboziSeznam.Count;
+            this.originalCountZbozi = this.ZboziSeznam.Count;
+            this.originalCountAkce = this.AkceSeznam.Count;
 
             if (this.IsEditMode) { this.fillData(); }
             this.LoadStyles();
@@ -106,7 +108,7 @@ namespace App.Dialogs
 
                 item.Tag = pair.Key.Id;
 
-                if (i >= originalCount)
+                if (i >= originalCountZbozi)
                 {
                     item.ForeColor = Color.Red;
                 }
@@ -137,6 +139,11 @@ namespace App.Dialogs
                 });
 
                 item.Tag = akce.Id;
+
+                if (i >= originalCountAkce)
+                {
+                    item.ForeColor = Color.Red;
+                }
 
                 listViewAkce.Items.Add(item);
             }
@@ -219,6 +226,46 @@ namespace App.Dialogs
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void btnDeleteZbozi_Click(object sender, EventArgs e)
+        {
+            if (this.listViewZbozi.SelectedItems.Count > 0)
+            {
+                var selectedItem = this.listViewZbozi.SelectedItems[0];
+                int selectedIndex = selectedItem.Index;
+
+                if (selectedIndex >= 0 && selectedIndex < ZboziSeznam.Count)
+                {
+                    ZboziSeznam.RemoveAt(selectedIndex);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Není vybrané žádné zboží.");
+            }
+
+            LoadZboziListView();
+        }
+
+        private void btnOdebratAkci_Click(object sender, EventArgs e)
+        {
+            if (this.listViewAkce.SelectedItems.Count > 0)
+            {
+                var selectedItem = this.listViewAkce.SelectedItems[0];
+                int selectedIndex = selectedItem.Index;
+
+                if (selectedIndex >= 0 && selectedIndex < AkceSeznam.Count)
+                {
+                   AkceSeznam.RemoveAt(selectedIndex);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Není vybraná žádná akce.");
+            }
+
+            LoadAkceListView();
         }
     }
 }
