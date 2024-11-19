@@ -107,6 +107,8 @@ namespace App.Dialogs
                     textBoxStat.Text = this.zakaznik.Adresa.Stat;
                 }
             }
+            GlobalStyles.ApplyButtonStyle(this.cancelButton);
+            GlobalStyles.ApplyButtonStyle(this.saveButton);
         }
 
     }

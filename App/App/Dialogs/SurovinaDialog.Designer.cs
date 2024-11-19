@@ -32,64 +32,108 @@ namespace App.Dialogs
         /// </summary>
         private void InitializeComponent()
         {
-            _skladRepository = new SkladRepo();
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 300);
-            this.Text = "Nová Surovina";
-
-            // Název suroviny
-            this.labelNazev = new System.Windows.Forms.Label();
-            this.labelNazev.Text = "Název Suroviny:";
-            this.labelNazev.Location = new System.Drawing.Point(20, 20);
-            this.labelNazev.Size = new System.Drawing.Size(120, 20);
-
-            this.textBoxNazev = new System.Windows.Forms.TextBox();
-            this.textBoxNazev.Location = new System.Drawing.Point(140, 20);
-            this.textBoxNazev.Size = new System.Drawing.Size(200, 20);
-
-            // Množství suroviny
-            this.labelMnozstvi = new System.Windows.Forms.Label();
-            this.labelMnozstvi.Text = "Množství:";
-            this.labelMnozstvi.Location = new System.Drawing.Point(20, 60);
-            this.labelMnozstvi.Size = new System.Drawing.Size(120, 20);
-
-            this.textBoxMnozstvi = new System.Windows.Forms.TextBox();
-            this.textBoxMnozstvi.Location = new System.Drawing.Point(140, 60);
-            this.textBoxMnozstvi.Size = new System.Drawing.Size(200, 20);
-
-            // Název skladu
-            this.labelSklad = new System.Windows.Forms.Label();
-            this.labelSklad.Text = "Sklad:";
-            this.labelSklad.Location = new System.Drawing.Point(20, 100);
-            this.labelSklad.Size = new System.Drawing.Size(120, 20);
-
-            this.comboSklad = new System.Windows.Forms.ComboBox();
-            this.comboSklad.Location = new System.Drawing.Point(140, 100);
-            this.comboSklad.Name = "comboSklad";
-            this.comboSklad.Size = new System.Drawing.Size(200, 20);
-            this.LoadSkladData();
-
-            // Tlačítka
-            this.buttonOk = new System.Windows.Forms.Button();
-            this.buttonOk.Text = "Uložit";
-            this.buttonOk.Location = new System.Drawing.Point(140, 150);
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
-
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonCancel.Text = "Zrušit";
-            this.buttonCancel.Location = new System.Drawing.Point(240, 150);
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-
-            // Přidání všech ovládacích prvků do formuláře
-            this.Controls.Add(this.labelNazev);
-            this.Controls.Add(this.textBoxNazev);
-            this.Controls.Add(this.labelMnozstvi);
-            this.Controls.Add(this.textBoxMnozstvi);
-            this.Controls.Add(this.labelSklad);
-            this.Controls.Add(this.comboSklad);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.buttonCancel);
+            labelNazev = new Label();
+            textBoxNazev = new TextBox();
+            labelMnozstvi = new Label();
+            textBoxMnozstvi = new TextBox();
+            labelSklad = new Label();
+            comboSklad = new ComboBox();
+            buttonOk = new Button();
+            buttonCancel = new Button();
+            panel1 = new Panel();
+            panel1.SuspendLayout();
+            SuspendLayout();
+            // 
+            // labelNazev
+            // 
+            labelNazev.Location = new Point(39, 51);
+            labelNazev.Name = "labelNazev";
+            labelNazev.Size = new Size(120, 20);
+            labelNazev.TabIndex = 0;
+            labelNazev.Text = "Název Suroviny:";
+            // 
+            // textBoxNazev
+            // 
+            textBoxNazev.Location = new Point(159, 51);
+            textBoxNazev.Name = "textBoxNazev";
+            textBoxNazev.Size = new Size(200, 23);
+            textBoxNazev.TabIndex = 1;
+            // 
+            // labelMnozstvi
+            // 
+            labelMnozstvi.Location = new Point(39, 91);
+            labelMnozstvi.Name = "labelMnozstvi";
+            labelMnozstvi.Size = new Size(120, 20);
+            labelMnozstvi.TabIndex = 2;
+            labelMnozstvi.Text = "Množství:";
+            // 
+            // textBoxMnozstvi
+            // 
+            textBoxMnozstvi.Location = new Point(159, 91);
+            textBoxMnozstvi.Name = "textBoxMnozstvi";
+            textBoxMnozstvi.Size = new Size(200, 23);
+            textBoxMnozstvi.TabIndex = 3;
+            // 
+            // labelSklad
+            // 
+            labelSklad.Location = new Point(39, 131);
+            labelSklad.Name = "labelSklad";
+            labelSklad.Size = new Size(120, 20);
+            labelSklad.TabIndex = 4;
+            labelSklad.Text = "Sklad:";
+            // 
+            // comboSklad
+            // 
+            comboSklad.Location = new Point(159, 131);
+            comboSklad.Name = "comboSklad";
+            comboSklad.Size = new Size(200, 23);
+            comboSklad.TabIndex = 5;
+            // 
+            // buttonOk
+            // 
+            buttonOk.Location = new Point(12, 33);
+            buttonOk.Name = "buttonOk";
+            buttonOk.Size = new Size(152, 36);
+            buttonOk.TabIndex = 6;
+            buttonOk.Text = "Uložit";
+            buttonOk.Click += buttonOk_Click;
+            // 
+            // buttonCancel
+            // 
+            buttonCancel.Location = new Point(236, 33);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new Size(152, 36);
+            buttonCancel.TabIndex = 7;
+            buttonCancel.Text = "Zrušit";
+            buttonCancel.Click += buttonCancel_Click;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Silver;
+            panel1.Controls.Add(buttonOk);
+            panel1.Controls.Add(buttonCancel);
+            panel1.Location = new Point(0, 202);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(399, 100);
+            panel1.TabIndex = 8;
+            // 
+            // SurovinaDialog
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(400, 300);
+            Controls.Add(panel1);
+            Controls.Add(labelNazev);
+            Controls.Add(textBoxNazev);
+            Controls.Add(labelMnozstvi);
+            Controls.Add(textBoxMnozstvi);
+            Controls.Add(labelSklad);
+            Controls.Add(comboSklad);
+            Name = "SurovinaDialog";
+            Text = "Nová Surovina";
+            panel1.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -116,5 +160,6 @@ namespace App.Dialogs
         private System.Windows.Forms.ComboBox comboSklad;
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Button buttonCancel;
+        private Panel panel1;
     }
 }

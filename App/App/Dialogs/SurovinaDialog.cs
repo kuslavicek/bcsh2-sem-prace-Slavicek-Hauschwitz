@@ -70,6 +70,8 @@ namespace App.Dialogs
                 this.textBoxNazev.Text = surovina.Nazev;
                 this.comboSklad.SelectedItem = surovina.NazevSklad;
             }
+            GlobalStyles.ApplyButtonStyle(this.buttonCancel);
+            GlobalStyles.ApplyButtonStyle(this.buttonOk);
         }
     }
 }

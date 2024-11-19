@@ -66,6 +66,8 @@ namespace App.Dialogs
         private void fillData() {
             if (zbozi != null)
             {
+                GlobalStyles.ApplyButtonStyle(this.btnCancel);
+                GlobalStyles.ApplyButtonStyle(this.btnSave);
                 IsEditMode = true;
                 this.txtNazev.Text = zbozi.Nazev.ToString();
                 this.txtObsahAlkoholu.Text = zbozi.ObsahAlkoholu.ToString();

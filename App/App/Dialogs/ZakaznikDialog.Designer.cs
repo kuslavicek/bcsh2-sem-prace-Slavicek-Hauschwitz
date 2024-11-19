@@ -30,120 +30,215 @@ namespace App.Dialogs
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 500);
-            this.Text = "Zakazník";
-
-            // Label for Name
-            this.labelJmeno = new System.Windows.Forms.Label();
-            this.labelJmeno.Location = new System.Drawing.Point(20, 20);
-            this.labelJmeno.Text = "Jméno:";
-            this.Controls.Add(this.labelJmeno);
-
-            // TextBox for Name
-            this.textBoxJmeno = new System.Windows.Forms.TextBox();
-            this.textBoxJmeno.Location = new System.Drawing.Point(130, 20);
-            this.textBoxJmeno.Size = new System.Drawing.Size(250, 20);
-            this.Controls.Add(this.textBoxJmeno);
-
-            // Label for Phone
-            this.labelTelefon = new System.Windows.Forms.Label();
-            this.labelTelefon.Location = new System.Drawing.Point(20, 60);
-            this.labelTelefon.Text = "Telefon:";
-            this.Controls.Add(this.labelTelefon);
-
-            // TextBox for Phone
-            this.textBoxTelefon = new System.Windows.Forms.TextBox();
-            this.textBoxTelefon.Location = new System.Drawing.Point(130, 60);
-            this.textBoxTelefon.Size = new System.Drawing.Size(250, 20);
-            this.Controls.Add(this.textBoxTelefon);
-
-            // Label for Email
-            this.labelEmail = new System.Windows.Forms.Label();
-            this.labelEmail.Location = new System.Drawing.Point(20, 100);
-            this.labelEmail.Text = "Email:";
-            this.Controls.Add(this.labelEmail);
-
-            // TextBox for Email
-            this.textBoxEmail = new System.Windows.Forms.TextBox();
-            this.textBoxEmail.Location = new System.Drawing.Point(130, 100);
-            this.textBoxEmail.Size = new System.Drawing.Size(250, 20);
-            this.Controls.Add(this.textBoxEmail);
-
-            // Label for Address (Street)
-            this.labelUlice = new System.Windows.Forms.Label();
-            this.labelUlice.Location = new System.Drawing.Point(20, 140);
-            this.labelUlice.Text = "Ulice:";
-            this.Controls.Add(this.labelUlice);
-
-            // TextBox for Street
-            this.textBoxUlice = new System.Windows.Forms.TextBox();
-            this.textBoxUlice.Location = new System.Drawing.Point(130, 140);
-            this.textBoxUlice.Size = new System.Drawing.Size(250, 20);
-            this.Controls.Add(this.textBoxUlice);
-
-            // Label for House number
-            this.labelCisloPopisne = new System.Windows.Forms.Label();
-            this.labelCisloPopisne.Location = new System.Drawing.Point(20, 180);
-            this.labelCisloPopisne.Text = "Číslo popisné:";
-            this.Controls.Add(this.labelCisloPopisne);
-
-            // TextBox for House number
-            this.textBoxCisloPopisne = new System.Windows.Forms.TextBox();
-            this.textBoxCisloPopisne.Location = new System.Drawing.Point(130, 180);
-            this.textBoxCisloPopisne.Size = new System.Drawing.Size(250, 20);
-            this.Controls.Add(this.textBoxCisloPopisne);
-
-            // Label for City
-            this.labelMesto = new System.Windows.Forms.Label();
-            this.labelMesto.Location = new System.Drawing.Point(20, 220);
-            this.labelMesto.Text = "Město:";
-            this.Controls.Add(this.labelMesto);
-
-            // TextBox for City
-            this.textBoxMesto = new System.Windows.Forms.TextBox();
-            this.textBoxMesto.Location = new System.Drawing.Point(130, 220);
-            this.textBoxMesto.Size = new System.Drawing.Size(250, 20);
-            this.Controls.Add(this.textBoxMesto);
-
-            // Label for Country
-            this.labelStat = new System.Windows.Forms.Label();
-            this.labelStat.Location = new System.Drawing.Point(20, 260);
-            this.labelStat.Text = "Stát:";
-            this.Controls.Add(this.labelStat);
-
-            // TextBox for Country
-            this.textBoxStat = new System.Windows.Forms.TextBox();
-            this.textBoxStat.Location = new System.Drawing.Point(130, 260);
-            this.textBoxStat.Size = new System.Drawing.Size(250, 20);
-            this.Controls.Add(this.textBoxStat);
-
-            // Label for Postal code (optional)
-            this.labelPsc = new System.Windows.Forms.Label();
-            this.labelPsc.Location = new System.Drawing.Point(20, 300);
-            this.labelPsc.Text = "PSČ:";
-            this.Controls.Add(this.labelPsc);
-
-            // TextBox for Postal code
-            this.textBoxPsc = new System.Windows.Forms.TextBox();
-            this.textBoxPsc.Location = new System.Drawing.Point(130, 300);
-            this.textBoxPsc.Size = new System.Drawing.Size(250, 20);
-            this.Controls.Add(this.textBoxPsc);
-
-            // Save Button
-            this.saveButton = new System.Windows.Forms.Button();
-            this.saveButton.Location = new System.Drawing.Point(130, 340);
-            this.saveButton.Text = "Uložit";
-            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
-            this.Controls.Add(this.saveButton);
-
-            // Cancel Button
-            this.cancelButton = new System.Windows.Forms.Button();
-            this.cancelButton.Location = new System.Drawing.Point(230, 340);
-            this.cancelButton.Text = "Zrušit";
-            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
-            this.Controls.Add(this.cancelButton);
+            labelJmeno = new Label();
+            textBoxJmeno = new TextBox();
+            labelTelefon = new Label();
+            textBoxTelefon = new TextBox();
+            labelEmail = new Label();
+            textBoxEmail = new TextBox();
+            labelUlice = new Label();
+            textBoxUlice = new TextBox();
+            labelCisloPopisne = new Label();
+            textBoxCisloPopisne = new TextBox();
+            labelMesto = new Label();
+            textBoxMesto = new TextBox();
+            labelStat = new Label();
+            textBoxStat = new TextBox();
+            labelPsc = new Label();
+            textBoxPsc = new TextBox();
+            saveButton = new Button();
+            cancelButton = new Button();
+            panel1 = new Panel();
+            label1 = new Label();
+            panel1.SuspendLayout();
+            SuspendLayout();
+            // 
+            // labelJmeno
+            // 
+            labelJmeno.Location = new Point(62, 36);
+            labelJmeno.Name = "labelJmeno";
+            labelJmeno.Size = new Size(100, 23);
+            labelJmeno.TabIndex = 0;
+            labelJmeno.Text = "Jméno:";
+            // 
+            // textBoxJmeno
+            // 
+            textBoxJmeno.Location = new Point(172, 36);
+            textBoxJmeno.Name = "textBoxJmeno";
+            textBoxJmeno.Size = new Size(250, 23);
+            textBoxJmeno.TabIndex = 1;
+            // 
+            // labelTelefon
+            // 
+            labelTelefon.Location = new Point(62, 76);
+            labelTelefon.Name = "labelTelefon";
+            labelTelefon.Size = new Size(100, 23);
+            labelTelefon.TabIndex = 2;
+            labelTelefon.Text = "Telefon:";
+            // 
+            // textBoxTelefon
+            // 
+            textBoxTelefon.Location = new Point(172, 76);
+            textBoxTelefon.Name = "textBoxTelefon";
+            textBoxTelefon.Size = new Size(250, 23);
+            textBoxTelefon.TabIndex = 3;
+            // 
+            // labelEmail
+            // 
+            labelEmail.Location = new Point(62, 116);
+            labelEmail.Name = "labelEmail";
+            labelEmail.Size = new Size(100, 23);
+            labelEmail.TabIndex = 4;
+            labelEmail.Text = "Email:";
+            // 
+            // textBoxEmail
+            // 
+            textBoxEmail.Location = new Point(172, 116);
+            textBoxEmail.Name = "textBoxEmail";
+            textBoxEmail.Size = new Size(250, 23);
+            textBoxEmail.TabIndex = 5;
+            // 
+            // labelUlice
+            // 
+            labelUlice.Location = new Point(62, 200);
+            labelUlice.Name = "labelUlice";
+            labelUlice.Size = new Size(100, 23);
+            labelUlice.TabIndex = 6;
+            labelUlice.Text = "Ulice:";
+            // 
+            // textBoxUlice
+            // 
+            textBoxUlice.Location = new Point(172, 200);
+            textBoxUlice.Name = "textBoxUlice";
+            textBoxUlice.Size = new Size(250, 23);
+            textBoxUlice.TabIndex = 7;
+            // 
+            // labelCisloPopisne
+            // 
+            labelCisloPopisne.Location = new Point(62, 240);
+            labelCisloPopisne.Name = "labelCisloPopisne";
+            labelCisloPopisne.Size = new Size(100, 23);
+            labelCisloPopisne.TabIndex = 8;
+            labelCisloPopisne.Text = "Číslo popisné:";
+            // 
+            // textBoxCisloPopisne
+            // 
+            textBoxCisloPopisne.Location = new Point(172, 240);
+            textBoxCisloPopisne.Name = "textBoxCisloPopisne";
+            textBoxCisloPopisne.Size = new Size(250, 23);
+            textBoxCisloPopisne.TabIndex = 9;
+            // 
+            // labelMesto
+            // 
+            labelMesto.Location = new Point(62, 280);
+            labelMesto.Name = "labelMesto";
+            labelMesto.Size = new Size(100, 23);
+            labelMesto.TabIndex = 10;
+            labelMesto.Text = "Město:";
+            // 
+            // textBoxMesto
+            // 
+            textBoxMesto.Location = new Point(172, 280);
+            textBoxMesto.Name = "textBoxMesto";
+            textBoxMesto.Size = new Size(250, 23);
+            textBoxMesto.TabIndex = 11;
+            // 
+            // labelStat
+            // 
+            labelStat.Location = new Point(62, 320);
+            labelStat.Name = "labelStat";
+            labelStat.Size = new Size(100, 23);
+            labelStat.TabIndex = 12;
+            labelStat.Text = "Stát:";
+            // 
+            // textBoxStat
+            // 
+            textBoxStat.Location = new Point(172, 320);
+            textBoxStat.Name = "textBoxStat";
+            textBoxStat.Size = new Size(250, 23);
+            textBoxStat.TabIndex = 13;
+            // 
+            // labelPsc
+            // 
+            labelPsc.Location = new Point(62, 360);
+            labelPsc.Name = "labelPsc";
+            labelPsc.Size = new Size(100, 23);
+            labelPsc.TabIndex = 14;
+            labelPsc.Text = "PSČ:";
+            // 
+            // textBoxPsc
+            // 
+            textBoxPsc.Location = new Point(172, 360);
+            textBoxPsc.Name = "textBoxPsc";
+            textBoxPsc.Size = new Size(250, 23);
+            textBoxPsc.TabIndex = 15;
+            // 
+            // saveButton
+            // 
+            saveButton.Location = new Point(20, 32);
+            saveButton.Name = "saveButton";
+            saveButton.Size = new Size(152, 36);
+            saveButton.TabIndex = 16;
+            saveButton.Text = "Uložit";
+            saveButton.Click += SaveButton_Click;
+            // 
+            // cancelButton
+            // 
+            cancelButton.Location = new Point(325, 32);
+            cancelButton.Name = "cancelButton";
+            cancelButton.Size = new Size(152, 36);
+            cancelButton.TabIndex = 17;
+            cancelButton.Text = "Zrušit";
+            cancelButton.Click += CancelButton_Click;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Silver;
+            panel1.Controls.Add(saveButton);
+            panel1.Controls.Add(cancelButton);
+            panel1.Location = new Point(0, 401);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(500, 100);
+            panel1.TabIndex = 18;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 16F);
+            label1.Location = new Point(172, 155);
+            label1.Name = "label1";
+            label1.Size = new Size(80, 30);
+            label1.TabIndex = 19;
+            label1.Text = "Adresa";
+            // 
+            // ZakaznikDialog
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(500, 500);
+            Controls.Add(label1);
+            Controls.Add(panel1);
+            Controls.Add(labelJmeno);
+            Controls.Add(textBoxJmeno);
+            Controls.Add(labelTelefon);
+            Controls.Add(textBoxTelefon);
+            Controls.Add(labelEmail);
+            Controls.Add(textBoxEmail);
+            Controls.Add(labelUlice);
+            Controls.Add(textBoxUlice);
+            Controls.Add(labelCisloPopisne);
+            Controls.Add(textBoxCisloPopisne);
+            Controls.Add(labelMesto);
+            Controls.Add(textBoxMesto);
+            Controls.Add(labelStat);
+            Controls.Add(textBoxStat);
+            Controls.Add(labelPsc);
+            Controls.Add(textBoxPsc);
+            Name = "ZakaznikDialog";
+            Text = "Zakazník";
+            panel1.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -168,5 +263,7 @@ namespace App.Dialogs
 
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button cancelButton;
+        private Panel panel1;
+        private Label label1;
     }
 }

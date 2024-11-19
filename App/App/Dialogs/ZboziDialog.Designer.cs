@@ -46,118 +46,166 @@ namespace App.Dialogs
         /// </summary>
         private void InitializeComponent()
         {
-            _skladRepository = new SkladRepo();
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "ZboziDialog";
-
-            // Nazev label
-            Label lblNazev = new Label();
-            lblNazev.Text = "Název zboží:";
+            lblNazev = new Label();
+            txtNazev = new TextBox();
+            lblObsahAlkoholu = new Label();
+            txtObsahAlkoholu = new TextBox();
+            lblCena = new Label();
+            txtCena = new TextBox();
+            lblSklad = new Label();
+            comboSklad = new ComboBox();
+            lblTyp = new Label();
+            comboTyp = new ComboBox();
+            lblSpecificValue = new Label();
+            txtSpecificValue = new TextBox();
+            btnSave = new Button();
+            btnCancel = new Button();
+            panel1 = new Panel();
+            panel1.SuspendLayout();
+            SuspendLayout();
+            // 
+            // lblNazev
+            // 
             lblNazev.Location = new Point(50, 30);
+            lblNazev.Name = "lblNazev";
             lblNazev.Size = new Size(100, 23);
-            this.Controls.Add(lblNazev);
-
-            // TextBox pro název
-            this.txtNazev = new System.Windows.Forms.TextBox();
-            this.txtNazev.Location = new System.Drawing.Point(150, 30);
-            this.txtNazev.Name = "txtNazev";
-            this.txtNazev.Size = new System.Drawing.Size(200, 20);
-
-            // Obsah alkoholu label
-            Label lblObsahAlkoholu = new Label();
-            lblObsahAlkoholu.Text = "Obsah alkoholu:";
+            lblNazev.TabIndex = 0;
+            lblNazev.Text = "Název zboží:";
+            // 
+            // txtNazev
+            // 
+            txtNazev.Location = new Point(150, 30);
+            txtNazev.Name = "txtNazev";
+            txtNazev.Size = new Size(200, 23);
+            txtNazev.TabIndex = 6;
+            // 
+            // lblObsahAlkoholu
+            // 
             lblObsahAlkoholu.Location = new Point(50, 60);
+            lblObsahAlkoholu.Name = "lblObsahAlkoholu";
             lblObsahAlkoholu.Size = new Size(100, 23);
-            this.Controls.Add(lblObsahAlkoholu);
-
-            // TextBox pro obsah alkoholu
-            this.txtObsahAlkoholu = new System.Windows.Forms.TextBox();
-            this.txtObsahAlkoholu.Location = new System.Drawing.Point(150, 60);
-            this.txtObsahAlkoholu.Name = "txtObsahAlkoholu";
-            this.txtObsahAlkoholu.Size = new System.Drawing.Size(200, 20);
-
-            // Cena label
-            Label lblCena = new Label();
-            lblCena.Text = "Cena:";
+            lblObsahAlkoholu.TabIndex = 1;
+            lblObsahAlkoholu.Text = "Obsah alkoholu:";
+            // 
+            // txtObsahAlkoholu
+            // 
+            txtObsahAlkoholu.Location = new Point(150, 60);
+            txtObsahAlkoholu.Name = "txtObsahAlkoholu";
+            txtObsahAlkoholu.Size = new Size(200, 23);
+            txtObsahAlkoholu.TabIndex = 7;
+            // 
+            // lblCena
+            // 
             lblCena.Location = new Point(50, 90);
+            lblCena.Name = "lblCena";
             lblCena.Size = new Size(100, 23);
-            this.Controls.Add(lblCena);
-
-            // TextBox pro cenu
-            this.txtCena = new System.Windows.Forms.TextBox();
-            this.txtCena.Location = new System.Drawing.Point(150, 90);
-            this.txtCena.Name = "txtCena";
-            this.txtCena.Size = new System.Drawing.Size(200, 20);
-
-            // Sklad label
-            Label lblSklad = new Label();
-            lblSklad.Text = "Sklad:";
+            lblCena.TabIndex = 2;
+            lblCena.Text = "Cena:";
+            // 
+            // txtCena
+            // 
+            txtCena.Location = new Point(150, 90);
+            txtCena.Name = "txtCena";
+            txtCena.Size = new Size(200, 23);
+            txtCena.TabIndex = 8;
+            // 
+            // lblSklad
+            // 
             lblSklad.Location = new Point(50, 120);
+            lblSklad.Name = "lblSklad";
             lblSklad.Size = new Size(100, 23);
-            this.Controls.Add(lblSklad);
-
-            // ComboBox pro sklad
-            this.comboSklad = new System.Windows.Forms.ComboBox();
-            this.comboSklad.Location = new System.Drawing.Point(150, 120);
-            this.comboSklad.Name = "comboSklad";
-            this.comboSklad.Size = new System.Drawing.Size(200, 20);
-            this.LoadSkladData();
-
-            // Typ label
-            Label lblTyp = new Label();
-            lblTyp.Text = "Typ:";
+            lblSklad.TabIndex = 3;
+            lblSklad.Text = "Sklad:";
+            // 
+            // comboSklad
+            // 
+            comboSklad.Location = new Point(150, 120);
+            comboSklad.Name = "comboSklad";
+            comboSklad.Size = new Size(200, 23);
+            comboSklad.TabIndex = 9;
+            // 
+            // lblTyp
+            // 
             lblTyp.Location = new Point(50, 150);
+            lblTyp.Name = "lblTyp";
             lblTyp.Size = new Size(100, 23);
-            this.Controls.Add(lblTyp);
-
-            // ComboBox pro typ
-            this.comboTyp = new System.Windows.Forms.ComboBox();
-            this.comboTyp.Location = new System.Drawing.Point(150, 150);
-            this.comboTyp.Name = "comboTyp";
-            this.comboTyp.Items.AddRange(new object[] { "p", "c" });
-            this.comboTyp.SelectedIndex = 0;
-            this.comboTyp.Size = new System.Drawing.Size(200, 20);
-
-            // SpecificValue label
-            Label lblSpecificValue = new Label();
-            lblSpecificValue.Text = "Stupòovitost/odrùda:";
-            lblSpecificValue.Location = new Point(50,180);
+            lblTyp.TabIndex = 4;
+            lblTyp.Text = "Typ:";
+            // 
+            // comboTyp
+            // 
+            comboTyp.Items.AddRange(new object[] { "p", "c" });
+            comboTyp.Location = new Point(150, 150);
+            comboTyp.Name = "comboTyp";
+            comboTyp.Size = new Size(200, 23);
+            comboTyp.TabIndex = 10;
+            // 
+            // lblSpecificValue
+            // 
+            lblSpecificValue.Location = new Point(50, 180);
+            lblSpecificValue.Name = "lblSpecificValue";
             lblSpecificValue.Size = new Size(100, 23);
-            this.Controls.Add(lblSpecificValue);
-
-            // TextBox pro specifickou hodnotu (např. stupnovitost nebo odrůda jablek)
-            this.txtSpecificValue = new System.Windows.Forms.TextBox();
-            this.txtSpecificValue.Location = new System.Drawing.Point(150, 180);
-            this.txtSpecificValue.Name = "txtSpecificValue";
-            this.txtSpecificValue.Size = new System.Drawing.Size(200, 20);
-
-            // Tlačítko pro uložení
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnSave.Location = new System.Drawing.Point(150, 220);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.Text = "Uložit";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-
-            // Tlačítko pro zrušení
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnCancel.Location = new System.Drawing.Point(250, 220);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.Text = "Zrušit";
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-
-            // Přidání všech ovládacích prvků do okna
-            this.Controls.Add(this.txtNazev);
-            this.Controls.Add(this.txtObsahAlkoholu);
-            this.Controls.Add(this.txtCena);
-            this.Controls.Add(this.comboSklad);
-            this.Controls.Add(this.comboTyp);
-            this.Controls.Add(this.txtSpecificValue);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnCancel);
+            lblSpecificValue.TabIndex = 5;
+            lblSpecificValue.Text = "Stupòovitost/odrùda:";
+            // 
+            // txtSpecificValue
+            // 
+            txtSpecificValue.Location = new Point(150, 180);
+            txtSpecificValue.Name = "txtSpecificValue";
+            txtSpecificValue.Size = new Size(200, 23);
+            txtSpecificValue.TabIndex = 11;
+            // 
+            // btnSave
+            // 
+            btnSave.Location = new Point(13, 20);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(152, 36);
+            btnSave.TabIndex = 12;
+            btnSave.Text = "Uložit";
+            btnSave.Click += btnSave_Click;
+            // 
+            // btnCancel
+            // 
+            btnCancel.Location = new Point(245, 20);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(152, 36);
+            btnCancel.TabIndex = 13;
+            btnCancel.Text = "Zrušit";
+            btnCancel.Click += btnCancel_Click;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Silver;
+            panel1.Controls.Add(btnSave);
+            panel1.Controls.Add(btnCancel);
+            panel1.Location = new Point(-1, 221);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(410, 74);
+            panel1.TabIndex = 14;
+            // 
+            // ZboziDialog
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(408, 293);
+            Controls.Add(panel1);
+            Controls.Add(lblNazev);
+            Controls.Add(lblObsahAlkoholu);
+            Controls.Add(lblCena);
+            Controls.Add(lblSklad);
+            Controls.Add(lblTyp);
+            Controls.Add(lblSpecificValue);
+            Controls.Add(txtNazev);
+            Controls.Add(txtObsahAlkoholu);
+            Controls.Add(txtCena);
+            Controls.Add(comboSklad);
+            Controls.Add(comboTyp);
+            Controls.Add(txtSpecificValue);
+            Name = "ZboziDialog";
+            Text = "ZboziDialog";
+            panel1.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private void LoadSkladData()
@@ -175,5 +223,13 @@ namespace App.Dialogs
         }
 
         #endregion
+
+        private Label lblNazev;
+        private Label lblObsahAlkoholu;
+        private Label lblCena;
+        private Label lblSklad;
+        private Label lblTyp;
+        private Label lblSpecificValue;
+        private Panel panel1;
     }
 }
