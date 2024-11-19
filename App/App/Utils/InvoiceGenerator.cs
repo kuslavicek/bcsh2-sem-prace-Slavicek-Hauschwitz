@@ -41,9 +41,9 @@ namespace App.Utils
             {
                 table1.AddCell(item.Description);
                 table1.AddCell(item.Quantity.ToString());
-                table1.AddCell($"{item.Price:Kc}");
+                table1.AddCell($"{item.Price.ToString()} Kc");
                 double subtotal = item.Quantity * item.Price;
-                table1.AddCell($"{subtotal:Kc}");
+                table1.AddCell($"{subtotal.ToString()} Kc");
                 total += subtotal;
             }
 
@@ -66,7 +66,7 @@ namespace App.Utils
                 document.Add(table2);
             }
 
-            document.Add(new Paragraph($"\nCelkem k úhradě: {total:Kc}", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14)));
+            document.Add(new Paragraph($"\nCelkem k úhradě: {total.ToString()} Kc", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14)));
 
             document.Close();
 

@@ -18,6 +18,7 @@ namespace App.Dialogs
         private ObjednaneZboziRepo _objednaneZboziRepo;
         private ZboziData _zboziRepo;
         private AkceRepo _akceRepo;
+        private FakturaRepo _fakturaRepo;
         public bool IsEditMode { get; set; } = false;
         private Objednavka Objednavka { get; set; }
         private Zakaznik Zakaznik { get; set; }
@@ -37,6 +38,7 @@ namespace App.Dialogs
             this._objednaneZboziRepo = new ObjednaneZboziRepo();
             this._zboziRepo = new ZboziData();
             this._akceRepo = new AkceRepo();
+            this._fakturaRepo = new FakturaRepo();
             this.Objednavka = objednavka;
 
             this.Zakaznik = _zakaznikRepo.GetZakaznikById(this.Objednavka.IdZakaznik);
@@ -44,8 +46,10 @@ namespace App.Dialogs
             this.AkceSeznam = _akceRepo.GetAkceByIdObjednavka(this.Objednavka.Id);
             this.originalCountZbozi = this.ZboziSeznam.Count;
             this.originalCountAkce = this.AkceSeznam.Count;
-
-            if (this.IsEditMode) { this.fillData(); }
+            if (this.IsEditMode) {
+                this.Faktura = this._fakturaRepo.GetFakturaByObjednavka(this.Objednavka.Id);
+                this.fillData();
+            }
             this.LoadStyles();
         }
 
@@ -77,23 +81,27 @@ namespace App.Dialogs
                     Quantity = akce.PocetOsob,
                     Price = 0.0
                 }).ToList();
-                string fileName = "faktura-"+InvoiceGenerator.GenerateInvoiceNumber()+".pdf";
-                MemoryStream fakturaStream = InvoiceGenerator.GenerateInvoice(fileName,customerName, zboziItems, akceItems);
-                file = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
-                byte[] fileBytes = new byte[file.Length];
-                file.Read(fileBytes, 0, (int)file.Length);
-                fakturaStream.CopyTo(file);
-                file.Flush();
-                file.Position = 0;
+
+                string fileName = "faktura-" + InvoiceGenerator.GenerateInvoiceNumber() + ".pdf";
+
+                MemoryStream fakturaStream = InvoiceGenerator.GenerateInvoice(fileName, customerName, zboziItems, akceItems);
+
+                using (FileStream file = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+                {
+                    fakturaStream.CopyTo(file);
+                }
+
+                byte[] fileBytes = File.ReadAllBytes(fileName);
+
                 this.textBoxFaktura.Text = fileName;
                 this.btnSaveFaktura.Enabled = true;
+
                 this.Faktura = new Faktura
                 {
-                    Id=this.Faktura!=null?this.Faktura.Id : null,
-                    FakturaBlob=fileBytes,
-                    NazevSouboru=fileName,
-                    DatumVlozeni=DateTime.Now
-
+                    Id = this.Faktura != null ? this.Faktura.Id : null,
+                    FakturaBlob = fileBytes,
+                    NazevSouboru = fileName,
+                    DatumVlozeni = DateTime.Now
                 };
                 MessageBox.Show("Faktura byla úspěšně vygenerována.");
             } catch (Exception ex) {
@@ -126,6 +134,7 @@ namespace App.Dialogs
                 this.textBoxZakaznik.Text = this.Zakaznik.Jmeno.ToString();
                 this.listViewZbozi.Items.Clear();
                 this.btnSaveFaktura.Enabled = true;
+                this.textBoxFaktura.Text = this.Faktura.NazevSouboru;
                 LoadZboziListView();
                 LoadAkceListView();
             }
@@ -315,37 +324,45 @@ namespace App.Dialogs
 
         private void btnSaveFaktura_Click(object sender, EventArgs e)
         {
-            try
+            if (this.Faktura != null && this.Faktura.FakturaBlob != null)
             {
-                file.Position = 0;
-                if (file == null || file.Length == 0 || file.CanRead == false)
+                byte[] fakturaBlob = this.Faktura.FakturaBlob;
+
+                if (fakturaBlob != null && fakturaBlob.Length > 0)
                 {
-                    MessageBox.Show("Faktura není připravena k uložení.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                file.Position = 0;
-
-                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-                {
-                    saveFileDialog.Filter = "PDF soubory (*.pdf)|*.pdf";
-                    saveFileDialog.Title = "Uložit fakturu";
-                    saveFileDialog.FileName = "Faktura.pdf";
-
-                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    using (SaveFileDialog saveFileDialog = new SaveFileDialog())
                     {
-                        using (FileStream saveStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write))
-                        {
-                            file.CopyTo(saveStream);
-                        }
+                        saveFileDialog.Filter = "PDF File|*.pdf|All files|*.*";
+                        saveFileDialog.Title = "Uložit fakturu jako";
 
-                        MessageBox.Show("Faktura byla úspěšně uložena.", "Hotovo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            string filePath = saveFileDialog.FileName;
+
+                            try
+                            {
+                                using (FileStream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                                {
+                                    fileStream.Write(fakturaBlob, 0, fakturaBlob.Length);
+                                }
+
+                                MessageBox.Show("Faktura byla úspěšně uložena.");
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Chyba při ukládání faktury: " + ex.Message);
+                            }
+                        }
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Faktura je prázdná.");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"Nastala chyba při ukládání faktury: {ex.Message}", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Faktura nebyla nalezena.");
             }
         }
     }
