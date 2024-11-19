@@ -1,8 +1,14 @@
 ﻿using App.Model;
+using Devart.Data.Oracle;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics.Metrics;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace App.Repositories
@@ -40,6 +46,63 @@ namespace App.Repositories
             }
 
             return objednavkaList;
+        }
+
+        public void Save(Objednavka objednavka, Faktura faktura, List<KeyValuePair<ObjednaneZbozi, Zbozi>> zbozi, List<Akce> akce)
+        {
+            var parameters = new Dictionary<string, object>();
+
+            if (objednavka.Id != null)
+            {
+                parameters.Add("p_id_objednavka", objednavka.Id);
+                parameters.Add("p_datum_zalozeni", objednavka.DatumZalozeni);
+                parameters.Add("p_cena", objednavka.Cena);
+                parameters.Add("p_id_zakaznik", objednavka.IdZakaznik);
+                parameters.Add("p_faktura_data", faktura.FakturaBlob);
+                parameters.Add("p_nazev_souboru", faktura.NazevSouboru);
+
+                parameters.Add("p_objednane_zbozi", ConvertZboziSeznamToJson(zbozi));
+
+                parameters.Add("p_akce", ConvertAkceSeznamToJson(akce));
+
+                _database.ExecuteProcedure("update_objednavka", parameters);
+            }
+            else
+            {
+                parameters.Add("p_datum_zalozeni", objednavka.DatumZalozeni);
+                parameters.Add("p_cena", objednavka.Cena);
+                parameters.Add("p_id_zakaznik", objednavka.IdZakaznik);
+                parameters.Add("p_faktura_data", faktura.FakturaBlob);
+                parameters.Add("p_nazev_souboru", faktura.NazevSouboru);
+
+                parameters.Add("p_objednane_zbozi", zbozi);
+
+                parameters.Add("p_akce", akce);
+
+                _database.ExecuteProcedure("insert_objednavka", parameters);
+            }
+        }
+
+        private string ConvertZboziSeznamToJson(List<KeyValuePair<ObjednaneZbozi, Zbozi>> zboziSeznam) {
+            var data = zboziSeznam.Select(zbozi => new {
+                id_zbozi = zbozi.Value.Id,
+                mnozstvi = zbozi.Key.Mnozstvi
+            }).ToList();
+
+            string jsonData = JsonConvert.SerializeObject(data);
+            return jsonData;
+        }
+
+        private string ConvertAkceSeznamToJson(List<Akce> akceSeznam)
+        {
+            var data = akceSeznam.Select(akce => new {
+                pocet_osob = akce.PocetOsob,
+                datum = akce.Datum,
+                id_typ_akce = akce.IdTypAkce
+            }).ToList();
+
+            string jsonData = JsonConvert.SerializeObject(data);
+            return jsonData;
         }
 
     }

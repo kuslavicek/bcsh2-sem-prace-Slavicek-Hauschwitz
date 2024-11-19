@@ -1,4 +1,5 @@
-﻿using Oracle.ManagedDataAccess.Client;
+﻿using Newtonsoft.Json;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -78,7 +79,19 @@ namespace App
                     {
                         var oracleParam = new OracleParameter(param.Key, param.Value ?? DBNull.Value);
 
-                        if (param.Value == null)
+                        // Kontrola, zda je hodnota typu JSON
+                        if (param.Value is string jsonString && IsJson(jsonString))
+                        {
+                            oracleParam.OracleDbType = OracleDbType.Clob;
+                            oracleParam.Value = jsonString;
+                        }
+                        // Kontrola pro binární data (např. PDF, obrázky)
+                        else if (param.Value is byte[] byteArray)
+                        {
+                            oracleParam.OracleDbType = OracleDbType.Blob;
+                            oracleParam.Value = byteArray;
+                        }
+                        else if (param.Value == null)
                         {
                             oracleParam.Direction = ParameterDirection.Output;
                             oracleParam.OracleDbType = OracleDbType.Int32;
@@ -86,6 +99,7 @@ namespace App
                         else
                         {
                             oracleParam.Direction = ParameterDirection.Input;
+                            oracleParam.OracleDbType = GetOracleDbType(param.Value);
                         }
 
                         command.Parameters.Add(oracleParam);
@@ -97,6 +111,7 @@ namespace App
                     connection.Open();
                     command.ExecuteNonQuery();
 
+                    // Zpracování výstupních parametrů
                     foreach (var param in command.Parameters)
                     {
                         var oracleParam = (OracleParameter)param;
@@ -115,6 +130,34 @@ namespace App
                     connection.Close();
                 }
             }
+        }
+
+        private bool IsJson(string str)
+        {
+            try
+            {
+                var obj = JsonConvert.DeserializeObject<object>(str);
+                return obj != null;
+            }
+            catch (JsonException)
+            {
+                return false;
+            }
+        }
+
+        private OracleDbType GetOracleDbType(object value)
+        {
+            if (value is string)
+                return OracleDbType.Varchar2;
+            if (value is int)
+                return OracleDbType.Int32;
+            if (value is long)
+                return OracleDbType.Int64;
+            if (value is DateTime)
+                return OracleDbType.Date;
+            if (value is decimal)
+                return OracleDbType.Decimal;
+            return OracleDbType.Varchar2;
         }
 
         public DataTable ConvertToDataTable(IEnumerable<Dictionary<string, object>> data)

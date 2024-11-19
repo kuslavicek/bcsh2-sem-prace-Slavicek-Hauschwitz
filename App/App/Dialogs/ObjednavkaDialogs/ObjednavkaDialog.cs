@@ -21,6 +21,7 @@ namespace App.Dialogs
         public bool IsEditMode { get; set; } = false;
         private Objednavka Objednavka { get; set; }
         private Zakaznik Zakaznik { get; set; }
+        private Faktura Faktura { get; set; }
         private List<KeyValuePair<ObjednaneZbozi, Zbozi>> ZboziSeznam { get; set; }
         private List<Akce> AkceSeznam { get; set; }
         FileStream file;
@@ -50,12 +51,12 @@ namespace App.Dialogs
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            this._objednavkaRepo.Save(Objednavka, Faktura, ZboziSeznam, AkceSeznam);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            this.Close();
         }
 
         private void buttonEditFaktura_Click(object sender, EventArgs e)
@@ -79,11 +80,21 @@ namespace App.Dialogs
                 string fileName = "faktura-"+InvoiceGenerator.GenerateInvoiceNumber()+".pdf";
                 MemoryStream fakturaStream = InvoiceGenerator.GenerateInvoice(fileName,customerName, zboziItems, akceItems);
                 file = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
+                byte[] fileBytes = new byte[file.Length];
+                file.Read(fileBytes, 0, (int)file.Length);
                 fakturaStream.CopyTo(file);
                 file.Flush();
                 file.Position = 0;
                 this.textBoxFaktura.Text = fileName;
                 this.btnSaveFaktura.Enabled = true;
+                this.Faktura = new Faktura
+                {
+                    Id=this.Faktura!=null?this.Faktura.Id : null,
+                    FakturaBlob=fileBytes,
+                    NazevSouboru=fileName,
+                    DatumVlozeni=DateTime.Now
+
+                };
                 MessageBox.Show("Faktura byla úspěšně vygenerována.");
             } catch (Exception ex) {
                 MessageBox.Show("Chyba"+ex.Message);
