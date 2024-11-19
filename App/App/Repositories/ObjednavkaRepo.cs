@@ -83,6 +83,11 @@ namespace App.Repositories
             }
         }
 
+        public void DeleteObjednavka(int id) {
+            var parameters = new Dictionary<string, object> { { "p_id", id } };
+            _database.ExecuteProcedure("delete_objednavka", parameters);
+        }
+
         private string ConvertZboziSeznamToJson(List<KeyValuePair<ObjednaneZbozi, Zbozi>> zboziSeznam) {
             var data = zboziSeznam.Select(zbozi => new {
                 id_zbozi = zbozi.Value.Id,

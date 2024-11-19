@@ -227,7 +227,16 @@ namespace App
 
         private void DeleteObjednavkaBtn_Click(object sender, EventArgs e)
         {
-
+            if (lvObjednavky.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
+            else { 
+                var selectedItem=lvObjednavky.SelectedItems[0];
+                _objednavkaRepo.DeleteObjednavka(Convert.ToInt32(selectedItem.Tag));
+            }
+            this.LoadObjednavky();
         }
 
         private void objZboziBtn_Click(object sender, EventArgs e)
