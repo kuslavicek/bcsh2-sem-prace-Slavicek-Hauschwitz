@@ -35,11 +35,13 @@
             // 
             // lvZakaznici
             // 
+            lvZakaznici.FullRowSelect = true;
             lvZakaznici.Location = new Point(12, 12);
             lvZakaznici.Name = "lvZakaznici";
             lvZakaznici.Size = new Size(776, 339);
             lvZakaznici.TabIndex = 0;
             lvZakaznici.UseCompatibleStateImageBehavior = false;
+            lvZakaznici.View = View.Details;
             // 
             // btnSelectZakaznik
             // 

@@ -39,12 +39,12 @@ namespace App.Dialogs
             this._zboziRepo = new ZboziData();
             this._akceRepo = new AkceRepo();
             this._fakturaRepo = new FakturaRepo();
-            this.Objednavka = objednavka;
+            this.Objednavka = objednavka!=null?objednavka:new Objednavka();
             this.originalCountZbozi = 0;
             this.originalCountAkce = 0;
             if (this.IsEditMode)
             {
-                this.Zakaznik = _zakaznikRepo.GetZakaznikById(this.Objednavka.IdZakaznik);
+                this.Zakaznik = _zakaznikRepo.GetZakaznikById((int)this.Objednavka.IdZakaznik);
                 this.ZboziSeznam = _objednaneZboziRepo.GetObjednaneZboziByObjednavka(this.Objednavka.Id);
                 this.AkceSeznam = _akceRepo.GetAkceByIdObjednavka(this.Objednavka.Id);
                 this.Faktura = this._fakturaRepo.GetFakturaByObjednavka(this.Objednavka.Id);
@@ -64,7 +64,9 @@ namespace App.Dialogs
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            this.UpdateOrderPrice();
+            var cena=this.UpdateOrderPrice();
+            this.Objednavka.Cena = cena;
+            this.Objednavka.IdZakaznik=this.Zakaznik.Id;
             this.Objednavka.DatumZalozeni = this.dateTimePickerDatum.Value;
             if (this.Faktura != null && this.Objednavka !=null && (this.ZboziSeznam.Count>0 || this.AkceSeznam.Count>0)) {
                 this._objednavkaRepo.Save(Objednavka, Faktura, ZboziSeznam, AkceSeznam);
@@ -72,14 +74,14 @@ namespace App.Dialogs
             this.Close();
         }
 
-        private void UpdateOrderPrice() {
+        private double UpdateOrderPrice() {
             double cena = 0;
             foreach (var zbozi in this.ZboziSeznam)
             {
                 cena += zbozi.Value.Cena * zbozi.Key.Mnozstvi;
             }
-            this.Objednavka.Cena = cena;
             this.textBoxCena.Text = cena.ToString();
+            return cena;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -156,7 +158,10 @@ namespace App.Dialogs
                     ZakaznikSelectDialog zakaznikDialog = new ZakaznikSelectDialog();
                     if (zakaznikDialog.ShowDialog() == DialogResult.OK)
                     {
+                        this.Zakaznik = zakaznikDialog.SelectedZakaznik;
+                        this.textBoxZakaznik.Text = this.Zakaznik.Jmeno;
                         zakaznikDialog.Close();
+                        this.buttonGenerateFaktura.Enabled = true;
                     }
                 }
                 catch (Exception ex)

@@ -52,7 +52,7 @@ namespace App.Repositories
         {
             var parameters = new Dictionary<string, object>();
 
-            if (objednavka.Id != null)
+            if (objednavka.Id != 0)
             {
                 parameters.Add("p_id_objednavka", objednavka.Id);
                 parameters.Add("p_datum_zalozeni", objednavka.DatumZalozeni);
@@ -75,9 +75,9 @@ namespace App.Repositories
                 parameters.Add("p_faktura_data", faktura.FakturaBlob);
                 parameters.Add("p_nazev_souboru", faktura.NazevSouboru);
 
-                parameters.Add("p_objednane_zbozi", zbozi);
+                parameters.Add("p_objednane_zbozi", ConvertZboziSeznamToJson(zbozi));
 
-                parameters.Add("p_akce", akce);
+                parameters.Add("p_akce", ConvertAkceSeznamToJson(akce));
 
                 _database.ExecuteProcedure("insert_objednavka", parameters);
             }

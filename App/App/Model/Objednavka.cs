@@ -11,9 +11,10 @@ namespace App.Model
         public int Id { get; set; }
         public DateTime DatumZalozeni { get; set; }
         public double Cena { get; set; }
-        public int IdZakaznik { get; set; }
+        public int? IdZakaznik { get; set; }
         public int? IdFaktura { get; set; }
-
+        public Objednavka() { 
+        }
         public Objednavka(int id, DateTime datumZalozeni, double cena, int idZakaznik, int? idFaktura = null)
         {
             Id = id;
