@@ -75,6 +75,11 @@ namespace App.Repositories
             return objednaneZboziList;
         }
 
+        public void DeleteObjednaneZbozi(int id) {
+            var parameters = new Dictionary<string, object> { { "p_id", id } };
+            _database.ExecuteProcedure("delete_objednane_zbozi", parameters);
+        }
+
 
     }
 }

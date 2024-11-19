@@ -73,6 +73,7 @@ namespace App.Dialogs
             // 
             // textBoxCena
             // 
+            textBoxCena.Enabled = false;
             textBoxCena.Location = new Point(836, 33);
             textBoxCena.Margin = new Padding(4, 3, 4, 3);
             textBoxCena.Name = "textBoxCena";

@@ -173,7 +173,20 @@ namespace App
 
         private void InsertObjednavkaBtn_Click(object sender, EventArgs e)
         {
+            try
+            {
+                ObjednavkaDialog objednavkaDialog = new ObjednavkaDialog(_objednavkaRepo, null, false);
+                if (objednavkaDialog.ShowDialog() == DialogResult.OK)
+                {
+                    this.LoadZbozi();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
+            LoadZbozi();
         }
 
         private void UpdateObjednavkaBtn_Click(object sender, EventArgs e)
@@ -201,7 +214,7 @@ namespace App
                 ObjednavkaDialog objednavkaDialog = new ObjednavkaDialog(_objednavkaRepo, objednavka, true);
                 if (objednavkaDialog.ShowDialog() == DialogResult.OK)
                 {
-                    this.LoadZbozi();
+                    this.LoadObjednavky();
                 }
             }
             catch (Exception ex)
@@ -209,7 +222,7 @@ namespace App
                 MessageBox.Show(ex.Message);
             }
 
-            LoadZbozi();
+            LoadObjednavky();
         }
 
         private void DeleteObjednavkaBtn_Click(object sender, EventArgs e)

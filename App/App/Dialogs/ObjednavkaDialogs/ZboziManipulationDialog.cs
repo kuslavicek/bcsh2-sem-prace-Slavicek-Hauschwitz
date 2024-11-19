@@ -47,6 +47,7 @@ namespace App.Dialogs.ObjednavkaDialogs
             };
 
             _objednaneZbozi.Add(objednaneZbozi);
+            MessageBox.Show("Zboží přidáno množství.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -89,7 +90,7 @@ namespace App.Dialogs.ObjednavkaDialogs
                     specificValue
                 });
 
-                item.Tag = zbozi.Id;  // ID zboží uložené do Tag
+                item.Tag = zbozi.Id;
                 this.listViewZbozi.Items.Add(item);
             }
         }

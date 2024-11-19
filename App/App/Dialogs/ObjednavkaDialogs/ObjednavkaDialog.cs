@@ -29,7 +29,7 @@ namespace App.Dialogs
         private int originalCountZbozi = 0;
         private int originalCountAkce = 0;
 
-        public ObjednavkaDialog(ObjednavkaRepo objednavkaRepo, Objednavka objednavka, bool edit)
+        public ObjednavkaDialog(ObjednavkaRepo objednavkaRepo, Objednavka? objednavka, bool edit)
         {
             InitializeComponent();
             this.IsEditMode = edit;
@@ -40,22 +40,46 @@ namespace App.Dialogs
             this._akceRepo = new AkceRepo();
             this._fakturaRepo = new FakturaRepo();
             this.Objednavka = objednavka;
-
-            this.Zakaznik = _zakaznikRepo.GetZakaznikById(this.Objednavka.IdZakaznik);
-            this.ZboziSeznam = _objednaneZboziRepo.GetObjednaneZboziByObjednavka(this.Objednavka.Id);
-            this.AkceSeznam = _akceRepo.GetAkceByIdObjednavka(this.Objednavka.Id);
-            this.originalCountZbozi = this.ZboziSeznam.Count;
-            this.originalCountAkce = this.AkceSeznam.Count;
-            if (this.IsEditMode) {
+            this.originalCountZbozi = 0;
+            this.originalCountAkce = 0;
+            if (this.IsEditMode)
+            {
+                this.Zakaznik = _zakaznikRepo.GetZakaznikById(this.Objednavka.IdZakaznik);
+                this.ZboziSeznam = _objednaneZboziRepo.GetObjednaneZboziByObjednavka(this.Objednavka.Id);
+                this.AkceSeznam = _akceRepo.GetAkceByIdObjednavka(this.Objednavka.Id);
                 this.Faktura = this._fakturaRepo.GetFakturaByObjednavka(this.Objednavka.Id);
+                this.originalCountZbozi = this.ZboziSeznam.Count;
+                this.originalCountAkce = this.ZboziSeznam.Count;
                 this.fillData();
+            }
+            else {
+                this.ZboziSeznam = new List<KeyValuePair<ObjednaneZbozi, Zbozi>>();
+                this.AkceSeznam = new List<Akce>();
+                this.btnSaveFaktura.Enabled = false;
+                this.buttonGenerateFaktura.Enabled = false;
+
             }
             this.LoadStyles();
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            this._objednavkaRepo.Save(Objednavka, Faktura, ZboziSeznam, AkceSeznam);
+            this.UpdateOrderPrice();
+            this.Objednavka.DatumZalozeni = this.dateTimePickerDatum.Value;
+            if (this.Faktura != null && this.Objednavka !=null && (this.ZboziSeznam.Count>0 || this.AkceSeznam.Count>0)) {
+                this._objednavkaRepo.Save(Objednavka, Faktura, ZboziSeznam, AkceSeznam);
+            }
+            this.Close();
+        }
+
+        private void UpdateOrderPrice() {
+            double cena = 0;
+            foreach (var zbozi in this.ZboziSeznam)
+            {
+                cena += zbozi.Value.Cena * zbozi.Key.Mnozstvi;
+            }
+            this.Objednavka.Cena = cena;
+            this.textBoxCena.Text = cena.ToString();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -111,17 +135,34 @@ namespace App.Dialogs
 
         private void buttonEditZakaznik_Click(object sender, EventArgs e)
         {
-            try
+            if (this.Zakaznik != null)
             {
-                ZakaznikDialog zakaznikDialog = new ZakaznikDialog(_zakaznikRepo, Zakaznik, true);
-                if (zakaznikDialog.ShowDialog() == DialogResult.OK)
+                try
                 {
-                    zakaznikDialog.Close();
+                    ZakaznikDialog zakaznikDialog = new ZakaznikDialog(_zakaznikRepo, Zakaznik, true);
+                    if (zakaznikDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        zakaznikDialog.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+            else {
+                try
+                {
+                    ZakaznikSelectDialog zakaznikDialog = new ZakaznikSelectDialog();
+                    if (zakaznikDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        zakaznikDialog.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -137,10 +178,6 @@ namespace App.Dialogs
                 this.textBoxFaktura.Text = this.Faktura.NazevSouboru;
                 LoadZboziListView();
                 LoadAkceListView();
-            }
-            else
-            {
-                this.btnSaveFaktura.Enabled = false;
             }
         }
 
@@ -226,15 +263,22 @@ namespace App.Dialogs
         {
             try
             {
-                List<KeyValuePair<ObjednaneZbozi, Zbozi>> mergedList = new List<KeyValuePair<ObjednaneZbozi, Zbozi>>();
-
                 foreach (var objednane in objednaneZbozi)
                 {
                     Zbozi zbozi = _zboziRepo.LoadById(objednane.IdZbozi);
 
                     if (zbozi != null)
                     {
-                        mergedList.Add(new KeyValuePair<ObjednaneZbozi, Zbozi>(objednane, zbozi));
+                        var existingItem = ZboziSeznam.FirstOrDefault(item => item.Value.Id == zbozi.Id);
+
+                        if (existingItem.Key != null)
+                        {
+                            existingItem.Key.Mnozstvi += objednane.Mnozstvi;
+                        }
+                        else
+                        {
+                            ZboziSeznam.Add(new KeyValuePair<ObjednaneZbozi, Zbozi>(objednane, zbozi));
+                        }
                     }
                     else
                     {
@@ -242,8 +286,8 @@ namespace App.Dialogs
                     }
                 }
 
-                ZboziSeznam.AddRange(mergedList);
                 this.LoadZboziListView();
+                this.UpdateOrderPrice();
             }
             catch (Exception ex)
             {
@@ -253,7 +297,17 @@ namespace App.Dialogs
 
         private void AkceDialog_AkceAdded(Akce akce)
         {
-            this.AkceSeznam.Add(akce);
+            var existingAkce = this.AkceSeznam.FirstOrDefault(a => a.Datum == akce.Datum);
+
+            if (existingAkce != null)
+            {
+                existingAkce.PocetOsob += akce.PocetOsob;
+            }
+            else
+            {
+                this.AkceSeznam.Add(akce);
+            }
+
             this.LoadAkceListView();
         }
 
@@ -292,6 +346,9 @@ namespace App.Dialogs
                 if (selectedIndex >= 0 && selectedIndex < ZboziSeznam.Count)
                 {
                     ZboziSeznam.RemoveAt(selectedIndex);
+                    _objednaneZboziRepo.DeleteObjednaneZbozi(Convert.ToInt32(selectedItem.Tag));
+                    this.LoadZboziListView();
+                    this.UpdateOrderPrice();
                 }
             }
             else
@@ -312,6 +369,8 @@ namespace App.Dialogs
                 if (selectedIndex >= 0 && selectedIndex < AkceSeznam.Count)
                 {
                     AkceSeznam.RemoveAt(selectedIndex);
+                    _akceRepo.DeleteAkce(Convert.ToInt32(selectedItem.Tag));
+                    this.LoadAkceListView();
                 }
             }
             else
