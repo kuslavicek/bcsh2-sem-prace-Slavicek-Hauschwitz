@@ -54,6 +54,29 @@ namespace App.Repositories
             return provozovny;
         }
 
+        public Provozovna GetProvoznaById(int? id)
+        {
+            if (id!=null) {
+                string query = "SELECT provozovna_id, nazev, pocet_zamestnancu FROM v_provozovna WHERE provozovna_id = :id";
+                var parameters = new Dictionary<string, object>
+                {
+                    { "id", id }
+                };
+                var data = _database.GetDataFromView(query, parameters);
+                Provozovna provozovna = new Provozovna();
+
+                foreach (var item in data)
+                {
+                    provozovna.Id = Convert.ToInt32(item["PROVOZOVNA_ID"]);
+                    provozovna.Nazev = item["NAZEV"].ToString();
+                    provozovna.PocetZamestnancu = Convert.ToInt32(item["POCET_ZAMESTNANCU"]);
+                }
+
+                return provozovna;
+            }
+            return null;
+        }
+
         public void UpdateProvozovna(Provozovna provozovna){
             var parameters = new Dictionary<string, object>();
             if (provozovna.Id!=null && provozovna.Adresa.Id!=null) {

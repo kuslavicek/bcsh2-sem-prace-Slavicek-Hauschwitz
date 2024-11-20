@@ -19,6 +19,7 @@ namespace App
         private ObjednavkaRepo _objednavkaRepo;
         private ProvozovnaRepo _provozovnaRepo;
         private PracovniPoziceRepo _poziceRepo;
+        private ZamestnanecRepo _zamestnanecRepo;
         public Form1()
         {
             InitializeComponent();
@@ -42,6 +43,9 @@ namespace App
 
             _poziceRepo = new PracovniPoziceRepo();
             LoadPozice();
+
+            _zamestnanecRepo = new ZamestnanecRepo();
+            LoadZamestnanec();
         }
         #region Zbozi
 
@@ -469,7 +473,56 @@ namespace App
         #endregion
 
         #region Zamìstnanec
+        private void LoadZamestnanec()
+        {
+            lvZamestnanci.Columns.Clear();
+            lvZamestnanci.View = View.Details;
+            lvZamestnanci.FullRowSelect = true;
+            lvZamestnanci.Columns.Add("Jméno", 150);
+            lvZamestnanci.Columns.Add("Pøijmení", 100);
+            lvZamestnanci.Columns.Add("E-mail", 150);
+            lvZamestnanci.Columns.Add("Telefonl", 150);
+            lvZamestnanci.Columns.Add("Provozovna", 150);
+            lvZamestnanci.Columns.Add("Pozice", 150);
+            lvZamestnanci.Columns.Add("Nadøízený", 150);
 
+            var empList = _zamestnanecRepo.Load();
+            lvZamestnanci.Items.Clear();
+
+            foreach (var emp in empList)
+            {
+                var nadrizeny = _zamestnanecRepo.GetNadrizeny(emp.IdNadrizeny);
+                var pozice = _poziceRepo.GetPoziceByID(emp.IdPracovniPozice);
+                var provozovna = _provozovnaRepo.GetProvoznaById(emp.IdProvozovna);
+                var item = new ListViewItem(new[]
+                {
+                    emp.Jmeno,
+                    emp.Prijmeni,
+                    emp.Email,
+                    emp.Telefon.ToString(),
+                    provozovna!=null?provozovna.Nazev:"",
+                    pozice!=null?pozice.Nazev:null,
+                    nadrizeny!=null?nadrizeny.Jmeno+" "+nadrizeny.Prijmeni:"",
+                });
+
+                item.Tag = emp.Id;
+                lvZamestnanci.Items.Add(item);
+            }
+        }
+        private void btnAddZamestnanec_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEditZamestnanec_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDeleteZamestnanec_Click(object sender, EventArgs e)
+        {
+
+        }
         #endregion
 
         #region Provozovna
@@ -569,6 +622,8 @@ namespace App
             LoadProvozovna();
         }
         #endregion
+
+        #region Pracovní pozice
         private void LoadPozice()
         {
             lvPozice.Columns.Clear();
@@ -612,10 +667,11 @@ namespace App
 
             var selectedItem = lvPozice.SelectedItems[0];
 
-            var pozice = new PracovniPozice {
-                Id= Convert.ToInt32(selectedItem.Tag),
-                Nazev= selectedItem.SubItems[0].Text,
-                Plat= double.Parse(selectedItem.SubItems[1].Text)
+            var pozice = new PracovniPozice
+            {
+                Id = Convert.ToInt32(selectedItem.Tag),
+                Nazev = selectedItem.SubItems[0].Text,
+                Plat = double.Parse(selectedItem.SubItems[1].Text)
             };
             try
             {
@@ -655,6 +711,8 @@ namespace App
 
             LoadPozice();
         }
+        #endregion
+
     }
 }
 

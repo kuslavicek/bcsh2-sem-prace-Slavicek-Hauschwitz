@@ -37,6 +37,29 @@ namespace App.Repositories
             return poziceList;
         }
 
+        public PracovniPozice GetPoziceByID(int? id)
+        {
+            if (id!=null) {
+                string query = "SELECT id, nazev, plat FROM v_pracovni_pozice WHERE id = :id";
+                var parameters = new Dictionary<string, object>
+            {
+                { "id", id }
+            };
+
+                var dataPozice = _database.GetDataFromView(query, parameters);
+                var pozice = new PracovniPozice();
+                foreach (var row in dataPozice)
+                {
+                    pozice.Id = Convert.ToInt32(row["ID"]);
+                    pozice.Nazev = row["NAZEV"].ToString();
+                    pozice.Plat = double.Parse(row["PLAT"].ToString());
+                }
+
+                return pozice;
+            }
+            return null;
+        }
+
         public void DeletePozice(int id) {
             var parameters = new Dictionary<string, object> { { "p_id", id } };
             _database.ExecuteProcedure("delete_pracovni_pozice", parameters);
