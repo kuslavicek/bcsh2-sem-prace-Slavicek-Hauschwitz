@@ -63,11 +63,18 @@
             lvZakaznici = new ListView();
             label3 = new Label();
             tabZaměstnanci = new TabPage();
+            panel5 = new Panel();
             label4 = new Label();
             lvZamestnanci = new ListView();
             tabNadrizeni = new TabPage();
             lvNadrizeni = new ListView();
-            panel5 = new Panel();
+            tabProvozovny = new TabPage();
+            lvProvozovny = new ListView();
+            labelProvozovny = new Label();
+            panel6 = new Panel();
+            btnAddProvozovna = new Button();
+            btnEditProvozovna = new Button();
+            btnDeleteProvozovna = new Button();
             tabControl1.SuspendLayout();
             tabZbozi.SuspendLayout();
             panel1.SuspendLayout();
@@ -80,6 +87,8 @@
             panel4.SuspendLayout();
             tabZaměstnanci.SuspendLayout();
             tabNadrizeni.SuspendLayout();
+            tabProvozovny.SuspendLayout();
+            panel6.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -91,6 +100,7 @@
             tabControl1.Controls.Add(tabZakaznici);
             tabControl1.Controls.Add(tabZaměstnanci);
             tabControl1.Controls.Add(tabNadrizeni);
+            tabControl1.Controls.Add(tabProvozovny);
             tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -456,6 +466,15 @@
             tabZaměstnanci.TabIndex = 5;
             tabZaměstnanci.Text = "Zaměstnanci";
             // 
+            // panel5
+            // 
+            panel5.BackColor = Color.Silver;
+            panel5.BorderStyle = BorderStyle.FixedSingle;
+            panel5.Location = new Point(902, 55);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(380, 607);
+            panel5.TabIndex = 2;
+            // 
             // label4
             // 
             label4.AutoSize = true;
@@ -493,14 +512,78 @@
             lvNadrizeni.TabIndex = 0;
             lvNadrizeni.UseCompatibleStateImageBehavior = false;
             // 
-            // panel5
+            // tabProvozovny
             // 
-            panel5.BackColor = Color.Silver;
-            panel5.BorderStyle = BorderStyle.FixedSingle;
-            panel5.Location = new Point(902, 55);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(380, 607);
-            panel5.TabIndex = 2;
+            tabProvozovny.Controls.Add(panel6);
+            tabProvozovny.Controls.Add(labelProvozovny);
+            tabProvozovny.Controls.Add(lvProvozovny);
+            tabProvozovny.Location = new Point(4, 24);
+            tabProvozovny.Name = "tabProvozovny";
+            tabProvozovny.Padding = new Padding(3);
+            tabProvozovny.Size = new Size(1288, 757);
+            tabProvozovny.TabIndex = 7;
+            tabProvozovny.Text = "Provozovny";
+            tabProvozovny.UseVisualStyleBackColor = true;
+            // 
+            // lvProvozovny
+            // 
+            lvProvozovny.Location = new Point(18, 55);
+            lvProvozovny.Name = "lvProvozovny";
+            lvProvozovny.Size = new Size(878, 607);
+            lvProvozovny.TabIndex = 0;
+            lvProvozovny.UseCompatibleStateImageBehavior = false;
+            // 
+            // labelProvozovny
+            // 
+            labelProvozovny.AutoSize = true;
+            labelProvozovny.Font = new Font("Segoe UI", 12F);
+            labelProvozovny.Location = new Point(18, 19);
+            labelProvozovny.Name = "labelProvozovny";
+            labelProvozovny.Size = new Size(92, 21);
+            labelProvozovny.TabIndex = 1;
+            labelProvozovny.Text = "Provozovny";
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.Silver;
+            panel6.BorderStyle = BorderStyle.FixedSingle;
+            panel6.Controls.Add(btnDeleteProvozovna);
+            panel6.Controls.Add(btnEditProvozovna);
+            panel6.Controls.Add(btnAddProvozovna);
+            panel6.Location = new Point(902, 55);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(380, 607);
+            panel6.TabIndex = 2;
+            // 
+            // btnAddProvozovna
+            // 
+            btnAddProvozovna.Location = new Point(5, 5);
+            btnAddProvozovna.Name = "btnAddProvozovna";
+            btnAddProvozovna.Size = new Size(197, 23);
+            btnAddProvozovna.TabIndex = 0;
+            btnAddProvozovna.Text = "Vložit provozovnu";
+            btnAddProvozovna.UseVisualStyleBackColor = true;
+            btnAddProvozovna.Click += btnAddProvozovna_Click;
+            // 
+            // btnEditProvozovna
+            // 
+            btnEditProvozovna.Location = new Point(5, 55);
+            btnEditProvozovna.Name = "btnEditProvozovna";
+            btnEditProvozovna.Size = new Size(197, 23);
+            btnEditProvozovna.TabIndex = 1;
+            btnEditProvozovna.Text = "Upravit provozovnu";
+            btnEditProvozovna.UseVisualStyleBackColor = true;
+            btnEditProvozovna.Click += btnEditProvozovna_Click;
+            // 
+            // btnDeleteProvozovna
+            // 
+            btnDeleteProvozovna.Location = new Point(5, 105);
+            btnDeleteProvozovna.Name = "btnDeleteProvozovna";
+            btnDeleteProvozovna.Size = new Size(197, 23);
+            btnDeleteProvozovna.TabIndex = 2;
+            btnDeleteProvozovna.Text = "Odstranit provozovnu";
+            btnDeleteProvozovna.UseVisualStyleBackColor = true;
+            btnDeleteProvozovna.Click += btnDeleteProvozovna_Click;
             // 
             // Form1
             // 
@@ -527,6 +610,9 @@
             tabZaměstnanci.ResumeLayout(false);
             tabZaměstnanci.PerformLayout();
             tabNadrizeni.ResumeLayout(false);
+            tabProvozovny.ResumeLayout(false);
+            tabProvozovny.PerformLayout();
+            panel6.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -587,11 +673,22 @@
             GlobalStyles.ApplyButtonStyle(this.DeleteZakaznikBtn, true);
             GlobalStyles.ApplyButtonStyle(this.UpdateZakaznikBtn, true);
             GlobalStyles.ApplyButtonStyle(this.InsertZakaznikBtn, true);
+
+            GlobalStyles.ApplyButtonStyle(this.btnAddProvozovna, true);
+            GlobalStyles.ApplyButtonStyle(this.btnDeleteProvozovna, true);
+            GlobalStyles.ApplyButtonStyle(this.btnEditProvozovna, true);
         }
 
         private Panel panel2;
         private Panel panel3;
         private Panel panel4;
         private Panel panel5;
+        private TabPage tabProvozovny;
+        private Panel panel6;
+        private Label labelProvozovny;
+        private ListView lvProvozovny;
+        private Button btnDeleteProvozovna;
+        private Button btnEditProvozovna;
+        private Button btnAddProvozovna;
     }
 }

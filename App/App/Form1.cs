@@ -17,6 +17,7 @@ namespace App
         private ZakaznikRepo _zakaznikRepo;
         private AdresaRepo _adresaRepo;
         private ObjednavkaRepo _objednavkaRepo;
+        private ProvozovnaRepo _provozovnaRepo;
         public Form1()
         {
             InitializeComponent();
@@ -34,6 +35,9 @@ namespace App
             _adresaRepo = new AdresaRepo();
             _objednavkaRepo = new ObjednavkaRepo();
             LoadObjednavky();
+
+            _provozovnaRepo = new ProvozovnaRepo();
+            LoadProvozovna();
         }
         #region Zbozi
 
@@ -232,8 +236,9 @@ namespace App
                 MessageBox.Show("Please select a row to update.");
                 return;
             }
-            else { 
-                var selectedItem=lvObjednavky.SelectedItems[0];
+            else
+            {
+                var selectedItem = lvObjednavky.SelectedItems[0];
                 _objednavkaRepo.DeleteObjednavka(Convert.ToInt32(selectedItem.Tag));
             }
             this.LoadObjednavky();
@@ -463,6 +468,49 @@ namespace App
 
         #endregion
 
+        #region Provozovna
+        private void LoadProvozovna()
+        {
+            lvProvozovny.Columns.Clear();
+            lvProvozovny.View = View.Details;
+            lvProvozovny.FullRowSelect = true;
+            lvProvozovny.Columns.Add("Název", 220);
+            lvProvozovny.Columns.Add("Poèet zamìstnancù", 150);
+            lvProvozovny.Columns.Add("Adresa", 300);
+
+            var provozovnaList = _provozovnaRepo.Load();
+            lvProvozovny.Items.Clear();
+
+            foreach (var provozovna in provozovnaList)
+            {
+                string adresa = $"{provozovna.Adresa.Mesto}, {provozovna.Adresa.Ulice}, {provozovna.Adresa.CisloPopisne}, {provozovna.Adresa.Psc}, {provozovna.Adresa.Stat}";
+                var item = new ListViewItem(new[]
+                {
+                    provozovna.Nazev,
+                    provozovna.PocetZamestnancu.ToString(),
+                    adresa
+                });
+
+                item.Tag = provozovna.Id;
+                item.SubItems[2].Tag = provozovna.Adresa.Id;
+                lvProvozovny.Items.Add(item);
+            }
+        }
+        private void btnAddProvozovna_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEditProvozovna_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDeleteProvozovna_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
     }
 }
 
