@@ -498,17 +498,71 @@ namespace App
         }
         private void btnAddProvozovna_Click(object sender, EventArgs e)
         {
+                    
+            ProvozovnaDialog provozovnaDialog = new ProvozovnaDialog(_provozovnaRepo, null, false);
+            DialogResult result = provozovnaDialog.ShowDialog();
 
+            if (result == DialogResult.OK || result == DialogResult.Cancel)
+            {
+                this.LoadProvozovna();
+            }
         }
 
         private void btnEditProvozovna_Click(object sender, EventArgs e)
         {
+            if (lvProvozovny.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
 
+            var selectedItem = lvProvozovny.SelectedItems[0];
+
+            var provozovna = new Provozovna(
+                Id: (int)selectedItem.Tag,
+                Nazev: selectedItem.SubItems[0].Text,
+                PocetOsob: Convert.ToInt32(selectedItem.SubItems[1].Text),
+                Adresa: _adresaRepo.ParseAdresa(selectedItem.SubItems[2].Text + ", " + selectedItem.SubItems[2].Tag),
+                idAdresa: null
+            );
+
+            try
+            {
+                ProvozovnaDialog provozovnaDialog = new ProvozovnaDialog(_provozovnaRepo, provozovna, true);
+                if (provozovnaDialog.ShowDialog() == DialogResult.OK)
+                {
+                    LoadProvozovna();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            LoadProvozovna();
         }
 
         private void btnDeleteProvozovna_Click(object sender, EventArgs e)
         {
+            if (lvProvozovny.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to delete.");
+                return;
+            }
 
+            var selectedItem = lvProvozovny.SelectedItems[0];
+            var provozovnaId = (int)selectedItem.Tag;
+
+            try
+            {
+                _provozovnaRepo.DeleteProvozovna(provozovnaId);
+                MessageBox.Show("Provozovna byla úspìšnì smazána.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadProvozovna();
         }
         #endregion
     }
