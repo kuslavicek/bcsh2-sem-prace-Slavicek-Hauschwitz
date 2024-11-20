@@ -18,6 +18,7 @@ namespace App
         private AdresaRepo _adresaRepo;
         private ObjednavkaRepo _objednavkaRepo;
         private ProvozovnaRepo _provozovnaRepo;
+        private PracovniPoziceRepo _poziceRepo;
         public Form1()
         {
             InitializeComponent();
@@ -38,6 +39,9 @@ namespace App
 
             _provozovnaRepo = new ProvozovnaRepo();
             LoadProvozovna();
+
+            _poziceRepo = new PracovniPoziceRepo();
+            LoadPozice();
         }
         #region Zbozi
 
@@ -498,7 +502,7 @@ namespace App
         }
         private void btnAddProvozovna_Click(object sender, EventArgs e)
         {
-                    
+
             ProvozovnaDialog provozovnaDialog = new ProvozovnaDialog(_provozovnaRepo, null, false);
             DialogResult result = provozovnaDialog.ShowDialog();
 
@@ -565,6 +569,92 @@ namespace App
             LoadProvozovna();
         }
         #endregion
+        private void LoadPozice()
+        {
+            lvPozice.Columns.Clear();
+            lvPozice.View = View.Details;
+            lvPozice.FullRowSelect = true;
+            lvPozice.Columns.Add("Název", 250);
+            lvPozice.Columns.Add("Plat", 250);
+
+            var poziceList = _poziceRepo.Load();
+            lvPozice.Items.Clear();
+
+            foreach (var pozice in poziceList)
+            {
+                lvPozice.Items.Add(pozice);
+            }
+        }
+        private void btnAddPozice_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                PracovniPoziceDialog poziceDialog = new PracovniPoziceDialog(_poziceRepo, null, false);
+                if (poziceDialog.ShowDialog() == DialogResult.OK)
+                {
+                    LoadPozice();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            LoadPozice();
+        }
+
+        private void btnEditPozice_Click(object sender, EventArgs e)
+        {
+            if (lvPozice.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
+
+            var selectedItem = lvPozice.SelectedItems[0];
+
+            var pozice = new PracovniPozice {
+                Id= Convert.ToInt32(selectedItem.Tag),
+                Nazev= selectedItem.SubItems[0].Text,
+                Plat= double.Parse(selectedItem.SubItems[1].Text)
+            };
+            try
+            {
+                PracovniPoziceDialog poziceDialog = new PracovniPoziceDialog(_poziceRepo, pozice, true);
+                if (poziceDialog.ShowDialog() == DialogResult.OK)
+                {
+                    LoadPozice();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            LoadPozice();
+        }
+
+        private void btnDeletePozice_Click(object sender, EventArgs e)
+        {
+            if (lvPozice.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to delete.");
+                return;
+            }
+
+            var selectedItem = lvPozice.SelectedItems[0];
+            var poziceId = Convert.ToInt32(selectedItem.Tag);
+
+            try
+            {
+                _poziceRepo.DeletePozice(poziceId);
+                MessageBox.Show("Pozice byla úspìšnì smazána.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadPozice();
+        }
     }
 }
 

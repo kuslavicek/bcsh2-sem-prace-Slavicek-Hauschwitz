@@ -69,12 +69,19 @@
             tabNadrizeni = new TabPage();
             lvNadrizeni = new ListView();
             tabProvozovny = new TabPage();
-            lvProvozovny = new ListView();
-            labelProvozovny = new Label();
             panel6 = new Panel();
-            btnAddProvozovna = new Button();
-            btnEditProvozovna = new Button();
             btnDeleteProvozovna = new Button();
+            btnEditProvozovna = new Button();
+            btnAddProvozovna = new Button();
+            labelProvozovny = new Label();
+            lvProvozovny = new ListView();
+            tabPozice = new TabPage();
+            lvPozice = new ListView();
+            label5 = new Label();
+            panel7 = new Panel();
+            btnAddPozice = new Button();
+            btnEditPozice = new Button();
+            btnDeletePozice = new Button();
             tabControl1.SuspendLayout();
             tabZbozi.SuspendLayout();
             panel1.SuspendLayout();
@@ -89,6 +96,8 @@
             tabNadrizeni.SuspendLayout();
             tabProvozovny.SuspendLayout();
             panel6.SuspendLayout();
+            tabPozice.SuspendLayout();
+            panel7.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -101,6 +110,7 @@
             tabControl1.Controls.Add(tabZaměstnanci);
             tabControl1.Controls.Add(tabNadrizeni);
             tabControl1.Controls.Add(tabProvozovny);
+            tabControl1.Controls.Add(tabPozice);
             tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -525,24 +535,6 @@
             tabProvozovny.Text = "Provozovny";
             tabProvozovny.UseVisualStyleBackColor = true;
             // 
-            // lvProvozovny
-            // 
-            lvProvozovny.Location = new Point(18, 55);
-            lvProvozovny.Name = "lvProvozovny";
-            lvProvozovny.Size = new Size(878, 607);
-            lvProvozovny.TabIndex = 0;
-            lvProvozovny.UseCompatibleStateImageBehavior = false;
-            // 
-            // labelProvozovny
-            // 
-            labelProvozovny.AutoSize = true;
-            labelProvozovny.Font = new Font("Segoe UI", 12F);
-            labelProvozovny.Location = new Point(18, 19);
-            labelProvozovny.Name = "labelProvozovny";
-            labelProvozovny.Size = new Size(92, 21);
-            labelProvozovny.TabIndex = 1;
-            labelProvozovny.Text = "Provozovny";
-            // 
             // panel6
             // 
             panel6.BackColor = Color.Silver;
@@ -555,15 +547,15 @@
             panel6.Size = new Size(380, 607);
             panel6.TabIndex = 2;
             // 
-            // btnAddProvozovna
+            // btnDeleteProvozovna
             // 
-            btnAddProvozovna.Location = new Point(5, 5);
-            btnAddProvozovna.Name = "btnAddProvozovna";
-            btnAddProvozovna.Size = new Size(197, 23);
-            btnAddProvozovna.TabIndex = 0;
-            btnAddProvozovna.Text = "Vložit provozovnu";
-            btnAddProvozovna.UseVisualStyleBackColor = true;
-            btnAddProvozovna.Click += btnAddProvozovna_Click;
+            btnDeleteProvozovna.Location = new Point(5, 105);
+            btnDeleteProvozovna.Name = "btnDeleteProvozovna";
+            btnDeleteProvozovna.Size = new Size(197, 23);
+            btnDeleteProvozovna.TabIndex = 2;
+            btnDeleteProvozovna.Text = "Odstranit provozovnu";
+            btnDeleteProvozovna.UseVisualStyleBackColor = true;
+            btnDeleteProvozovna.Click += btnDeleteProvozovna_Click;
             // 
             // btnEditProvozovna
             // 
@@ -575,15 +567,106 @@
             btnEditProvozovna.UseVisualStyleBackColor = true;
             btnEditProvozovna.Click += btnEditProvozovna_Click;
             // 
-            // btnDeleteProvozovna
+            // btnAddProvozovna
             // 
-            btnDeleteProvozovna.Location = new Point(5, 105);
-            btnDeleteProvozovna.Name = "btnDeleteProvozovna";
-            btnDeleteProvozovna.Size = new Size(197, 23);
-            btnDeleteProvozovna.TabIndex = 2;
-            btnDeleteProvozovna.Text = "Odstranit provozovnu";
-            btnDeleteProvozovna.UseVisualStyleBackColor = true;
-            btnDeleteProvozovna.Click += btnDeleteProvozovna_Click;
+            btnAddProvozovna.Location = new Point(5, 5);
+            btnAddProvozovna.Name = "btnAddProvozovna";
+            btnAddProvozovna.Size = new Size(197, 23);
+            btnAddProvozovna.TabIndex = 0;
+            btnAddProvozovna.Text = "Vložit provozovnu";
+            btnAddProvozovna.UseVisualStyleBackColor = true;
+            btnAddProvozovna.Click += btnAddProvozovna_Click;
+            // 
+            // labelProvozovny
+            // 
+            labelProvozovny.AutoSize = true;
+            labelProvozovny.Font = new Font("Segoe UI", 12F);
+            labelProvozovny.Location = new Point(18, 19);
+            labelProvozovny.Name = "labelProvozovny";
+            labelProvozovny.Size = new Size(92, 21);
+            labelProvozovny.TabIndex = 1;
+            labelProvozovny.Text = "Provozovny";
+            // 
+            // lvProvozovny
+            // 
+            lvProvozovny.Location = new Point(18, 55);
+            lvProvozovny.Name = "lvProvozovny";
+            lvProvozovny.Size = new Size(878, 607);
+            lvProvozovny.TabIndex = 0;
+            lvProvozovny.UseCompatibleStateImageBehavior = false;
+            // 
+            // tabPozice
+            // 
+            tabPozice.Controls.Add(panel7);
+            tabPozice.Controls.Add(label5);
+            tabPozice.Controls.Add(lvPozice);
+            tabPozice.Location = new Point(4, 24);
+            tabPozice.Name = "tabPozice";
+            tabPozice.Padding = new Padding(3);
+            tabPozice.Size = new Size(1288, 757);
+            tabPozice.TabIndex = 8;
+            tabPozice.Text = "Pracovní pozice";
+            tabPozice.UseVisualStyleBackColor = true;
+            // 
+            // lvPozice
+            // 
+            lvPozice.Location = new Point(18, 55);
+            lvPozice.Name = "lvPozice";
+            lvPozice.Size = new Size(878, 607);
+            lvPozice.TabIndex = 0;
+            lvPozice.UseCompatibleStateImageBehavior = false;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 12F);
+            label5.Location = new Point(18, 19);
+            label5.Name = "label5";
+            label5.Size = new Size(118, 21);
+            label5.TabIndex = 1;
+            label5.Text = "Pracovní pozice";
+            // 
+            // panel7
+            // 
+            panel7.BackColor = Color.Silver;
+            panel7.BorderStyle = BorderStyle.FixedSingle;
+            panel7.Controls.Add(btnDeletePozice);
+            panel7.Controls.Add(btnEditPozice);
+            panel7.Controls.Add(btnAddPozice);
+            panel7.Location = new Point(902, 55);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(380, 607);
+            panel7.TabIndex = 2;
+            // 
+            // btnAddPozice
+            // 
+            btnAddPozice.Location = new Point(5, 5);
+            btnAddPozice.Name = "btnAddPozice";
+            btnAddPozice.Size = new Size(212, 23);
+            btnAddPozice.TabIndex = 0;
+            btnAddPozice.Text = "Vložit pracovní pozici";
+            btnAddPozice.UseVisualStyleBackColor = true;
+            btnAddPozice.Click += btnAddPozice_Click;
+            // 
+            // btnEditPozice
+            // 
+            btnEditPozice.Location = new Point(5, 55);
+            btnEditPozice.Name = "btnEditPozice";
+            btnEditPozice.Size = new Size(212, 23);
+            btnEditPozice.TabIndex = 1;
+            btnEditPozice.Text = "Upravit pracovní pozici";
+            btnEditPozice.UseVisualStyleBackColor = true;
+            btnEditPozice.Click += btnEditPozice_Click;
+            // 
+            // btnDeletePozice
+            // 
+            btnDeletePozice.Location = new Point(5, 105);
+            btnDeletePozice.Name = "btnDeletePozice";
+            btnDeletePozice.Size = new Size(212, 23);
+            btnDeletePozice.TabIndex = 2;
+            btnDeletePozice.Text = "Odebrat pracovní pozici";
+            btnDeletePozice.UseVisualStyleBackColor = true;
+            btnDeletePozice.Click += btnDeletePozice_Click;
             // 
             // Form1
             // 
@@ -613,6 +696,9 @@
             tabProvozovny.ResumeLayout(false);
             tabProvozovny.PerformLayout();
             panel6.ResumeLayout(false);
+            tabPozice.ResumeLayout(false);
+            tabPozice.PerformLayout();
+            panel7.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -677,6 +763,10 @@
             GlobalStyles.ApplyButtonStyle(this.btnAddProvozovna, true);
             GlobalStyles.ApplyButtonStyle(this.btnDeleteProvozovna, true);
             GlobalStyles.ApplyButtonStyle(this.btnEditProvozovna, true);
+
+            GlobalStyles.ApplyButtonStyle(this.btnDeletePozice, true);
+            GlobalStyles.ApplyButtonStyle(this.btnAddPozice, true);
+            GlobalStyles.ApplyButtonStyle(this.btnEditPozice, true);
         }
 
         private Panel panel2;
@@ -690,5 +780,12 @@
         private Button btnDeleteProvozovna;
         private Button btnEditProvozovna;
         private Button btnAddProvozovna;
+        private TabPage tabPozice;
+        private Label label5;
+        private ListView lvPozice;
+        private Panel panel7;
+        private Button btnDeletePozice;
+        private Button btnEditPozice;
+        private Button btnAddPozice;
     }
 }
