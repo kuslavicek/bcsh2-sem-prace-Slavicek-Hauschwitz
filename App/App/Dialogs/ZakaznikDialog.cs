@@ -136,15 +136,17 @@ namespace App.Dialogs
             comboStat.DisplayMember = "Name";
             comboStat.ValueMember = "Code";
 
-            var selectedState = states.FirstOrDefault(s => s.Name == this.zakaznik.Adresa.Stat);
+            if (this.zakaznik!=null) {
+                var selectedState = states.FirstOrDefault(s => s.Name == this.zakaznik.Adresa.Stat);
 
-            if (selectedState != null)
-            {
-                comboStat.SelectedItem = selectedState;
-            }
-            else
-            {
-                comboStat.SelectedItem = null;
+                if (selectedState != null)
+                {
+                    comboStat.SelectedItem = selectedState;
+                }
+                else
+                {
+                    comboStat.SelectedItem = null;
+                }
             }
         }
 
