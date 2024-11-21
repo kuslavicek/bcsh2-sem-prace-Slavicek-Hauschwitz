@@ -28,6 +28,8 @@ namespace App.Dialogs
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (!InputValidator.IsNotEmpty(txtNazev, "Pole název není vyplněné.")) { return; }
+            if (!InputValidator.IsTextOnly(txtNazev, "Název nemůže obsahovat čísla.")) { return; }
             if (this.txtNazev.Text != "") {
                 this.Typ.Nazev = this.txtNazev.Text;
                 this._typAkceRepo.UpdateTypAkce(this.Typ);
