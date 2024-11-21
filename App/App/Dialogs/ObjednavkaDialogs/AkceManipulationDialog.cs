@@ -1,5 +1,4 @@
 ﻿using App.Model;
-using App.Model.Enums;
 using App.Repositories;
 using System;
 using System.Collections.Generic;
@@ -18,12 +17,14 @@ namespace App.Dialogs.ObjednavkaDialogs
         public delegate void AkceAddedEventHandler(Akce akce);
         public event AkceAddedEventHandler AkceAdded;
         private AkceRepo _akceRepo { get; set; }
+        private TypAkceRepo _typAkceRepo { get; set; }
         private List<Akce> _akce { get; set; }
         public AkceManipulationDialog()
         {
             InitializeComponent();
             this._akceRepo = new AkceRepo();
             this._akce = new List<Akce>();
+            this._typAkceRepo = new TypAkceRepo();
             this.fill();
         }
 
@@ -50,10 +51,11 @@ namespace App.Dialogs.ObjednavkaDialogs
         {
             comboBox1.Items.Clear();
 
-            foreach (TypyAkce typ in Enum.GetValues(typeof(TypyAkce)))
-            {
-                comboBox1.Items.Add(typ.ToString());
-            }
+            var provozovnyDict = this._typAkceRepo.LoadTypyAkceForSelect();
+
+            comboBox1.DataSource = new BindingSource(provozovnyDict, null);
+            comboBox1.DisplayMember = "Value";
+            comboBox1.ValueMember = "Key";
 
             if (comboBox1.Items.Count > 0)
             {

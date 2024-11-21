@@ -1,7 +1,6 @@
 ﻿using App.Dialogs.ObjednavkaDialogs;
 using App.Dialogs.ZamestnanciDialogs;
 using App.Model;
-using App.Model.Enums;
 using App.Repositories;
 using System;
 using System.Collections.Generic;

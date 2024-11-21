@@ -85,6 +85,13 @@
             btnAddPozice = new Button();
             label5 = new Label();
             lvPozice = new ListView();
+            tabTypyAkce = new TabPage();
+            panel8 = new Panel();
+            btnDeleteTypAkce = new Button();
+            btnEditTypAkce = new Button();
+            btnAddTyp = new Button();
+            label6 = new Label();
+            lvTypyAkce = new ListView();
             tabControl1.SuspendLayout();
             tabZbozi.SuspendLayout();
             panel1.SuspendLayout();
@@ -102,6 +109,8 @@
             panel6.SuspendLayout();
             tabPozice.SuspendLayout();
             panel7.SuspendLayout();
+            tabTypyAkce.SuspendLayout();
+            panel8.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -115,6 +124,7 @@
             tabControl1.Controls.Add(tabNadrizeni);
             tabControl1.Controls.Add(tabProvozovny);
             tabControl1.Controls.Add(tabPozice);
+            tabControl1.Controls.Add(tabTypyAkce);
             tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -705,6 +715,79 @@
             lvPozice.TabIndex = 0;
             lvPozice.UseCompatibleStateImageBehavior = false;
             // 
+            // tabTypyAkce
+            // 
+            tabTypyAkce.Controls.Add(panel8);
+            tabTypyAkce.Controls.Add(label6);
+            tabTypyAkce.Controls.Add(lvTypyAkce);
+            tabTypyAkce.Location = new Point(4, 24);
+            tabTypyAkce.Name = "tabTypyAkce";
+            tabTypyAkce.Padding = new Padding(3);
+            tabTypyAkce.Size = new Size(1288, 757);
+            tabTypyAkce.TabIndex = 9;
+            tabTypyAkce.Text = "Typy akce";
+            tabTypyAkce.UseVisualStyleBackColor = true;
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.Silver;
+            panel8.BorderStyle = BorderStyle.FixedSingle;
+            panel8.Controls.Add(btnDeleteTypAkce);
+            panel8.Controls.Add(btnEditTypAkce);
+            panel8.Controls.Add(btnAddTyp);
+            panel8.Location = new Point(902, 55);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(380, 607);
+            panel8.TabIndex = 2;
+            // 
+            // btnDeleteTypAkce
+            // 
+            btnDeleteTypAkce.Location = new Point(5, 105);
+            btnDeleteTypAkce.Name = "btnDeleteTypAkce";
+            btnDeleteTypAkce.Size = new Size(261, 23);
+            btnDeleteTypAkce.TabIndex = 2;
+            btnDeleteTypAkce.Text = "Odebrat typ akce";
+            btnDeleteTypAkce.UseVisualStyleBackColor = true;
+            btnDeleteTypAkce.Click += btnDeleteTypAkce_Click;
+            // 
+            // btnEditTypAkce
+            // 
+            btnEditTypAkce.Location = new Point(5, 55);
+            btnEditTypAkce.Name = "btnEditTypAkce";
+            btnEditTypAkce.Size = new Size(261, 23);
+            btnEditTypAkce.TabIndex = 1;
+            btnEditTypAkce.Text = "Upravit typ akce";
+            btnEditTypAkce.UseVisualStyleBackColor = true;
+            btnEditTypAkce.Click += btnEditTypAkce_Click;
+            // 
+            // btnAddTyp
+            // 
+            btnAddTyp.Location = new Point(5, 5);
+            btnAddTyp.Name = "btnAddTyp";
+            btnAddTyp.Size = new Size(261, 23);
+            btnAddTyp.TabIndex = 0;
+            btnAddTyp.Text = "Vložit typ akce";
+            btnAddTyp.UseVisualStyleBackColor = true;
+            btnAddTyp.Click += btnAddTyp_Click;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 12F);
+            label6.Location = new Point(18, 19);
+            label6.Name = "label6";
+            label6.Size = new Size(77, 21);
+            label6.TabIndex = 1;
+            label6.Text = "Typy akce";
+            // 
+            // lvTypyAkce
+            // 
+            lvTypyAkce.Location = new Point(18, 55);
+            lvTypyAkce.Name = "lvTypyAkce";
+            lvTypyAkce.Size = new Size(878, 607);
+            lvTypyAkce.TabIndex = 0;
+            lvTypyAkce.UseCompatibleStateImageBehavior = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -737,6 +820,9 @@
             tabPozice.ResumeLayout(false);
             tabPozice.PerformLayout();
             panel7.ResumeLayout(false);
+            tabTypyAkce.ResumeLayout(false);
+            tabTypyAkce.PerformLayout();
+            panel8.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -828,5 +914,12 @@
         private Button btnAddZamestnanec;
         private Button btnEditZamestnanec;
         private Button btnDeleteZamestnanec;
+        private TabPage tabTypyAkce;
+        private ListView lvTypyAkce;
+        private Panel panel8;
+        private Button btnDeleteTypAkce;
+        private Button btnEditTypAkce;
+        private Button btnAddTyp;
+        private Label label6;
     }
 }

@@ -20,6 +20,7 @@ namespace App
         private ProvozovnaRepo _provozovnaRepo;
         private PracovniPoziceRepo _poziceRepo;
         private ZamestnanecRepo _zamestnanecRepo;
+        private TypAkceRepo _typAkceRepo;
         public Form1()
         {
             InitializeComponent();
@@ -46,6 +47,9 @@ namespace App
 
             _zamestnanecRepo = new ZamestnanecRepo();
             LoadZamestnanec();
+
+            _typAkceRepo = new TypAkceRepo();
+            LoadTypyAkce();
         }
         #region Zbozi
 
@@ -514,7 +518,7 @@ namespace App
         }
         private void btnAddZamestnanec_Click(object sender, EventArgs e)
         {
-            ZamestnanecDialog empDialog = new ZamestnanecDialog(this._zamestnanecRepo, null,"", false);
+            ZamestnanecDialog empDialog = new ZamestnanecDialog(this._zamestnanecRepo, null, "", false);
             DialogResult result = empDialog.ShowDialog();
 
             if (result == DialogResult.OK || result == DialogResult.Cancel)
@@ -542,12 +546,12 @@ namespace App
                 Telefon = double.Parse(selectedItem.SubItems[3].Text),
                 IdProvozovna = Convert.ToInt32(selectedItem.SubItems[4].Tag),
                 IdPracovniPozice = Convert.ToInt32(selectedItem.SubItems[5].Tag),
-                IdNadrizeny = selectedItem.SubItems[6].Tag!=null?Convert.ToInt32(selectedItem.SubItems[6].Tag):null
+                IdNadrizeny = selectedItem.SubItems[6].Tag != null ? Convert.ToInt32(selectedItem.SubItems[6].Tag) : null
             };
 
             try
             {
-                ZamestnanecDialog empDialog = new ZamestnanecDialog(this._zamestnanecRepo,emp, selectedItem.SubItems[6].Text, true);
+                ZamestnanecDialog empDialog = new ZamestnanecDialog(this._zamestnanecRepo, emp, selectedItem.SubItems[6].Text, true);
                 if (empDialog.ShowDialog() == DialogResult.OK)
                 {
                     LoadZamestnanec();
@@ -762,6 +766,100 @@ namespace App
         }
         #endregion
 
+        #region Typy Akce
+        private void LoadTypyAkce()
+        {
+            lvTypyAkce.Columns.Clear();
+            lvTypyAkce.View = View.Details;
+            lvTypyAkce.FullRowSelect = true;
+            lvTypyAkce.Columns.Add("Název", 300);
+
+            var typyList = _typAkceRepo.LoadTypyAkceForSelect();
+            lvTypyAkce.Items.Clear();
+
+            foreach (var typ in typyList)
+            {
+                var item = new ListViewItem(new[]
+                {
+                    typ.Value,
+                });
+
+                item.Tag = typ.Key;
+                lvTypyAkce.Items.Add(item);
+            }
+        }
+
+        private void btnAddTyp_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                TypyAkceDialog typyDialog = new TypyAkceDialog(_typAkceRepo, null, false);
+                if (typyDialog.ShowDialog() == DialogResult.OK)
+                {
+                    LoadTypyAkce();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            LoadTypyAkce();
+        }
+
+        private void btnEditTypAkce_Click(object sender, EventArgs e)
+        {
+            if (lvTypyAkce.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
+
+            var selectedItem = lvTypyAkce.SelectedItems[0];
+
+            var typ = new TypAkce
+            {
+                Id = Convert.ToInt32(selectedItem.Tag),
+                Nazev = selectedItem.SubItems[0].Text,
+            };
+            try
+            {
+                TypyAkceDialog typDialog = new TypyAkceDialog(_typAkceRepo, typ, true);
+                if (typDialog.ShowDialog() == DialogResult.OK)
+                {
+                    LoadTypyAkce();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            LoadTypyAkce();
+        }
+
+        private void btnDeleteTypAkce_Click(object sender, EventArgs e)
+        {
+            if (lvTypyAkce.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to delete.");
+                return;
+            }
+
+            var selectedItem = lvTypyAkce.SelectedItems[0];
+            var typId = Convert.ToInt32(selectedItem.Tag);
+
+            try
+            {
+                _typAkceRepo.DeleteTypAkce(typId);
+                MessageBox.Show("Typ akce byl úspìšnì smazán.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadTypyAkce();
+        }
+        #endregion
     }
 }
 

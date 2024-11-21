@@ -1,13 +1,7 @@
 ﻿using App.Dialogs.ObjednavkaDialogs;
 using App.Model;
-using App.Model.Enums;
 using App.Repositories;
 using App.Utils;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using System.IO;
-using System.Linq;
-using System.Reflection.Metadata;
 
 namespace App.Dialogs
 {
@@ -19,6 +13,7 @@ namespace App.Dialogs
         private ZboziData _zboziRepo;
         private AkceRepo _akceRepo;
         private FakturaRepo _fakturaRepo;
+        private TypAkceRepo _typAkceRepo;
         public bool IsEditMode { get; set; } = false;
         private Objednavka Objednavka { get; set; }
         private Zakaznik Zakaznik { get; set; }
@@ -39,6 +34,7 @@ namespace App.Dialogs
             this._zboziRepo = new ZboziData();
             this._akceRepo = new AkceRepo();
             this._fakturaRepo = new FakturaRepo();
+            this._typAkceRepo = new TypAkceRepo();
             this.Objednavka = objednavka!=null?objednavka:new Objednavka();
             this.originalCountZbozi = 0;
             this.originalCountAkce = 0;
@@ -103,7 +99,7 @@ namespace App.Dialogs
 
                 var akceItems = AkceSeznam.Select(akce => new
                 {
-                    Description = _akceRepo.GetTypAkceById(akce.IdTypAkce) + " - " + akce.Datum.ToShortDateString(),
+                    Description = _typAkceRepo.GetTypAkceByAkce(akce.IdTypAkce).Nazev + " - " + akce.Datum.ToShortDateString(),
                     Quantity = akce.PocetOsob,
                     Price = 0.0
                 }).ToList();
@@ -231,7 +227,7 @@ namespace App.Dialogs
                 {
                     akce.PocetOsob.ToString(),
                     akce.Datum.ToShortDateString(),
-                    Enum.GetName(typeof(TypyAkce), akce.IdTypAkce)
+                    this._typAkceRepo.GetTypAkceByAkce(akce.IdTypAkce).Nazev
                 });
 
                 item.Tag = akce.Id;
