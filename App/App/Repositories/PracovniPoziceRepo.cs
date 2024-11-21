@@ -37,6 +37,25 @@ namespace App.Repositories
             return poziceList;
         }
 
+        public Dictionary<int, string> LoadPracovniPoziceForSelect()
+        {
+            string query = "SELECT id, nazev FROM v_pracovni_pozice";
+
+            var dataPozice = _database.GetDataFromView(query);
+
+            var poziceDict = new Dictionary<int, string>();
+
+            foreach (var row in dataPozice)
+            {
+                int id = int.Parse(row["ID"].ToString());
+                string nazev = row["NAZEV"].ToString();
+
+                poziceDict[id] = nazev;
+            }
+
+            return poziceDict;
+        }
+
         public PracovniPozice GetPoziceByID(int? id)
         {
             if (id!=null) {

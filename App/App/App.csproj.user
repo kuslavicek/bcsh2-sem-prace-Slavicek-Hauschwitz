@@ -25,6 +25,12 @@
     <Compile Update="Dialogs\ZakaznikDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Dialogs\ZamestnanciDialogs\NadrizenySelectDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Dialogs\ZamestnanciDialogs\ZamestnanecDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Dialogs\ZboziDialog.cs">
       <SubType>Form</SubType>
     </Compile>

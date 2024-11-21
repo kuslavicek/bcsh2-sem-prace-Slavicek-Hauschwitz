@@ -54,6 +54,25 @@ namespace App.Repositories
             return provozovny;
         }
 
+        public Dictionary<int, string> GetProvozovnyEnum()
+        {
+            string query = "SELECT provozovna_id, nazev FROM v_provozovna";
+            var data = _database.GetDataFromView(query);
+
+            Dictionary<int, string> provozovnyDict = new Dictionary<int, string>();
+
+            foreach (var item in data)
+            {
+                int id = Convert.ToInt32(item["PROVOZOVNA_ID"]);
+                string nazev = item["NAZEV"].ToString();
+
+                provozovnyDict[id] = nazev;
+            }
+
+            return provozovnyDict;
+        }
+
+
         public Provozovna GetProvoznaById(int? id)
         {
             if (id!=null) {

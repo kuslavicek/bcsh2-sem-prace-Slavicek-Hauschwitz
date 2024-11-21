@@ -506,6 +506,9 @@ namespace App
                 });
 
                 item.Tag = emp.Id;
+                item.SubItems[4].Tag = provozovna != null ? provozovna.Id : null;
+                item.SubItems[5].Tag = pozice != null ? pozice.Id : null;
+                item.SubItems[6].Tag = nadrizeny != null ? nadrizeny.Id : null;
                 lvZamestnanci.Items.Add(item);
             }
         }
@@ -516,7 +519,39 @@ namespace App
 
         private void btnEditZamestnanec_Click(object sender, EventArgs e)
         {
+            if (lvZamestnanci.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
 
+            var selectedItem = lvZamestnanci.SelectedItems[0];
+
+            var emp = new Zamestnanec
+            {
+                Id = (int)selectedItem.Tag,
+                Jmeno = selectedItem.SubItems[0].Text,
+                Prijmeni = selectedItem.SubItems[1].Text,
+                Email = selectedItem.SubItems[2].Text,
+                Telefon = double.Parse(selectedItem.SubItems[3].Text),
+                IdProvozovna = Convert.ToInt32(selectedItem.SubItems[4].Tag),
+                IdPracovniPozice = Convert.ToInt32(selectedItem.SubItems[5].Tag),
+                IdNadrizeny = selectedItem.SubItems[6].Tag!=null?Convert.ToInt32(selectedItem.SubItems[6].Tag):null
+            };
+
+            try
+            {
+                ZamestnanecDialog empDialog = new ZamestnanecDialog(this._zamestnanecRepo,emp, selectedItem.SubItems[6].Text, true);
+                if (empDialog.ShowDialog() == DialogResult.OK)
+                {
+                    LoadZamestnanec();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            LoadZamestnanec();
         }
 
         private void btnDeleteZamestnanec_Click(object sender, EventArgs e)
