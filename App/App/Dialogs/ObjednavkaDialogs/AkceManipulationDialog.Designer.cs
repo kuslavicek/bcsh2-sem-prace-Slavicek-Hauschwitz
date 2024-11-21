@@ -36,13 +36,15 @@
             LabelOsobyAkce = new Label();
             labelDatumAkce = new Label();
             labelTypAkce = new Label();
+            panel1 = new Panel();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // btnAkceAdd
             // 
-            btnAkceAdd.Location = new Point(168, 102);
+            btnAkceAdd.Location = new Point(11, 26);
             btnAkceAdd.Name = "btnAkceAdd";
-            btnAkceAdd.Size = new Size(75, 23);
+            btnAkceAdd.Size = new Size(100, 30);
             btnAkceAdd.TabIndex = 1;
             btnAkceAdd.Text = "Přidat";
             btnAkceAdd.UseVisualStyleBackColor = true;
@@ -50,9 +52,9 @@
             // 
             // btnCancelAkce
             // 
-            btnCancelAkce.Location = new Point(249, 102);
+            btnCancelAkce.Location = new Point(323, 26);
             btnCancelAkce.Name = "btnCancelAkce";
-            btnCancelAkce.Size = new Size(75, 23);
+            btnCancelAkce.Size = new Size(100, 30);
             btnCancelAkce.TabIndex = 2;
             btnCancelAkce.Text = "Zrušit";
             btnCancelAkce.UseVisualStyleBackColor = true;
@@ -60,14 +62,14 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(168, 44);
+            textBox1.Location = new Point(126, 44);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
+            textBox1.Size = new Size(200, 23);
             textBox1.TabIndex = 3;
             // 
             // dateTimePicker1
             // 
-            dateTimePicker1.Location = new Point(168, 73);
+            dateTimePicker1.Location = new Point(126, 73);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(200, 23);
             dateTimePicker1.TabIndex = 4;
@@ -75,15 +77,15 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(168, 12);
+            comboBox1.Location = new Point(126, 12);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(121, 23);
+            comboBox1.Size = new Size(200, 23);
             comboBox1.TabIndex = 5;
             // 
             // LabelOsobyAkce
             // 
             LabelOsobyAkce.AutoSize = true;
-            LabelOsobyAkce.Location = new Point(93, 47);
+            LabelOsobyAkce.Location = new Point(51, 47);
             LabelOsobyAkce.Name = "LabelOsobyAkce";
             LabelOsobyAkce.Size = new Size(69, 15);
             LabelOsobyAkce.TabIndex = 6;
@@ -92,7 +94,7 @@
             // labelDatumAkce
             // 
             labelDatumAkce.AutoSize = true;
-            labelDatumAkce.Location = new Point(111, 79);
+            labelDatumAkce.Location = new Point(69, 79);
             labelDatumAkce.Name = "labelDatumAkce";
             labelDatumAkce.Size = new Size(46, 15);
             labelDatumAkce.TabIndex = 7;
@@ -101,27 +103,37 @@
             // labelTypAkce
             // 
             labelTypAkce.AutoSize = true;
-            labelTypAkce.Location = new Point(111, 15);
+            labelTypAkce.Location = new Point(69, 15);
             labelTypAkce.Name = "labelTypAkce";
             labelTypAkce.Size = new Size(55, 15);
             labelTypAkce.TabIndex = 8;
             labelTypAkce.Text = "Typ akce:";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Silver;
+            panel1.Controls.Add(btnAkceAdd);
+            panel1.Controls.Add(btnCancelAkce);
+            panel1.Location = new Point(1, 131);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(437, 82);
+            panel1.TabIndex = 9;
             // 
             // AkceManipulationDialog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(436, 211);
+            Controls.Add(panel1);
             Controls.Add(labelTypAkce);
             Controls.Add(labelDatumAkce);
             Controls.Add(LabelOsobyAkce);
             Controls.Add(comboBox1);
             Controls.Add(dateTimePicker1);
             Controls.Add(textBox1);
-            Controls.Add(btnCancelAkce);
-            Controls.Add(btnAkceAdd);
             Name = "AkceManipulationDialog";
             Text = "AkceManipulationDialog";
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -135,5 +147,6 @@
         private Label LabelOsobyAkce;
         private Label labelDatumAkce;
         private Label labelTypAkce;
+        private Panel panel1;
     }
 }

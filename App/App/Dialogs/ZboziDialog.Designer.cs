@@ -74,6 +74,7 @@ namespace App.Dialogs
             // 
             // txtNazev
             // 
+            txtNazev.BackColor = SystemColors.Window;
             txtNazev.Location = new Point(150, 30);
             txtNazev.Name = "txtNazev";
             txtNazev.Size = new Size(200, 23);
@@ -142,9 +143,9 @@ namespace App.Dialogs
             // 
             // lblSpecificValue
             // 
-            lblSpecificValue.Location = new Point(50, 180);
+            lblSpecificValue.Location = new Point(12, 180);
             lblSpecificValue.Name = "lblSpecificValue";
-            lblSpecificValue.Size = new Size(100, 23);
+            lblSpecificValue.Size = new Size(132, 23);
             lblSpecificValue.TabIndex = 5;
             lblSpecificValue.Text = "Stupòovitost/odrùda:";
             // 

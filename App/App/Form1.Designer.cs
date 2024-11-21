@@ -421,6 +421,7 @@
             // panel4
             // 
             panel4.BackColor = Color.Silver;
+            panel4.BorderStyle = BorderStyle.FixedSingle;
             panel4.Controls.Add(UpdateZakaznikBtn);
             panel4.Controls.Add(InsertZakaznikBtn);
             panel4.Controls.Add(DeleteZakaznikBtn);
@@ -571,6 +572,7 @@
             // 
             // tabProvozovny
             // 
+            tabProvozovny.BackColor = Color.Gainsboro;
             tabProvozovny.Controls.Add(panel6);
             tabProvozovny.Controls.Add(labelProvozovny);
             tabProvozovny.Controls.Add(lvProvozovny);
@@ -580,7 +582,6 @@
             tabProvozovny.Size = new Size(1288, 757);
             tabProvozovny.TabIndex = 7;
             tabProvozovny.Text = "Provozovny";
-            tabProvozovny.UseVisualStyleBackColor = true;
             // 
             // panel6
             // 
@@ -644,6 +645,7 @@
             // 
             // tabPozice
             // 
+            tabPozice.BackColor = Color.Gainsboro;
             tabPozice.Controls.Add(panel7);
             tabPozice.Controls.Add(label5);
             tabPozice.Controls.Add(lvPozice);
@@ -653,7 +655,6 @@
             tabPozice.Size = new Size(1288, 757);
             tabPozice.TabIndex = 8;
             tabPozice.Text = "Pracovní pozice";
-            tabPozice.UseVisualStyleBackColor = true;
             // 
             // panel7
             // 
@@ -717,6 +718,7 @@
             // 
             // tabTypyAkce
             // 
+            tabTypyAkce.BackColor = Color.Gainsboro;
             tabTypyAkce.Controls.Add(panel8);
             tabTypyAkce.Controls.Add(label6);
             tabTypyAkce.Controls.Add(lvTypyAkce);
@@ -726,7 +728,6 @@
             tabTypyAkce.Size = new Size(1288, 757);
             tabTypyAkce.TabIndex = 9;
             tabTypyAkce.Text = "Typy akce";
-            tabTypyAkce.UseVisualStyleBackColor = true;
             // 
             // panel8
             // 
@@ -891,6 +892,14 @@
             GlobalStyles.ApplyButtonStyle(this.btnDeletePozice, true);
             GlobalStyles.ApplyButtonStyle(this.btnAddPozice, true);
             GlobalStyles.ApplyButtonStyle(this.btnEditPozice, true);
+
+            GlobalStyles.ApplyButtonStyle(this.btnAddZamestnanec, true);
+            GlobalStyles.ApplyButtonStyle(this.btnDeleteZamestnanec, true);
+            GlobalStyles.ApplyButtonStyle(this.btnEditZamestnanec, true);
+
+            GlobalStyles.ApplyButtonStyle(this.btnAddTyp, true);
+            GlobalStyles.ApplyButtonStyle(this.btnEditTypAkce, true);
+            GlobalStyles.ApplyButtonStyle(this.btnDeleteTypAkce, true);
         }
 
         private Panel panel2;

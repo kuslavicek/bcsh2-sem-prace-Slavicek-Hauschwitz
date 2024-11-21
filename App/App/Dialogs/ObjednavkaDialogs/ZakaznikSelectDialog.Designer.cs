@@ -31,6 +31,8 @@
             lvZakaznici = new ListView();
             btnSelectZakaznik = new Button();
             btnCancel = new Button();
+            panel1 = new Panel();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // lvZakaznici
@@ -45,7 +47,7 @@
             // 
             // btnSelectZakaznik
             // 
-            btnSelectZakaznik.Location = new Point(355, 357);
+            btnSelectZakaznik.Location = new Point(241, 22);
             btnSelectZakaznik.Name = "btnSelectZakaznik";
             btnSelectZakaznik.Size = new Size(127, 35);
             btnSelectZakaznik.TabIndex = 1;
@@ -55,7 +57,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(355, 403);
+            btnCancel.Location = new Point(433, 22);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(127, 35);
             btnCancel.TabIndex = 2;
@@ -63,16 +65,26 @@
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += btnCancel_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Silver;
+            panel1.Controls.Add(btnSelectZakaznik);
+            panel1.Controls.Add(btnCancel);
+            panel1.Location = new Point(12, 357);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(776, 81);
+            panel1.TabIndex = 3;
+            // 
             // ZakaznikSelectDialog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(btnCancel);
-            Controls.Add(btnSelectZakaznik);
+            Controls.Add(panel1);
             Controls.Add(lvZakaznici);
             Name = "ZakaznikSelectDialog";
             Text = "ZakaznikSelectDialog";
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -81,5 +93,6 @@
         private ListView lvZakaznici;
         private Button btnSelectZakaznik;
         private Button btnCancel;
+        private Panel panel1;
     }
 }
