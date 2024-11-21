@@ -194,7 +194,7 @@ namespace App
                 ObjednavkaDialog objednavkaDialog = new ObjednavkaDialog(_objednavkaRepo, null, false);
                 if (objednavkaDialog.ShowDialog() == DialogResult.OK)
                 {
-                    this.LoadZbozi();
+                    this.LoadObjednavky();
                 }
             }
             catch (Exception ex)
@@ -202,7 +202,7 @@ namespace App
                 MessageBox.Show(ex.Message);
             }
 
-            LoadZbozi();
+            this.LoadObjednavky();
         }
 
         private void UpdateObjednavkaBtn_Click(object sender, EventArgs e)

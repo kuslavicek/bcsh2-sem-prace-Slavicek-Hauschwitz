@@ -60,13 +60,43 @@ namespace App.Dialogs
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            var cena=this.UpdateOrderPrice();
-            this.Objednavka.Cena = cena;
-            this.Objednavka.IdZakaznik=this.Zakaznik.Id;
-            this.Objednavka.DatumZalozeni = this.dateTimePickerDatum.Value;
-            if (this.Faktura != null && this.Objednavka !=null && (this.ZboziSeznam.Count>0 || this.AkceSeznam.Count>0)) {
-                this._objednavkaRepo.Save(Objednavka, Faktura, ZboziSeznam, AkceSeznam);
+            if (this.Zakaznik == null)
+            {
+                MessageBox.Show("Není vybrán zákazník.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+
+            if (this.dateTimePickerDatum.Value > DateTime.Now)
+            {
+                MessageBox.Show("Datum založení nemůže být v budoucnosti.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (this.ZboziSeznam.Count == 0 && this.AkceSeznam.Count == 0)
+            {
+                MessageBox.Show("Objednávka musí obsahovat alespoň jednu položku (zboží nebo akci).", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (this.Objednavka == null)
+            {
+                MessageBox.Show("Objednávka není inicializována.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (this.Faktura == null)
+            {
+                MessageBox.Show("Faktura není inicializována.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var cena = this.UpdateOrderPrice();
+            this.Objednavka.Cena = cena;
+            this.Objednavka.IdZakaznik = this.Zakaznik.Id;
+            this.Objednavka.DatumZalozeni = this.dateTimePickerDatum.Value;
+
+            this._objednavkaRepo.Save(Objednavka, Faktura, ZboziSeznam, AkceSeznam);
+
             this.Close();
         }
 

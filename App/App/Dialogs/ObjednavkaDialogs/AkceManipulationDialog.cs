@@ -30,21 +30,30 @@ namespace App.Dialogs.ObjednavkaDialogs
 
         private void btnAkceAdd_Click(object sender, EventArgs e)
         {
+            if (!InputValidator.IsNotEmpty(textBox1, "Zadejte počet osob.") ||
+                !InputValidator.IsNumberInRange(textBox1, 1, 1000, "Počet osob musí být mezi 1 a 1000.") ||
+                !InputValidator.IsSelected(comboBox1, "Vyberte typ akce.") ||
+                !InputValidator.IsDateValid(dateTimePicker1, DateTime.Now, null, "Datum musí být v budoucnosti."))
+            {
+                return;
+            }
+
             var Akce = new Akce()
             {
                 Id = null,
                 PocetOsob = Convert.ToInt32(this.textBox1.Text),
-                Datum=dateTimePicker1.Value,
-                IdTypAkce=comboBox1.SelectedIndex+1,
-                IdObjednavka=null,
+                Datum = dateTimePicker1.Value,
+                IdTypAkce = comboBox1.SelectedIndex + 1,
+                IdObjednavka = null,
             };
+
             AkceAdded?.Invoke(Akce);
             this.Close();
         }
 
         private void btnCancelAkce_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void fill()

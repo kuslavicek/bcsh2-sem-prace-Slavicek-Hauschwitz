@@ -23,20 +23,38 @@ namespace App.Dialogs.ObjednavkaDialogs
 
         private void BtnPridat_Click(object sender, EventArgs e)
         {
+            // Validace: Kontrola, zda je vybrána položka v ListView
             if (listViewZbozi.SelectedItems.Count == 0)
             {
                 MessageBox.Show("Vyberte zboží, které chcete přidat.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (string.IsNullOrEmpty(inputPocet.Text) || !int.TryParse(inputPocet.Text, out int mnozstvi) || mnozstvi <= 0)
+            // Validace: Kontrola, zda je zadané množství platné
+            if (string.IsNullOrEmpty(inputPocet.Text))
             {
-                MessageBox.Show("Zadejte platné množství.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Zadejte množství.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!int.TryParse(inputPocet.Text, out int mnozstvi))
+            {
+                MessageBox.Show("Množství musí být celé číslo.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (mnozstvi <= 0)
+            {
+                MessageBox.Show("Množství musí být větší než nula.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             var selectedItem = listViewZbozi.SelectedItems[0];
-            int zboziId = (int)selectedItem.Tag;
+            if (selectedItem.Tag == null || !(selectedItem.Tag is int zboziId))
+            {
+                MessageBox.Show("Vybraná položka nemá platné ID.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             var objednaneZbozi = new ObjednaneZbozi
             {
@@ -47,7 +65,9 @@ namespace App.Dialogs.ObjednavkaDialogs
             };
 
             _objednaneZbozi.Add(objednaneZbozi);
-            MessageBox.Show("Zboží přidáno množství.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Zboží bylo úspěšně přidáno v množství {mnozstvi}.", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            inputPocet.Text = string.Empty;
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
