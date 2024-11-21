@@ -46,6 +46,7 @@
             label5 = new Label();
             label6 = new Label();
             label7 = new Label();
+            btnRemoveNadrizeny = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -116,9 +117,9 @@
             panel1.BackColor = Color.Silver;
             panel1.Controls.Add(btnCancel);
             panel1.Controls.Add(btnSave);
-            panel1.Location = new Point(0, 235);
+            panel1.Location = new Point(0, 244);
             panel1.Name = "panel1";
-            panel1.Size = new Size(495, 88);
+            panel1.Size = new Size(495, 79);
             panel1.TabIndex = 8;
             // 
             // btnCancel
@@ -204,11 +205,22 @@
             label7.TabIndex = 15;
             label7.Text = "Nadřízený";
             // 
+            // btnRemoveNadrizeny
+            // 
+            btnRemoveNadrizeny.Location = new Point(333, 215);
+            btnRemoveNadrizeny.Name = "btnRemoveNadrizeny";
+            btnRemoveNadrizeny.Size = new Size(126, 23);
+            btnRemoveNadrizeny.TabIndex = 16;
+            btnRemoveNadrizeny.Text = "Odebrat";
+            btnRemoveNadrizeny.UseVisualStyleBackColor = true;
+            btnRemoveNadrizeny.Click += btnRemoveNadrizeny_Click;
+            // 
             // ZamestnanecDialog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(495, 320);
+            Controls.Add(btnRemoveNadrizeny);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -252,5 +264,6 @@
         private Label label5;
         private Label label6;
         private Label label7;
+        private Button btnRemoveNadrizeny;
     }
 }

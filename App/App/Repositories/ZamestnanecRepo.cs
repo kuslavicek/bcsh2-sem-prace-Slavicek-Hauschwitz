@@ -71,5 +71,37 @@ namespace App.Repositories
             }
             return null;
         }
+
+        public void UpdateZamestnanec(Zamestnanec emp) {
+            var parameters = new Dictionary<string, object>();
+
+            if (emp.Id != null)
+            {
+                parameters.Add("p_id", emp.Id);
+            }
+
+            parameters.Add("p_jmeno", emp.Jmeno);
+            parameters.Add("p_prijmeni", emp.Prijmeni);
+            parameters.Add("p_email", emp.Email);
+            parameters.Add("p_telefon", emp.Telefon);
+            parameters.Add("p_id_provozovna", emp.IdProvozovna);
+            parameters.Add("p_id_pozice", emp.IdPracovniPozice);
+            parameters.Add("p_idNadrizeny", emp.IdNadrizeny);
+
+
+            if (emp.Id == null)
+            {
+                _database.ExecuteProcedure("insert_zamestnanec", parameters);
+            }
+            else
+            {
+                _database.ExecuteProcedure("update_zamestnanec", parameters);
+            }
+        }
+
+        public void DeleteZamestnanec(int id) {
+            var parameters = new Dictionary<string, object> { { "p_id", id } };
+            _database.ExecuteProcedure("delete_zamestnanec", parameters);
+        }
     }
 }

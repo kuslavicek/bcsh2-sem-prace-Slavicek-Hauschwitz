@@ -478,10 +478,10 @@ namespace App
             lvZamestnanci.Columns.Clear();
             lvZamestnanci.View = View.Details;
             lvZamestnanci.FullRowSelect = true;
-            lvZamestnanci.Columns.Add("Jméno", 150);
+            lvZamestnanci.Columns.Add("Jméno", 100);
             lvZamestnanci.Columns.Add("Pøijmení", 100);
             lvZamestnanci.Columns.Add("E-mail", 150);
-            lvZamestnanci.Columns.Add("Telefonl", 150);
+            lvZamestnanci.Columns.Add("Telefonl", 130);
             lvZamestnanci.Columns.Add("Provozovna", 150);
             lvZamestnanci.Columns.Add("Pozice", 150);
             lvZamestnanci.Columns.Add("Nadøízený", 150);
@@ -514,7 +514,13 @@ namespace App
         }
         private void btnAddZamestnanec_Click(object sender, EventArgs e)
         {
+            ZamestnanecDialog empDialog = new ZamestnanecDialog(this._zamestnanecRepo, null,"", false);
+            DialogResult result = empDialog.ShowDialog();
 
+            if (result == DialogResult.OK || result == DialogResult.Cancel)
+            {
+                this.LoadZamestnanec();
+            }
         }
 
         private void btnEditZamestnanec_Click(object sender, EventArgs e)
@@ -556,7 +562,15 @@ namespace App
 
         private void btnDeleteZamestnanec_Click(object sender, EventArgs e)
         {
+            if (lvZamestnanci.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
 
+            var selectedItem = lvZamestnanci.SelectedItems[0];
+            this._zamestnanecRepo.DeleteZamestnanec(Convert.ToInt32(selectedItem.Tag));
+            LoadZamestnanec();
         }
         #endregion
 
