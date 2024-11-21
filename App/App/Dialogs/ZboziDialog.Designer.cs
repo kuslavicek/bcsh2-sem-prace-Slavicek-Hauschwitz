@@ -209,20 +209,6 @@ namespace App.Dialogs
             PerformLayout();
         }
 
-        private void LoadSkladData()
-        {
-            var sklady = _skladRepository.GetSklady();
-
-            if (sklady == null || sklady.Count == 0)
-            {
-                MessageBox.Show("Nejsou k dispozici žádné sklady.");
-                return;
-            }
-
-            this.comboSklad.DisplayMember = "Nazev";
-            this.comboSklad.DataSource = sklady;
-        }
-
         #endregion
 
         private Label lblNazev;

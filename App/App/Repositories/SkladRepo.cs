@@ -52,6 +52,25 @@ namespace App.Repositories
             return sklady;
         }
 
+        public Dictionary<int, string> LoadSkladyForSelect()
+        {
+            string query = "SELECT id, nazev FROM v_sklad";
+
+            var data = _database.GetDataFromView(query);
+
+            var skladyDict = new Dictionary<int, string>();
+
+            foreach (var row in data)
+            {
+                int id = int.Parse(row["ID"].ToString());
+                string nazev = row["NAZEV"].ToString();
+
+                skladyDict[id] = nazev;
+            }
+
+            return skladyDict;
+        }
+
         public void DeleteSklad(int id)
         {
             var parameters = new Dictionary<string, object>

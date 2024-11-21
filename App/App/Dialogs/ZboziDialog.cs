@@ -8,32 +8,49 @@ namespace App.Dialogs
         private ZboziData _zboziData;
         public bool IsEditMode { get; set; } = false;
         private Zbozi zbozi { get; set; }
+        private SkladRepo _skladRepo { get; set; }
         public ZboziDialog(ZboziData zboziData, Zbozi zbozi, bool edit)
         {
             InitializeComponent();
             this.IsEditMode = edit;
             this.zbozi=zbozi;
             _zboziData = zboziData;
-            if (this.IsEditMode) { this.fillData();}
+            _skladRepo = new SkladRepo();
+            this.fillData();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (comboTyp.SelectedItem == null || comboSklad.SelectedItem == null)
+            if (!InputValidator.IsNotEmpty(txtCena,"Pole cena není vyplněné")||
+                !InputValidator.IsNotEmpty(txtSpecificValue, "Pole Stupňovitost/odrůda není vyplněné")||
+                !InputValidator.IsNotEmpty(txtNazev, "Pole Název není vyplněné")||
+                !InputValidator.IsNotEmpty(txtObsahAlkoholu, "Pole Obsah Alkoholu není vyplněné")||
+                !InputValidator.IsSelected(comboTyp, "Není vybraný typ.")||
+                !InputValidator.IsSelected(comboSklad, "Není vybraný sklad."))
             {
-                MessageBox.Show("Není vybrán sklad nebo typ.");
+
                 return;
             }
 
-            var selectedSklad = (Sklad)comboSklad.SelectedItem;
-            int skladId = (int)selectedSklad.Id;
+            if (!InputValidator.IsNumber(txtCena, "Hodnota v poli cena musí být číslo")||
+                !InputValidator.IsTextOnly(txtNazev, "Název musí být tvořen znaky")||
+                !InputValidator.IsNumber(txtObsahAlkoholu, "Hodnota v poli Obsah alkoholu musí být číslo.")) {
+                return;
+            }
+
+            if (this.comboTyp.SelectedIndex==0 && !InputValidator.IsNumber(txtSpecificValue, "Pro typ pivo musí být vyplněna stupňovitost.")||
+                this.comboTyp.SelectedIndex==1 && !InputValidator.IsTextOnly(txtSpecificValue, "Pro pivo musí být vyplněná odrůda.")) {
+                return;
+            }
+
+            var selectedSklad = comboSklad.SelectedIndex;
 
             var zbozi = new Zbozi(
                 nazev: txtNazev.Text,
                 obsahAlkoholu: double.Parse(txtObsahAlkoholu.Text),
                 cena: double.Parse(txtCena.Text),
                 typ: comboTyp.SelectedItem.ToString()[0],
-                skladId: skladId,
+                skladId: selectedSklad+1,
                 odrudaJablek: comboTyp.SelectedItem.ToString() == "c" ? txtSpecificValue.Text : "",
                 stupnovitost: comboTyp.SelectedItem.ToString() == "p" ? double.Parse(txtSpecificValue.Text) : 0
             );
@@ -64,6 +81,12 @@ namespace App.Dialogs
         }
 
         private void fillData() {
+            var skladyDict = _skladRepo.LoadSkladyForSelect();
+
+            comboSklad.DataSource = new BindingSource(skladyDict, null);
+            comboSklad.DisplayMember = "Value";
+            comboSklad.ValueMember = "Key";
+
             if (zbozi != null)
             {
                 GlobalStyles.ApplyButtonStyle(this.btnCancel);
@@ -72,9 +95,20 @@ namespace App.Dialogs
                 this.txtNazev.Text = zbozi.Nazev.ToString();
                 this.txtObsahAlkoholu.Text = zbozi.ObsahAlkoholu.ToString();
                 this.txtCena.Text = zbozi.Cena.ToString();
-                this.comboSklad.SelectedItem = zbozi.SkladNazev;
-                this.comboTyp.SelectedItem = zbozi.Typ;
+                foreach (var item in ((BindingSource)comboSklad.DataSource))
+                {
+                    if (((KeyValuePair<int, string>)item).Value == zbozi.SkladNazev)
+                    {
+                        comboSklad.SelectedItem = item;
+                        break;
+                    }
+                }
+                this.comboTyp.SelectedIndex = zbozi.Typ == 'c' ? 1 : 0;
                 this.txtSpecificValue.Text = zbozi.Typ == 'c' ? zbozi.OdrudaJablek.ToString() : zbozi.Stupnovitost.ToString();
+            }
+            else {
+                this.comboTyp.SelectedIndex = 0;
+                this.comboSklad.SelectedIndex = 0;
             }
         }
     }
