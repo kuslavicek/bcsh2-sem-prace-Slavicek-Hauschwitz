@@ -1,4 +1,5 @@
-﻿using App.Model;
+﻿using App.Extensions;
+using App.Model;
 using App.Repositories;
 using System;
 using System.Collections.Generic;
@@ -21,14 +22,37 @@ namespace App.Dialogs
         public SkladDialog(SkladRepo repo, Sklad sklad, bool edit)
         {
             InitializeComponent();
+            this.FillComboBox();
             this._skladRepo = repo; this.Sklad = sklad; this.IsEditMode = edit;
             this.fill();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (!InputValidator.IsNotEmpty(txtNazev, "Název není vyplněný.") ||
+                !InputValidator.IsNotEmpty(txtPlocha, "Užitná plocha není vyplněna.") ||
+                !InputValidator.IsNotEmpty(txtUlice, "Ulice není vyplněna") ||
+                !InputValidator.IsNotEmpty(txtMesto, "Město není vyplněno") ||
+                !InputValidator.IsNotEmpty(txtPsc, "PSČ není vyplněno") ||
+                !InputValidator.IsSelected(comboStat, "Není vybrán stát") ||
+                !InputValidator.IsNotEmpty(txtCisloPopisne, "Číslo popisné není vyplněno není vyplněno"))
+            {
+                return;
+            }
+
+            if (!InputValidator.IsTextOnly(txtNazev, "Název nesmí obsahovat čísla.") ||
+                !InputValidator.IsNumber(txtPlocha, "Užitná plocha musí být číslo.") ||
+                !InputValidator.IsTextOnly(txtUlice, "Ulice nemůže obsahovat čísla") ||
+                !InputValidator.IsTextOnly(txtMesto, "Město nemůže obsahovat čísla.") ||
+                !InputValidator.IsNumberInRange(txtPsc, 5, 5, "PSČ musí obsahovat pět čísel.") ||
+                !InputValidator.IsNumber(txtCisloPopisne, "Číslo popisné nemůže obsahovat znaky."))
+            {
+                return;
+            }
+
             try
             {
+                State selectedState = comboStat.SelectedItem as State;
                 if (IsEditMode)
                 {
                     this.Sklad.Nazev = txtNazev.Text;
@@ -37,7 +61,7 @@ namespace App.Dialogs
                     this.Sklad.Adresa.Ulice = txtUlice.Text;
                     this.Sklad.Adresa.CisloPopisne = int.Parse(txtCisloPopisne.Text);
                     this.Sklad.Adresa.Psc = int.Parse(txtPsc.Text);
-                    this.Sklad.Adresa.Stat = txtStat.Text;
+                    this.Sklad.Adresa.Stat = selectedState.Name;
 
                     _skladRepo.UpdateSklad(this.Sklad);
                     MessageBox.Show("Sklad byl úspěšně aktualizován.");
@@ -51,7 +75,7 @@ namespace App.Dialogs
                         txtUlice.Text,
                         int.Parse(txtCisloPopisne.Text),
                         int.Parse(txtPsc.Text),
-                        txtStat.Text
+                        selectedState.Name
                     );
 
                     var sklad = new Sklad
@@ -83,7 +107,28 @@ namespace App.Dialogs
                 this.txtMesto.Text=this.Sklad.Adresa.Mesto;
                 txtPsc.Text = this.Sklad.Adresa.Psc.ToString();
                 txtCisloPopisne.Text = this.Sklad.Adresa.CisloPopisne.ToString();
-                txtStat.Text=this.Sklad.Adresa.Stat.ToString();
+            }
+        }
+
+        private async void FillComboBox()
+        {
+            var states = await StateLoader.GetStatesFromApiAsync();
+            comboStat.DataSource = states;
+            comboStat.DisplayMember = "Name";
+            comboStat.ValueMember = "Code";
+
+            if (this.Sklad != null)
+            {
+                var selectedState = states.FirstOrDefault(s => s.Name == this.Sklad.Adresa.Stat);
+
+                if (selectedState != null)
+                {
+                    comboStat.SelectedItem = selectedState;
+                }
+                else
+                {
+                    comboStat.SelectedItem = null;
+                }
             }
         }
     }

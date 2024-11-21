@@ -34,7 +34,6 @@
             txtMesto = new TextBox();
             txtPsc = new TextBox();
             txtCisloPopisne = new TextBox();
-            txtStat = new TextBox();
             panel1 = new Panel();
             btnCancel = new Button();
             btnSave = new Button();
@@ -46,6 +45,7 @@
             label7 = new Label();
             label8 = new Label();
             label2 = new Label();
+            comboStat = new ComboBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -90,13 +90,6 @@
             txtCisloPopisne.Name = "txtCisloPopisne";
             txtCisloPopisne.Size = new Size(218, 23);
             txtCisloPopisne.TabIndex = 5;
-            // 
-            // txtStat
-            // 
-            txtStat.Location = new Point(209, 302);
-            txtStat.Name = "txtStat";
-            txtStat.Size = new Size(218, 23);
-            txtStat.TabIndex = 6;
             // 
             // panel1
             // 
@@ -201,11 +194,20 @@
             label2.TabIndex = 16;
             label2.Text = "Adresa";
             // 
+            // comboStat
+            // 
+            comboStat.FormattingEnabled = true;
+            comboStat.Location = new Point(209, 305);
+            comboStat.Name = "comboStat";
+            comboStat.Size = new Size(218, 23);
+            comboStat.TabIndex = 17;
+            // 
             // SkladDialog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(633, 515);
+            Controls.Add(comboStat);
             Controls.Add(label2);
             Controls.Add(label8);
             Controls.Add(label7);
@@ -215,7 +217,6 @@
             Controls.Add(label3);
             Controls.Add(label1);
             Controls.Add(panel1);
-            Controls.Add(txtStat);
             Controls.Add(txtCisloPopisne);
             Controls.Add(txtPsc);
             Controls.Add(txtMesto);
@@ -237,7 +238,6 @@
         private TextBox txtMesto;
         private TextBox txtPsc;
         private TextBox txtCisloPopisne;
-        private TextBox txtStat;
         private Panel panel1;
         private Button btnCancel;
         private Button btnSave;
@@ -249,5 +249,6 @@
         private Label label7;
         private Label label8;
         private Label label2;
+        private ComboBox comboStat;
     }
 }
