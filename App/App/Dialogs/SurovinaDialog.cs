@@ -6,6 +6,7 @@ namespace App.Dialogs
     public partial class SurovinaDialog : Form
     {
         private SurovinaRepo _surovinaRepo;
+        private SkladRepo _skladRepo;
         public bool IsEditMode { get; set; } = false;
         private Surovina surovina { get; set; }
         public SurovinaDialog(SurovinaRepo surovinaRepo, Surovina surovina,bool edit)
@@ -13,25 +14,30 @@ namespace App.Dialogs
             InitializeComponent();
             this.IsEditMode = edit;
             this._surovinaRepo = surovinaRepo;
+            this._skladRepo=new SkladRepo();
             this.surovina = surovina;
-            if (this.IsEditMode) { this.fillData(); }
+            this.fillData();
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            if (comboSklad.SelectedItem == null)
-            {
-                MessageBox.Show("Není vybrán sklad");
+            if (!InputValidator.IsNotEmpty(textBoxMnozstvi,"Množství není vyplněný.")||
+                !InputValidator.IsNotEmpty(textBoxNazev, "Název není vyplněný.")||
+                !InputValidator.IsSelected(comboSklad, "Sklad není vybraný.")) {
                 return;
             }
 
-            var selectedSklad = (Sklad)comboSklad.SelectedItem;
-            int skladId = (int)selectedSklad.Id;
+            if (!InputValidator.IsNumber(textBoxMnozstvi, "Množství nesmí obsahovat znaky.")||
+                !InputValidator.IsTextOnly(textBoxNazev, "Název nesmí obsahovat čísla.")) {
+                return;
+            }
+
+            var selectedSklad = comboSklad.SelectedIndex;
 
             var surovina = new Surovina(
                 nazev: textBoxNazev.Text,
                 mnozstvi: double.Parse(textBoxMnozstvi.Text),
-                idSklad: skladId
+                idSklad: selectedSklad+1
             );
 
             try
@@ -63,12 +69,25 @@ namespace App.Dialogs
 
         private void fillData()
         {
+            var skladyDict = _skladRepo.LoadSkladyForSelect();
+
+            comboSklad.DataSource = new BindingSource(skladyDict, null);
+            comboSklad.DisplayMember = "Value";
+            comboSklad.ValueMember = "Key";
+            comboSklad.SelectedIndex = 0;
             if (surovina != null)
             {
                 IsEditMode = true;
                 this.textBoxMnozstvi.Text=surovina.Mnozstvi.ToString();
                 this.textBoxNazev.Text = surovina.Nazev;
-                this.comboSklad.SelectedItem = surovina.NazevSklad;
+                foreach (var item in ((BindingSource)comboSklad.DataSource))
+                {
+                    if (((KeyValuePair<int, string>)item).Value == surovina.NazevSklad)
+                    {
+                        comboSklad.SelectedItem = item;
+                        break;
+                    }
+                }
             }
             GlobalStyles.ApplyButtonStyle(this.buttonCancel);
             GlobalStyles.ApplyButtonStyle(this.buttonOk);
