@@ -64,46 +64,30 @@ namespace App.Repositories
 
         public void UpdateZakaznik(Zakaznik zakaznik)
         {
-            var parametersZ = new Dictionary<string, object>();
-            var parametersA = new Dictionary<string, object>();
+            var parameters = new Dictionary<string, object>();
 
             if (zakaznik.Id != null)
             {
-                parametersZ.Add("p_id", zakaznik.Id);
+                parameters.Add("p_id", zakaznik.Id);
             }
 
-            parametersZ.Add("p_jmeno", zakaznik.Jmeno);
-            parametersZ.Add("p_telefon", zakaznik.Telefon);
-            parametersZ.Add("p_email", zakaznik.Email);
+            parameters.Add("p_jmeno", zakaznik.Jmeno);
+            parameters.Add("p_telefon", zakaznik.Telefon);
+            parameters.Add("p_email", zakaznik.Email);
 
-            parametersA.Add("p_ulice", zakaznik.Adresa.Ulice);
-            parametersA.Add("p_mesto", zakaznik.Adresa.Mesto);
-            parametersA.Add("p_psc", zakaznik.Adresa.Psc);
-            parametersA.Add("p_cislo_popisne", zakaznik.Adresa.CisloPopisne);
-            parametersA.Add("p_stat", zakaznik.Adresa.Stat);
+            parameters.Add("p_ulice", zakaznik.Adresa.Ulice);
+            parameters.Add("p_mesto", zakaznik.Adresa.Mesto);
+            parameters.Add("p_psc", zakaznik.Adresa.Psc);
+            parameters.Add("p_cislo_popisne", zakaznik.Adresa.CisloPopisne);
+            parameters.Add("p_stat", zakaznik.Adresa.Stat);
 
             if (zakaznik.Id == null)
             {
-                parametersA.Add("p_out_id", null);
-
-                _database.ExecuteProcedure("insert_adresa", parametersA);
-
-                var novaAdresaId = parametersA["p_out_id"];
-
-                parametersZ.Add("p_id_adresa", novaAdresaId);
-
-                _database.ExecuteProcedure("insert_zakaznik", parametersZ);
+                _database.ExecuteProcedure("insert_zakaznik", parameters);
             }
             else
             {
-                if (zakaznik.Adresa.Id != null)
-                {
-                    parametersA.Add("p_id", zakaznik.Adresa.Id);
-                    _database.ExecuteProcedure("update_adresa", parametersA);
-                }
-
-                parametersZ.Add("p_id_adresa", zakaznik.Adresa.Id);
-                _database.ExecuteProcedure("update_zakaznik", parametersZ);
+                _database.ExecuteProcedure("update_zakaznik", parameters);
             }
         }
 

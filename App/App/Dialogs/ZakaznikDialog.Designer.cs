@@ -43,13 +43,13 @@ namespace App.Dialogs
             labelMesto = new Label();
             textBoxMesto = new TextBox();
             labelStat = new Label();
-            textBoxStat = new TextBox();
             labelPsc = new Label();
             textBoxPsc = new TextBox();
             saveButton = new Button();
             cancelButton = new Button();
             panel1 = new Panel();
             label1 = new Label();
+            comboStat = new ComboBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -151,13 +151,6 @@ namespace App.Dialogs
             labelStat.TabIndex = 12;
             labelStat.Text = "Stát:";
             // 
-            // textBoxStat
-            // 
-            textBoxStat.Location = new Point(172, 320);
-            textBoxStat.Name = "textBoxStat";
-            textBoxStat.Size = new Size(250, 23);
-            textBoxStat.TabIndex = 13;
-            // 
             // labelPsc
             // 
             labelPsc.Location = new Point(62, 360);
@@ -211,11 +204,20 @@ namespace App.Dialogs
             label1.TabIndex = 19;
             label1.Text = "Adresa";
             // 
+            // comboStat
+            // 
+            comboStat.FormattingEnabled = true;
+            comboStat.Location = new Point(172, 317);
+            comboStat.Name = "comboStat";
+            comboStat.Size = new Size(250, 23);
+            comboStat.TabIndex = 20;
+            // 
             // ZakaznikDialog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(500, 500);
+            Controls.Add(comboStat);
             Controls.Add(label1);
             Controls.Add(panel1);
             Controls.Add(labelJmeno);
@@ -231,7 +233,6 @@ namespace App.Dialogs
             Controls.Add(labelMesto);
             Controls.Add(textBoxMesto);
             Controls.Add(labelStat);
-            Controls.Add(textBoxStat);
             Controls.Add(labelPsc);
             Controls.Add(textBoxPsc);
             Name = "ZakaznikDialog";
@@ -258,12 +259,12 @@ namespace App.Dialogs
         private System.Windows.Forms.TextBox textBoxUlice;
         private System.Windows.Forms.TextBox textBoxCisloPopisne;
         private System.Windows.Forms.TextBox textBoxMesto;
-        private System.Windows.Forms.TextBox textBoxStat;
         private System.Windows.Forms.TextBox textBoxPsc;
 
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button cancelButton;
         private Panel panel1;
         private Label label1;
+        private ComboBox comboStat;
     }
 }

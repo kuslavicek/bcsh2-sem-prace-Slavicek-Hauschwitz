@@ -1,4 +1,5 @@
-﻿using App.Model;
+﻿using App.Extensions;
+using App.Model;
 using App.Repositories;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace App.Dialogs
 {
@@ -20,6 +22,7 @@ namespace App.Dialogs
         public ZakaznikDialog(ZakaznikRepo zakaznikRepo, Zakaznik zakaznik, bool edit)
         {
             InitializeComponent();
+            this.FillComboBox();
             this.IsEditMode = edit;
             this._zakaznikRepo = zakaznikRepo;
             this.zakaznik = zakaznik;
@@ -28,14 +31,31 @@ namespace App.Dialogs
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(textBoxJmeno.Text) || string.IsNullOrEmpty(textBoxTelefon.Text) || string.IsNullOrEmpty(textBoxEmail.Text))
+            if (!InputValidator.IsNotEmpty(textBoxJmeno,"Jméno není vyplněno")||
+                !InputValidator.IsNotEmpty(textBoxTelefon, "Telefon není vyplněn")||
+                !InputValidator.IsNotEmpty(textBoxEmail, "Email není vyplněn")||
+                !InputValidator.IsNotEmpty(textBoxUlice, "Ulice není vyplněna")||
+                !InputValidator.IsNotEmpty(textBoxMesto, "Město není vyplněno")||
+                !InputValidator.IsNotEmpty(textBoxPsc, "PSČ není vyplněno")||
+                !InputValidator.IsSelected(comboStat, "Není vybrán stát") ||
+                !InputValidator.IsNotEmpty(textBoxCisloPopisne, "Číslo popisné není vyplněno není vyplněno")) {
+                return;
+            }
+
+            if (!InputValidator.IsTextOnly(textBoxJmeno, "Jméno nemůže obsahovat čísla.") ||
+                !InputValidator.IsPhoneNumber(textBoxTelefon, "Neplatné telefoní číslo.") ||
+                !InputValidator.IsEmail(textBoxEmail, "Neplatný email.") ||
+                !InputValidator.IsTextOnly(textBoxUlice, "Ulice nemůže obsahovat čísla") ||
+                !InputValidator.IsTextOnly(textBoxMesto, "Město nemůže obsahovat čísla.") ||
+                !InputValidator.IsNumberInRange(textBoxPsc,5,5, "PSČ musí obsahovat pět čísel.") ||
+                !InputValidator.IsNumber(textBoxCisloPopisne, "Číslo popisné nemůže obsahovat znaky."))
             {
-                MessageBox.Show("Prosím, vyplňte všechny údaje.");
                 return;
             }
 
             try
             {
+                State selectedState = comboStat.SelectedItem as State;
                 if (IsEditMode)
                 {
                     this.zakaznik.Jmeno = textBoxJmeno.Text;
@@ -45,7 +65,7 @@ namespace App.Dialogs
                     this.zakaznik.Adresa.Ulice = textBoxUlice.Text;
                     this.zakaznik.Adresa.CisloPopisne = int.Parse(textBoxCisloPopisne.Text);
                     this.zakaznik.Adresa.Psc = int.Parse(textBoxPsc.Text);
-                    this.zakaznik.Adresa.Stat = textBoxStat.Text;
+                    this.zakaznik.Adresa.Stat = selectedState.Name;
 
                     zakaznik.Id = this.zakaznik.Id;
                     _zakaznikRepo.UpdateZakaznik(zakaznik);
@@ -60,7 +80,7 @@ namespace App.Dialogs
                         textBoxUlice.Text,
                         int.Parse(textBoxCisloPopisne.Text),
                         int.Parse(textBoxPsc.Text),
-                        textBoxStat.Text
+                        selectedState.Name
                     );
 
                     var zakaznik = new Zakaznik
@@ -83,10 +103,9 @@ namespace App.Dialogs
             }
         }
 
-        // Cancel button click handler
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel; // Close the dialog without saving
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
@@ -104,12 +123,31 @@ namespace App.Dialogs
                     textBoxUlice.Text = this.zakaznik.Adresa.Ulice;
                     textBoxCisloPopisne.Text = this.zakaznik.Adresa.CisloPopisne.ToString();
                     textBoxPsc.Text = this.zakaznik.Adresa.Psc.ToString();
-                    textBoxStat.Text = this.zakaznik.Adresa.Stat;
                 }
             }
             GlobalStyles.ApplyButtonStyle(this.cancelButton);
             GlobalStyles.ApplyButtonStyle(this.saveButton);
         }
+
+        private async void FillComboBox()
+        {
+            var states = await StateLoader.GetStatesFromApiAsync();
+            comboStat.DataSource = states;
+            comboStat.DisplayMember = "Name";
+            comboStat.ValueMember = "Code";
+
+            var selectedState = states.FirstOrDefault(s => s.Name == this.zakaznik.Adresa.Stat);
+
+            if (selectedState != null)
+            {
+                comboStat.SelectedItem = selectedState;
+            }
+            else
+            {
+                comboStat.SelectedItem = null;
+            }
+        }
+
 
     }
 }
