@@ -33,16 +33,25 @@ namespace App.Dialogs
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (textBoxPlat.Text == "" || textBoxPlat.Text == "")
+            if (!InputValidator.IsNotEmpty(textBoxNazev, "Pole 'Název' nesmí být prázdné.")||
+                !InputValidator.IsTextOnly(textBoxNazev))
             {
-                MessageBox.Show("Není vyplněný název nebo plat");
                 return;
             }
 
+            if (!InputValidator.IsNotEmpty(textBoxPlat, "Pole 'Plat' nesmí být prázdné.") ||
+                !InputValidator.IsNumber(textBoxPlat, "Pole 'Plat' musí obsahovat platné číslo.") ||
+                !InputValidator.IsNumberInRange(textBoxPlat, 16000, double.MaxValue, "Pole 'Plat' musí být větší než 16000."))
+            {
+                return;
+            }
 
-            var pozice = new PracovniPozice {
+            double plat = double.Parse(textBoxPlat.Text);
+
+            var pozice = new PracovniPozice
+            {
                 Nazev = textBoxNazev.Text,
-                Plat=double.Parse(textBoxPlat.Text)
+                Plat = plat
             };
 
             try
@@ -51,17 +60,17 @@ namespace App.Dialogs
                 {
                     pozice.Id = this.Pozice.Id;
                     _poziceRepo.UpdatePozice(pozice);
-                    MessageBox.Show("Pozice byla úspěšně aktualizována.");
+                    MessageBox.Show("Pozice byla úspěšně aktualizována.", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
                     _poziceRepo.UpdatePozice(pozice);
-                    MessageBox.Show("Pozica byla úspěšně přidána.");
+                    MessageBox.Show("Pozice byla úspěšně přidána.", "Informace", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Chyba při ukládání: " + ex.Message);
+                MessageBox.Show($"Chyba při ukládání: {ex.Message}", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

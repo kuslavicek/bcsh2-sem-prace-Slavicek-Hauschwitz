@@ -107,6 +107,22 @@ public static class InputValidator
     }
 
     /// <summary>
+    /// Zkontroluje, zda hodnota TextBoxu obsahuje pouze text (ne čísla), včetně českých znaků s diakritikou.
+    /// </summary>
+    public static bool IsTextOnly(TextBox textBox, string errorMessage = "Pole musí obsahovat pouze text bez čísel.")
+    {
+        // Regulární výraz pro zjištění, zda text obsahuje pouze písmena, mezery a české znaky s diakritikou
+        var textRegex = new Regex(@"^[a-zA-Zá-žÁ-Ž\s]+$");
+
+        if (!textRegex.IsMatch(textBox.Text))
+        {
+            ShowErrorMessage(textBox, errorMessage);
+            return false;
+        }
+        return true;
+    }
+
+    /// <summary>
     /// Zobrazí chybovou zprávu a nastaví fokus na nevalidní TextBox.
     /// </summary>
     private static void ShowErrorMessage(Control control, string errorMessage)
