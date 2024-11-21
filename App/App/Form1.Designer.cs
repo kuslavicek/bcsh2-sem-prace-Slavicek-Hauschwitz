@@ -92,6 +92,13 @@
             btnAddTyp = new Button();
             label6 = new Label();
             lvTypyAkce = new ListView();
+            tabSklad = new TabPage();
+            panel9 = new Panel();
+            btnUpdateSklad = new Button();
+            btnDeleteSklad = new Button();
+            btnAddSklad = new Button();
+            label7 = new Label();
+            lvSklady = new ListView();
             tabControl1.SuspendLayout();
             tabZbozi.SuspendLayout();
             panel1.SuspendLayout();
@@ -111,6 +118,8 @@
             panel7.SuspendLayout();
             tabTypyAkce.SuspendLayout();
             panel8.SuspendLayout();
+            tabSklad.SuspendLayout();
+            panel9.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -125,6 +134,7 @@
             tabControl1.Controls.Add(tabProvozovny);
             tabControl1.Controls.Add(tabPozice);
             tabControl1.Controls.Add(tabTypyAkce);
+            tabControl1.Controls.Add(tabSklad);
             tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -789,6 +799,79 @@
             lvTypyAkce.TabIndex = 0;
             lvTypyAkce.UseCompatibleStateImageBehavior = false;
             // 
+            // tabSklad
+            // 
+            tabSklad.BackColor = Color.Gainsboro;
+            tabSklad.Controls.Add(panel9);
+            tabSklad.Controls.Add(label7);
+            tabSklad.Controls.Add(lvSklady);
+            tabSklad.Location = new Point(4, 24);
+            tabSklad.Name = "tabSklad";
+            tabSklad.Padding = new Padding(3);
+            tabSklad.Size = new Size(1288, 757);
+            tabSklad.TabIndex = 10;
+            tabSklad.Text = "Sklady";
+            // 
+            // panel9
+            // 
+            panel9.BackColor = Color.Silver;
+            panel9.BorderStyle = BorderStyle.FixedSingle;
+            panel9.Controls.Add(btnUpdateSklad);
+            panel9.Controls.Add(btnDeleteSklad);
+            panel9.Controls.Add(btnAddSklad);
+            panel9.Location = new Point(902, 55);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(380, 607);
+            panel9.TabIndex = 2;
+            // 
+            // btnUpdateSklad
+            // 
+            btnUpdateSklad.Location = new Point(5, 55);
+            btnUpdateSklad.Name = "btnUpdateSklad";
+            btnUpdateSklad.Size = new Size(204, 23);
+            btnUpdateSklad.TabIndex = 2;
+            btnUpdateSklad.Text = "Upravit sklad";
+            btnUpdateSklad.UseVisualStyleBackColor = true;
+            btnUpdateSklad.Click += btnUpdateSklad_Click;
+            // 
+            // btnDeleteSklad
+            // 
+            btnDeleteSklad.Location = new Point(5, 105);
+            btnDeleteSklad.Name = "btnDeleteSklad";
+            btnDeleteSklad.Size = new Size(204, 23);
+            btnDeleteSklad.TabIndex = 1;
+            btnDeleteSklad.Text = "Odstranit sklad";
+            btnDeleteSklad.UseVisualStyleBackColor = true;
+            btnDeleteSklad.Click += btnDeleteSklad_Click;
+            // 
+            // btnAddSklad
+            // 
+            btnAddSklad.Location = new Point(5, 5);
+            btnAddSklad.Name = "btnAddSklad";
+            btnAddSklad.Size = new Size(204, 23);
+            btnAddSklad.TabIndex = 0;
+            btnAddSklad.Text = "Vložit sklad";
+            btnAddSklad.UseVisualStyleBackColor = true;
+            btnAddSklad.Click += btnAddSklad_Click;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 12F);
+            label7.Location = new Point(18, 19);
+            label7.Name = "label7";
+            label7.Size = new Size(56, 21);
+            label7.TabIndex = 1;
+            label7.Text = "Sklady";
+            // 
+            // lvSklady
+            // 
+            lvSklady.Location = new Point(18, 55);
+            lvSklady.Name = "lvSklady";
+            lvSklady.Size = new Size(878, 607);
+            lvSklady.TabIndex = 0;
+            lvSklady.UseCompatibleStateImageBehavior = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -824,6 +907,9 @@
             tabTypyAkce.ResumeLayout(false);
             tabTypyAkce.PerformLayout();
             panel8.ResumeLayout(false);
+            tabSklad.ResumeLayout(false);
+            tabSklad.PerformLayout();
+            panel9.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -900,6 +986,10 @@
             GlobalStyles.ApplyButtonStyle(this.btnAddTyp, true);
             GlobalStyles.ApplyButtonStyle(this.btnEditTypAkce, true);
             GlobalStyles.ApplyButtonStyle(this.btnDeleteTypAkce, true);
+
+            GlobalStyles.ApplyButtonStyle(this.btnAddSklad, true);
+            GlobalStyles.ApplyButtonStyle(this.btnDeleteSklad, true);
+            GlobalStyles.ApplyButtonStyle(this.btnUpdateSklad, true);
         }
 
         private Panel panel2;
@@ -930,5 +1020,12 @@
         private Button btnEditTypAkce;
         private Button btnAddTyp;
         private Label label6;
+        private TabPage tabSklad;
+        private Panel panel9;
+        private Label label7;
+        private ListView lvSklady;
+        private Button btnUpdateSklad;
+        private Button btnDeleteSklad;
+        private Button btnAddSklad;
     }
 }

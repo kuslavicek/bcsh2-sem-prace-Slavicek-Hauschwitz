@@ -13,7 +13,7 @@ namespace App.Repositories
         public AdresaRepo() {
             _database = new Database();
         }
-        public Adresa ParseAdresa(string adresaText)
+        public Adresa ParseAdresa(string? adresaText)
         {
             var parts = adresaText.Split(new[] { ", " }, StringSplitOptions.None);
 

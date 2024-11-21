@@ -80,7 +80,13 @@ namespace App
                         var oracleParam = new OracleParameter(param.Key, param.Value ?? DBNull.Value);
 
                         // Kontrola, zda je hodnota typu JSON
-                        if (param.Value is string jsonString && IsJson(jsonString))
+                        if (param.Value is bool boolValue)
+                        {
+                            oracleParam.OracleDbType = OracleDbType.Boolean;
+                            oracleParam.Direction = ParameterDirection.Output;
+                            oracleParam.Value = boolValue;
+                        }
+                        else if (param.Value is string jsonString && IsJson(jsonString))
                         {
                             oracleParam.OracleDbType = OracleDbType.Clob;
                             oracleParam.Value = jsonString;

@@ -21,6 +21,7 @@ namespace App
         private PracovniPoziceRepo _poziceRepo;
         private ZamestnanecRepo _zamestnanecRepo;
         private TypAkceRepo _typAkceRepo;
+        private SkladRepo _skladRepo;
         public Form1()
         {
             InitializeComponent();
@@ -50,6 +51,9 @@ namespace App
 
             _typAkceRepo = new TypAkceRepo();
             LoadTypyAkce();
+
+            _skladRepo = new SkladRepo();
+            LoadSklady();
         }
         #region Zbozi
 
@@ -858,6 +862,110 @@ namespace App
             }
 
             LoadTypyAkce();
+        }
+        #endregion
+
+        #region Sklad
+        private void LoadSklady()
+        {
+            lvSklady.Columns.Clear();
+            lvSklady.View = View.Details;
+            lvSklady.FullRowSelect = true;
+            lvSklady.Columns.Add("Název", 150);
+            lvSklady.Columns.Add("Užitná plocha", 150);
+            lvSklady.Columns.Add("Adresa", 250);
+
+            var sklady = _skladRepo.GetSklady();
+            lvSklady.Items.Clear();
+
+            foreach (var sklad in sklady)
+            {
+                string adresa = $"{sklad.Adresa.Mesto}, {sklad.Adresa.Ulice}, {sklad.Adresa.CisloPopisne}, {sklad.Adresa.Psc}, {sklad.Adresa.Stat}";
+                var item = new ListViewItem(new[]
+                {
+                    sklad.Nazev,
+                    sklad.UzitnaPlocha.ToString(),
+                    adresa
+                });
+
+                item.Tag = sklad.Id;
+                item.SubItems[2].Tag = sklad.IdAdresa;
+                lvSklady.Items.Add(item);
+            }
+        }
+
+        private void btnAddSklad_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SkladDialog skladDialog = new SkladDialog(_skladRepo, null, false);
+                if (skladDialog.ShowDialog() == DialogResult.OK)
+                {
+                    LoadSklady();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            LoadSklady();
+        }
+
+        private void btnUpdateSklad_Click(object sender, EventArgs e)
+        {
+            if (lvSklady.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
+
+            var selectedItem = lvSklady.SelectedItems[0];
+
+            var sklad = new Sklad
+            {
+                Id = Convert.ToInt32(selectedItem.Tag),
+                Nazev= selectedItem.SubItems[0].Text,
+                UzitnaPlocha= Convert.ToInt32(selectedItem.SubItems[1].Text),
+                Adresa=_adresaRepo.ParseAdresa(selectedItem.SubItems[2].Text+", " + selectedItem.SubItems[2].Tag),
+                IdAdresa = Convert.ToInt32(selectedItem.SubItems[2].Tag)
+            };
+
+            try
+            {
+                SkladDialog skladDialog = new SkladDialog(_skladRepo, sklad, true);
+                if (skladDialog.ShowDialog() == DialogResult.OK)
+                {
+                    LoadSklady();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            LoadSklady();
+        }
+
+        private void btnDeleteSklad_Click(object sender, EventArgs e)
+        {
+            if (lvSklady.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to delete.");
+                return;
+            }
+
+            var selectedItem = lvSklady.SelectedItems[0];
+            var skladId = Convert.ToInt32(selectedItem.Tag);
+
+            try
+            {
+                _skladRepo.DeleteSklad(skladId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadSklady();
         }
         #endregion
     }

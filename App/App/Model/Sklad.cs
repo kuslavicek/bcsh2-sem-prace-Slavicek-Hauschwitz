@@ -8,8 +8,11 @@ namespace App.Model
 {
     public class Sklad
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Nazev { get; set; }
+        public double UzitnaPlocha { get; set; }
+        public int? IdAdresa { get; set; }
+        public Adresa Adresa { get; set; }
 
         public Sklad() { }
 
