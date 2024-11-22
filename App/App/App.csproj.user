@@ -28,6 +28,9 @@
     <Compile Update="Dialogs\TypyAkceDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Dialogs\UserDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Dialogs\ZakaznikDialog.cs">
       <SubType>Form</SubType>
     </Compile>
