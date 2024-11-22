@@ -1,6 +1,6 @@
 ﻿using App.Model;
-using Devart.Data.Oracle;
 using Newtonsoft.Json;
+using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,12 +10,13 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace App.Repositories
 {
     public class ObjednavkaRepo
     {
-        private readonly Database _database;
+        private Database _database;
 
         public ObjednavkaRepo()
         {
@@ -113,5 +114,54 @@ namespace App.Repositories
             return jsonData;
         }
 
+        public OrderStatistics GetOrderStatistics()
+        {
+            OrderStatistics statistics = null;
+            string query = "BEGIN :result := GET_ORDER_STATISTICS; END;";
+
+            using (var connection = new OracleConnection(_database.ConnectionString))
+            {
+                connection.Open();
+                using (var command = new OracleCommand(query, connection))
+                {
+                    var resultParam = new OracleParameter("result", OracleDbType.RefCursor) { Direction = ParameterDirection.Output };
+                    command.Parameters.Add(resultParam);
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+
+                        using (var reader = ((OracleRefCursor)resultParam.Value).GetDataReader())
+                        {
+                            if (reader.Read())
+                            {
+                                statistics = new OrderStatistics
+                                {
+                                    TotalOrders = reader.GetInt32(reader.GetOrdinal("total_orders")),
+                                    AveragePrice = reader.GetDouble(reader.GetOrdinal("average_price")),
+                                    TotalPrice = reader.GetDouble(reader.GetOrdinal("total_price")),
+                                    CompletedOrders = reader.GetInt32(reader.GetOrdinal("completed_orders")),
+                                    PendingOrders = reader.GetInt32(reader.GetOrdinal("pending_orders")),
+                                    MostExpensiveOrder = reader.GetDouble(reader.GetOrdinal("most_expensive_order")),
+                                    MostExpensiveCustomer = reader.GetString(reader.GetOrdinal("most_expensive_customer")),
+                                    LeastExpensiveOrder = reader.GetDouble(reader.GetOrdinal("least_expensive_order")),
+                                    LeastExpensiveCustomer = reader.GetString(reader.GetOrdinal("least_expensive_customer"))
+                                };
+                            }
+                        }
+                    }
+                    catch (OracleException ex)
+                    {
+                        throw new Exception("Oracle exception occurred: " + ex.Message, ex);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("An error occurred: " + ex.Message, ex);
+                    }
+                }
+            }
+
+            return statistics;
+        }
     }
 }

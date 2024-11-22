@@ -138,6 +138,10 @@ namespace App.Repositories
                     {
                         throw ex;
                     }
+                    finally
+                    {
+                        connection.Close();
+                    }
                 }
             }
 

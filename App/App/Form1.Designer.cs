@@ -99,6 +99,24 @@
             btnAddSklad = new Button();
             label7 = new Label();
             lvSklady = new ListView();
+            tabStats = new TabPage();
+            txtMostExpensiveCustomer = new TextBox();
+            txtLeastExpensiveCustomer = new TextBox();
+            label14 = new Label();
+            label13 = new Label();
+            label12 = new Label();
+            label11 = new Label();
+            label10 = new Label();
+            label9 = new Label();
+            label8 = new Label();
+            txtLeastExpensiveOrder = new TextBox();
+            txtMostExpensiveOrder = new TextBox();
+            txtPendingOrders = new TextBox();
+            txtCompletedOrders = new TextBox();
+            txtTotalPrice = new TextBox();
+            txtAveragePrice = new TextBox();
+            txtTotalOrders = new TextBox();
+            oracleCommand1 = new Oracle.ManagedDataAccess.Client.OracleCommand();
             tabControl1.SuspendLayout();
             tabZbozi.SuspendLayout();
             panel1.SuspendLayout();
@@ -120,6 +138,7 @@
             panel8.SuspendLayout();
             tabSklad.SuspendLayout();
             panel9.SuspendLayout();
+            tabStats.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -135,6 +154,7 @@
             tabControl1.Controls.Add(tabPozice);
             tabControl1.Controls.Add(tabTypyAkce);
             tabControl1.Controls.Add(tabSklad);
+            tabControl1.Controls.Add(tabStats);
             tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -872,6 +892,171 @@
             lvSklady.TabIndex = 0;
             lvSklady.UseCompatibleStateImageBehavior = false;
             // 
+            // tabStats
+            // 
+            tabStats.Controls.Add(txtMostExpensiveCustomer);
+            tabStats.Controls.Add(txtLeastExpensiveCustomer);
+            tabStats.Controls.Add(label14);
+            tabStats.Controls.Add(label13);
+            tabStats.Controls.Add(label12);
+            tabStats.Controls.Add(label11);
+            tabStats.Controls.Add(label10);
+            tabStats.Controls.Add(label9);
+            tabStats.Controls.Add(label8);
+            tabStats.Controls.Add(txtLeastExpensiveOrder);
+            tabStats.Controls.Add(txtMostExpensiveOrder);
+            tabStats.Controls.Add(txtPendingOrders);
+            tabStats.Controls.Add(txtCompletedOrders);
+            tabStats.Controls.Add(txtTotalPrice);
+            tabStats.Controls.Add(txtAveragePrice);
+            tabStats.Controls.Add(txtTotalOrders);
+            tabStats.Location = new Point(4, 24);
+            tabStats.Name = "tabStats";
+            tabStats.Padding = new Padding(3);
+            tabStats.Size = new Size(1288, 757);
+            tabStats.TabIndex = 11;
+            tabStats.Text = "Statistiky objednávek";
+            tabStats.UseVisualStyleBackColor = true;
+            // 
+            // txtMostExpensiveCustomer
+            // 
+            txtMostExpensiveCustomer.Enabled = false;
+            txtMostExpensiveCustomer.Location = new Point(312, 199);
+            txtMostExpensiveCustomer.Name = "txtMostExpensiveCustomer";
+            txtMostExpensiveCustomer.Size = new Size(100, 23);
+            txtMostExpensiveCustomer.TabIndex = 15;
+            // 
+            // txtLeastExpensiveCustomer
+            // 
+            txtLeastExpensiveCustomer.Enabled = false;
+            txtLeastExpensiveCustomer.Location = new Point(312, 228);
+            txtLeastExpensiveCustomer.Name = "txtLeastExpensiveCustomer";
+            txtLeastExpensiveCustomer.Size = new Size(100, 23);
+            txtLeastExpensiveCustomer.TabIndex = 14;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(59, 202);
+            label14.Name = "label14";
+            label14.Size = new Size(142, 15);
+            label14.TabIndex = 13;
+            label14.Text = "Nejvyšší cena objednávky";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(59, 231);
+            label13.Name = "label13";
+            label13.Size = new Size(140, 15);
+            label13.TabIndex = 12;
+            label13.Text = "Nejnižsí cena objednávky";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(103, 173);
+            label12.Name = "label12";
+            label12.Size = new Size(97, 15);
+            label12.TabIndex = 11;
+            label12.Text = "Ve stavu vyřízeno";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(74, 144);
+            label11.Name = "label11";
+            label11.Size = new Size(126, 15);
+            label11.TabIndex = 10;
+            label11.Text = "Ve stavu zpracovává se";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(49, 86);
+            label10.Name = "label10";
+            label10.Size = new Size(151, 15);
+            label10.TabIndex = 9;
+            label10.Text = "Průměrná cena objednávky";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(59, 115);
+            label9.Name = "label9";
+            label9.Size = new Size(141, 15);
+            label9.TabIndex = 8;
+            label9.Text = "Celková cena objednávky";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(54, 57);
+            label8.Name = "label8";
+            label8.Size = new Size(146, 15);
+            label8.TabIndex = 7;
+            label8.Text = "Celkový počet objednávek";
+            // 
+            // txtLeastExpensiveOrder
+            // 
+            txtLeastExpensiveOrder.Enabled = false;
+            txtLeastExpensiveOrder.Location = new Point(206, 228);
+            txtLeastExpensiveOrder.Name = "txtLeastExpensiveOrder";
+            txtLeastExpensiveOrder.Size = new Size(100, 23);
+            txtLeastExpensiveOrder.TabIndex = 6;
+            // 
+            // txtMostExpensiveOrder
+            // 
+            txtMostExpensiveOrder.Enabled = false;
+            txtMostExpensiveOrder.Location = new Point(206, 199);
+            txtMostExpensiveOrder.Name = "txtMostExpensiveOrder";
+            txtMostExpensiveOrder.Size = new Size(100, 23);
+            txtMostExpensiveOrder.TabIndex = 5;
+            // 
+            // txtPendingOrders
+            // 
+            txtPendingOrders.Enabled = false;
+            txtPendingOrders.Location = new Point(206, 141);
+            txtPendingOrders.Name = "txtPendingOrders";
+            txtPendingOrders.Size = new Size(100, 23);
+            txtPendingOrders.TabIndex = 4;
+            // 
+            // txtCompletedOrders
+            // 
+            txtCompletedOrders.Enabled = false;
+            txtCompletedOrders.Location = new Point(206, 170);
+            txtCompletedOrders.Name = "txtCompletedOrders";
+            txtCompletedOrders.Size = new Size(100, 23);
+            txtCompletedOrders.TabIndex = 3;
+            // 
+            // txtTotalPrice
+            // 
+            txtTotalPrice.Enabled = false;
+            txtTotalPrice.Location = new Point(206, 112);
+            txtTotalPrice.Name = "txtTotalPrice";
+            txtTotalPrice.Size = new Size(100, 23);
+            txtTotalPrice.TabIndex = 2;
+            // 
+            // txtAveragePrice
+            // 
+            txtAveragePrice.Enabled = false;
+            txtAveragePrice.Location = new Point(206, 83);
+            txtAveragePrice.Name = "txtAveragePrice";
+            txtAveragePrice.Size = new Size(100, 23);
+            txtAveragePrice.TabIndex = 1;
+            // 
+            // txtTotalOrders
+            // 
+            txtTotalOrders.Enabled = false;
+            txtTotalOrders.Location = new Point(206, 54);
+            txtTotalOrders.Name = "txtTotalOrders";
+            txtTotalOrders.Size = new Size(100, 23);
+            txtTotalOrders.TabIndex = 0;
+            // 
+            // oracleCommand1
+            // 
+            oracleCommand1.Transaction = null;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -910,6 +1095,8 @@
             tabSklad.ResumeLayout(false);
             tabSklad.PerformLayout();
             panel9.ResumeLayout(false);
+            tabStats.ResumeLayout(false);
+            tabStats.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1027,5 +1214,23 @@
         private Button btnUpdateSklad;
         private Button btnDeleteSklad;
         private Button btnAddSklad;
+        private TabPage tabStats;
+        private Label label14;
+        private Label label13;
+        private Label label12;
+        private Label label11;
+        private Label label10;
+        private Label label9;
+        private Label label8;
+        private TextBox txtLeastExpensiveOrder;
+        private TextBox txtMostExpensiveOrder;
+        private TextBox txtPendingOrders;
+        private TextBox txtCompletedOrders;
+        private TextBox txtTotalPrice;
+        private TextBox txtAveragePrice;
+        private TextBox txtTotalOrders;
+        private Oracle.ManagedDataAccess.Client.OracleCommand oracleCommand1;
+        private TextBox txtMostExpensiveCustomer;
+        private TextBox txtLeastExpensiveCustomer;
     }
 }

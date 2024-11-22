@@ -1,13 +1,9 @@
-using System.Data;
-using Oracle.ManagedDataAccess.Client;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using App.Repositories;
 using App.Model;
 using App.Dialogs;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static System.Windows.Forms.DataFormats;
 using System.Globalization;
+using System.Windows.Forms.DataVisualization.Charting;
+
 namespace App
 {
     public partial class Form1 : Form
@@ -54,6 +50,8 @@ namespace App
 
             _skladRepo = new SkladRepo();
             LoadSklady();
+
+            LoadStatistiky();
         }
         #region Zbozi
 
@@ -968,6 +966,47 @@ namespace App
             }
 
             LoadSklady();
+        }
+        #endregion
+
+        #region Statistiky
+        private void LoadStatistiky()
+        {
+            OrderStatistics statistics = _objednavkaRepo.GetOrderStatistics();
+
+            txtTotalOrders.Text = statistics.TotalOrders.ToString();
+            txtAveragePrice.Text = statistics.AveragePrice.ToString("C");
+            txtTotalPrice.Text = statistics.TotalPrice.ToString("C");
+            txtCompletedOrders.Text = statistics.CompletedOrders.ToString();
+            txtPendingOrders.Text = statistics.PendingOrders.ToString();
+            txtMostExpensiveOrder.Text = statistics.MostExpensiveOrder.ToString("C");
+            txtLeastExpensiveOrder.Text = statistics.LeastExpensiveOrder.ToString("C");
+            txtMostExpensiveCustomer.Text = statistics.MostExpensiveCustomer.ToString();
+            txtLeastExpensiveCustomer.Text = statistics.LeastExpensiveCustomer.ToString();
+
+            Chart pieChart = new Chart();
+            pieChart.Width = tabStats.Width/2;
+            pieChart.Height = tabStats.Height/2;
+            pieChart.Location = new Point(600, 54);
+
+            ChartArea chartArea = new ChartArea();
+            pieChart.ChartAreas.Add(chartArea);
+
+            Series pieSeries = new Series
+            {
+                ChartType = SeriesChartType.Pie,
+                IsValueShownAsLabel = true
+            };
+
+            pieSeries.Points.AddXY("Ve stavu vyøízeno", statistics.CompletedOrders);
+            pieSeries.Points.AddXY("Ve stavu Zpracovává se", statistics.PendingOrders);
+
+            Legend legend = new Legend();
+            pieChart.Legends.Add(legend);
+
+            pieChart.Series.Add(pieSeries);
+
+            tabStats.Controls.Add(pieChart);
         }
         #endregion
     }
