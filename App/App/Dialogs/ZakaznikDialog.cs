@@ -29,8 +29,9 @@ namespace App.Dialogs
             this.FillData();
         }
 
-        private void SaveButton_Click(object sender, EventArgs e)
+        private async void SaveButton_Click(object sender, EventArgs e)
         {
+            State selectedState = comboStat.SelectedItem as State;
             if (!InputValidator.IsNotEmpty(textBoxJmeno,"Jméno není vyplněno")||
                 !InputValidator.IsNotEmpty(textBoxTelefon, "Telefon není vyplněn")||
                 !InputValidator.IsNotEmpty(textBoxEmail, "Email není vyplněn")||
@@ -47,15 +48,20 @@ namespace App.Dialogs
                 !InputValidator.IsEmail(textBoxEmail, "Neplatný email.") ||
                 !InputValidator.IsTextOnly(textBoxUlice, "Ulice nemůže obsahovat čísla") ||
                 !InputValidator.IsTextOnly(textBoxMesto, "Město nemůže obsahovat čísla.") ||
-                !InputValidator.IsNumberInRange(textBoxPsc,5,5, "PSČ musí obsahovat pět čísel.") ||
                 !InputValidator.IsNumber(textBoxCisloPopisne, "Číslo popisné nemůže obsahovat znaky."))
             {
                 return;
             }
 
+            bool isPostalCodeValid = await InputValidator.ValidatePostalCode(selectedState.Code, textBoxPsc.Text);
+            if (!isPostalCodeValid)
+            {
+                MessageBox.Show("Nevalidní PSČ pro zvolenou zemi.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             try
             {
-                State selectedState = comboStat.SelectedItem as State;
                 if (IsEditMode)
                 {
                     this.zakaznik.Jmeno = textBoxJmeno.Text;

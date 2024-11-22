@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 public static class InputValidator
 {
@@ -121,6 +125,51 @@ public static class InputValidator
         }
         return true;
     }
+
+    public static async Task<bool> ValidatePostalCode(string country, string postalCode)
+    {
+        try
+        {
+            using (var client = new HttpClient())
+            {
+                if (country.ToLower() == "cz" && postalCode.Length == 5)
+                {
+                    postalCode = FormatCzechPostalCode(postalCode);
+                }
+
+                string url = $"http://api.zippopotam.us/{country}/{postalCode}";
+                var response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                    return true;
+
+                string geoNamesUrl = $"http://api.geonames.org/postalCodeSearchJSON?postalcode={postalCode}&country={country.ToUpper()}&username=your_username";
+                var geoNamesResponse = await client.GetAsync(geoNamesUrl);
+
+                return geoNamesResponse.IsSuccessStatusCode;
+            }
+        }
+        catch (HttpRequestException)
+        {
+            return false;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
+    private static string FormatCzechPostalCode(string postalCode)
+    {
+        if (postalCode.Length == 5)
+        {
+            return postalCode.Substring(0, 3) + " " + postalCode.Substring(3, 2);
+        }
+        return postalCode; // pokud PSČ nemá 5 znaků, vrací původní hodnotu
+    }
+
+
+
 
     /// <summary>
     /// Zobrazí chybovou zprávu a nastaví fokus na nevalidní TextBox.

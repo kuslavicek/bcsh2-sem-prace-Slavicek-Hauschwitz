@@ -27,15 +27,16 @@ namespace App.Dialogs
             this.fill();
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
+            State selectedState = comboStat.SelectedItem as State;
             if (!InputValidator.IsNotEmpty(txtNazev, "Název není vyplněný.") ||
                 !InputValidator.IsNotEmpty(txtPlocha, "Užitná plocha není vyplněna.") ||
                 !InputValidator.IsNotEmpty(txtUlice, "Ulice není vyplněna") ||
                 !InputValidator.IsNotEmpty(txtMesto, "Město není vyplněno") ||
                 !InputValidator.IsNotEmpty(txtPsc, "PSČ není vyplněno") ||
                 !InputValidator.IsSelected(comboStat, "Není vybrán stát") ||
-                !InputValidator.IsNotEmpty(txtCisloPopisne, "Číslo popisné není vyplněno není vyplněno"))
+                !InputValidator.IsNotEmpty(txtCisloPopisne, "Číslo popisné není vyplněno"))
             {
                 return;
             }
@@ -44,15 +45,20 @@ namespace App.Dialogs
                 !InputValidator.IsNumber(txtPlocha, "Užitná plocha musí být číslo.") ||
                 !InputValidator.IsTextOnly(txtUlice, "Ulice nemůže obsahovat čísla") ||
                 !InputValidator.IsTextOnly(txtMesto, "Město nemůže obsahovat čísla.") ||
-                !InputValidator.IsNumberInRange(txtPsc, 5, 5, "PSČ musí obsahovat pět čísel.") ||
                 !InputValidator.IsNumber(txtCisloPopisne, "Číslo popisné nemůže obsahovat znaky."))
             {
                 return;
             }
 
+            bool isPostalCodeValid = await InputValidator.ValidatePostalCode(selectedState.Code, txtPsc.Text);
+            if (!isPostalCodeValid)
+            {
+                MessageBox.Show("Nevalidní PSČ pro zvolenou zemi.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             try
             {
-                State selectedState = comboStat.SelectedItem as State;
                 if (IsEditMode)
                 {
                     this.Sklad.Nazev = txtNazev.Text;

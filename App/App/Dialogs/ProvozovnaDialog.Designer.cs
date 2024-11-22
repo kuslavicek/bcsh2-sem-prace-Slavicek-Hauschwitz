@@ -35,7 +35,6 @@
             btnCancel = new Button();
             textBoxCisloPopisne = new TextBox();
             textBoxMesto = new TextBox();
-            textBoxStat = new TextBox();
             textBoxPsc = new TextBox();
             textBoxUlice = new TextBox();
             label1 = new Label();
@@ -46,6 +45,7 @@
             label6 = new Label();
             label8 = new Label();
             label9 = new Label();
+            comboStat = new ComboBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -107,13 +107,6 @@
             textBoxMesto.Name = "textBoxMesto";
             textBoxMesto.Size = new Size(250, 23);
             textBoxMesto.TabIndex = 5;
-            // 
-            // textBoxStat
-            // 
-            textBoxStat.Location = new Point(155, 276);
-            textBoxStat.Name = "textBoxStat";
-            textBoxStat.Size = new Size(250, 23);
-            textBoxStat.TabIndex = 6;
             // 
             // textBoxPsc
             // 
@@ -198,15 +191,24 @@
             label9.AutoSize = true;
             label9.Location = new Point(105, 35);
             label9.Name = "label9";
-            label9.Size = new Size(44, 15);
+            label9.Size = new Size(42, 15);
             label9.TabIndex = 18;
-            label9.Text = "Pozice:";
+            label9.Text = "Název:";
+            // 
+            // comboStat
+            // 
+            comboStat.FormattingEnabled = true;
+            comboStat.Location = new Point(155, 276);
+            comboStat.Name = "comboStat";
+            comboStat.Size = new Size(250, 23);
+            comboStat.TabIndex = 19;
             // 
             // ProvozovnaDialog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(500, 500);
+            Controls.Add(comboStat);
             Controls.Add(label9);
             Controls.Add(label8);
             Controls.Add(label6);
@@ -217,7 +219,6 @@
             Controls.Add(label1);
             Controls.Add(textBoxUlice);
             Controls.Add(textBoxPsc);
-            Controls.Add(textBoxStat);
             Controls.Add(textBoxMesto);
             Controls.Add(textBoxCisloPopisne);
             Controls.Add(panel1);
@@ -238,7 +239,6 @@
         private Button btnCancel;
         private TextBox textBoxCisloPopisne;
         private TextBox textBoxMesto;
-        private TextBox textBoxStat;
         private TextBox textBoxPsc;
         private TextBox textBoxUlice;
         private Button btnSave;
@@ -250,5 +250,6 @@
         private Label label6;
         private Label label8;
         private Label label9;
+        private ComboBox comboStat;
     }
 }

@@ -1,4 +1,5 @@
-﻿using App.Model;
+﻿using App.Extensions;
+using App.Model;
 using App.Repositories;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace App.Dialogs
         public ProvozovnaDialog(ProvozovnaRepo repo,Provozovna provozovna, bool isEditMode=false)
         {
             InitializeComponent();
+            this.FillComboBox();
             this._provozovnaRepo =repo;
             this.IsEditMode = isEditMode;
             this.Provozovna = provozovna;
@@ -32,16 +34,37 @@ namespace App.Dialogs
             this.Close();
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(textBoxNazev.Text) || string.IsNullOrEmpty(textBoxNazev.Text))
+            State selectedState = comboStat.SelectedItem as State;
+            if (!InputValidator.IsNotEmpty(textBoxNazev, "Název není vyplněný.") ||
+                !InputValidator.IsNotEmpty(textBoxUlice, "Ulice není vyplněna") ||
+                !InputValidator.IsNotEmpty(textBoxMesto, "Město není vyplněno") ||
+                !InputValidator.IsNotEmpty(textBoxPsc, "PSČ není vyplněno") ||
+                !InputValidator.IsSelected(comboStat, "Není vybrán stát") ||
+                !InputValidator.IsNotEmpty(textBoxCisloPopisne, "Číslo popisné není vyplněno není vyplněno"))
             {
-                MessageBox.Show("Prosím, vyplňte všechny údaje.");
+                return;
+            }
+
+            if (!InputValidator.IsTextOnly(textBoxNazev, "Název nesmí obsahovat čísla.") ||
+                !InputValidator.IsTextOnly(textBoxUlice, "Ulice nemůže obsahovat čísla") ||
+                !InputValidator.IsTextOnly(textBoxMesto, "Město nemůže obsahovat čísla") ||
+                !InputValidator.IsNumber(textBoxCisloPopisne, "Číslo popisné nemůže obsahovat znaky."))
+            {
+                return;
+            }
+
+            bool isPostalCodeValid = await InputValidator.ValidatePostalCode(selectedState.Code, textBoxPsc.Text);
+            if (!isPostalCodeValid)
+            {
+                MessageBox.Show("Nevalidní PSČ pro zvolenou zemi.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             try
             {
+                State selectedState = comboStat.SelectedItem as State;
                 if (IsEditMode)
                 {
                     this.Provozovna.Nazev = textBoxNazev.Text;
@@ -49,7 +72,7 @@ namespace App.Dialogs
                     this.Provozovna.Adresa.Ulice = textBoxUlice.Text;
                     this.Provozovna.Adresa.CisloPopisne = int.Parse(textBoxCisloPopisne.Text);
                     this.Provozovna.Adresa.Psc = int.Parse(textBoxPsc.Text);
-                    this.Provozovna.Adresa.Stat = textBoxStat.Text;
+                    this.Provozovna.Adresa.Stat = selectedState.Name;
                     _provozovnaRepo.UpdateProvozovna(this.Provozovna);
                     MessageBox.Show("Provozovna byla úspěšně aktualizována.");
                 }
@@ -62,7 +85,7 @@ namespace App.Dialogs
                         textBoxUlice.Text,
                         int.Parse(textBoxCisloPopisne.Text),
                         int.Parse(textBoxPsc.Text),
-                        textBoxStat.Text
+                        selectedState.Name
                     );
 
                     var provozovna = new Provozovna
@@ -88,13 +111,34 @@ namespace App.Dialogs
                 this.textBoxNazev.Text = this.Provozovna.Nazev;
                 this.textBoxPocet.Text = this.Provozovna.PocetZamestnancu.ToString();
                 this.textBoxUlice.Text = this.Provozovna.Adresa.Ulice;
-                this.textBoxStat.Text = this.Provozovna.Adresa.Stat;
                 this.textBoxPsc.Text = this.Provozovna.Adresa.Psc.ToString();
                 this.textBoxMesto.Text = this.Provozovna.Adresa.Mesto;
                 this.textBoxCisloPopisne.Text = this.Provozovna.Adresa.CisloPopisne.ToString();
             }
             else {
                 this.textBoxPocet.Text = "0";
+            }
+        }
+
+        private async void FillComboBox()
+        {
+            var states = await StateLoader.GetStatesFromApiAsync();
+            comboStat.DataSource = states;
+            comboStat.DisplayMember = "Name";
+            comboStat.ValueMember = "Code";
+
+            if (this.Provozovna != null)
+            {
+                var selectedState = states.FirstOrDefault(s => s.Name == this.Provozovna.Adresa.Stat);
+
+                if (selectedState != null)
+                {
+                    comboStat.SelectedItem = selectedState;
+                }
+                else
+                {
+                    comboStat.SelectedItem = null;
+                }
             }
         }
     }
