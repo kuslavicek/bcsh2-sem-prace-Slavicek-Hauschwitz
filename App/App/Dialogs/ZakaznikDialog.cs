@@ -70,7 +70,7 @@ namespace App.Dialogs
                     this.zakaznik.Adresa.Mesto = textBoxMesto.Text;
                     this.zakaznik.Adresa.Ulice = textBoxUlice.Text;
                     this.zakaznik.Adresa.CisloPopisne = int.Parse(textBoxCisloPopisne.Text);
-                    this.zakaznik.Adresa.Psc = int.Parse(textBoxPsc.Text);
+                    this.zakaznik.Adresa.Psc = int.Parse(textBoxPsc.Text.Replace(" ", ""));
                     this.zakaznik.Adresa.Stat = selectedState.Name;
 
                     zakaznik.Id = this.zakaznik.Id;
@@ -85,7 +85,7 @@ namespace App.Dialogs
                         textBoxMesto.Text,
                         textBoxUlice.Text,
                         int.Parse(textBoxCisloPopisne.Text),
-                        int.Parse(textBoxPsc.Text),
+                        int.Parse(textBoxPsc.Text.Replace(" ", "")),
                         selectedState.Name
                     );
 

@@ -70,7 +70,7 @@ namespace App.Dialogs
                     this.Provozovna.Adresa.Mesto = textBoxMesto.Text;
                     this.Provozovna.Adresa.Ulice = textBoxUlice.Text;
                     this.Provozovna.Adresa.CisloPopisne = int.Parse(textBoxCisloPopisne.Text);
-                    this.Provozovna.Adresa.Psc = int.Parse(textBoxPsc.Text);
+                    this.Provozovna.Adresa.Psc = int.Parse(textBoxPsc.Text.Replace(" ", ""));
                     this.Provozovna.Adresa.Stat = selectedState.Name;
                     _provozovnaRepo.UpdateProvozovna(this.Provozovna);
                     MessageBox.Show("Provozovna byla úspěšně aktualizována.");
@@ -83,7 +83,7 @@ namespace App.Dialogs
                         textBoxMesto.Text,
                         textBoxUlice.Text,
                         int.Parse(textBoxCisloPopisne.Text),
-                        int.Parse(textBoxPsc.Text),
+                        int.Parse(textBoxPsc.Text.Replace(" ", "")),
                         selectedState.Name
                     );
 

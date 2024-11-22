@@ -66,7 +66,7 @@ namespace App.Dialogs
                     this.Sklad.Adresa.Mesto = txtMesto.Text;
                     this.Sklad.Adresa.Ulice = txtUlice.Text;
                     this.Sklad.Adresa.CisloPopisne = int.Parse(txtCisloPopisne.Text);
-                    this.Sklad.Adresa.Psc = int.Parse(txtPsc.Text);
+                    this.Sklad.Adresa.Psc = int.Parse(txtPsc.Text.Replace(" ", ""));
                     this.Sklad.Adresa.Stat = selectedState.Name;
 
                     _skladRepo.UpdateSklad(this.Sklad);
@@ -80,7 +80,7 @@ namespace App.Dialogs
                         txtMesto.Text,
                         txtUlice.Text,
                         int.Parse(txtCisloPopisne.Text),
-                        int.Parse(txtPsc.Text),
+                        int.Parse(txtPsc.Text.Replace(" ", "")),
                         selectedState.Name
                     );
 
