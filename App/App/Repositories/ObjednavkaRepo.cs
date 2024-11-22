@@ -24,7 +24,7 @@ namespace App.Repositories
 
         public List<ListViewItem> Load()
         {
-            string queryObjednavka = "SELECT id, datum_zalozeni, cena, zakaznik, faktura, id_faktura, id_zakaznik FROM v_objednavka";
+            string queryObjednavka = "SELECT id, datum_zalozeni, status,cena, zakaznik, faktura, id_faktura, id_zakaznik FROM v_objednavka";
 
             var dataObjednavka = _database.GetDataFromView(queryObjednavka);
 
@@ -37,10 +37,12 @@ namespace App.Repositories
                 row["DATUM_ZALOZENI"].ToString(),
                 row["CENA"].ToString(),
                 row["ZAKAZNIK"].ToString(),
-                row["FAKTURA"].ToString()
+                row["FAKTURA"].ToString(),
+                Convert.ToInt32(row["STATUS"])==1?"Vyřízená":"Zpracovává se"
                 });
-                item.SubItems[2].Tag = row["ID_FAKTURA"];
-                item.SubItems[3].Tag = row["ID_ZAKAZNIK"];
+                item.SubItems[4].Tag = Convert.ToInt32(row["STATUS"]);
+                item.SubItems[3].Tag = row["ID_FAKTURA"];
+                item.SubItems[2].Tag = row["ID_ZAKAZNIK"];
                 item.Tag = row["ID"];
                 objednavkaList.Add(item);
             }
@@ -60,6 +62,7 @@ namespace App.Repositories
                 parameters.Add("p_id_zakaznik", objednavka.IdZakaznik);
                 parameters.Add("p_faktura_data", faktura.FakturaBlob);
                 parameters.Add("p_nazev_souboru", faktura.NazevSouboru);
+                parameters.Add("p_status",objednavka.Status);
 
                 parameters.Add("p_objednane_zbozi", ConvertZboziSeznamToJson(zbozi));
 

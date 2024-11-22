@@ -40,6 +40,8 @@ namespace App.Dialogs
             btnSaveFaktura = new Button();
             labelakce = new Label();
             labelZbozi = new Label();
+            label1 = new Label();
+            comboStatus = new ComboBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -176,10 +178,10 @@ namespace App.Dialogs
             // listViewZbozi
             // 
             listViewZbozi.FullRowSelect = true;
-            listViewZbozi.Location = new Point(472, 135);
+            listViewZbozi.Location = new Point(472, 149);
             listViewZbozi.Margin = new Padding(4, 3, 4, 3);
             listViewZbozi.Name = "listViewZbozi";
-            listViewZbozi.Size = new Size(300, 372);
+            listViewZbozi.Size = new Size(300, 358);
             listViewZbozi.TabIndex = 0;
             listViewZbozi.UseCompatibleStateImageBehavior = false;
             listViewZbozi.View = View.Details;
@@ -187,9 +189,9 @@ namespace App.Dialogs
             // listViewAkce
             // 
             listViewAkce.FullRowSelect = true;
-            listViewAkce.Location = new Point(779, 135);
+            listViewAkce.Location = new Point(779, 149);
             listViewAkce.Name = "listViewAkce";
-            listViewAkce.Size = new Size(300, 372);
+            listViewAkce.Size = new Size(300, 358);
             listViewAkce.TabIndex = 14;
             listViewAkce.UseCompatibleStateImageBehavior = false;
             listViewAkce.View = View.Details;
@@ -256,7 +258,7 @@ namespace App.Dialogs
             // labelakce
             // 
             labelakce.AutoSize = true;
-            labelakce.Location = new Point(779, 117);
+            labelakce.Location = new Point(779, 129);
             labelakce.Name = "labelakce";
             labelakce.Size = new Size(33, 15);
             labelakce.TabIndex = 19;
@@ -265,17 +267,36 @@ namespace App.Dialogs
             // labelZbozi
             // 
             labelZbozi.AutoSize = true;
-            labelZbozi.Location = new Point(472, 117);
+            labelZbozi.Location = new Point(472, 129);
             labelZbozi.Name = "labelZbozi";
             labelZbozi.Size = new Size(36, 15);
             labelZbozi.TabIndex = 20;
             labelZbozi.Text = "Zboží";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(472, 97);
+            label1.Name = "label1";
+            label1.Size = new Size(42, 15);
+            label1.TabIndex = 22;
+            label1.Text = "Status:";
+            // 
+            // comboStatus
+            // 
+            comboStatus.FormattingEnabled = true;
+            comboStatus.Location = new Point(526, 94);
+            comboStatus.Name = "comboStatus";
+            comboStatus.Size = new Size(231, 23);
+            comboStatus.TabIndex = 23;
             // 
             // ObjednavkaDialog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1105, 577);
+            Controls.Add(comboStatus);
+            Controls.Add(label1);
             Controls.Add(labelZbozi);
             Controls.Add(labelakce);
             Controls.Add(panel1);
@@ -322,5 +343,7 @@ namespace App.Dialogs
         private Label labelakce;
         private Label labelZbozi;
         private Button btnSaveFaktura;
+        private Label label1;
+        private ComboBox comboStatus;
     }
 }

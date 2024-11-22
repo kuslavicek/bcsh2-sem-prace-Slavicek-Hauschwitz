@@ -13,15 +13,17 @@ namespace App.Model
         public double Cena { get; set; }
         public int? IdZakaznik { get; set; }
         public int? IdFaktura { get; set; }
+        public int Status { get; set; }
         public Objednavka() { 
         }
-        public Objednavka(int id, DateTime datumZalozeni, double cena, int idZakaznik, int? idFaktura = null)
+        public Objednavka(int id, DateTime datumZalozeni, double cena, int idZakaznik, int status, int? idFaktura = null)
         {
             Id = id;
             DatumZalozeni = datumZalozeni;
             Cena = cena;
             IdZakaznik = idZakaznik;
             IdFaktura = idFaktura;
+            Status = status;
         }
     }
 }

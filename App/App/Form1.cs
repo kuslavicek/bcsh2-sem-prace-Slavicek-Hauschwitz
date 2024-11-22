@@ -182,6 +182,7 @@ namespace App
             lvObjednavky.Columns.Add("Cena", 100);
             lvObjednavky.Columns.Add("Zákazník", 150);
             lvObjednavky.Columns.Add("Faktura", 150);
+            lvObjednavky.Columns.Add("Status", 150);
 
             var orderList = _objednavkaRepo.Load();
             lvObjednavky.Items.Clear();
@@ -225,8 +226,9 @@ namespace App
                 Convert.ToInt32(selectedItem.Tag.ToString()),
                 date,
                 double.Parse(selectedItem.SubItems[1].Text.ToString()),
-                Convert.ToInt32(selectedItem.SubItems[2].Tag.ToString()),
-                Convert.ToInt32(selectedItem.SubItems[3].Tag.ToString())
+                Convert.ToInt32(selectedItem.SubItems[2].Tag),
+                Convert.ToInt32(selectedItem.SubItems[4].Tag),
+                Convert.ToInt32(selectedItem.SubItems[3].Tag)
             );
 
             try

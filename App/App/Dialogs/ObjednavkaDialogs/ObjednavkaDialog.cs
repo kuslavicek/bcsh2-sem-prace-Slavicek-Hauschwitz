@@ -46,7 +46,6 @@ namespace App.Dialogs
                 this.Faktura = this._fakturaRepo.GetFakturaByObjednavka(this.Objednavka.Id);
                 this.originalCountZbozi = this.ZboziSeznam.Count;
                 this.originalCountAkce = this.ZboziSeznam.Count;
-                this.fillData();
             }
             else {
                 this.ZboziSeznam = new List<KeyValuePair<ObjednaneZbozi, Zbozi>>();
@@ -55,6 +54,7 @@ namespace App.Dialogs
                 this.buttonGenerateFaktura.Enabled = false;
 
             }
+            this.fillData();
             this.LoadStyles();
         }
 
@@ -94,6 +94,7 @@ namespace App.Dialogs
             this.Objednavka.Cena = cena;
             this.Objednavka.IdZakaznik = this.Zakaznik.Id;
             this.Objednavka.DatumZalozeni = this.dateTimePickerDatum.Value;
+            this.Objednavka.Status = this.comboStatus.SelectedIndex;
 
             this._objednavkaRepo.Save(Objednavka, Faktura, ZboziSeznam, AkceSeznam);
 
@@ -209,6 +210,14 @@ namespace App.Dialogs
                 this.textBoxFaktura.Text = this.Faktura.NazevSouboru;
                 LoadZboziListView();
                 LoadAkceListView();
+                comboStatus.DataSource = OrderStatusEnum.GetStatusList();
+                comboStatus.DisplayMember = "Value";
+                comboStatus.ValueMember = "Key";
+                comboStatus.SelectedIndex = this.Objednavka.Status;  
+            }
+            else {
+                comboStatus.Hide();
+                label1.Hide();
             }
         }
 
