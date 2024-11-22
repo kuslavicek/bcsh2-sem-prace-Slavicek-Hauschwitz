@@ -18,13 +18,18 @@ namespace App
         private ZamestnanecRepo _zamestnanecRepo;
         private TypAkceRepo _typAkceRepo;
         private SkladRepo _skladRepo;
+        private Dictionary<int, string> skladyDict;
         public Form1()
         {
             InitializeComponent();
             this.initBtns();
+            _skladRepo = new SkladRepo();
+            this.skladyDict = _skladRepo.LoadSkladyForSelect();
+            LoadSklady();
 
             _zboziData = new ZboziData();
             LoadZbozi();
+            LoadZboziFiltr();
 
             _surovinaRepo = new SurovinaRepo();
             LoadSuroviny();
@@ -48,9 +53,6 @@ namespace App
             _typAkceRepo = new TypAkceRepo();
             LoadTypyAkce();
 
-            _skladRepo = new SkladRepo();
-            LoadSklady();
-
             LoadStatistiky();
         }
         #region Zbozi
@@ -72,7 +74,6 @@ namespace App
 
             foreach (var zbozi in zboziList)
             {
-                // Urèíme hodnotu pro specifický sloupec podle typu
                 string specificValue = zbozi.Typ == 'c' ? zbozi.OdrudaJablek : zbozi.Stupnovitost.ToString();
 
                 var item = new ListViewItem(new[]
@@ -89,6 +90,127 @@ namespace App
                 lvPiva.Items.Add(item);
             }
         }
+        private void btnCancelFiltrZbozi_Click(object sender, EventArgs e)
+        {
+            LoadZbozi();
+        }
+        private void btnFiltrZbozi_Click(object sender, EventArgs e)
+        {
+            string selectedColumn = comboFiltrZbozi.SelectedItem.ToString();
+            string filterValue = txtFiltrValueZbozi.Text.ToLower();
+            if (comboFiltrZbozi.SelectedIndex == 3)
+            {
+                filterValue = comboFiltrTypZbozi.Text.ToLower();
+            }
+            else if (comboFiltrZbozi.SelectedIndex == 4)
+            {
+                filterValue = comboSkladFiltrZbozi.Text.ToLower();
+            }
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvPiva.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = -1;
+
+                switch (selectedColumn)
+                {
+                    case "Název":
+                        columnIndex = 0;
+                        break;
+                    case "Obsah alkoholu":
+                        columnIndex = 1;
+                        break;
+                    case "Cena":
+                        columnIndex = 2;
+                        break;
+                    case "Typ":
+                        columnIndex = 3;
+                        break;
+                    case "Název skladu":
+                        columnIndex = 4;
+                        break;
+                    case "Stupòovitost/odrùda":
+                        columnIndex = 5;
+                        break;
+                }
+
+                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvPiva.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvPiva.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvPiva.Items.Add(item);
+            }
+
+            if (lvPiva.Items.Count > 0)
+            {
+                lvPiva.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void LoadZboziFiltr()
+        {
+            comboFiltrZbozi.Items.Clear();
+            comboFiltrZbozi.Items.Add("Název");
+            comboFiltrZbozi.Items.Add("Obsah alkoholu");
+            comboFiltrZbozi.Items.Add("Cena");
+            comboFiltrZbozi.Items.Add("Typ");
+            comboFiltrZbozi.Items.Add("Název skladu");
+            comboFiltrZbozi.Items.Add("Stupòovitost/odrùda");
+
+            comboFiltrZbozi.SelectedIndex = 0;
+
+            comboSkladFiltrZbozi.DataSource = new BindingSource(this.skladyDict, null);
+            comboSkladFiltrZbozi.DisplayMember = "Value";
+            comboSkladFiltrZbozi.ValueMember = "Key";
+
+            comboFiltrTypZbozi.Items.Add("c");
+            comboFiltrTypZbozi.Items.Add("p");
+
+            comboFiltrTypZbozi.SelectedIndex = 0;
+            comboFiltrTypZbozi.Enabled = false;
+            comboSkladFiltrZbozi.Enabled = false;
+        }
+
+        private void comboFiltrZbozi_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboFiltrZbozi.SelectedIndex == 4)
+            {
+                comboSkladFiltrZbozi.Enabled = true;
+                txtFiltrValueZbozi.Enabled = false;
+                comboFiltrTypZbozi.Enabled = false;
+            }
+            else if (comboFiltrZbozi.SelectedIndex == 3)
+            {
+                comboFiltrTypZbozi.Enabled = true;
+                txtFiltrValueZbozi.Enabled = false;
+                comboSkladFiltrZbozi.Enabled = false;
+            }
+            else
+            {
+                txtFiltrValueZbozi.Enabled = true;
+                comboFiltrTypZbozi.Enabled = false;
+                comboSkladFiltrZbozi.Enabled = false;
+            }
+        }
+
 
 
         private void updateZboziBtn_Click(object sender, EventArgs e)
@@ -924,9 +1046,9 @@ namespace App
             var sklad = new Sklad
             {
                 Id = Convert.ToInt32(selectedItem.Tag),
-                Nazev= selectedItem.SubItems[0].Text,
-                UzitnaPlocha= Convert.ToInt32(selectedItem.SubItems[1].Text),
-                Adresa=_adresaRepo.ParseAdresa(selectedItem.SubItems[2].Text+", " + selectedItem.SubItems[2].Tag),
+                Nazev = selectedItem.SubItems[0].Text,
+                UzitnaPlocha = Convert.ToInt32(selectedItem.SubItems[1].Text),
+                Adresa = _adresaRepo.ParseAdresa(selectedItem.SubItems[2].Text + ", " + selectedItem.SubItems[2].Tag),
                 IdAdresa = Convert.ToInt32(selectedItem.SubItems[2].Tag)
             };
 
@@ -985,8 +1107,8 @@ namespace App
             txtLeastExpensiveCustomer.Text = statistics.LeastExpensiveCustomer.ToString();
 
             Chart pieChart = new Chart();
-            pieChart.Width = tabStats.Width/2;
-            pieChart.Height = tabStats.Height/2;
+            pieChart.Width = tabStats.Width / 2;
+            pieChart.Height = tabStats.Height / 2;
             pieChart.Location = new Point(600, 54);
 
             ChartArea chartArea = new ChartArea();
@@ -999,7 +1121,7 @@ namespace App
             };
 
             pieSeries.Points.AddXY("Ve stavu vyøízeno", statistics.CompletedOrders);
-            pieSeries.Points.AddXY("Ve stavu Zpracovává se", statistics.PendingOrders);
+            pieSeries.Points.AddXY("Ve stavu zpracovává se", statistics.PendingOrders);
 
             Legend legend = new Legend();
             pieChart.Legends.Add(legend);
@@ -1009,6 +1131,7 @@ namespace App
             tabStats.Controls.Add(pieChart);
         }
         #endregion
+
     }
 }
 

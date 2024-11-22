@@ -31,8 +31,14 @@
             tabControl1 = new TabControl();
             tabZbozi = new TabPage();
             panel1 = new Panel();
+            comboFiltrTypZbozi = new ComboBox();
+            comboSkladFiltrZbozi = new ComboBox();
+            btnFiltrZbozi = new Button();
+            txtFiltrValueZbozi = new TextBox();
             updateZboziBtn = new Button();
             InsertZboziBtn = new Button();
+            comboFiltrZbozi = new ComboBox();
+            label15 = new Label();
             DeleteZboziBtn = new Button();
             label1 = new Label();
             lvPiva = new ListView();
@@ -117,6 +123,8 @@
             txtAveragePrice = new TextBox();
             txtTotalOrders = new TextBox();
             oracleCommand1 = new Oracle.ManagedDataAccess.Client.OracleCommand();
+            fileSystemWatcher1 = new FileSystemWatcher();
+            btnCancelFiltrZbozi = new Button();
             tabControl1.SuspendLayout();
             tabZbozi.SuspendLayout();
             panel1.SuspendLayout();
@@ -139,6 +147,7 @@
             tabSklad.SuspendLayout();
             panel9.SuspendLayout();
             tabStats.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -178,14 +187,54 @@
             // 
             panel1.BackColor = Color.Silver;
             panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(btnCancelFiltrZbozi);
+            panel1.Controls.Add(comboFiltrTypZbozi);
+            panel1.Controls.Add(comboSkladFiltrZbozi);
+            panel1.Controls.Add(btnFiltrZbozi);
+            panel1.Controls.Add(txtFiltrValueZbozi);
             panel1.Controls.Add(updateZboziBtn);
             panel1.Controls.Add(InsertZboziBtn);
+            panel1.Controls.Add(comboFiltrZbozi);
+            panel1.Controls.Add(label15);
             panel1.Controls.Add(DeleteZboziBtn);
             panel1.Location = new Point(902, 55);
             panel1.Name = "panel1";
             panel1.Padding = new Padding(10);
             panel1.Size = new Size(380, 607);
             panel1.TabIndex = 6;
+            // 
+            // comboFiltrTypZbozi
+            // 
+            comboFiltrTypZbozi.FormattingEnabled = true;
+            comboFiltrTypZbozi.Location = new Point(94, 279);
+            comboFiltrTypZbozi.Name = "comboFiltrTypZbozi";
+            comboFiltrTypZbozi.Size = new Size(185, 23);
+            comboFiltrTypZbozi.TabIndex = 12;
+            // 
+            // comboSkladFiltrZbozi
+            // 
+            comboSkladFiltrZbozi.FormattingEnabled = true;
+            comboSkladFiltrZbozi.Location = new Point(94, 250);
+            comboSkladFiltrZbozi.Name = "comboSkladFiltrZbozi";
+            comboSkladFiltrZbozi.Size = new Size(185, 23);
+            comboSkladFiltrZbozi.TabIndex = 11;
+            // 
+            // btnFiltrZbozi
+            // 
+            btnFiltrZbozi.Location = new Point(94, 317);
+            btnFiltrZbozi.Name = "btnFiltrZbozi";
+            btnFiltrZbozi.Size = new Size(185, 23);
+            btnFiltrZbozi.TabIndex = 9;
+            btnFiltrZbozi.Text = "Filtrovat";
+            btnFiltrZbozi.UseVisualStyleBackColor = true;
+            btnFiltrZbozi.Click += btnFiltrZbozi_Click;
+            // 
+            // txtFiltrValueZbozi
+            // 
+            txtFiltrValueZbozi.Location = new Point(94, 221);
+            txtFiltrValueZbozi.Name = "txtFiltrValueZbozi";
+            txtFiltrValueZbozi.Size = new Size(185, 23);
+            txtFiltrValueZbozi.TabIndex = 10;
             // 
             // updateZboziBtn
             // 
@@ -206,6 +255,25 @@
             InsertZboziBtn.Text = "Vložit Zboží";
             InsertZboziBtn.UseVisualStyleBackColor = true;
             InsertZboziBtn.Click += InsertZboziBtn_Click;
+            // 
+            // comboFiltrZbozi
+            // 
+            comboFiltrZbozi.FormattingEnabled = true;
+            comboFiltrZbozi.Location = new Point(94, 192);
+            comboFiltrZbozi.Name = "comboFiltrZbozi";
+            comboFiltrZbozi.Size = new Size(185, 23);
+            comboFiltrZbozi.TabIndex = 7;
+            comboFiltrZbozi.SelectedIndexChanged += comboFiltrZbozi_SelectedIndexChanged;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 16F);
+            label15.Location = new Point(164, 159);
+            label15.Name = "label15";
+            label15.Size = new Size(49, 30);
+            label15.TabIndex = 8;
+            label15.Text = "Filtr";
             // 
             // DeleteZboziBtn
             // 
@@ -1057,6 +1125,21 @@
             // 
             oracleCommand1.Transaction = null;
             // 
+            // fileSystemWatcher1
+            // 
+            fileSystemWatcher1.EnableRaisingEvents = true;
+            fileSystemWatcher1.SynchronizingObject = this;
+            // 
+            // btnCancelFiltrZbozi
+            // 
+            btnCancelFiltrZbozi.Location = new Point(94, 346);
+            btnCancelFiltrZbozi.Name = "btnCancelFiltrZbozi";
+            btnCancelFiltrZbozi.Size = new Size(185, 23);
+            btnCancelFiltrZbozi.TabIndex = 13;
+            btnCancelFiltrZbozi.Text = "Zrušit Filtr";
+            btnCancelFiltrZbozi.UseVisualStyleBackColor = true;
+            btnCancelFiltrZbozi.Click += btnCancelFiltrZbozi_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1069,6 +1152,7 @@
             tabZbozi.ResumeLayout(false);
             tabZbozi.PerformLayout();
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             tabProfil.ResumeLayout(false);
             tabObjednávky.ResumeLayout(false);
             tabObjednávky.PerformLayout();
@@ -1097,6 +1181,7 @@
             panel9.ResumeLayout(false);
             tabStats.ResumeLayout(false);
             tabStats.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).EndInit();
             ResumeLayout(false);
         }
 
@@ -1232,5 +1317,13 @@
         private Oracle.ManagedDataAccess.Client.OracleCommand oracleCommand1;
         private TextBox txtMostExpensiveCustomer;
         private TextBox txtLeastExpensiveCustomer;
+        private Button btnFiltrZbozi;
+        private Label label15;
+        private ComboBox comboFiltrZbozi;
+        private TextBox txtFiltrValueZbozi;
+        private FileSystemWatcher fileSystemWatcher1;
+        private ComboBox comboSkladFiltrZbozi;
+        private ComboBox comboFiltrTypZbozi;
+        private Button btnCancelFiltrZbozi;
     }
 }
