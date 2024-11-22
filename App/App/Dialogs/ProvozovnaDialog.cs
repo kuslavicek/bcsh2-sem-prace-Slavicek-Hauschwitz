@@ -64,7 +64,6 @@ namespace App.Dialogs
 
             try
             {
-                State selectedState = comboStat.SelectedItem as State;
                 if (IsEditMode)
                 {
                     this.Provozovna.Nazev = textBoxNazev.Text;
