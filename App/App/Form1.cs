@@ -159,7 +159,7 @@ namespace App
                 lvPiva.Items.Add(item);
             }
 
-            if (lvPiva.Items.Count > 0)
+            if (lvPiva.Items.Count > 0 && filteredItems.Count>0)
             {
                 lvPiva.Items[0].BackColor = Color.LightYellow;
             }
