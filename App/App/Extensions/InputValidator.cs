@@ -161,15 +161,12 @@ public static class InputValidator
 
     private static string FormatCzechPostalCode(string postalCode)
     {
-        if (postalCode.Length == 5)
+        if (postalCode.Length == 5 && !postalCode.Contains(" "))
         {
             return postalCode.Substring(0, 3) + " " + postalCode.Substring(3, 2);
         }
-        return postalCode; // pokud PSČ nemá 5 znaků, vrací původní hodnotu
+        return postalCode;
     }
-
-
-
 
     /// <summary>
     /// Zobrazí chybovou zprávu a nastaví fokus na nevalidní TextBox.
