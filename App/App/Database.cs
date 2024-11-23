@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -194,5 +195,117 @@ namespace App
 
             return table;
         }
+        public IEnumerable<string> GetEmployeeHierarchy()
+        {
+            var result = new List<string>();
+
+            using (var connection = new OracleConnection(ConnectionString))
+            using (var command = new OracleCommand("get_hierarchical_employees", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                // Add SYS_REFCURSOR as return parameter
+                var cursorParam = new OracleParameter("emp_cursor", OracleDbType.RefCursor)
+                {
+                    Direction = ParameterDirection.ReturnValue
+                };
+                command.Parameters.Add(cursorParam);
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+                    // Retrieve and process the cursor
+                    using (var reader = ((OracleRefCursor)cursorParam.Value).GetDataReader())
+                    {
+                        while (reader.Read())
+                        {
+                            result.Add(reader.GetString(0)); // Assuming full_name is the only column
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error fetching employee hierarchy: " + ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return result;
+        }
+        public object ExecuteFunction(string functionName, Dictionary<string, object> parameters)
+        {
+            using (var connection = new OracleConnection(ConnectionString))
+            using (var command = new OracleCommand(functionName, connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                if (parameters != null)
+                {
+                    foreach (var param in parameters)
+                    {
+                        var oracleParam = new OracleParameter(param.Key, param.Value ?? DBNull.Value);
+
+                        if (param.Value is bool boolValue)
+                        {
+                            oracleParam.OracleDbType = OracleDbType.Boolean;
+                            oracleParam.Direction = ParameterDirection.Input;
+                            oracleParam.Value = boolValue;
+                        }
+                        else if (param.Value is string jsonString && IsJson(jsonString))
+                        {
+                            oracleParam.OracleDbType = OracleDbType.Clob;
+                            oracleParam.Value = jsonString;
+                        }
+                        // Kontrola pro binární data (např. PDF, obrázky)
+                        else if (param.Value is byte[] byteArray)
+                        {
+                            oracleParam.OracleDbType = OracleDbType.Blob;
+                            oracleParam.Value = byteArray;
+                        }
+                        else if (param.Value == null)
+                        {
+                            oracleParam.Direction = ParameterDirection.Input;
+                            oracleParam.OracleDbType = OracleDbType.Int32;
+                        }
+                        else
+                        {
+                            oracleParam.Direction = ParameterDirection.Input;
+                            oracleParam.OracleDbType = GetOracleDbType(param.Value);
+                        }
+
+                        command.Parameters.Add(oracleParam);
+                    }
+                }
+
+                // Adding the return value parameter
+                var returnValueParam = new OracleParameter("RETURN_VALUE", OracleDbType.Varchar2);
+                returnValueParam.Direction = ParameterDirection.ReturnValue;
+                command.Parameters.Add(returnValueParam);
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+                    // Return the value of the function
+                    return returnValueParam.Value;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while executing function: " + ex.Message);
+                    return null;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
     }
 }

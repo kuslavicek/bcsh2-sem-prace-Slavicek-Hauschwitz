@@ -31,6 +31,7 @@
             tabControl1 = new TabControl();
             tabZbozi = new TabPage();
             panel1 = new Panel();
+            btnCancelFiltrZbozi = new Button();
             comboFiltrTypZbozi = new ComboBox();
             comboSkladFiltrZbozi = new ComboBox();
             btnFiltrZbozi = new Button();
@@ -43,8 +44,11 @@
             label1 = new Label();
             lvPiva = new ListView();
             tabProfil = new TabPage();
-            button5 = new Button();
-            button4 = new Button();
+            osUdajeCheck = new CheckBox();
+            labelRegisteredUsername = new Label();
+            labelRegisteredName = new Label();
+            loginBtn = new Button();
+            registerBtn = new Button();
             tabObjednávky = new TabPage();
             panel2 = new Panel();
             InsertObjednavkaBtn = new Button();
@@ -76,7 +80,8 @@
             label4 = new Label();
             lvZamestnanci = new ListView();
             tabNadrizeni = new TabPage();
-            lvNadrizeni = new ListView();
+            tbNadrizeni = new TextBox();
+            hierarchyBtn = new Button();
             tabProvozovny = new TabPage();
             panel6 = new Panel();
             btnDeleteProvozovna = new Button();
@@ -124,7 +129,6 @@
             txtTotalOrders = new TextBox();
             oracleCommand1 = new Oracle.ManagedDataAccess.Client.OracleCommand();
             fileSystemWatcher1 = new FileSystemWatcher();
-            btnCancelFiltrZbozi = new Button();
             tabControl1.SuspendLayout();
             tabZbozi.SuspendLayout();
             panel1.SuspendLayout();
@@ -202,6 +206,16 @@
             panel1.Padding = new Padding(10);
             panel1.Size = new Size(380, 607);
             panel1.TabIndex = 6;
+            // 
+            // btnCancelFiltrZbozi
+            // 
+            btnCancelFiltrZbozi.Location = new Point(94, 346);
+            btnCancelFiltrZbozi.Name = "btnCancelFiltrZbozi";
+            btnCancelFiltrZbozi.Size = new Size(185, 23);
+            btnCancelFiltrZbozi.TabIndex = 13;
+            btnCancelFiltrZbozi.Text = "Zrušit Filtr";
+            btnCancelFiltrZbozi.UseVisualStyleBackColor = true;
+            btnCancelFiltrZbozi.Click += btnCancelFiltrZbozi_Click;
             // 
             // comboFiltrTypZbozi
             // 
@@ -307,33 +321,69 @@
             // 
             // tabProfil
             // 
-            tabProfil.Controls.Add(button5);
-            tabProfil.Controls.Add(button4);
+            tabProfil.BackColor = Color.Gainsboro;
+            tabProfil.Controls.Add(osUdajeCheck);
+            tabProfil.Controls.Add(labelRegisteredUsername);
+            tabProfil.Controls.Add(labelRegisteredName);
+            tabProfil.Controls.Add(loginBtn);
+            tabProfil.Controls.Add(registerBtn);
             tabProfil.Location = new Point(4, 24);
             tabProfil.Name = "tabProfil";
             tabProfil.Padding = new Padding(3);
             tabProfil.Size = new Size(1288, 757);
             tabProfil.TabIndex = 1;
             tabProfil.Text = "Profil";
-            tabProfil.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // osUdajeCheck
             // 
-            button5.Location = new Point(65, 191);
-            button5.Name = "button5";
-            button5.Size = new Size(75, 23);
-            button5.TabIndex = 1;
-            button5.Text = "button5";
-            button5.UseVisualStyleBackColor = true;
+            osUdajeCheck.AutoSize = true;
+            osUdajeCheck.Location = new Point(65, 245);
+            osUdajeCheck.Name = "osUdajeCheck";
+            osUdajeCheck.Size = new Size(169, 19);
+            osUdajeCheck.TabIndex = 4;
+            osUdajeCheck.Text = "Nezobrazovat osobní údaje";
+            osUdajeCheck.UseVisualStyleBackColor = true;
+            osUdajeCheck.CheckedChanged += osUdajeCheck_CheckedChanged;
             // 
-            // button4
+            // labelRegisteredUsername
             // 
-            button4.Location = new Point(65, 89);
-            button4.Name = "button4";
-            button4.Size = new Size(75, 23);
-            button4.TabIndex = 0;
-            button4.Text = "button4";
-            button4.UseVisualStyleBackColor = true;
+            labelRegisteredUsername.AutoSize = true;
+            labelRegisteredUsername.Font = new Font("Segoe UI", 12F);
+            labelRegisteredUsername.Location = new Point(65, 148);
+            labelRegisteredUsername.Name = "labelRegisteredUsername";
+            labelRegisteredUsername.Size = new Size(61, 21);
+            labelRegisteredUsername.TabIndex = 3;
+            labelRegisteredUsername.Text = "label16";
+            // 
+            // labelRegisteredName
+            // 
+            labelRegisteredName.AutoSize = true;
+            labelRegisteredName.Font = new Font("Segoe UI", 12F);
+            labelRegisteredName.Location = new Point(65, 74);
+            labelRegisteredName.Name = "labelRegisteredName";
+            labelRegisteredName.Size = new Size(61, 21);
+            labelRegisteredName.TabIndex = 2;
+            labelRegisteredName.Text = "label16";
+            // 
+            // loginBtn
+            // 
+            loginBtn.Location = new Point(65, 579);
+            loginBtn.Name = "loginBtn";
+            loginBtn.Size = new Size(1073, 23);
+            loginBtn.TabIndex = 1;
+            loginBtn.Text = "button5";
+            loginBtn.UseVisualStyleBackColor = true;
+            loginBtn.Click += loginBtn_Click;
+            // 
+            // registerBtn
+            // 
+            registerBtn.Location = new Point(65, 502);
+            registerBtn.Name = "registerBtn";
+            registerBtn.Size = new Size(1073, 23);
+            registerBtn.TabIndex = 0;
+            registerBtn.Text = "button4";
+            registerBtn.UseVisualStyleBackColor = true;
+            registerBtn.Click += registerBtn_Click;
             // 
             // tabObjednávky
             // 
@@ -651,7 +701,8 @@
             // 
             // tabNadrizeni
             // 
-            tabNadrizeni.Controls.Add(lvNadrizeni);
+            tabNadrizeni.Controls.Add(tbNadrizeni);
+            tabNadrizeni.Controls.Add(hierarchyBtn);
             tabNadrizeni.Location = new Point(4, 24);
             tabNadrizeni.Name = "tabNadrizeni";
             tabNadrizeni.Padding = new Padding(3);
@@ -660,13 +711,24 @@
             tabNadrizeni.Text = "Nadřízení";
             tabNadrizeni.UseVisualStyleBackColor = true;
             // 
-            // lvNadrizeni
+            // tbNadrizeni
             // 
-            lvNadrizeni.Location = new Point(34, 56);
-            lvNadrizeni.Name = "lvNadrizeni";
-            lvNadrizeni.Size = new Size(1175, 645);
-            lvNadrizeni.TabIndex = 0;
-            lvNadrizeni.UseCompatibleStateImageBehavior = false;
+            tbNadrizeni.Font = new Font("Segoe UI", 13F);
+            tbNadrizeni.Location = new Point(64, 22);
+            tbNadrizeni.Multiline = true;
+            tbNadrizeni.Name = "tbNadrizeni";
+            tbNadrizeni.Size = new Size(1119, 660);
+            tbNadrizeni.TabIndex = 2;
+            // 
+            // hierarchyBtn
+            // 
+            hierarchyBtn.Location = new Point(34, 717);
+            hierarchyBtn.Name = "hierarchyBtn";
+            hierarchyBtn.Size = new Size(1175, 23);
+            hierarchyBtn.TabIndex = 1;
+            hierarchyBtn.Text = "Načíst hierarchii";
+            hierarchyBtn.UseVisualStyleBackColor = true;
+            hierarchyBtn.Click += hierarchyBtn_Click;
             // 
             // tabProvozovny
             // 
@@ -1130,16 +1192,6 @@
             fileSystemWatcher1.EnableRaisingEvents = true;
             fileSystemWatcher1.SynchronizingObject = this;
             // 
-            // btnCancelFiltrZbozi
-            // 
-            btnCancelFiltrZbozi.Location = new Point(94, 346);
-            btnCancelFiltrZbozi.Name = "btnCancelFiltrZbozi";
-            btnCancelFiltrZbozi.Size = new Size(185, 23);
-            btnCancelFiltrZbozi.TabIndex = 13;
-            btnCancelFiltrZbozi.Text = "Zrušit Filtr";
-            btnCancelFiltrZbozi.UseVisualStyleBackColor = true;
-            btnCancelFiltrZbozi.Click += btnCancelFiltrZbozi_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1154,6 +1206,7 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             tabProfil.ResumeLayout(false);
+            tabProfil.PerformLayout();
             tabObjednávky.ResumeLayout(false);
             tabObjednávky.PerformLayout();
             panel2.ResumeLayout(false);
@@ -1167,6 +1220,7 @@
             tabZaměstnanci.PerformLayout();
             panel5.ResumeLayout(false);
             tabNadrizeni.ResumeLayout(false);
+            tabNadrizeni.PerformLayout();
             tabProvozovny.ResumeLayout(false);
             tabProvozovny.PerformLayout();
             panel6.ResumeLayout(false);
@@ -1189,8 +1243,8 @@
 
         private TabControl tabControl1;
         private TabPage tabProfil;
-        private Button button5;
-        private Button button4;
+        private Button loginBtn;
+        private Button registerBtn;
         private TabPage tabZbozi;
         private Label label1;
         private Button DeleteZboziBtn;
@@ -1216,7 +1270,6 @@
         private Label label4;
         private ListView lvZamestnanci;
         private TabPage tabNadrizeni;
-        private ListView lvNadrizeni;
         private Button objZboziBtn;
         private Button UpdateZakaznikBtn;
         private Button InsertZakaznikBtn;
@@ -1325,5 +1378,10 @@
         private ComboBox comboSkladFiltrZbozi;
         private ComboBox comboFiltrTypZbozi;
         private Button btnCancelFiltrZbozi;
+        private Label labelRegisteredName;
+        private Label labelRegisteredUsername;
+        private Button hierarchyBtn;
+        private TextBox tbNadrizeni;
+        private CheckBox osUdajeCheck;
     }
 }

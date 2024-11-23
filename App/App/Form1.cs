@@ -19,9 +19,14 @@ namespace App
         private TypAkceRepo _typAkceRepo;
         private SkladRepo _skladRepo;
         private Dictionary<int, string> skladyDict;
+        private readonly Database _database;
+        private User? loggedUser = null;
+        private User? emulUser = null;
         public Form1()
         {
             InitializeComponent();
+            //todo logout(); odkomentovat
+            _database = new Database();
             this.initBtns();
             _skladRepo = new SkladRepo();
             this.skladyDict = _skladRepo.LoadSkladyForSelect();
@@ -159,7 +164,7 @@ namespace App
                 lvPiva.Items.Add(item);
             }
 
-            if (lvPiva.Items.Count > 0 && filteredItems.Count>0)
+            if (lvPiva.Items.Count > 0 && filteredItems.Count > 0)
             {
                 lvPiva.Items[0].BackColor = Color.LightYellow;
             }
@@ -1132,6 +1137,188 @@ namespace App
         }
         #endregion
 
+        private void hierarchyBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Fetch the hierarchical data from the database
+                var hierarchy = _database.GetEmployeeHierarchy();
+
+
+
+                // Display in ListView
+                tbNadrizeni.Clear();
+                foreach (var line in hierarchy)
+                {
+                    tbNadrizeni.AppendText(line + Environment.NewLine);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+        }
+
+
+        #region profil
+
+        private void loginBtn_Click(object sender, EventArgs e)
+        {
+            if (loggedUser == null)
+            {
+                LoginDialog dialog = new LoginDialog(false);
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    loggedUser = dialog.user;
+                
+                    switch (loggedUser.Role)
+                    {
+                        case "Admin":
+                            panelyAdmin();
+                            return;
+                        case "Vedouci":
+                            panelySekretarka();
+                            buttonyVedouci();
+                            return;
+                        case "Sekretarka":
+                            panelySekretarka();
+                            buttonySekretarka();
+                            return;
+                    }
+                    osUdajeCheck.Show();
+                    if (loggedUser.boolean == 1)
+                    {
+                        osUdajeCheck.Checked = true;
+                    }
+                    else
+                    {
+                        osUdajeCheck.Checked = false;
+                    }
+                    loginBtn.Text = "Odhlásit se";
+                    registerBtn.Hide();
+                    labelRegisteredName.Text = "";//Vzít jméno a pøíjmení z tabulky zamìstnanec
+                    labelRegisteredUsername.Text = loggedUser.Jmeno;
+                }
+            }
+            else
+            {
+                logout();
+            }
+        }
+
+
+
+        private void osUdajeCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            //todo volat proceduru zmìò nezobrazovat_os
+        }
+        private void logout()
+        {
+            loggedUser = null;
+            emulUser = null;
+            tabNadrizeni.Dispose();
+            tabObjednávky.Dispose();
+            tabPozice.Dispose();
+            tabProvozovny.Dispose();
+            tabSklad.Dispose();
+            tabStats.Dispose();
+            tabSuroviny.Dispose();
+            tabTypyAkce.Dispose();
+            tabZakaznici.Dispose();
+            tabZamìstnanci.Dispose();
+            panel1.Dispose();
+            osUdajeCheck.Hide();
+            loginBtn.Text = "Pøihlásit se";
+            registerBtn.Text = "Registrovat se";
+            registerBtn.Show();
+            labelRegisteredName.Text = "Nepøihlášený uživatel";
+            labelRegisteredUsername.Text = "Nepøihlášený uživatel";
+        }
+        private void panelySekretarka()
+        {
+            panel1.Show();
+            tabControl1.TabPages.Insert(2, tabObjednávky);
+            tabControl1.TabPages.Insert(3, tabSuroviny);
+            tabControl1.TabPages.Insert(4, tabZakaznici);
+            tabControl1.TabPages.Insert(5, tabZamìstnanci);
+            tabControl1.TabPages.Insert(6, tabNadrizeni);
+
+        }
+
+        private void buttonySekretarka()
+        {
+            UpdateObjednavkaBtn.Hide();
+            DeleteObjednavkaBtn.Hide();
+            DeleteZakaznikBtn.Hide();
+            panel5.Hide();
+        }
+
+        private void buttonyVedouci()
+        {
+            UpdateObjednavkaBtn.Show();
+            DeleteObjednavkaBtn.Show();
+            DeleteZakaznikBtn.Show();
+            panel5.Show();
+        }
+
+        private void panelyAdmin()
+        {
+            panelySekretarka();
+            buttonyVedouci();
+            tabControl1.TabPages.Insert(7, tabProvozovny);
+            tabControl1.TabPages.Insert(8, tabPozice);
+            tabControl1.TabPages.Insert(9, tabTypyAkce);
+            tabControl1.TabPages.Insert(10, tabSklad);
+            tabControl1.TabPages.Insert(11, tabStats);
+
+        }
+
+
+        private void registerBtn_Click(object sender, EventArgs e)
+        {
+            string email = Microsoft.VisualBasic.Interaction.InputBox("Vložte email pro registraci", "Email", "priklad@priklad.com");
+            var parameters = new Dictionary<string, object>
+        {
+            { "p_email", email } 
+        };
+
+            // Zavolání funkce v databázi a získání výsledku
+            object result = _database.ExecuteFunction("find_email_registered", parameters);
+
+            string resultString = result?.ToString();
+            switch (result.ToString())
+            {
+                case "Invalid email format":
+                    MessageBox.Show("Špatný formát emailu");
+                    return;
+                case "Used in users":
+                    MessageBox.Show("Email je již použit");
+                    return;
+
+                case "Used in zamestnanec only":
+                    RegisterDialog fastDialog = new RegisterDialog(false, email);
+                    //todo pokraèovat
+                    return;
+
+                case "Not used":
+                    RegisterDialog kompDialog = new RegisterDialog(true, email);
+                    //todo pokraèovat
+                    return;
+
+                case "Error occurred":
+                    MessageBox.Show("An error occurred while checking the email.");
+                    return;
+
+                default:
+                    MessageBox.Show("Unknown result: " + result.ToString());
+                    return;
+            }
+        }
+
+
+        #endregion
+
+        
     }
 }
 

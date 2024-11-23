@@ -19,6 +19,9 @@
     <Compile Update="Dialogs\ProvozovnaDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Dialogs\RegisterDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Dialogs\SkladDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -28,7 +31,7 @@
     <Compile Update="Dialogs\TypyAkceDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Dialogs\UserDialog.cs">
+    <Compile Update="Dialogs\LoginDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Dialogs\ZakaznikDialog.cs">
