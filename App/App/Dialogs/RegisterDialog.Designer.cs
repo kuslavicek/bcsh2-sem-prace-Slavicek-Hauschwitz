@@ -65,6 +65,7 @@
             // 
             // CancelBtn
             // 
+            CancelBtn.DialogResult = DialogResult.Cancel;
             CancelBtn.Location = new Point(550, 486);
             CancelBtn.Name = "CancelBtn";
             CancelBtn.Size = new Size(112, 23);
@@ -75,6 +76,7 @@
             // 
             // regBtn
             // 
+            regBtn.DialogResult = DialogResult.OK;
             regBtn.Location = new Point(3, 474);
             regBtn.Name = "regBtn";
             regBtn.Size = new Size(408, 23);
@@ -85,6 +87,7 @@
             // 
             // komplRegBtn
             // 
+            komplRegBtn.DialogResult = DialogResult.OK;
             komplRegBtn.Location = new Point(36, 474);
             komplRegBtn.Name = "komplRegBtn";
             komplRegBtn.Size = new Size(424, 23);

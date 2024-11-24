@@ -70,6 +70,7 @@
             // 
             // buttonZrusit
             // 
+            buttonZrusit.DialogResult = DialogResult.Cancel;
             buttonZrusit.Location = new Point(79, 196);
             buttonZrusit.Name = "buttonZrusit";
             buttonZrusit.Size = new Size(173, 23);
@@ -80,6 +81,7 @@
             // 
             // buttonOk
             // 
+            buttonOk.DialogResult = DialogResult.OK;
             buttonOk.Location = new Point(433, 196);
             buttonOk.Name = "buttonOk";
             buttonOk.Size = new Size(184, 23);

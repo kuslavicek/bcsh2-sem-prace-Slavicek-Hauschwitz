@@ -3,6 +3,7 @@ using App.Model;
 using App.Dialogs;
 using System.Globalization;
 using System.Windows.Forms.DataVisualization.Charting;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace App
 {
@@ -1167,7 +1168,7 @@ namespace App
             if (loggedUser == null)
             {
                 LoginDialog dialog = new LoginDialog(false);
-                if (dialog.ShowDialog() == DialogResult.OK)
+                if (dialog.ShowDialog() == DialogResult.OK && dialog.user != null)
                 {
                     loggedUser = dialog.user;
                 
@@ -1176,11 +1177,11 @@ namespace App
                         case "Admin":
                             panelyAdmin();
                             return;
-                        case "Vedouci":
+                        case "Vedoucí":
                             panelySekretarka();
                             buttonyVedouci();
                             return;
-                        case "Sekretarka":
+                        case "Sekretáøka":
                             panelySekretarka();
                             buttonySekretarka();
                             return;
@@ -1297,20 +1298,77 @@ namespace App
 
                 case "Used in zamestnanec only":
                     RegisterDialog fastDialog = new RegisterDialog(false, email);
-                    //todo pokraèovat
+                    if (fastDialog.ShowDialog() == DialogResult.OK && fastDialog.user != null)
+                    {
+                        loggedUser = fastDialog.user;
+
+                        switch (loggedUser.Role)
+                        {
+                            case "Admin":
+                                panelyAdmin();
+                                return;
+                            case "Vedoucí":
+                                panelySekretarka();
+                                buttonyVedouci();
+                                return;
+                            case "Sekretáøka":
+                                panelySekretarka();
+                                buttonySekretarka();
+                                return;
+                        }
+                        osUdajeCheck.Show();
+                        if (loggedUser.boolean == 1)
+                        {
+                            osUdajeCheck.Checked = true;
+                        }
+                        else
+                        {
+                            osUdajeCheck.Checked = false;
+                        }
+                        loginBtn.Text = "Odhlásit se";
+                        registerBtn.Hide();
+                        labelRegisteredName.Text = "";//Vzít jméno a pøíjmení z tabulky zamìstnanec
+                        labelRegisteredUsername.Text = loggedUser.Jmeno;
+                    }
                     return;
 
                 case "Not used":
                     RegisterDialog kompDialog = new RegisterDialog(true, email);
-                    //todo pokraèovat
-                    return;
+                    if (kompDialog.ShowDialog() == DialogResult.OK && kompDialog.user != null)
+                    {
+                        loggedUser = kompDialog.user;
 
-                case "Error occurred":
-                    MessageBox.Show("An error occurred while checking the email.");
+                        switch (loggedUser.Role)
+                        {
+                            case "Admin":
+                                panelyAdmin();
+                                return;
+                            case "Vedoucí":
+                                panelySekretarka();
+                                buttonyVedouci();
+                                return;
+                            case "Sekretáøka":
+                                panelySekretarka();
+                                buttonySekretarka();
+                                return;
+                        }
+                        osUdajeCheck.Show();
+                        if (loggedUser.boolean == 1)
+                        {
+                            osUdajeCheck.Checked = true;
+                        }
+                        else
+                        {
+                            osUdajeCheck.Checked = false;
+                        }
+                        loginBtn.Text = "Odhlásit se";
+                        registerBtn.Hide();
+                        labelRegisteredName.Text = "";//Vzít jméno a pøíjmení z tabulky zamìstnanec
+                        labelRegisteredUsername.Text = loggedUser.Jmeno;
+                    }
                     return;
-
                 default:
-                    MessageBox.Show("Unknown result: " + result.ToString());
+                    MessageBox.Show("Chyba pøi registraci");
                     return;
             }
         }
