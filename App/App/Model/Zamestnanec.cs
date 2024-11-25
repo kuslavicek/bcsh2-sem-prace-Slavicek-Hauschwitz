@@ -17,6 +17,8 @@ namespace App.Model
         public int? IdPracovniPozice { get; set; }
         public int? IdNadrizeny { get; set; }
 
+        public int? Nezobrazovat {  get; set; }
+
         public Zamestnanec() { 
         }
     }

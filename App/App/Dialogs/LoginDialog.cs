@@ -20,6 +20,7 @@ namespace App.Dialogs
         public LoginDialog(bool login)
         {
             InitializeComponent();
+            _database = new Database();
             
         }
 
@@ -27,19 +28,14 @@ namespace App.Dialogs
         {
             try
             {
-                var parameters = new Dictionary<string, object>
-            {
-                { "username", tbName.Text },
-                { "password", tbPass.Text }
-            };
-
-                var result = _database.ExecuteFunction("login", parameters);
+                
+                var result = _database.ExecuteLogin(tbName.Text, tbPass.Text);
                 user = User.ParseUser(result);
                 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Přihlášení se nezdařilo");
+                MessageBox.Show("Přihlášení se nezdařilo\n"+ex.Message);
             }
 
             

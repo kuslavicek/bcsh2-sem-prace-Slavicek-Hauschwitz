@@ -4,6 +4,7 @@ using App.Dialogs;
 using System.Globalization;
 using System.Windows.Forms.DataVisualization.Charting;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace App
 {
@@ -26,7 +27,7 @@ namespace App
         public Form1()
         {
             InitializeComponent();
-            //todo logout(); odkomentovat
+            logout(); //todo odkomentovat
             _database = new Database();
             this.initBtns();
             _skladRepo = new SkladRepo();
@@ -634,14 +635,14 @@ namespace App
                 {
                     emp.Jmeno,
                     emp.Prijmeni,
-                    emp.Email,
-                    emp.Telefon.ToString(),
-                    provozovna!=null?provozovna.Nazev:"",
+                    emp.Nezobrazovat == 1 ? "*********" : emp.Email,
+                emp.Nezobrazovat == 1 ? "*********" : emp.Telefon.ToString(),
+                provozovna !=null?provozovna.Nazev:"",
                     pozice!=null?pozice.Nazev:null,
                     nadrizeny!=null?nadrizeny.Jmeno+" "+nadrizeny.Prijmeni:"",
                 });
 
-                item.Tag = emp.Id;
+                item.Tag = new Tuple<int?, double, string>(emp.Id, emp.Telefon, emp.Email);
                 item.SubItems[4].Tag = provozovna != null ? provozovna.Id : null;
                 item.SubItems[5].Tag = pozice != null ? pozice.Id : null;
                 item.SubItems[6].Tag = nadrizeny != null ? nadrizeny.Id : null;
@@ -668,14 +669,14 @@ namespace App
             }
 
             var selectedItem = lvZamestnanci.SelectedItems[0];
-
+            var tag = (Tuple<int?, double, string>)selectedItem.Tag;
             var emp = new Zamestnanec
             {
-                Id = (int)selectedItem.Tag,
+                Id = (int)tag.Item1,
                 Jmeno = selectedItem.SubItems[0].Text,
                 Prijmeni = selectedItem.SubItems[1].Text,
-                Email = selectedItem.SubItems[2].Text,
-                Telefon = double.Parse(selectedItem.SubItems[3].Text),
+                Email = tag.Item3,
+                Telefon =tag.Item2,
                 IdProvozovna = Convert.ToInt32(selectedItem.SubItems[4].Tag),
                 IdPracovniPozice = Convert.ToInt32(selectedItem.SubItems[5].Tag),
                 IdNadrizeny = selectedItem.SubItems[6].Tag != null ? Convert.ToInt32(selectedItem.SubItems[6].Tag) : null
@@ -705,7 +706,8 @@ namespace App
             }
 
             var selectedItem = lvZamestnanci.SelectedItems[0];
-            this._zamestnanecRepo.DeleteZamestnanec(Convert.ToInt32(selectedItem.Tag));
+            var tag = (Tuple<int, string, string>)selectedItem.Tag;
+            this._zamestnanecRepo.DeleteZamestnanec(Convert.ToInt32(tag.Item1));
             LoadZamestnanec();
         }
         #endregion
@@ -1176,15 +1178,15 @@ namespace App
                     {
                         case "Admin":
                             panelyAdmin();
-                            return;
+                            break;
                         case "Vedoucí":
                             panelySekretarka();
                             buttonyVedouci();
-                            return;
+                            break;
                         case "Sekretáøka":
                             panelySekretarka();
                             buttonySekretarka();
-                            return;
+                            break;
                     }
                     osUdajeCheck.Show();
                     if (loggedUser.boolean == 1)
@@ -1198,7 +1200,7 @@ namespace App
                     loginBtn.Text = "Odhlásit se";
                     registerBtn.Hide();
                     labelRegisteredName.Text = "";//Vzít jméno a pøíjmení z tabulky zamìstnanec
-                    labelRegisteredUsername.Text = loggedUser.Jmeno;
+                    labelRegisteredUsername.Text = "Uživatelské jméno: " + loggedUser.Jmeno;
                 }
             }
             else
@@ -1217,22 +1219,23 @@ namespace App
         {
             loggedUser = null;
             emulUser = null;
-            tabNadrizeni.Dispose();
-            tabObjednávky.Dispose();
-            tabPozice.Dispose();
-            tabProvozovny.Dispose();
-            tabSklad.Dispose();
-            tabStats.Dispose();
-            tabSuroviny.Dispose();
-            tabTypyAkce.Dispose();
-            tabZakaznici.Dispose();
-            tabZamìstnanci.Dispose();
-            panel1.Dispose();
+            tabControl1.TabPages.Remove(tabNadrizeni);
+            tabControl1.TabPages.Remove(tabNadrizeni); 
+            tabControl1.TabPages.Remove(tabObjednávky); 
+            tabControl1.TabPages.Remove(tabPozice); 
+            tabControl1.TabPages.Remove(tabProvozovny); 
+            tabControl1.TabPages.Remove(tabSklad); 
+            tabControl1.TabPages.Remove(tabStats); 
+            tabControl1.TabPages.Remove(tabSuroviny); 
+            tabControl1.TabPages.Remove(tabTypyAkce); 
+            tabControl1.TabPages.Remove(tabZakaznici); 
+            tabControl1.TabPages.Remove(tabZamìstnanci);
+            panel1.Hide();
             osUdajeCheck.Hide();
             loginBtn.Text = "Pøihlásit se";
             registerBtn.Text = "Registrovat se";
             registerBtn.Show();
-            labelRegisteredName.Text = "Nepøihlášený uživatel";
+            labelRegisteredName.Text = "";
             labelRegisteredUsername.Text = "Nepøihlášený uživatel";
         }
         private void panelySekretarka()
@@ -1278,13 +1281,9 @@ namespace App
         private void registerBtn_Click(object sender, EventArgs e)
         {
             string email = Microsoft.VisualBasic.Interaction.InputBox("Vložte email pro registraci", "Email", "priklad@priklad.com");
-            var parameters = new Dictionary<string, object>
-        {
-            { "p_email", email } 
-        };
+          
 
-            // Zavolání funkce v databázi a získání výsledku
-            object result = _database.ExecuteFunction("find_email_registered", parameters);
+            object result = _database.ExecuteFindEmailRegistered(email);
 
             string resultString = result?.ToString();
             switch (result.ToString())
@@ -1306,15 +1305,15 @@ namespace App
                         {
                             case "Admin":
                                 panelyAdmin();
-                                return;
+                                break;
                             case "Vedoucí":
                                 panelySekretarka();
                                 buttonyVedouci();
-                                return;
+                                break;
                             case "Sekretáøka":
                                 panelySekretarka();
                                 buttonySekretarka();
-                                return;
+                                break;
                         }
                         osUdajeCheck.Show();
                         if (loggedUser.boolean == 1)
@@ -1328,7 +1327,7 @@ namespace App
                         loginBtn.Text = "Odhlásit se";
                         registerBtn.Hide();
                         labelRegisteredName.Text = "";//Vzít jméno a pøíjmení z tabulky zamìstnanec
-                        labelRegisteredUsername.Text = loggedUser.Jmeno;
+                        labelRegisteredUsername.Text = "Uživatelské jméno: " + loggedUser.Jmeno;
                     }
                     return;
 
@@ -1342,15 +1341,15 @@ namespace App
                         {
                             case "Admin":
                                 panelyAdmin();
-                                return;
+                                break;
                             case "Vedoucí":
                                 panelySekretarka();
                                 buttonyVedouci();
-                                return;
+                                break;
                             case "Sekretáøka":
                                 panelySekretarka();
                                 buttonySekretarka();
-                                return;
+                                break;
                         }
                         osUdajeCheck.Show();
                         if (loggedUser.boolean == 1)
@@ -1364,7 +1363,7 @@ namespace App
                         loginBtn.Text = "Odhlásit se";
                         registerBtn.Hide();
                         labelRegisteredName.Text = "";//Vzít jméno a pøíjmení z tabulky zamìstnanec
-                        labelRegisteredUsername.Text = loggedUser.Jmeno;
+                        labelRegisteredUsername.Text = "Uživatelské jméno: " +loggedUser.Jmeno;
                     }
                     return;
                 default:

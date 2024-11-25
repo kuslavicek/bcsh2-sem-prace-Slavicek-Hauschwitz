@@ -1,4 +1,5 @@
 ﻿using App.Model;
+using App.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,10 +19,21 @@ namespace App.Dialogs
         private bool kompl;
         public User user;
         private Database _database;
+        private ProvozovnaRepo _provozovnaRepo { get; set; }
         public RegisterDialog(bool kompl, string email)
         {
             InitializeComponent();
+            _provozovnaRepo = new ProvozovnaRepo();
+            var provozovnyDict = _provozovnaRepo.GetProvozovnyEnum();
+
+            cbProv.DataSource = new BindingSource(provozovnyDict, null);
+            cbProv.DisplayMember = "nazev";
+            cbProv.ValueMember = "value";
+            cbProv.SelectedIndex = 0;
+
+
             this.kompl = kompl;
+            
             if (this.kompl)
             {
                 tbKompEmail.Text = email;
@@ -49,18 +61,8 @@ namespace App.Dialogs
                     MessageBox.Show("Hesla nejsou stejná");
                     return;
                 }
-                var parameters = new Dictionary<string, object>
-                {
-                    { "jmeno", tbJmeno.Text },
-                    { "prijmeni", tbPrijmeni.Text },
-                    { "username", tbKompUsername.Text },
-                    { "email", tbKompEmail.Text},
-                    { "password", tbKompPass.Text },
-                    { "telefon", int.Parse(tbTelefon.Text) },
-                    { "provozovna", int.Parse(cbProv.SelectedItem.ToString())}
-                };
 
-                var result = _database.ExecuteFunction("complete_registration", parameters);
+                object result = _database.ExecuteCompleteRegistration(tbJmeno.Text, tbPrijmeni.Text, tbKompUsername.Text, tbKompEmail.Text, tbKompPass.Text, int.Parse(tbTelefon.Text), ((KeyValuePair<int, string>)cbProv.SelectedItem).Key);
 
                 user = User.ParseUser(result);
             }
@@ -81,14 +83,9 @@ namespace App.Dialogs
                     return;
                 }
 
-                var parameters = new Dictionary<string, object>
-                {
-                    { "username", tbUsername.Text },
-                    { "password", tbPass.Text },
-                    { "email", tbEmail.Text }
-                };
+                
 
-                var result = _database.ExecuteFunction("quick_registration", parameters);
+                object result = _database.ExecuteQuickRegistration(tbUsername.Text, tbPass.Text, tbEmail.Text);
 
 
                 user = User.ParseUser(result);

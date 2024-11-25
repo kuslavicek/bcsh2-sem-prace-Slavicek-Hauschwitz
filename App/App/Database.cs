@@ -237,67 +237,33 @@ namespace App
 
             return result;
         }
-        public object ExecuteFunction(string functionName, Dictionary<string, object> parameters)
+        public string ExecuteLogin(string username, string password)
         {
             using (var connection = new OracleConnection(ConnectionString))
-            using (var command = new OracleCommand(functionName, connection))
+            using (var command = new OracleCommand("login", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
 
-                if (parameters != null)
-                {
-                    foreach (var param in parameters)
-                    {
-                        var oracleParam = new OracleParameter(param.Key, param.Value ?? DBNull.Value);
-
-                        if (param.Value is bool boolValue)
-                        {
-                            oracleParam.OracleDbType = OracleDbType.Boolean;
-                            oracleParam.Direction = ParameterDirection.Input;
-                            oracleParam.Value = boolValue;
-                        }
-                        else if (param.Value is string jsonString && IsJson(jsonString))
-                        {
-                            oracleParam.OracleDbType = OracleDbType.Clob;
-                            oracleParam.Value = jsonString;
-                        }
-                        // Kontrola pro binární data (např. PDF, obrázky)
-                        else if (param.Value is byte[] byteArray)
-                        {
-                            oracleParam.OracleDbType = OracleDbType.Blob;
-                            oracleParam.Value = byteArray;
-                        }
-                        else if (param.Value == null)
-                        {
-                            oracleParam.Direction = ParameterDirection.Input;
-                            oracleParam.OracleDbType = OracleDbType.Int32;
-                        }
-                        else
-                        {
-                            oracleParam.Direction = ParameterDirection.Input;
-                            oracleParam.OracleDbType = GetOracleDbType(param.Value);
-                        }
-
-                        command.Parameters.Add(oracleParam);
-                    }
-                }
-
-                // Adding the return value parameter
-                var returnValueParam = new OracleParameter("RETURN_VALUE", OracleDbType.Varchar2);
-                returnValueParam.Direction = ParameterDirection.ReturnValue;
+                var returnValueParam = new OracleParameter("RETURN_VALUE", OracleDbType.Varchar2, 4000) { Direction = ParameterDirection.ReturnValue };
                 command.Parameters.Add(returnValueParam);
+                // Add parameters for the username and password
+                command.Parameters.Add(new OracleParameter("username", OracleDbType.Varchar2) { Value = username });
+                command.Parameters.Add(new OracleParameter("pass", OracleDbType.Varchar2) { Value = password });
+
+                // Add the return value parameter
+                
 
                 try
                 {
                     connection.Open();
                     command.ExecuteNonQuery();
 
-                    // Return the value of the function
-                    return returnValueParam.Value;
+                    // Get the return value as a string
+                    return returnValueParam.Value.ToString();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("An error occurred while executing function: " + ex.Message);
+                    MessageBox.Show("An error occurred while executing the login function: " + ex.Message);
                     return null;
                 }
                 finally
@@ -306,6 +272,118 @@ namespace App
                 }
             }
         }
+        public string ExecuteFindEmailRegistered(string email)
+        {
+            using (var connection = new OracleConnection(ConnectionString))
+            using (var command = new OracleCommand("find_email_registered", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                var returnValueParam = new OracleParameter("RETURN_VALUE", OracleDbType.Varchar2, 4000) { Direction = ParameterDirection.ReturnValue };
+                command.Parameters.Add(returnValueParam);
+                // Add parameter for the email
+                command.Parameters.Add(new OracleParameter("p_email", OracleDbType.Varchar2) { Value = email });
+
+                // Add the return value parameter
+                
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+                    // Get the return value as a string (it will be one of the status messages)
+                    return returnValueParam.Value.ToString();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while executing the find_email_registered function: " + ex.Message);
+                    return "Error occurred";  // Default return value in case of an error
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+        public string ExecuteQuickRegistration(string username, string password, string email)
+        {
+            using (var connection = new OracleConnection(ConnectionString))
+            using (var command = new OracleCommand("quick_registration", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                var returnValueParam = new OracleParameter("RETURN_VALUE", OracleDbType.Varchar2, 4000) { Direction = ParameterDirection.ReturnValue };
+                command.Parameters.Add(returnValueParam);
+                // Add parameters for the username, password, and email
+                command.Parameters.Add(new OracleParameter("username", OracleDbType.Varchar2) { Value = username });
+                command.Parameters.Add(new OracleParameter("password", OracleDbType.Varchar2) { Value = password });
+                command.Parameters.Add(new OracleParameter("email", OracleDbType.Varchar2) { Value = email });
+
+                // Add the return value parameter to capture the result
+                
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+                    // Get the return value as a string (it will be a comma-separated list of user data)
+                    return returnValueParam.Value.ToString();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while executing the quick_registration function: " + ex.Message);
+                    return "Error occurred"; // Default return value in case of an error
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+        public string ExecuteCompleteRegistration(string jmeno, string prijmeni, string username, string email, string password, long telefon, long provozovna)
+        {
+            using (var connection = new OracleConnection(ConnectionString))
+            using (var command = new OracleCommand("complete_registration", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                var returnValueParam = new OracleParameter("RETURN_VALUE", OracleDbType.Varchar2, 4000) { Direction = ParameterDirection.ReturnValue };
+                command.Parameters.Add(returnValueParam);
+                // Add parameters for the registration details
+                command.Parameters.Add(new OracleParameter("jmeno", OracleDbType.Varchar2) { Value = jmeno });
+                command.Parameters.Add(new OracleParameter("prijmeni", OracleDbType.Varchar2) { Value = prijmeni });
+                command.Parameters.Add(new OracleParameter("username", OracleDbType.Varchar2) { Value = username });
+                command.Parameters.Add(new OracleParameter("email", OracleDbType.Varchar2) { Value = email });
+                command.Parameters.Add(new OracleParameter("password", OracleDbType.Varchar2) { Value = password });
+                command.Parameters.Add(new OracleParameter("telefon", OracleDbType.Int64) { Value = telefon });
+                command.Parameters.Add(new OracleParameter("provozovna", OracleDbType.Int64) { Value = provozovna });
+
+                // Add the return value parameter to capture the result
+                
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+                    // Get the return value as a string (it will be a comma-separated list of user data)
+                    return returnValueParam.Value.ToString();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while executing the complete_registration function: " + ex.Message);
+                    return "Error occurred"; // Default return value in case of an error
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+
+
+
 
     }
 }
