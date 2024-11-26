@@ -1364,6 +1364,7 @@ namespace App
                         registerBtn.Hide();
                         labelRegisteredName.Text = "";//Vzít jméno a pøíjmení z tabulky zamìstnanec
                         labelRegisteredUsername.Text = "Uživatelské jméno: " +loggedUser.Jmeno;
+                        LoadZamestnanec();
                     }
                     return;
                 default:

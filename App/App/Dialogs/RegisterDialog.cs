@@ -23,6 +23,7 @@ namespace App.Dialogs
         public RegisterDialog(bool kompl, string email)
         {
             InitializeComponent();
+            _database = new Database();
             _provozovnaRepo = new ProvozovnaRepo();
             var provozovnyDict = _provozovnaRepo.GetProvozovnyEnum();
 
