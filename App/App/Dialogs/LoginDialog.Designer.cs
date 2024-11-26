@@ -65,8 +65,10 @@
             // 
             tbPass.Location = new Point(224, 97);
             tbPass.Name = "tbPass";
+            tbPass.PasswordChar = '*';
             tbPass.Size = new Size(262, 23);
             tbPass.TabIndex = 3;
+            tbPass.UseSystemPasswordChar = true;
             // 
             // buttonZrusit
             // 

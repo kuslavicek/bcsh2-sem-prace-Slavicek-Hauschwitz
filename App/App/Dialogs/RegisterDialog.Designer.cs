@@ -134,15 +134,19 @@
             // 
             tbPassRepeat.Location = new Point(168, 183);
             tbPassRepeat.Name = "tbPassRepeat";
+            tbPassRepeat.PasswordChar = '*';
             tbPassRepeat.Size = new Size(224, 23);
             tbPassRepeat.TabIndex = 10;
+            tbPassRepeat.UseSystemPasswordChar = true;
             // 
             // tbPass
             // 
             tbPass.Location = new Point(168, 123);
             tbPass.Name = "tbPass";
+            tbPass.PasswordChar = '*';
             tbPass.Size = new Size(224, 23);
             tbPass.TabIndex = 9;
+            tbPass.UseSystemPasswordChar = true;
             // 
             // tbUsername
             // 
@@ -208,7 +212,7 @@
             panel2.Controls.Add(tbJmeno);
             panel2.Controls.Add(label2);
             panel2.Controls.Add(komplRegBtn);
-            panel2.Location = new Point(12, 12);
+            panel2.Location = new Point(12, 25);
             panel2.Name = "panel2";
             panel2.Size = new Size(497, 547);
             panel2.TabIndex = 5;
@@ -254,15 +258,19 @@
             // 
             tbKompPass.Location = new Point(188, 345);
             tbKompPass.Name = "tbKompPass";
+            tbKompPass.PasswordChar = '*';
             tbKompPass.Size = new Size(217, 23);
             tbKompPass.TabIndex = 14;
+            tbKompPass.UseSystemPasswordChar = true;
             // 
             // tbKompPassRepeat
             // 
             tbKompPassRepeat.Location = new Point(188, 395);
             tbKompPassRepeat.Name = "tbKompPassRepeat";
+            tbKompPassRepeat.PasswordChar = '*';
             tbKompPassRepeat.Size = new Size(217, 23);
             tbKompPassRepeat.TabIndex = 13;
+            tbKompPassRepeat.UseSystemPasswordChar = true;
             // 
             // label13
             // 
