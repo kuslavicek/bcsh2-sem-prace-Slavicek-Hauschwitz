@@ -22,6 +22,7 @@ namespace App
         private ZamestnanecRepo _zamestnanecRepo;
         private TypAkceRepo _typAkceRepo;
         private SkladRepo _skladRepo;
+        private FakturaRepo _fakturaRepo;
         private Dictionary<int, string> skladyDict;
         private readonly Database _database;
         private User? loggedUser = null;
@@ -62,6 +63,9 @@ namespace App
 
             _typAkceRepo = new TypAkceRepo();
             LoadTypyAkce();
+
+            _fakturaRepo = new FakturaRepo();
+            LoadFaktury();
         }
         #region Zbozi
 
@@ -388,14 +392,19 @@ namespace App
             this.LoadObjednavky();
         }
 
-        private void objZboziBtn_Click(object sender, EventArgs e)
+        private void btnStats_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void FakturaBtn_Click(object sender, EventArgs e)
-        {
-
+            try
+            {
+                ObjednavkyStatsDialog statsDialog = new ObjednavkyStatsDialog(_objednavkaRepo);
+                if (statsDialog.ShowDialog() == DialogResult.OK)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         #endregion
 
@@ -608,7 +617,31 @@ namespace App
             LoadZakaznici();
         }
 
+        private void btnDiscount_Click(object sender, EventArgs e)
+        {
+            if (lvZakaznici.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
 
+            var selectedItem = lvZakaznici.SelectedItems[0];
+
+            try
+            {
+                HladinaDialog hladinaDialog = new HladinaDialog(_zakaznikRepo, (int)selectedItem.Tag, selectedItem.SubItems[0].Text);
+                if (hladinaDialog.ShowDialog() == DialogResult.OK)
+                {
+                    LoadZakaznici();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadZakaznici();
+        }
         #endregion
 
         #region Zamìstnanec
@@ -1336,6 +1369,7 @@ namespace App
         #endregion
 
         #region Adresy
+
         private void LoadAdresy()
         {
             lvAdresy.Columns.Clear();
@@ -1434,7 +1468,6 @@ namespace App
 
             LoadAdresy();
         }
-        #endregion
 
         private void btnAdresaUse_Click(object sender, EventArgs e)
         {
@@ -1458,47 +1491,35 @@ namespace App
                 MessageBox.Show(ex.Message);
             }
         }
+        #endregion
 
-        private void btnStats_Click(object sender, EventArgs e)
+
+        #region Faktura
+
+        private void LoadFaktury()
         {
-            try
+            lvFaktury.Columns.Clear();
+            lvFaktury.View = View.Details;
+            lvFaktury.FullRowSelect = true;
+            lvFaktury.Columns.Add("Název souboru", 150);
+            lvFaktury.Columns.Add("Datum vložení", 150);
+
+            var faktury = _fakturaRepo.Load();
+            lvSklady.Items.Clear();
+
+            foreach (var faktura in faktury)
             {
-                ObjednavkyStatsDialog statsDialog = new ObjednavkyStatsDialog(_objednavkaRepo);
-                if (statsDialog.ShowDialog() == DialogResult.OK)
+                var item = new ListViewItem(new[]
                 {
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                    faktura.NazevSouboru,
+                    faktura.DatumVlozeni.ToString(),
+                });
+
+                item.Tag = faktura.Id;
+                lvFaktury.Items.Add(item);
             }
         }
-
-        private void btnDiscount_Click(object sender, EventArgs e)
-        {
-            if (lvZakaznici.SelectedItems.Count == 0)
-            {
-                MessageBox.Show("Please select a row to update.");
-                return;
-            }
-
-            var selectedItem = lvZakaznici.SelectedItems[0];
-
-            try
-            {
-                HladinaDialog hladinaDialog = new HladinaDialog(_zakaznikRepo, (int)selectedItem.Tag, selectedItem.SubItems[0].Text);
-                if (hladinaDialog.ShowDialog() == DialogResult.OK)
-                {
-                    LoadZakaznici();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            LoadZakaznici();
-        }
+        #endregion
     }
 }
 

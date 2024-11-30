@@ -87,6 +87,7 @@
             lvZamestnanci = new ListView();
             tabZakaznici = new TabPage();
             panel4 = new Panel();
+            btnDiscount = new Button();
             UpdateZakaznikBtn = new Button();
             InsertZakaznikBtn = new Button();
             DeleteZakaznikBtn = new Button();
@@ -103,9 +104,7 @@
             panel2 = new Panel();
             btnStats = new Button();
             InsertObjednavkaBtn = new Button();
-            objZboziBtn = new Button();
             UpdateObjednavkaBtn = new Button();
-            FakturaBtn = new Button();
             DeleteObjednavkaBtn = new Button();
             labelObj = new Label();
             lvObjednavky = new ListView();
@@ -132,7 +131,6 @@
             label1 = new Label();
             lvPiva = new ListView();
             tabControl1 = new TabControl();
-            btnDiscount = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             tabAkce.SuspendLayout();
@@ -761,6 +759,16 @@
             panel4.Size = new Size(380, 607);
             panel4.TabIndex = 5;
             // 
+            // btnDiscount
+            // 
+            btnDiscount.Location = new Point(5, 155);
+            btnDiscount.Name = "btnDiscount";
+            btnDiscount.Size = new Size(227, 23);
+            btnDiscount.TabIndex = 5;
+            btnDiscount.Text = "Nastavit cenovou hladinu";
+            btnDiscount.UseVisualStyleBackColor = true;
+            btnDiscount.Click += btnDiscount_Click;
+            // 
             // UpdateZakaznikBtn
             // 
             UpdateZakaznikBtn.Location = new Point(5, 55);
@@ -901,9 +909,7 @@
             panel2.BorderStyle = BorderStyle.FixedSingle;
             panel2.Controls.Add(btnStats);
             panel2.Controls.Add(InsertObjednavkaBtn);
-            panel2.Controls.Add(objZboziBtn);
             panel2.Controls.Add(UpdateObjednavkaBtn);
-            panel2.Controls.Add(FakturaBtn);
             panel2.Controls.Add(DeleteObjednavkaBtn);
             panel2.Location = new Point(902, 55);
             panel2.Name = "panel2";
@@ -912,7 +918,7 @@
             // 
             // btnStats
             // 
-            btnStats.Location = new Point(5, 255);
+            btnStats.Location = new Point(5, 155);
             btnStats.Name = "btnStats";
             btnStats.Size = new Size(190, 23);
             btnStats.TabIndex = 7;
@@ -930,16 +936,6 @@
             InsertObjednavkaBtn.UseVisualStyleBackColor = true;
             InsertObjednavkaBtn.Click += InsertObjednavkaBtn_Click;
             // 
-            // objZboziBtn
-            // 
-            objZboziBtn.Location = new Point(5, 205);
-            objZboziBtn.Name = "objZboziBtn";
-            objZboziBtn.Size = new Size(190, 23);
-            objZboziBtn.TabIndex = 6;
-            objZboziBtn.Text = "Objednané zboží";
-            objZboziBtn.UseVisualStyleBackColor = true;
-            objZboziBtn.Click += objZboziBtn_Click;
-            // 
             // UpdateObjednavkaBtn
             // 
             UpdateObjednavkaBtn.Location = new Point(5, 55);
@@ -949,16 +945,6 @@
             UpdateObjednavkaBtn.Text = "Upravit Objednávku";
             UpdateObjednavkaBtn.UseVisualStyleBackColor = true;
             UpdateObjednavkaBtn.Click += UpdateObjednavkaBtn_Click;
-            // 
-            // FakturaBtn
-            // 
-            FakturaBtn.Location = new Point(5, 155);
-            FakturaBtn.Name = "FakturaBtn";
-            FakturaBtn.Size = new Size(190, 23);
-            FakturaBtn.TabIndex = 5;
-            FakturaBtn.Text = "Faktura";
-            FakturaBtn.UseVisualStyleBackColor = true;
-            FakturaBtn.Click += FakturaBtn_Click;
             // 
             // DeleteObjednavkaBtn
             // 
@@ -1245,16 +1231,6 @@
             tabControl1.Size = new Size(1296, 785);
             tabControl1.TabIndex = 0;
             // 
-            // btnDiscount
-            // 
-            btnDiscount.Location = new Point(5, 155);
-            btnDiscount.Name = "btnDiscount";
-            btnDiscount.Size = new Size(227, 23);
-            btnDiscount.TabIndex = 5;
-            btnDiscount.Text = "Nastavit cenovou hladinu";
-            btnDiscount.UseVisualStyleBackColor = true;
-            btnDiscount.Click += btnDiscount_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1317,8 +1293,6 @@
             GlobalStyles.ApplyButtonStyle(this.DeleteObjednavkaBtn, true);
             GlobalStyles.ApplyButtonStyle(this.UpdateObjednavkaBtn, true);
             GlobalStyles.ApplyButtonStyle(this.InsertObjednavkaBtn, true);
-            GlobalStyles.ApplyButtonStyle(this.FakturaBtn, true);
-            GlobalStyles.ApplyButtonStyle(this.objZboziBtn, true);
             GlobalStyles.ApplyButtonStyle(this.btnStats, true);
 
             GlobalStyles.ApplyButtonStyle(this.DeleteSurovinaBtn, true);
@@ -1385,9 +1359,7 @@
         private TabPage tabObjednávky;
         private Panel panel2;
         private Button InsertObjednavkaBtn;
-        private Button objZboziBtn;
         private Button UpdateObjednavkaBtn;
-        private Button FakturaBtn;
         private Button DeleteObjednavkaBtn;
         private Label labelObj;
         private ListView lvObjednavky;
