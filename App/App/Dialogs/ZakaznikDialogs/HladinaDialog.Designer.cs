@@ -35,6 +35,7 @@
             panel1 = new Panel();
             txtZakaznik = new TextBox();
             label2 = new Label();
+            btnCancelPricingLevel = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -101,11 +102,23 @@
             label2.TabIndex = 6;
             label2.Text = "Zákazník:";
             // 
+            // btnCancelPricingLevel
+            // 
+            btnCancelPricingLevel.ForeColor = Color.Red;
+            btnCancelPricingLevel.Location = new Point(123, 154);
+            btnCancelPricingLevel.Name = "btnCancelPricingLevel";
+            btnCancelPricingLevel.Size = new Size(124, 45);
+            btnCancelPricingLevel.TabIndex = 7;
+            btnCancelPricingLevel.Text = "Odstranit cenovou hladinu";
+            btnCancelPricingLevel.UseVisualStyleBackColor = true;
+            btnCancelPricingLevel.Click += btnCancelPricingLevel_Click;
+            // 
             // HladinaDialog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(362, 338);
+            Controls.Add(btnCancelPricingLevel);
             Controls.Add(label2);
             Controls.Add(txtZakaznik);
             Controls.Add(panel1);
@@ -127,5 +140,6 @@
         private Panel panel1;
         private TextBox txtZakaznik;
         private Label label2;
+        private Button btnCancelPricingLevel;
     }
 }

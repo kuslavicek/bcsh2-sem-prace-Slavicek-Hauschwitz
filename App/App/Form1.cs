@@ -1489,12 +1489,15 @@ namespace App
                 HladinaDialog hladinaDialog = new HladinaDialog(_zakaznikRepo, (int)selectedItem.Tag, selectedItem.SubItems[0].Text);
                 if (hladinaDialog.ShowDialog() == DialogResult.OK)
                 {
+                    LoadZakaznici();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+
+            LoadZakaznici();
         }
     }
 }

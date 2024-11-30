@@ -17,7 +17,7 @@ namespace App.Dialogs.ZakaznikDialogs
         private ZakaznikRepo _zakaznikRepo { get; set; }
         private int id { get; set; }
         private string jmeno { get; set; }
-        public HladinaDialog(ZakaznikRepo repo, int id,string jmeno)
+        public HladinaDialog(ZakaznikRepo repo, int id, string jmeno)
         {
             this._zakaznikRepo = repo;
             this.id = id;
@@ -30,7 +30,7 @@ namespace App.Dialogs.ZakaznikDialogs
         {
             try
             {
-                if (InputValidator.IsValidPercentage(txtHladina.Text)||
+                if (InputValidator.IsValidPercentage(txtHladina.Text) ||
                     !InputValidator.IsNotEmpty(txtHladina))
                 {
                     _zakaznikRepo.SetDiscount(this.id, double.Parse(txtHladina.Text));
@@ -41,16 +41,31 @@ namespace App.Dialogs.ZakaznikDialogs
                     return;
                 }
             }
-            catch {
+            catch
+            {
                 MessageBox.Show("Chyba.");
             }
 
-            MessageBox.Show("Cenová hladina pro zákazníka "+jmeno+" byla uložena a objednávky ve stavu 'Zpracovává se' byly přepočítány.");
+            MessageBox.Show("Cenová hladina pro zákazníka " + jmeno + " byla uložena a objednávky ve stavu 'Zpracovává se' byly přepočítány.");
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnCancelPricingLevel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                   _zakaznikRepo.CancelDiscount(this.id);
+            }
+            catch
+            {
+                MessageBox.Show("Chyba.");
+            }
+
+            MessageBox.Show("Cenová hladina pro zákazníka " + jmeno + " byla odstraněna a objednávky ve stavu 'Zpracovává se' byly přepočítány.");
         }
     }
 }

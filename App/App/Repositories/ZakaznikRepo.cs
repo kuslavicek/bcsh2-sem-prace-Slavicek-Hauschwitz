@@ -105,6 +105,12 @@ namespace App.Repositories
             _database.ExecuteProcedure("ApplyDiscountToOrders", parameters);
         }
 
+        public void CancelDiscount(int zakaznikId)
+        {
+            var parameters = new Dictionary<string, object> { { "p_customer_id", zakaznikId } };
+            _database.ExecuteProcedure("CancelPricingLevel", parameters);
+        }
+
         public Zakaznik GetZakaznikById(int id)
         {
             Zakaznik zakaznik = null;
