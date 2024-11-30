@@ -1475,6 +1475,29 @@ namespace App
             LoadAdresy();
         }
         #endregion
+
+        private void btnAdresaUse_Click(object sender, EventArgs e)
+        {
+            if (lvAdresy.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
+
+            var selectedItem = lvAdresy.SelectedItems[0];
+
+            try
+            {
+                AdresaUseDialog adresaUseDialog = new AdresaUseDialog(_adresaRepo,(int)selectedItem.Tag);
+                if (adresaUseDialog.ShowDialog() == DialogResult.OK)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
 

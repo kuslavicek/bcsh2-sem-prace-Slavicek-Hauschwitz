@@ -40,6 +40,47 @@ namespace App.Repositories
             return adresaList;
         }
 
+        public List<ListViewItem> LoadAdresaEntities(int adresaId)
+        {
+            string queryAdresaEntities = "SELECT entity_type, id_adresa, jmeno, telefon, email, nazev_skladu, pocet_zamestnancu, nazev_provozovna FROM adresa_entities WHERE id_adresa = :adresaId";
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "adresaId", adresaId }
+            };
+
+            var dataAdresaEntities = _database.GetDataFromView(queryAdresaEntities, parameters);
+
+            var listViewItems = new List<ListViewItem>();
+
+            foreach (var row in dataAdresaEntities)
+            {
+                string entityType = row["ENTITY_TYPE"].ToString();
+
+                string itemString = $"{entityType}, ";
+
+                if (entityType == "Zakaznik")
+                {
+                    itemString += $"Jméno: {row["JMENO"]}, Telefon: {row["TELEFON"]}, Email: {row["EMAIL"]}";
+                }
+                else if (entityType == "Sklad")
+                {
+                    itemString += $"Název skladu: {row["NAZEV_SKLADU"]}";
+                }
+                else if (entityType == "Provozovna")
+                {
+                    itemString += $"Název provozovny: {row["NAZEV_PROVOZOVNA"]}";
+                    itemString += $", Počet zaměstnanců: {row["POCET_ZAMESTNANCU"]}";
+                }
+
+                var listViewItem = new ListViewItem(itemString);
+
+                listViewItems.Add(listViewItem);
+            }
+
+            return listViewItems;
+        }
+
         public Adresa ParseAdresa(string? adresaText)
         {
             var parts = adresaText.Split(new[] { ", " }, StringSplitOptions.None);
