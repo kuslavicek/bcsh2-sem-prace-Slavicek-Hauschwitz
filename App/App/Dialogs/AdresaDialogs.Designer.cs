@@ -39,8 +39,8 @@
             label4 = new Label();
             label5 = new Label();
             panel1 = new Panel();
-            btnSave = new Button();
             btnCancel = new Button();
+            btnSave = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -83,7 +83,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(117, 47);
+            label1.Location = new Point(117, 80);
             label1.Name = "label1";
             label1.Size = new Size(36, 15);
             label1.TabIndex = 5;
@@ -92,7 +92,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(110, 80);
+            label2.Location = new Point(110, 47);
             label2.Name = "label2";
             label2.Size = new Size(43, 15);
             label2.TabIndex = 6;
@@ -135,16 +135,6 @@
             panel1.Size = new Size(446, 74);
             panel1.TabIndex = 10;
             // 
-            // btnSave
-            // 
-            btnSave.Location = new Point(72, 21);
-            btnSave.Name = "btnSave";
-            btnSave.Size = new Size(75, 23);
-            btnSave.TabIndex = 0;
-            btnSave.Text = "Uložit";
-            btnSave.UseVisualStyleBackColor = true;
-            btnSave.Click += btnSave_Click;
-            // 
             // btnCancel
             // 
             btnCancel.Location = new Point(309, 21);
@@ -154,6 +144,16 @@
             btnCancel.Text = "Zrušit";
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += btnCancel_Click;
+            // 
+            // btnSave
+            // 
+            btnSave.Location = new Point(72, 21);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(75, 23);
+            btnSave.TabIndex = 0;
+            btnSave.Text = "Uložit";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // AdresaDialogs
             // 
