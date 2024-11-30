@@ -22,6 +22,7 @@ namespace App
         private ZamestnanecRepo _zamestnanecRepo;
         private TypAkceRepo _typAkceRepo;
         private SkladRepo _skladRepo;
+        private AkceRepo _akceRepo;
         private FakturaRepo _fakturaRepo;
         private Dictionary<int, string> skladyDict;
         private readonly Database _database;
@@ -66,6 +67,9 @@ namespace App
 
             _fakturaRepo = new FakturaRepo();
             LoadFaktury();
+
+            _akceRepo = new AkceRepo();
+            LoadAkce();
         }
         #region Zbozi
 
@@ -1491,6 +1495,7 @@ namespace App
                 MessageBox.Show(ex.Message);
             }
         }
+
         #endregion
 
 
@@ -1570,6 +1575,49 @@ namespace App
             else
             {
                 MessageBox.Show("Faktura nebyla nalezena.");
+            }
+        }
+        #endregion
+
+        #region Akce
+        private void LoadAkce()
+        {
+            lvAkce.Columns.Clear();
+            lvAkce.View = View.Details;
+            lvAkce.FullRowSelect = true;
+            lvAkce.Columns.Add("Typ akce", 150);
+            lvAkce.Columns.Add("Poèet osob", 150);
+            lvAkce.Columns.Add("Datum", 250);
+
+            var akces = _akceRepo.LoadAkce();
+            lvAkce.Items.Clear();
+
+            foreach (var akce in akces)
+            {
+                var item = new ListViewItem(new[]
+                {
+                    _typAkceRepo.GetTypAkceByAkce((int)akce.IdTypAkce).Nazev,
+                    akce.PocetOsob.ToString(),
+                    akce.Datum.ToString()
+                });
+
+                item.Tag = akce.Id;
+                lvAkce.Items.Add(item);
+            }
+        }
+
+        private void btnShowCalendar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                AkceCalendar calendarDialog = new AkceCalendar(_akceRepo);
+                if (calendarDialog.ShowDialog() == DialogResult.OK)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         #endregion

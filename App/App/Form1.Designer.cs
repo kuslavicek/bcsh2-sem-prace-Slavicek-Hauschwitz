@@ -133,9 +133,11 @@
             label1 = new Label();
             lvPiva = new ListView();
             tabControl1 = new TabControl();
+            btnShowCalendar = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             tabAkce.SuspendLayout();
+            panel13.SuspendLayout();
             tabFaktura.SuspendLayout();
             panel12.SuspendLayout();
             tabAdresa.SuspendLayout();
@@ -216,6 +218,7 @@
             // panel13
             // 
             panel13.BackColor = Color.Silver;
+            panel13.Controls.Add(btnShowCalendar);
             panel13.Location = new Point(902, 55);
             panel13.Name = "panel13";
             panel13.Size = new Size(380, 607);
@@ -1256,6 +1259,16 @@
             tabControl1.Size = new Size(1296, 785);
             tabControl1.TabIndex = 0;
             // 
+            // btnShowCalendar
+            // 
+            btnShowCalendar.Location = new Point(5, 5);
+            btnShowCalendar.Name = "btnShowCalendar";
+            btnShowCalendar.Size = new Size(254, 23);
+            btnShowCalendar.TabIndex = 2;
+            btnShowCalendar.Text = "Zobrazit kalendář";
+            btnShowCalendar.UseVisualStyleBackColor = true;
+            btnShowCalendar.Click += btnShowCalendar_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1267,6 +1280,7 @@
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).EndInit();
             tabObjZbozi.ResumeLayout(false);
             tabAkce.ResumeLayout(false);
+            panel13.ResumeLayout(false);
             tabFaktura.ResumeLayout(false);
             tabFaktura.PerformLayout();
             panel12.ResumeLayout(false);
@@ -1360,6 +1374,8 @@
             GlobalStyles.ApplyButtonStyle(this.btnAdresaUse, true);
 
             GlobalStyles.ApplyButtonStyle(this.btnSaveFaktura, true);
+
+            GlobalStyles.ApplyButtonStyle(this.btnShowCalendar, true);
         }
         private Oracle.ManagedDataAccess.Client.OracleCommand oracleCommand1;
         private FileSystemWatcher fileSystemWatcher1;
@@ -1466,5 +1482,6 @@
         private Button btnDiscount;
         private Button btnSaveFaktura;
         private Label label8;
+        private Button btnShowCalendar;
     }
 }

@@ -7,6 +7,9 @@
     <Compile Update="Dialogs\AdresaDialogs\AdresaUseDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Dialogs\AkceCalendar.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Dialogs\ObjednavkaDialogs\AkceManipulationDialog.cs">
       <SubType>Form</SubType>
     </Compile>
