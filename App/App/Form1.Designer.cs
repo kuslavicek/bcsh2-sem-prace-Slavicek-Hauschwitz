@@ -35,6 +35,7 @@
             lvObjZbozi = new ListView();
             tabAkce = new TabPage();
             panel13 = new Panel();
+            btnShowCalendar = new Button();
             lvAkce = new ListView();
             tabFaktura = new TabPage();
             label8 = new Label();
@@ -133,9 +134,12 @@
             label1 = new Label();
             lvPiva = new ListView();
             tabControl1 = new TabControl();
-            btnShowCalendar = new Button();
+            label9 = new Label();
+            label10 = new Label();
+            btnEditObjZbozi = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
+            panel14.SuspendLayout();
             tabAkce.SuspendLayout();
             panel13.SuspendLayout();
             tabFaktura.SuspendLayout();
@@ -178,6 +182,7 @@
             // tabObjZbozi
             // 
             tabObjZbozi.BackColor = Color.LightGray;
+            tabObjZbozi.Controls.Add(label10);
             tabObjZbozi.Controls.Add(panel14);
             tabObjZbozi.Controls.Add(lvObjZbozi);
             tabObjZbozi.Location = new Point(4, 24);
@@ -190,6 +195,8 @@
             // panel14
             // 
             panel14.BackColor = Color.Silver;
+            panel14.BorderStyle = BorderStyle.FixedSingle;
+            panel14.Controls.Add(btnEditObjZbozi);
             panel14.Location = new Point(902, 55);
             panel14.Name = "panel14";
             panel14.Size = new Size(380, 607);
@@ -206,6 +213,7 @@
             // tabAkce
             // 
             tabAkce.BackColor = Color.LightGray;
+            tabAkce.Controls.Add(label9);
             tabAkce.Controls.Add(panel13);
             tabAkce.Controls.Add(lvAkce);
             tabAkce.Location = new Point(4, 24);
@@ -223,6 +231,16 @@
             panel13.Name = "panel13";
             panel13.Size = new Size(380, 607);
             panel13.TabIndex = 1;
+            // 
+            // btnShowCalendar
+            // 
+            btnShowCalendar.Location = new Point(5, 5);
+            btnShowCalendar.Name = "btnShowCalendar";
+            btnShowCalendar.Size = new Size(254, 23);
+            btnShowCalendar.TabIndex = 2;
+            btnShowCalendar.Text = "Zobrazit kalendář";
+            btnShowCalendar.UseVisualStyleBackColor = true;
+            btnShowCalendar.Click += btnShowCalendar_Click;
             // 
             // lvAkce
             // 
@@ -1259,15 +1277,34 @@
             tabControl1.Size = new Size(1296, 785);
             tabControl1.TabIndex = 0;
             // 
-            // btnShowCalendar
+            // label9
             // 
-            btnShowCalendar.Location = new Point(5, 5);
-            btnShowCalendar.Name = "btnShowCalendar";
-            btnShowCalendar.Size = new Size(254, 23);
-            btnShowCalendar.TabIndex = 2;
-            btnShowCalendar.Text = "Zobrazit kalendář";
-            btnShowCalendar.UseVisualStyleBackColor = true;
-            btnShowCalendar.Click += btnShowCalendar_Click;
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 12F);
+            label9.Location = new Point(18, 19);
+            label9.Name = "label9";
+            label9.Size = new Size(43, 21);
+            label9.TabIndex = 2;
+            label9.Text = "Akce";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 12F);
+            label10.Location = new Point(18, 19);
+            label10.Name = "label10";
+            label10.Size = new Size(126, 21);
+            label10.TabIndex = 2;
+            label10.Text = "Objednané zboží";
+            // 
+            // btnEditObjZbozi
+            // 
+            btnEditObjZbozi.Location = new Point(3, 3);
+            btnEditObjZbozi.Name = "btnEditObjZbozi";
+            btnEditObjZbozi.Size = new Size(235, 23);
+            btnEditObjZbozi.TabIndex = 0;
+            btnEditObjZbozi.Text = "Upravit objednané zboží";
+            btnEditObjZbozi.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -1279,7 +1316,10 @@
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).EndInit();
             tabObjZbozi.ResumeLayout(false);
+            tabObjZbozi.PerformLayout();
+            panel14.ResumeLayout(false);
             tabAkce.ResumeLayout(false);
+            tabAkce.PerformLayout();
             panel13.ResumeLayout(false);
             tabFaktura.ResumeLayout(false);
             tabFaktura.PerformLayout();
@@ -1483,5 +1523,8 @@
         private Button btnSaveFaktura;
         private Label label8;
         private Button btnShowCalendar;
+        private Label label9;
+        private Label label10;
+        private Button btnEditObjZbozi;
     }
 }

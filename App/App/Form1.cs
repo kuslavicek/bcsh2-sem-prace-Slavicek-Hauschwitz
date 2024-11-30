@@ -17,6 +17,7 @@ namespace App
         private ZakaznikRepo _zakaznikRepo;
         private AdresaRepo _adresaRepo;
         private ObjednavkaRepo _objednavkaRepo;
+        private ObjednaneZboziRepo _objednaneZboziRepo;
         private ProvozovnaRepo _provozovnaRepo;
         private PracovniPoziceRepo _poziceRepo;
         private ZamestnanecRepo _zamestnanecRepo;
@@ -70,6 +71,9 @@ namespace App
 
             _akceRepo = new AkceRepo();
             LoadAkce();
+
+            _objednaneZboziRepo=new ObjednaneZboziRepo();
+            LoadObjZbozi();
         }
         #region Zbozi
 
@@ -1618,6 +1622,34 @@ namespace App
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Objednané zboží
+        private void LoadObjZbozi() {
+            lvObjZbozi.Columns.Clear();
+            lvObjZbozi.View = View.Details;
+            lvObjZbozi.FullRowSelect = true;
+            lvObjZbozi.Columns.Add("Zboží", 150);
+            lvObjZbozi.Columns.Add("Množství", 150);
+            lvObjZbozi.Columns.Add("Cena", 250);
+
+            var zboziList = _objednaneZboziRepo.Load();
+            lvObjZbozi.Items.Clear();
+
+            foreach (var zbozi in zboziList)
+            {
+                var item = new ListViewItem(new[]
+                {
+                    zbozi.Value.Nazev,
+                    zbozi.Key.Mnozstvi.ToString(),
+                    zbozi.Value.Cena.ToString()
+                });
+
+                item.Tag = zbozi.Key.Id;
+                item.SubItems[0].Tag = zbozi.Value.Id;
+                lvObjZbozi.Items.Add(item);
             }
         }
         #endregion
