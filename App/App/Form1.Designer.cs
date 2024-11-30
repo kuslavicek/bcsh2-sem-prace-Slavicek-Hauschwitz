@@ -1329,6 +1329,7 @@
             btnAddAdresa.TabIndex = 0;
             btnAddAdresa.Text = "Vložit adresu";
             btnAddAdresa.UseVisualStyleBackColor = true;
+            btnAddAdresa.Click += btnAddAdresa_Click;
             // 
             // btnEditAdresa
             // 
@@ -1338,6 +1339,7 @@
             btnEditAdresa.TabIndex = 1;
             btnEditAdresa.Text = "Upravit adresu";
             btnEditAdresa.UseVisualStyleBackColor = true;
+            btnEditAdresa.Click += btnEditAdresa_Click;
             // 
             // btnDeleteAdresa
             // 
@@ -1347,6 +1349,7 @@
             btnDeleteAdresa.TabIndex = 2;
             btnDeleteAdresa.Text = "Odstranit adresu";
             btnDeleteAdresa.UseVisualStyleBackColor = true;
+            btnDeleteAdresa.Click += btnDeleteAdresa_Click;
             // 
             // lvFaktury
             // 
@@ -1529,6 +1532,10 @@
 
             GlobalStyles.ApplyButtonStyle(this.registerBtn, true);
             GlobalStyles.ApplyButtonStyle(this.loginBtn, true);
+
+            GlobalStyles.ApplyButtonStyle(this.btnAddAdresa, true);
+            GlobalStyles.ApplyButtonStyle(this.btnEditAdresa, true);
+            GlobalStyles.ApplyButtonStyle(this.btnDeleteAdresa, true);
         }
 
         private Panel panel2;

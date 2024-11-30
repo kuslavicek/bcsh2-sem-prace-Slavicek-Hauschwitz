@@ -27,7 +27,7 @@ namespace App
         public Form1()
         {
             InitializeComponent();
-            logout(); //todo odkomentovat
+            //logout(); //todo odkomentovat
             _database = new Database();
             this.initBtns();
             _skladRepo = new SkladRepo();
@@ -45,6 +45,7 @@ namespace App
             LoadZakaznici();
 
             _adresaRepo = new AdresaRepo();
+            LoadAdresy();
             _objednavkaRepo = new ObjednavkaRepo();
             LoadObjednavky();
 
@@ -676,7 +677,7 @@ namespace App
                 Jmeno = selectedItem.SubItems[0].Text,
                 Prijmeni = selectedItem.SubItems[1].Text,
                 Email = tag.Item3,
-                Telefon =tag.Item2,
+                Telefon = tag.Item2,
                 IdProvozovna = Convert.ToInt32(selectedItem.SubItems[4].Tag),
                 IdPracovniPozice = Convert.ToInt32(selectedItem.SubItems[5].Tag),
                 IdNadrizeny = selectedItem.SubItems[6].Tag != null ? Convert.ToInt32(selectedItem.SubItems[6].Tag) : null
@@ -1173,7 +1174,7 @@ namespace App
                 if (dialog.ShowDialog() == DialogResult.OK && dialog.user != null)
                 {
                     loggedUser = dialog.user;
-                
+
                     switch (loggedUser.Role)
                     {
                         case "Admin":
@@ -1220,15 +1221,15 @@ namespace App
             loggedUser = null;
             emulUser = null;
             tabControl1.TabPages.Remove(tabNadrizeni);
-            tabControl1.TabPages.Remove(tabNadrizeni); 
-            tabControl1.TabPages.Remove(tabObjednávky); 
-            tabControl1.TabPages.Remove(tabPozice); 
-            tabControl1.TabPages.Remove(tabProvozovny); 
-            tabControl1.TabPages.Remove(tabSklad); 
-            tabControl1.TabPages.Remove(tabStats); 
-            tabControl1.TabPages.Remove(tabSuroviny); 
-            tabControl1.TabPages.Remove(tabTypyAkce); 
-            tabControl1.TabPages.Remove(tabZakaznici); 
+            tabControl1.TabPages.Remove(tabNadrizeni);
+            tabControl1.TabPages.Remove(tabObjednávky);
+            tabControl1.TabPages.Remove(tabPozice);
+            tabControl1.TabPages.Remove(tabProvozovny);
+            tabControl1.TabPages.Remove(tabSklad);
+            tabControl1.TabPages.Remove(tabStats);
+            tabControl1.TabPages.Remove(tabSuroviny);
+            tabControl1.TabPages.Remove(tabTypyAkce);
+            tabControl1.TabPages.Remove(tabZakaznici);
             tabControl1.TabPages.Remove(tabZamìstnanci);
             panel1.Hide();
             osUdajeCheck.Hide();
@@ -1281,7 +1282,7 @@ namespace App
         private void registerBtn_Click(object sender, EventArgs e)
         {
             string email = Microsoft.VisualBasic.Interaction.InputBox("Vložte email pro registraci", "Email", "priklad@priklad.com");
-          
+
 
             object result = _database.ExecuteFindEmailRegistered(email);
 
@@ -1363,7 +1364,7 @@ namespace App
                         loginBtn.Text = "Odhlásit se";
                         registerBtn.Hide();
                         labelRegisteredName.Text = "";//Vzít jméno a pøíjmení z tabulky zamìstnanec
-                        labelRegisteredUsername.Text = "Uživatelské jméno: " +loggedUser.Jmeno;
+                        labelRegisteredUsername.Text = "Uživatelské jméno: " + loggedUser.Jmeno;
                         LoadZamestnanec();
                     }
                     return;
@@ -1376,7 +1377,52 @@ namespace App
 
         #endregion
 
-        
+        #region Adresy
+        private void LoadAdresy()
+        {
+            lvAdresy.Columns.Clear();
+            lvAdresy.View = View.Details;
+            lvAdresy.FullRowSelect = true;
+            lvAdresy.Columns.Add("Ulice", 220);
+            lvAdresy.Columns.Add("Mìsto", 100);
+            lvAdresy.Columns.Add("PSÈ", 150);
+            lvAdresy.Columns.Add("Èíslo popisné", 100);
+            lvAdresy.Columns.Add("Stát", 200);
+
+            var adresyList = _adresaRepo.Load();
+            lvAdresy.Items.Clear();
+
+            foreach (var adresa in adresyList)
+            {
+
+                var item = new ListViewItem(new[]
+                {
+                    adresa.Mesto,
+                    adresa.Ulice,
+                    adresa.Psc.ToString(),
+                    adresa.CisloPopisne.ToString(),
+                    adresa.Stat
+                });
+
+                item.Tag = adresa.Id;
+                lvAdresy.Items.Add(item);
+            }
+        }
+        private void btnAddAdresa_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEditAdresa_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDeleteAdresa_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
     }
 }
 

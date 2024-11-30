@@ -13,6 +13,31 @@ namespace App.Repositories
         public AdresaRepo() {
             _database = new Database();
         }
+
+        public List<Adresa> Load()
+        {
+            string queryAdresa = "SELECT id, ulice, mesto, psc, cislo_popisne, stat FROM v_adresa";
+            var dataAdresa = _database.GetDataFromView(queryAdresa);
+
+            var adresaList = new List<Adresa>();
+
+            foreach (var row in dataAdresa)
+            {
+                    var adresa = new Adresa(
+                        id: Convert.ToInt32(row["ID"]),
+                        mesto: row["MESTO"].ToString(),
+                        psc: Convert.ToInt32(row["PSC"]),
+                        ulice: row["ULICE"].ToString(),
+                        cisloPopisne: Convert.ToInt32(row["CISLO_POPISNE"]),
+                        stat: row["STAT"].ToString()
+                    );
+
+                    adresaList.Add(adresa);
+            }
+
+            return adresaList;
+        }
+
         public Adresa ParseAdresa(string? adresaText)
         {
             var parts = adresaText.Split(new[] { ", " }, StringSplitOptions.None);
