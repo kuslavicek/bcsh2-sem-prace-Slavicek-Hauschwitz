@@ -44,11 +44,13 @@
             label1 = new Label();
             lvPiva = new ListView();
             tabProfil = new TabPage();
+            panel10 = new Panel();
+            label16 = new Label();
             osUdajeCheck = new CheckBox();
-            labelRegisteredUsername = new Label();
-            labelRegisteredName = new Label();
-            loginBtn = new Button();
             registerBtn = new Button();
+            labelRegisteredUsername = new Label();
+            loginBtn = new Button();
+            labelRegisteredName = new Label();
             tabObjednávky = new TabPage();
             panel2 = new Panel();
             InsertObjednavkaBtn = new Button();
@@ -133,6 +135,7 @@
             tabZbozi.SuspendLayout();
             panel1.SuspendLayout();
             tabProfil.SuspendLayout();
+            panel10.SuspendLayout();
             tabObjednávky.SuspendLayout();
             panel2.SuspendLayout();
             tabSuroviny.SuspendLayout();
@@ -322,11 +325,7 @@
             // tabProfil
             // 
             tabProfil.BackColor = Color.Gainsboro;
-            tabProfil.Controls.Add(osUdajeCheck);
-            tabProfil.Controls.Add(labelRegisteredUsername);
-            tabProfil.Controls.Add(labelRegisteredName);
-            tabProfil.Controls.Add(loginBtn);
-            tabProfil.Controls.Add(registerBtn);
+            tabProfil.Controls.Add(panel10);
             tabProfil.Location = new Point(4, 24);
             tabProfil.Name = "tabProfil";
             tabProfil.Padding = new Padding(3);
@@ -334,10 +333,37 @@
             tabProfil.TabIndex = 1;
             tabProfil.Text = "Profil";
             // 
+            // panel10
+            // 
+            panel10.BackColor = Color.Silver;
+            panel10.BorderStyle = BorderStyle.FixedSingle;
+            panel10.Controls.Add(label16);
+            panel10.Controls.Add(osUdajeCheck);
+            panel10.Controls.Add(registerBtn);
+            panel10.Controls.Add(labelRegisteredUsername);
+            panel10.Controls.Add(loginBtn);
+            panel10.Controls.Add(labelRegisteredName);
+            panel10.Location = new Point(442, 36);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(432, 682);
+            panel10.TabIndex = 5;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.BackColor = Color.LightGray;
+            label16.Font = new Font("Segoe UI", 12F);
+            label16.Location = new Point(12, 9);
+            label16.Name = "label16";
+            label16.Padding = new Padding(180, 10, 180, 10);
+            label16.Size = new Size(407, 41);
+            label16.TabIndex = 5;
+            label16.Text = "Profil";
+            // 
             // osUdajeCheck
             // 
             osUdajeCheck.AutoSize = true;
-            osUdajeCheck.Location = new Point(65, 245);
+            osUdajeCheck.Location = new Point(35, 267);
             osUdajeCheck.Name = "osUdajeCheck";
             osUdajeCheck.Size = new Size(169, 19);
             osUdajeCheck.TabIndex = 4;
@@ -345,45 +371,45 @@
             osUdajeCheck.UseVisualStyleBackColor = true;
             osUdajeCheck.CheckedChanged += osUdajeCheck_CheckedChanged;
             // 
+            // registerBtn
+            // 
+            registerBtn.Location = new Point(35, 330);
+            registerBtn.Name = "registerBtn";
+            registerBtn.Size = new Size(370, 40);
+            registerBtn.TabIndex = 0;
+            registerBtn.Text = "button4";
+            registerBtn.UseVisualStyleBackColor = true;
+            registerBtn.Click += registerBtn_Click;
+            // 
             // labelRegisteredUsername
             // 
             labelRegisteredUsername.AutoSize = true;
             labelRegisteredUsername.Font = new Font("Segoe UI", 12F);
-            labelRegisteredUsername.Location = new Point(65, 148);
+            labelRegisteredUsername.Location = new Point(35, 155);
             labelRegisteredUsername.Name = "labelRegisteredUsername";
             labelRegisteredUsername.Size = new Size(61, 21);
             labelRegisteredUsername.TabIndex = 3;
             labelRegisteredUsername.Text = "label16";
             // 
-            // labelRegisteredName
-            // 
-            labelRegisteredName.AutoSize = true;
-            labelRegisteredName.Font = new Font("Segoe UI", 12F);
-            labelRegisteredName.Location = new Point(65, 74);
-            labelRegisteredName.Name = "labelRegisteredName";
-            labelRegisteredName.Size = new Size(61, 21);
-            labelRegisteredName.TabIndex = 2;
-            labelRegisteredName.Text = "label16";
-            // 
             // loginBtn
             // 
-            loginBtn.Location = new Point(65, 579);
+            loginBtn.Location = new Point(35, 418);
             loginBtn.Name = "loginBtn";
-            loginBtn.Size = new Size(1073, 23);
+            loginBtn.Size = new Size(370, 40);
             loginBtn.TabIndex = 1;
             loginBtn.Text = "button5";
             loginBtn.UseVisualStyleBackColor = true;
             loginBtn.Click += loginBtn_Click;
             // 
-            // registerBtn
+            // labelRegisteredName
             // 
-            registerBtn.Location = new Point(65, 502);
-            registerBtn.Name = "registerBtn";
-            registerBtn.Size = new Size(1073, 23);
-            registerBtn.TabIndex = 0;
-            registerBtn.Text = "button4";
-            registerBtn.UseVisualStyleBackColor = true;
-            registerBtn.Click += registerBtn_Click;
+            labelRegisteredName.AutoSize = true;
+            labelRegisteredName.Font = new Font("Segoe UI", 12F);
+            labelRegisteredName.Location = new Point(35, 79);
+            labelRegisteredName.Name = "labelRegisteredName";
+            labelRegisteredName.Size = new Size(61, 21);
+            labelRegisteredName.TabIndex = 2;
+            labelRegisteredName.Text = "label16";
             // 
             // tabObjednávky
             // 
@@ -1206,7 +1232,8 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             tabProfil.ResumeLayout(false);
-            tabProfil.PerformLayout();
+            panel10.ResumeLayout(false);
+            panel10.PerformLayout();
             tabObjednávky.ResumeLayout(false);
             tabObjednávky.PerformLayout();
             panel2.ResumeLayout(false);
@@ -1315,6 +1342,9 @@
             GlobalStyles.ApplyButtonStyle(this.btnAddSklad, true);
             GlobalStyles.ApplyButtonStyle(this.btnDeleteSklad, true);
             GlobalStyles.ApplyButtonStyle(this.btnUpdateSklad, true);
+
+            GlobalStyles.ApplyButtonStyle(this.registerBtn, true);
+            GlobalStyles.ApplyButtonStyle(this.loginBtn, true);
         }
 
         private Panel panel2;
@@ -1383,5 +1413,7 @@
         private Button hierarchyBtn;
         private TextBox tbNadrizeni;
         private CheckBox osUdajeCheck;
+        private Panel panel10;
+        private Label label16;
     }
 }
