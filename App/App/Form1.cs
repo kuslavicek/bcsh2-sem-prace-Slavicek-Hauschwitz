@@ -1510,7 +1510,7 @@ namespace App
             lvFaktury.Columns.Add("Datum vložení", 150);
 
             var faktury = _fakturaRepo.Load();
-            lvSklady.Items.Clear();
+            lvFaktury.Items.Clear();
 
             foreach (var faktura in faktury)
             {
