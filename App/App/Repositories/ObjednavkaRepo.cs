@@ -23,6 +23,32 @@ namespace App.Repositories
             _database = new Database();
         }
 
+        public Objednavka GetObjednavkaById(int id)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "id", id }
+            };
+            string queryObjednavka = "SELECT id, datum_zalozeni, status,cena, zakaznik, faktura, id_faktura, id_zakaznik FROM v_objednavka WHERE id = :id";
+
+            var dataObjednavka = _database.GetDataFromView(queryObjednavka,parameters);
+
+            Objednavka objednavka = null;
+            foreach (var row in dataObjednavka)
+            {
+                objednavka = new Objednavka(
+                    Convert.ToInt32(row["ID"]),
+                    DateTime.Parse(row["DATUM_ZALOZENI"].ToString()),
+                    double.Parse(row["CENA"].ToString()),
+                    Convert.ToInt32(row["ID_ZAKAZNIK"].ToString()),
+                    Convert.ToInt32(row["STATUS"].ToString()),
+                    Convert.ToInt32(row["ID_FAKTURA"].ToString())
+                );
+            }
+
+            return objednavka;
+        }
+
         public List<ListViewItem> Load()
         {
             string queryObjednavka = "SELECT id, datum_zalozeni, status,cena, zakaznik, faktura, id_faktura, id_zakaznik FROM v_objednavka";

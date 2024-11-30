@@ -72,7 +72,7 @@ namespace App
             _akceRepo = new AkceRepo();
             LoadAkce();
 
-            _objednaneZboziRepo=new ObjednaneZboziRepo();
+            _objednaneZboziRepo = new ObjednaneZboziRepo();
             LoadObjZbozi();
         }
         #region Zbozi
@@ -1605,9 +1605,37 @@ namespace App
                     akce.Datum.ToString()
                 });
 
-                item.Tag = akce.Id;
+                item.Tag = Tuple.Create(akce.Id,akce.IdObjednavka);
                 lvAkce.Items.Add(item);
             }
+        }
+
+        private void btnAkceShowObjednavka_Click(object sender, EventArgs e)
+        {
+            if (lvAkce.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
+
+            var selectedItem = lvAkce.SelectedItems[0];
+            var tag = (Tuple<int?, int?>)selectedItem.Tag;
+            var objednavka = _objednavkaRepo.GetObjednavkaById((int)tag.Item2);
+
+            try
+            {
+                ObjednavkaDialog objednavkaDialog = new ObjednavkaDialog(_objednavkaRepo, objednavka, true);
+                if (objednavkaDialog.ShowDialog() == DialogResult.OK)
+                {
+                    this.LoadObjednavky();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadObjednavky();
         }
 
         private void btnShowCalendar_Click(object sender, EventArgs e)
@@ -1627,7 +1655,8 @@ namespace App
         #endregion
 
         #region Objednané zboží
-        private void LoadObjZbozi() {
+        private void LoadObjZbozi()
+        {
             lvObjZbozi.Columns.Clear();
             lvObjZbozi.View = View.Details;
             lvObjZbozi.FullRowSelect = true;
@@ -1647,12 +1676,13 @@ namespace App
                     zbozi.Value.Cena.ToString()
                 });
 
-                item.Tag = zbozi.Key.Id;
+                item.Tag = Tuple.Create(zbozi.Key.Id, zbozi.Key.IdObjednavka);
                 item.SubItems[0].Tag = zbozi.Value.Id;
                 lvObjZbozi.Items.Add(item);
             }
         }
         #endregion
+
     }
 }
 

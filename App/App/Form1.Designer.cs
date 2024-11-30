@@ -31,10 +31,14 @@
             oracleCommand1 = new Oracle.ManagedDataAccess.Client.OracleCommand();
             fileSystemWatcher1 = new FileSystemWatcher();
             tabObjZbozi = new TabPage();
+            label10 = new Label();
             panel14 = new Panel();
+            btnEditObjZbozi = new Button();
             lvObjZbozi = new ListView();
             tabAkce = new TabPage();
+            label9 = new Label();
             panel13 = new Panel();
+            btnAkceShowObjednavka = new Button();
             btnShowCalendar = new Button();
             lvAkce = new ListView();
             tabFaktura = new TabPage();
@@ -134,9 +138,6 @@
             label1 = new Label();
             lvPiva = new ListView();
             tabControl1 = new TabControl();
-            label9 = new Label();
-            label10 = new Label();
-            btnEditObjZbozi = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             panel14.SuspendLayout();
@@ -192,6 +193,16 @@
             tabObjZbozi.TabIndex = 15;
             tabObjZbozi.Text = "Objednené zboží";
             // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 12F);
+            label10.Location = new Point(18, 19);
+            label10.Name = "label10";
+            label10.Size = new Size(126, 21);
+            label10.TabIndex = 2;
+            label10.Text = "Objednané zboží";
+            // 
             // panel14
             // 
             panel14.BackColor = Color.Silver;
@@ -201,6 +212,15 @@
             panel14.Name = "panel14";
             panel14.Size = new Size(380, 607);
             panel14.TabIndex = 1;
+            // 
+            // btnEditObjZbozi
+            // 
+            btnEditObjZbozi.Location = new Point(3, 3);
+            btnEditObjZbozi.Name = "btnEditObjZbozi";
+            btnEditObjZbozi.Size = new Size(235, 23);
+            btnEditObjZbozi.TabIndex = 0;
+            btnEditObjZbozi.Text = "Upravit objednané zboží";
+            btnEditObjZbozi.UseVisualStyleBackColor = true;
             // 
             // lvObjZbozi
             // 
@@ -223,14 +243,35 @@
             tabAkce.TabIndex = 14;
             tabAkce.Text = "Akce";
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 12F);
+            label9.Location = new Point(18, 19);
+            label9.Name = "label9";
+            label9.Size = new Size(43, 21);
+            label9.TabIndex = 2;
+            label9.Text = "Akce";
+            // 
             // panel13
             // 
             panel13.BackColor = Color.Silver;
+            panel13.Controls.Add(btnAkceShowObjednavka);
             panel13.Controls.Add(btnShowCalendar);
             panel13.Location = new Point(902, 55);
             panel13.Name = "panel13";
             panel13.Size = new Size(380, 607);
             panel13.TabIndex = 1;
+            // 
+            // btnAkceShowObjednavka
+            // 
+            btnAkceShowObjednavka.Location = new Point(5, 55);
+            btnAkceShowObjednavka.Name = "btnAkceShowObjednavka";
+            btnAkceShowObjednavka.Size = new Size(254, 23);
+            btnAkceShowObjednavka.TabIndex = 3;
+            btnAkceShowObjednavka.Text = "Zobrazit objednávku";
+            btnAkceShowObjednavka.UseVisualStyleBackColor = true;
+            btnAkceShowObjednavka.Click += btnAkceShowObjednavka_Click;
             // 
             // btnShowCalendar
             // 
@@ -1277,35 +1318,6 @@
             tabControl1.Size = new Size(1296, 785);
             tabControl1.TabIndex = 0;
             // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 12F);
-            label9.Location = new Point(18, 19);
-            label9.Name = "label9";
-            label9.Size = new Size(43, 21);
-            label9.TabIndex = 2;
-            label9.Text = "Akce";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 12F);
-            label10.Location = new Point(18, 19);
-            label10.Name = "label10";
-            label10.Size = new Size(126, 21);
-            label10.TabIndex = 2;
-            label10.Text = "Objednané zboží";
-            // 
-            // btnEditObjZbozi
-            // 
-            btnEditObjZbozi.Location = new Point(3, 3);
-            btnEditObjZbozi.Name = "btnEditObjZbozi";
-            btnEditObjZbozi.Size = new Size(235, 23);
-            btnEditObjZbozi.TabIndex = 0;
-            btnEditObjZbozi.Text = "Upravit objednané zboží";
-            btnEditObjZbozi.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1416,6 +1428,7 @@
             GlobalStyles.ApplyButtonStyle(this.btnSaveFaktura, true);
 
             GlobalStyles.ApplyButtonStyle(this.btnShowCalendar, true);
+            GlobalStyles.ApplyButtonStyle(this.btnAkceShowObjednavka, true);
         }
         private Oracle.ManagedDataAccess.Client.OracleCommand oracleCommand1;
         private FileSystemWatcher fileSystemWatcher1;
@@ -1526,5 +1539,6 @@
         private Label label9;
         private Label label10;
         private Button btnEditObjZbozi;
+        private Button btnAkceShowObjednavka;
     }
 }
