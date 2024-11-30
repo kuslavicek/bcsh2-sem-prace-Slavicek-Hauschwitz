@@ -219,8 +219,6 @@ namespace App
             }
         }
 
-
-
         private void updateZboziBtn_Click(object sender, EventArgs e)
         {
             if (lvPiva.SelectedItems.Count == 0)
@@ -1410,17 +1408,71 @@ namespace App
         }
         private void btnAddAdresa_Click(object sender, EventArgs e)
         {
+            AdresaDialogs adresaDialog = new AdresaDialogs(_adresaRepo, null, false);
+            DialogResult result = adresaDialog.ShowDialog();
 
+            if (result == DialogResult.OK || result == DialogResult.Cancel)
+            {
+                this.LoadAdresy();
+            }
         }
 
         private void btnEditAdresa_Click(object sender, EventArgs e)
         {
+            if (lvAdresy.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
 
+            var selectedItem = lvAdresy.SelectedItems[0];
+
+            var adresa = new Adresa(
+                id: (int)selectedItem.Tag,
+                mesto: selectedItem.SubItems[0].Text,
+                ulice: selectedItem.SubItems[1].Text,
+                cisloPopisne: Convert.ToInt32(selectedItem.SubItems[3].Text),
+                psc: Convert.ToInt32(selectedItem.SubItems[2].Text),
+                stat: selectedItem.SubItems[4].Text
+            );
+
+            try
+            {
+                AdresaDialogs adresaDialog = new AdresaDialogs(_adresaRepo, adresa, true);
+                if (adresaDialog.ShowDialog() == DialogResult.OK)
+                {
+                    LoadAdresy();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadAdresy();
         }
 
         private void btnDeleteAdresa_Click(object sender, EventArgs e)
         {
+            if (lvAdresy.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to delete.");
+                return;
+            }
 
+            var selectedItem = lvAdresy.SelectedItems[0];
+            var adresaId = (int)selectedItem.Tag;
+
+            try
+            {
+                _adresaRepo.DeleteAdresa(adresaId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadAdresy();
         }
         #endregion
     }
