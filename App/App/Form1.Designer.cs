@@ -33,7 +33,6 @@
             tabObjZbozi = new TabPage();
             label10 = new Label();
             panel14 = new Panel();
-            btnEditObjZbozi = new Button();
             lvObjZbozi = new ListView();
             tabAkce = new TabPage();
             label9 = new Label();
@@ -138,6 +137,7 @@
             label1 = new Label();
             lvPiva = new ListView();
             tabControl1 = new TabControl();
+            btnObjZboziShowObj = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             panel14.SuspendLayout();
@@ -207,20 +207,11 @@
             // 
             panel14.BackColor = Color.Silver;
             panel14.BorderStyle = BorderStyle.FixedSingle;
-            panel14.Controls.Add(btnEditObjZbozi);
+            panel14.Controls.Add(btnObjZboziShowObj);
             panel14.Location = new Point(902, 55);
             panel14.Name = "panel14";
             panel14.Size = new Size(380, 607);
             panel14.TabIndex = 1;
-            // 
-            // btnEditObjZbozi
-            // 
-            btnEditObjZbozi.Location = new Point(3, 3);
-            btnEditObjZbozi.Name = "btnEditObjZbozi";
-            btnEditObjZbozi.Size = new Size(235, 23);
-            btnEditObjZbozi.TabIndex = 0;
-            btnEditObjZbozi.Text = "Upravit objednané zboží";
-            btnEditObjZbozi.UseVisualStyleBackColor = true;
             // 
             // lvObjZbozi
             // 
@@ -1318,6 +1309,16 @@
             tabControl1.Size = new Size(1296, 785);
             tabControl1.TabIndex = 0;
             // 
+            // btnObjZboziShowObj
+            // 
+            btnObjZboziShowObj.Location = new Point(3, 3);
+            btnObjZboziShowObj.Name = "btnObjZboziShowObj";
+            btnObjZboziShowObj.Size = new Size(188, 23);
+            btnObjZboziShowObj.TabIndex = 0;
+            btnObjZboziShowObj.Text = "Zobrazit objednávku";
+            btnObjZboziShowObj.UseVisualStyleBackColor = true;
+            btnObjZboziShowObj.Click += btnObjZboziShowObj_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1429,6 +1430,8 @@
 
             GlobalStyles.ApplyButtonStyle(this.btnShowCalendar, true);
             GlobalStyles.ApplyButtonStyle(this.btnAkceShowObjednavka, true);
+
+            GlobalStyles.ApplyButtonStyle(this.btnObjZboziShowObj, true);
         }
         private Oracle.ManagedDataAccess.Client.OracleCommand oracleCommand1;
         private FileSystemWatcher fileSystemWatcher1;
@@ -1538,7 +1541,7 @@
         private Button btnShowCalendar;
         private Label label9;
         private Label label10;
-        private Button btnEditObjZbozi;
         private Button btnAkceShowObjednavka;
+        private Button btnObjZboziShowObj;
     }
 }

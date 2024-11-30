@@ -1605,7 +1605,7 @@ namespace App
                     akce.Datum.ToString()
                 });
 
-                item.Tag = Tuple.Create(akce.Id,akce.IdObjednavka);
+                item.Tag = Tuple.Create(akce.Id, akce.IdObjednavka);
                 lvAkce.Items.Add(item);
             }
         }
@@ -1681,8 +1681,35 @@ namespace App
                 lvObjZbozi.Items.Add(item);
             }
         }
-        #endregion
 
+        private void btnObjZboziShowObj_Click(object sender, EventArgs e)
+        {
+            if (lvObjZbozi.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
+
+            var selectedItem = lvObjZbozi.SelectedItems[0];
+            var tag = (Tuple<int?, int?>)selectedItem.Tag;
+            var objednavka = _objednavkaRepo.GetObjednavkaById((int)tag.Item2);
+
+            try
+            {
+                ObjednavkaDialog objednavkaDialog = new ObjednavkaDialog(_objednavkaRepo, objednavka, true);
+                if (objednavkaDialog.ShowDialog() == DialogResult.OK)
+                {
+                    this.LoadObjednavky();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadObjednavky();
+        }
+        #endregion
     }
 }
 
