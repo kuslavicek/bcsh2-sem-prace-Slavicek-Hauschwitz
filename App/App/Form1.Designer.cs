@@ -131,6 +131,22 @@
             txtTotalOrders = new TextBox();
             oracleCommand1 = new Oracle.ManagedDataAccess.Client.OracleCommand();
             fileSystemWatcher1 = new FileSystemWatcher();
+            tabAdresa = new TabPage();
+            tabFaktura = new TabPage();
+            tabAkce = new TabPage();
+            tabObjZbozi = new TabPage();
+            lvAdresy = new ListView();
+            label17 = new Label();
+            panel11 = new Panel();
+            btnAddAdresa = new Button();
+            btnEditAdresa = new Button();
+            btnDeleteAdresa = new Button();
+            lvFaktury = new ListView();
+            panel12 = new Panel();
+            lvAkce = new ListView();
+            lvObjZbozi = new ListView();
+            panel13 = new Panel();
+            panel14 = new Panel();
             tabControl1.SuspendLayout();
             tabZbozi.SuspendLayout();
             panel1.SuspendLayout();
@@ -155,6 +171,11 @@
             panel9.SuspendLayout();
             tabStats.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
+            tabAdresa.SuspendLayout();
+            tabFaktura.SuspendLayout();
+            tabAkce.SuspendLayout();
+            tabObjZbozi.SuspendLayout();
+            panel11.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -171,6 +192,10 @@
             tabControl1.Controls.Add(tabTypyAkce);
             tabControl1.Controls.Add(tabSklad);
             tabControl1.Controls.Add(tabStats);
+            tabControl1.Controls.Add(tabAdresa);
+            tabControl1.Controls.Add(tabFaktura);
+            tabControl1.Controls.Add(tabAkce);
+            tabControl1.Controls.Add(tabObjZbozi);
             tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -1218,6 +1243,159 @@
             fileSystemWatcher1.EnableRaisingEvents = true;
             fileSystemWatcher1.SynchronizingObject = this;
             // 
+            // tabAdresa
+            // 
+            tabAdresa.BackColor = Color.Gainsboro;
+            tabAdresa.Controls.Add(panel11);
+            tabAdresa.Controls.Add(label17);
+            tabAdresa.Controls.Add(lvAdresy);
+            tabAdresa.Location = new Point(4, 24);
+            tabAdresa.Name = "tabAdresa";
+            tabAdresa.Padding = new Padding(3);
+            tabAdresa.Size = new Size(1288, 757);
+            tabAdresa.TabIndex = 12;
+            tabAdresa.Text = "Adresy";
+            // 
+            // tabFaktura
+            // 
+            tabFaktura.BackColor = Color.Gainsboro;
+            tabFaktura.Controls.Add(panel12);
+            tabFaktura.Controls.Add(lvFaktury);
+            tabFaktura.Location = new Point(4, 24);
+            tabFaktura.Name = "tabFaktura";
+            tabFaktura.Padding = new Padding(3);
+            tabFaktura.Size = new Size(1288, 757);
+            tabFaktura.TabIndex = 13;
+            tabFaktura.Text = "Faktury";
+            // 
+            // tabAkce
+            // 
+            tabAkce.BackColor = Color.LightGray;
+            tabAkce.Controls.Add(panel13);
+            tabAkce.Controls.Add(lvAkce);
+            tabAkce.Location = new Point(4, 24);
+            tabAkce.Name = "tabAkce";
+            tabAkce.Padding = new Padding(3);
+            tabAkce.Size = new Size(1288, 757);
+            tabAkce.TabIndex = 14;
+            tabAkce.Text = "Akce";
+            // 
+            // tabObjZbozi
+            // 
+            tabObjZbozi.BackColor = Color.LightGray;
+            tabObjZbozi.Controls.Add(panel14);
+            tabObjZbozi.Controls.Add(lvObjZbozi);
+            tabObjZbozi.Location = new Point(4, 24);
+            tabObjZbozi.Name = "tabObjZbozi";
+            tabObjZbozi.Padding = new Padding(3);
+            tabObjZbozi.Size = new Size(1288, 757);
+            tabObjZbozi.TabIndex = 15;
+            tabObjZbozi.Text = "Objednené zboží";
+            // 
+            // lvAdresy
+            // 
+            lvAdresy.Location = new Point(18, 55);
+            lvAdresy.Name = "lvAdresy";
+            lvAdresy.Size = new Size(878, 607);
+            lvAdresy.TabIndex = 0;
+            lvAdresy.UseCompatibleStateImageBehavior = false;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Segoe UI", 12F);
+            label17.Location = new Point(18, 19);
+            label17.Name = "label17";
+            label17.Size = new Size(58, 21);
+            label17.TabIndex = 1;
+            label17.Text = "Adresy";
+            // 
+            // panel11
+            // 
+            panel11.BackColor = Color.Silver;
+            panel11.Controls.Add(btnDeleteAdresa);
+            panel11.Controls.Add(btnEditAdresa);
+            panel11.Controls.Add(btnAddAdresa);
+            panel11.Location = new Point(902, 55);
+            panel11.Name = "panel11";
+            panel11.Size = new Size(380, 607);
+            panel11.TabIndex = 2;
+            // 
+            // btnAddAdresa
+            // 
+            btnAddAdresa.Location = new Point(5, 5);
+            btnAddAdresa.Name = "btnAddAdresa";
+            btnAddAdresa.Size = new Size(186, 23);
+            btnAddAdresa.TabIndex = 0;
+            btnAddAdresa.Text = "Vložit adresu";
+            btnAddAdresa.UseVisualStyleBackColor = true;
+            // 
+            // btnEditAdresa
+            // 
+            btnEditAdresa.Location = new Point(5, 55);
+            btnEditAdresa.Name = "btnEditAdresa";
+            btnEditAdresa.Size = new Size(186, 23);
+            btnEditAdresa.TabIndex = 1;
+            btnEditAdresa.Text = "Upravit adresu";
+            btnEditAdresa.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleteAdresa
+            // 
+            btnDeleteAdresa.Location = new Point(5, 105);
+            btnDeleteAdresa.Name = "btnDeleteAdresa";
+            btnDeleteAdresa.Size = new Size(186, 23);
+            btnDeleteAdresa.TabIndex = 2;
+            btnDeleteAdresa.Text = "Odstranit adresu";
+            btnDeleteAdresa.UseVisualStyleBackColor = true;
+            // 
+            // lvFaktury
+            // 
+            lvFaktury.Location = new Point(18, 55);
+            lvFaktury.Name = "lvFaktury";
+            lvFaktury.Size = new Size(878, 607);
+            lvFaktury.TabIndex = 0;
+            lvFaktury.UseCompatibleStateImageBehavior = false;
+            // 
+            // panel12
+            // 
+            panel12.BackColor = Color.Silver;
+            panel12.Location = new Point(902, 55);
+            panel12.Name = "panel12";
+            panel12.Size = new Size(380, 607);
+            panel12.TabIndex = 1;
+            // 
+            // lvAkce
+            // 
+            lvAkce.Location = new Point(18, 55);
+            lvAkce.Name = "lvAkce";
+            lvAkce.Size = new Size(878, 607);
+            lvAkce.TabIndex = 0;
+            lvAkce.UseCompatibleStateImageBehavior = false;
+            // 
+            // lvObjZbozi
+            // 
+            lvObjZbozi.Location = new Point(18, 55);
+            lvObjZbozi.Name = "lvObjZbozi";
+            lvObjZbozi.Size = new Size(878, 607);
+            lvObjZbozi.TabIndex = 0;
+            lvObjZbozi.UseCompatibleStateImageBehavior = false;
+            // 
+            // panel13
+            // 
+            panel13.BackColor = Color.Silver;
+            panel13.Location = new Point(902, 55);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(380, 607);
+            panel13.TabIndex = 1;
+            // 
+            // panel14
+            // 
+            panel14.BackColor = Color.Silver;
+            panel14.Location = new Point(902, 55);
+            panel14.Name = "panel14";
+            panel14.Size = new Size(380, 607);
+            panel14.TabIndex = 1;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1263,6 +1441,12 @@
             tabStats.ResumeLayout(false);
             tabStats.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).EndInit();
+            tabAdresa.ResumeLayout(false);
+            tabAdresa.PerformLayout();
+            tabFaktura.ResumeLayout(false);
+            tabAkce.ResumeLayout(false);
+            tabObjZbozi.ResumeLayout(false);
+            panel11.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1415,5 +1599,21 @@
         private CheckBox osUdajeCheck;
         private Panel panel10;
         private Label label16;
+        private TabPage tabAdresa;
+        private TabPage tabFaktura;
+        private TabPage tabAkce;
+        private TabPage tabObjZbozi;
+        private Panel panel11;
+        private Button btnDeleteAdresa;
+        private Button btnEditAdresa;
+        private Button btnAddAdresa;
+        private Label label17;
+        private ListView lvAdresy;
+        private ListView lvFaktury;
+        private Panel panel12;
+        private Panel panel13;
+        private ListView lvAkce;
+        private Panel panel14;
+        private ListView lvObjZbozi;
     }
 }
