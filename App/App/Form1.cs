@@ -1519,6 +1519,59 @@ namespace App
                 lvFaktury.Items.Add(item);
             }
         }
+
+        private void btnSaveFaktura_Click(object sender, EventArgs e)
+        {
+            if (lvFaktury.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Vyberte fakturu.");
+                return;
+            }
+
+            var selectedItem = lvFaktury.SelectedItems[0];
+
+            var faktura = _fakturaRepo.GetFakturaById((int)selectedItem.Tag);
+            if (faktura != null && faktura.FakturaBlob != null)
+            {
+                byte[] fakturaBlob = faktura.FakturaBlob;
+
+                if (fakturaBlob != null && fakturaBlob.Length > 0)
+                {
+                    using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                    {
+                        saveFileDialog.Filter = "PDF File|*.pdf|All files|*.*";
+                        saveFileDialog.Title = "Uložit fakturu jako";
+
+                        if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            string filePath = saveFileDialog.FileName;
+
+                            try
+                            {
+                                using (FileStream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                                {
+                                    fileStream.Write(fakturaBlob, 0, fakturaBlob.Length);
+                                }
+
+                                MessageBox.Show("Faktura byla úspìšnì uložena.");
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Chyba pøi ukládání faktury: " + ex.Message);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Faktura je prázdná.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Faktura nebyla nalezena.");
+            }
+        }
         #endregion
     }
 }

@@ -37,7 +37,9 @@
             panel13 = new Panel();
             lvAkce = new ListView();
             tabFaktura = new TabPage();
+            label8 = new Label();
             panel12 = new Panel();
+            btnSaveFaktura = new Button();
             lvFaktury = new ListView();
             tabAdresa = new TabPage();
             panel11 = new Panel();
@@ -135,6 +137,7 @@
             tabObjZbozi.SuspendLayout();
             tabAkce.SuspendLayout();
             tabFaktura.SuspendLayout();
+            panel12.SuspendLayout();
             tabAdresa.SuspendLayout();
             panel11.SuspendLayout();
             tabSklad.SuspendLayout();
@@ -229,6 +232,7 @@
             // tabFaktura
             // 
             tabFaktura.BackColor = Color.Gainsboro;
+            tabFaktura.Controls.Add(label8);
             tabFaktura.Controls.Add(panel12);
             tabFaktura.Controls.Add(lvFaktury);
             tabFaktura.Location = new Point(4, 24);
@@ -238,13 +242,34 @@
             tabFaktura.TabIndex = 13;
             tabFaktura.Text = "Faktury";
             // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 12F);
+            label8.Location = new Point(18, 19);
+            label8.Name = "label8";
+            label8.Size = new Size(61, 21);
+            label8.TabIndex = 2;
+            label8.Text = "Faktury";
+            // 
             // panel12
             // 
             panel12.BackColor = Color.Silver;
+            panel12.Controls.Add(btnSaveFaktura);
             panel12.Location = new Point(902, 55);
             panel12.Name = "panel12";
             panel12.Size = new Size(380, 607);
             panel12.TabIndex = 1;
+            // 
+            // btnSaveFaktura
+            // 
+            btnSaveFaktura.Location = new Point(5, 5);
+            btnSaveFaktura.Name = "btnSaveFaktura";
+            btnSaveFaktura.Size = new Size(190, 23);
+            btnSaveFaktura.TabIndex = 0;
+            btnSaveFaktura.Text = "Stáhnout fakturu";
+            btnSaveFaktura.UseVisualStyleBackColor = true;
+            btnSaveFaktura.Click += btnSaveFaktura_Click;
             // 
             // lvFaktury
             // 
@@ -1243,6 +1268,8 @@
             tabObjZbozi.ResumeLayout(false);
             tabAkce.ResumeLayout(false);
             tabFaktura.ResumeLayout(false);
+            tabFaktura.PerformLayout();
+            panel12.ResumeLayout(false);
             tabAdresa.ResumeLayout(false);
             tabAdresa.PerformLayout();
             panel11.ResumeLayout(false);
@@ -1302,6 +1329,7 @@
             GlobalStyles.ApplyButtonStyle(this.DeleteZakaznikBtn, true);
             GlobalStyles.ApplyButtonStyle(this.UpdateZakaznikBtn, true);
             GlobalStyles.ApplyButtonStyle(this.InsertZakaznikBtn, true);
+            GlobalStyles.ApplyButtonStyle(this.btnDiscount, true);
 
             GlobalStyles.ApplyButtonStyle(this.btnAddProvozovna, true);
             GlobalStyles.ApplyButtonStyle(this.btnDeleteProvozovna, true);
@@ -1330,6 +1358,8 @@
             GlobalStyles.ApplyButtonStyle(this.btnEditAdresa, true);
             GlobalStyles.ApplyButtonStyle(this.btnDeleteAdresa, true);
             GlobalStyles.ApplyButtonStyle(this.btnAdresaUse, true);
+
+            GlobalStyles.ApplyButtonStyle(this.btnSaveFaktura, true);
         }
         private Oracle.ManagedDataAccess.Client.OracleCommand oracleCommand1;
         private FileSystemWatcher fileSystemWatcher1;
@@ -1434,5 +1464,7 @@
         private ListView lvObjZbozi;
         private Button btnStats;
         private Button btnDiscount;
+        private Button btnSaveFaktura;
+        private Label label8;
     }
 }

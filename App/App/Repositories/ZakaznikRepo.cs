@@ -138,12 +138,15 @@ namespace App.Repositories
                                     reader.GetString(reader.GetOrdinal("jmeno")),
                                     reader.GetDouble(reader.GetOrdinal("telefon")),
                                     reader.GetString(reader.GetOrdinal("email")),
-                                    reader.GetInt32(reader.GetOrdinal("cenova_hladina")),
+                                    !reader.IsDBNull(reader.GetOrdinal("cenova_hladina"))
+                                        ? reader.GetInt32(reader.GetOrdinal("cenova_hladina"))
+                                        : 0,
                                     null,
                                     reader.GetInt32(reader.GetOrdinal("id_adresa"))
                                 );
                             }
                         }
+
                     }
                     catch (OracleException ex)
                     {

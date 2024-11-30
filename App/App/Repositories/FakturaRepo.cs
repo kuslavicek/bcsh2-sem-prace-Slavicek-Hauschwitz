@@ -52,7 +52,7 @@ namespace App.Repositories
             return list;
         }
 
-        public Faktura GetFakturaByObjednavka(int id)
+        public Faktura GetFakturaById(int id)
         {
             var faktura=new Faktura();
 

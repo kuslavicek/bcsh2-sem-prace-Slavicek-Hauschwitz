@@ -43,7 +43,7 @@ namespace App.Dialogs
                 this.Zakaznik = _zakaznikRepo.GetZakaznikById((int)this.Objednavka.IdZakaznik);
                 this.ZboziSeznam = _objednaneZboziRepo.GetObjednaneZboziByObjednavka(this.Objednavka.Id);
                 this.AkceSeznam = _akceRepo.GetAkceByIdObjednavka(this.Objednavka.Id);
-                this.Faktura = this._fakturaRepo.GetFakturaByObjednavka(this.Objednavka.Id);
+                this.Faktura = this._fakturaRepo.GetFakturaById((int)this.Objednavka.IdFaktura);
                 this.originalCountZbozi = this.ZboziSeznam.Count;
                 this.originalCountAkce = this.ZboziSeznam.Count;
             }
