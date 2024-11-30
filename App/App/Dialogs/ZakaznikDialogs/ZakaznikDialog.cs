@@ -1,16 +1,6 @@
 ﻿using App.Extensions;
 using App.Model;
 using App.Repositories;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace App.Dialogs
 {
@@ -95,6 +85,7 @@ namespace App.Dialogs
                         textBoxJmeno.Text,
                         double.Parse(textBoxTelefon.Text),
                         textBoxEmail.Text,
+                        null,
                         adresa,
                         null
                     );
@@ -122,6 +113,7 @@ namespace App.Dialogs
                 textBoxJmeno.Text = this.zakaznik.Jmeno;
                 textBoxTelefon.Text = this.zakaznik.Telefon.ToString();
                 textBoxEmail.Text = this.zakaznik.Email;
+                txtHladina.Text = this.zakaznik.CenovaHladina.ToString();
 
                 if (this.zakaznik.Adresa != null)
                 {

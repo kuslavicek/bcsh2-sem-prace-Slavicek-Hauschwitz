@@ -6,6 +6,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using App.Dialogs.ObjednavkaDialogs;
+using App.Dialogs.ZakaznikDialogs;
 
 namespace App
 {
@@ -511,6 +512,7 @@ namespace App
             lvZakaznici.Columns.Add("Telefon", 100);
             lvZakaznici.Columns.Add("Email", 200);
             lvZakaznici.Columns.Add("Adresa", 300);
+            lvZakaznici.Columns.Add("Cenová hladina", 100);
 
             var zakazniciList = _zakaznikRepo.Load();
             lvZakaznici.Items.Clear();
@@ -524,7 +526,8 @@ namespace App
                     zakaznik.Jmeno,
                     zakaznik.Telefon.ToString(),
                     zakaznik.Email,
-                    adresa
+                    adresa,
+                    zakaznik.CenovaHladina.ToString()
                 });
 
                 item.Tag = zakaznik.Id;
@@ -559,6 +562,7 @@ namespace App
                 jmeno: selectedItem.SubItems[0].Text,
                 telefon: double.Parse(selectedItem.SubItems[1].Text),
                 email: selectedItem.SubItems[2].Text,
+                cenovaHladina: double.Parse(selectedItem.SubItems[4].Text),
                 adresa: _adresaRepo.ParseAdresa(selectedItem.SubItems[3].Text + ", " + selectedItem.SubItems[3].Tag),
                 null
             );
@@ -1461,6 +1465,29 @@ namespace App
             {
                 ObjednavkyStatsDialog statsDialog = new ObjednavkyStatsDialog(_objednavkaRepo);
                 if (statsDialog.ShowDialog() == DialogResult.OK)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnDiscount_Click(object sender, EventArgs e)
+        {
+            if (lvZakaznici.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
+
+            var selectedItem = lvZakaznici.SelectedItems[0];
+
+            try
+            {
+                HladinaDialog hladinaDialog = new HladinaDialog(_zakaznikRepo, (int)selectedItem.Tag, selectedItem.SubItems[0].Text);
+                if (hladinaDialog.ShowDialog() == DialogResult.OK)
                 {
                 }
             }

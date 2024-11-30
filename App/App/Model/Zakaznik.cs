@@ -12,16 +12,18 @@ namespace App.Model
         public string Jmeno { get; set; }
         public double Telefon { get; set; }
         public string Email { get; set; }
+        public double? CenovaHladina { get; set; }
         public Adresa? Adresa { get; set; }
         public int? IdAdresa { get; set; }
 
-        public Zakaznik(int? id, string jmeno, double telefon, string email, Adresa? adresa, int? idAdresa)
+        public Zakaznik(int? id, string jmeno, double telefon, string email,double? cenovaHladina, Adresa? adresa, int? idAdresa)
         {
             Id = id;
             Jmeno = jmeno;
             Telefon = telefon;
             Email = email;
             Adresa = adresa;
+            CenovaHladina = cenovaHladina;
             IdAdresa = idAdresa;
         }
     }

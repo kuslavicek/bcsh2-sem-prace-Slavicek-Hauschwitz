@@ -20,7 +20,7 @@ namespace App.Repositories
         }
         public List<Zakaznik> Load()
         {
-            string queryZakaznik = "SELECT zakaznik_id, jmeno, telefon, email, id_adresa ,adresa FROM v_zakaznik";
+            string queryZakaznik = "SELECT zakaznik_id, jmeno, telefon, email, cenova_hladina, id_adresa ,adresa FROM v_zakaznik";
             var dataZakaznik = _database.GetDataFromView(queryZakaznik);
 
             var zakaznikList = new List<Zakaznik>();
@@ -40,11 +40,13 @@ namespace App.Repositories
                         stat: adresaParts[4]
                     );
 
+
                     var zakaznik = new Zakaznik(
                         id: Convert.ToInt32(row["ZAKAZNIK_ID"]),
                         jmeno: row["JMENO"].ToString(),
                         telefon: Convert.ToInt32(row["TELEFON"]),
                         email: row["EMAIL"].ToString(),
+                        cenovaHladina: row["CENOVA_HLADINA"] != null ? double.Parse(row["CENOVA_HLADINA"].ToString()):0,
                         adresa: adresa,
                         null
                     );
@@ -97,6 +99,12 @@ namespace App.Repositories
             _database.ExecuteProcedure("delete_zakaznik", parameters);
         }
 
+        public void SetDiscount(int zakaznikId, double discount)
+        {
+            var parameters = new Dictionary<string, object> { { "p_customer_id", zakaznikId },{ "p_pricing_level",discount } };
+            _database.ExecuteProcedure("ApplyDiscountToOrders", parameters);
+        }
+
         public Zakaznik GetZakaznikById(int id)
         {
             Zakaznik zakaznik = null;
@@ -124,6 +132,7 @@ namespace App.Repositories
                                     reader.GetString(reader.GetOrdinal("jmeno")),
                                     reader.GetDouble(reader.GetOrdinal("telefon")),
                                     reader.GetString(reader.GetOrdinal("email")),
+                                    reader.GetInt32(reader.GetOrdinal("cenova_hladina")),
                                     null,
                                     reader.GetInt32(reader.GetOrdinal("id_adresa"))
                                 );

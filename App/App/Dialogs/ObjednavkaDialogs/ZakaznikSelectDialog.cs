@@ -47,6 +47,7 @@ namespace App.Dialogs.ObjednavkaDialogs
                 jmeno: selectedItem.SubItems[0].Text,
                 telefon: double.Parse(selectedItem.SubItems[1].Text),
                 email: selectedItem.SubItems[2].Text,
+                null,
                 adresa: _adresaRepo.ParseAdresa(selectedItem.SubItems[3].Text + ", " + selectedItem.SubItems[3].Tag),
                 null
             );

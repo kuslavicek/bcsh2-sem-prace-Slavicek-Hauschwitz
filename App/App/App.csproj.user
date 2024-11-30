@@ -43,7 +43,10 @@
     <Compile Update="Dialogs\LoginDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Dialogs\ZakaznikDialog.cs">
+    <Compile Update="Dialogs\ZakaznikDialogs\HladinaDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Dialogs\ZakaznikDialogs\ZakaznikDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Dialogs\ZamestnanciDialogs\NadrizenySelectDialog.cs">

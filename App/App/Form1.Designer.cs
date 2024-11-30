@@ -101,6 +101,7 @@
             lvSuroviny = new ListView();
             tabObjednávky = new TabPage();
             panel2 = new Panel();
+            btnStats = new Button();
             InsertObjednavkaBtn = new Button();
             objZboziBtn = new Button();
             UpdateObjednavkaBtn = new Button();
@@ -131,7 +132,7 @@
             label1 = new Label();
             lvPiva = new ListView();
             tabControl1 = new TabControl();
-            btnStats = new Button();
+            btnDiscount = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             tabAkce.SuspendLayout();
@@ -751,6 +752,7 @@
             // 
             panel4.BackColor = Color.Silver;
             panel4.BorderStyle = BorderStyle.FixedSingle;
+            panel4.Controls.Add(btnDiscount);
             panel4.Controls.Add(UpdateZakaznikBtn);
             panel4.Controls.Add(InsertZakaznikBtn);
             panel4.Controls.Add(DeleteZakaznikBtn);
@@ -907,6 +909,16 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(380, 607);
             panel2.TabIndex = 7;
+            // 
+            // btnStats
+            // 
+            btnStats.Location = new Point(5, 255);
+            btnStats.Name = "btnStats";
+            btnStats.Size = new Size(190, 23);
+            btnStats.TabIndex = 7;
+            btnStats.Text = "Statistiky";
+            btnStats.UseVisualStyleBackColor = true;
+            btnStats.Click += btnStats_Click;
             // 
             // InsertObjednavkaBtn
             // 
@@ -1233,15 +1245,15 @@
             tabControl1.Size = new Size(1296, 785);
             tabControl1.TabIndex = 0;
             // 
-            // btnStats
+            // btnDiscount
             // 
-            btnStats.Location = new Point(5, 255);
-            btnStats.Name = "btnStats";
-            btnStats.Size = new Size(190, 23);
-            btnStats.TabIndex = 7;
-            btnStats.Text = "Statistiky";
-            btnStats.UseVisualStyleBackColor = true;
-            btnStats.Click += btnStats_Click;
+            btnDiscount.Location = new Point(5, 155);
+            btnDiscount.Name = "btnDiscount";
+            btnDiscount.Size = new Size(227, 23);
+            btnDiscount.TabIndex = 5;
+            btnDiscount.Text = "Nastavit cenovou hladinu";
+            btnDiscount.UseVisualStyleBackColor = true;
+            btnDiscount.Click += btnDiscount_Click;
             // 
             // Form1
             // 
@@ -1449,5 +1461,6 @@
         private Panel panel14;
         private ListView lvObjZbozi;
         private Button btnStats;
+        private Button btnDiscount;
     }
 }

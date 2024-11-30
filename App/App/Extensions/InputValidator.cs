@@ -168,6 +168,19 @@ public static class InputValidator
         return postalCode;
     }
 
+    public static bool IsValidPercentage(string input)
+    {
+        string pattern = @"^\d+(\.\d{1,2})?$";
+        Regex regex = new Regex(pattern);
+
+        if (regex.IsMatch(input))
+        {
+            double percentage = double.Parse(input);
+            return percentage >= 0 && percentage <= 100;
+        }
+        return false;
+    }
+
     /// <summary>
     /// Zobrazí chybovou zprávu a nastaví fokus na nevalidní TextBox.
     /// </summary>

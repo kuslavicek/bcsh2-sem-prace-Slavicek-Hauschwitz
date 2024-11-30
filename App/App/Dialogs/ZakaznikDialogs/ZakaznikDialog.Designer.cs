@@ -50,6 +50,8 @@ namespace App.Dialogs
             panel1 = new Panel();
             label1 = new Label();
             comboStat = new ComboBox();
+            txtHladina = new TextBox();
+            label2 = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -100,7 +102,7 @@ namespace App.Dialogs
             // 
             // labelUlice
             // 
-            labelUlice.Location = new Point(62, 200);
+            labelUlice.Location = new Point(62, 248);
             labelUlice.Name = "labelUlice";
             labelUlice.Size = new Size(100, 23);
             labelUlice.TabIndex = 6;
@@ -108,14 +110,14 @@ namespace App.Dialogs
             // 
             // textBoxUlice
             // 
-            textBoxUlice.Location = new Point(172, 200);
+            textBoxUlice.Location = new Point(172, 248);
             textBoxUlice.Name = "textBoxUlice";
             textBoxUlice.Size = new Size(250, 23);
             textBoxUlice.TabIndex = 7;
             // 
             // labelCisloPopisne
             // 
-            labelCisloPopisne.Location = new Point(62, 240);
+            labelCisloPopisne.Location = new Point(62, 288);
             labelCisloPopisne.Name = "labelCisloPopisne";
             labelCisloPopisne.Size = new Size(100, 23);
             labelCisloPopisne.TabIndex = 8;
@@ -123,14 +125,14 @@ namespace App.Dialogs
             // 
             // textBoxCisloPopisne
             // 
-            textBoxCisloPopisne.Location = new Point(172, 240);
+            textBoxCisloPopisne.Location = new Point(172, 288);
             textBoxCisloPopisne.Name = "textBoxCisloPopisne";
             textBoxCisloPopisne.Size = new Size(250, 23);
             textBoxCisloPopisne.TabIndex = 9;
             // 
             // labelMesto
             // 
-            labelMesto.Location = new Point(62, 280);
+            labelMesto.Location = new Point(62, 328);
             labelMesto.Name = "labelMesto";
             labelMesto.Size = new Size(100, 23);
             labelMesto.TabIndex = 10;
@@ -138,14 +140,14 @@ namespace App.Dialogs
             // 
             // textBoxMesto
             // 
-            textBoxMesto.Location = new Point(172, 280);
+            textBoxMesto.Location = new Point(172, 328);
             textBoxMesto.Name = "textBoxMesto";
             textBoxMesto.Size = new Size(250, 23);
             textBoxMesto.TabIndex = 11;
             // 
             // labelStat
             // 
-            labelStat.Location = new Point(62, 320);
+            labelStat.Location = new Point(62, 368);
             labelStat.Name = "labelStat";
             labelStat.Size = new Size(100, 23);
             labelStat.TabIndex = 12;
@@ -153,7 +155,7 @@ namespace App.Dialogs
             // 
             // labelPsc
             // 
-            labelPsc.Location = new Point(62, 360);
+            labelPsc.Location = new Point(62, 408);
             labelPsc.Name = "labelPsc";
             labelPsc.Size = new Size(100, 23);
             labelPsc.TabIndex = 14;
@@ -161,7 +163,7 @@ namespace App.Dialogs
             // 
             // textBoxPsc
             // 
-            textBoxPsc.Location = new Point(172, 360);
+            textBoxPsc.Location = new Point(172, 408);
             textBoxPsc.Name = "textBoxPsc";
             textBoxPsc.Size = new Size(250, 23);
             textBoxPsc.TabIndex = 15;
@@ -189,7 +191,7 @@ namespace App.Dialogs
             panel1.BackColor = Color.Silver;
             panel1.Controls.Add(saveButton);
             panel1.Controls.Add(cancelButton);
-            panel1.Location = new Point(0, 401);
+            panel1.Location = new Point(1, 452);
             panel1.Name = "panel1";
             panel1.Size = new Size(500, 100);
             panel1.TabIndex = 18;
@@ -198,7 +200,7 @@ namespace App.Dialogs
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16F);
-            label1.Location = new Point(172, 155);
+            label1.Location = new Point(172, 203);
             label1.Name = "label1";
             label1.Size = new Size(80, 30);
             label1.TabIndex = 19;
@@ -207,16 +209,35 @@ namespace App.Dialogs
             // comboStat
             // 
             comboStat.FormattingEnabled = true;
-            comboStat.Location = new Point(172, 317);
+            comboStat.Location = new Point(172, 365);
             comboStat.Name = "comboStat";
             comboStat.Size = new Size(250, 23);
             comboStat.TabIndex = 20;
+            // 
+            // txtHladina
+            // 
+            txtHladina.Enabled = false;
+            txtHladina.Location = new Point(172, 151);
+            txtHladina.Name = "txtHladina";
+            txtHladina.Size = new Size(250, 23);
+            txtHladina.TabIndex = 21;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(62, 154);
+            label2.Name = "label2";
+            label2.Size = new Size(92, 15);
+            label2.TabIndex = 22;
+            label2.Text = "Cenová hladina:";
             // 
             // ZakaznikDialog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(500, 500);
+            ClientSize = new Size(500, 550);
+            Controls.Add(label2);
+            Controls.Add(txtHladina);
             Controls.Add(comboStat);
             Controls.Add(label1);
             Controls.Add(panel1);
@@ -266,5 +287,7 @@ namespace App.Dialogs
         private Panel panel1;
         private Label label1;
         private ComboBox comboStat;
+        private TextBox txtHladina;
+        private Label label2;
     }
 }
