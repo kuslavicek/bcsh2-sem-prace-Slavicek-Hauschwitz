@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Windows.Forms.DataVisualization.Charting;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using App.Dialogs.ObjednavkaDialogs;
 
 namespace App
 {
@@ -60,8 +61,6 @@ namespace App
 
             _typAkceRepo = new TypAkceRepo();
             LoadTypyAkce();
-
-            LoadStatistiky();
         }
         #region Zbozi
 
@@ -1098,47 +1097,6 @@ namespace App
         }
         #endregion
 
-        #region Statistiky
-        private void LoadStatistiky()
-        {
-            OrderStatistics statistics = _objednavkaRepo.GetOrderStatistics();
-
-            txtTotalOrders.Text = statistics.TotalOrders.ToString();
-            txtAveragePrice.Text = statistics.AveragePrice.ToString("C");
-            txtTotalPrice.Text = statistics.TotalPrice.ToString("C");
-            txtCompletedOrders.Text = statistics.CompletedOrders.ToString();
-            txtPendingOrders.Text = statistics.PendingOrders.ToString();
-            txtMostExpensiveOrder.Text = statistics.MostExpensiveOrder.ToString("C");
-            txtLeastExpensiveOrder.Text = statistics.LeastExpensiveOrder.ToString("C");
-            txtMostExpensiveCustomer.Text = statistics.MostExpensiveCustomer.ToString();
-            txtLeastExpensiveCustomer.Text = statistics.LeastExpensiveCustomer.ToString();
-
-            Chart pieChart = new Chart();
-            pieChart.Width = tabStats.Width / 2;
-            pieChart.Height = tabStats.Height / 2;
-            pieChart.Location = new Point(600, 54);
-
-            ChartArea chartArea = new ChartArea();
-            pieChart.ChartAreas.Add(chartArea);
-
-            Series pieSeries = new Series
-            {
-                ChartType = SeriesChartType.Pie,
-                IsValueShownAsLabel = true
-            };
-
-            pieSeries.Points.AddXY("Ve stavu vyøízeno", statistics.CompletedOrders);
-            pieSeries.Points.AddXY("Ve stavu zpracovává se", statistics.PendingOrders);
-
-            Legend legend = new Legend();
-            pieChart.Legends.Add(legend);
-
-            pieChart.Series.Add(pieSeries);
-
-            tabStats.Controls.Add(pieChart);
-        }
-        #endregion
-
         private void hierarchyBtn_Click(object sender, EventArgs e)
         {
             try
@@ -1224,7 +1182,6 @@ namespace App
             tabControl1.TabPages.Remove(tabPozice);
             tabControl1.TabPages.Remove(tabProvozovny);
             tabControl1.TabPages.Remove(tabSklad);
-            tabControl1.TabPages.Remove(tabStats);
             tabControl1.TabPages.Remove(tabSuroviny);
             tabControl1.TabPages.Remove(tabTypyAkce);
             tabControl1.TabPages.Remove(tabZakaznici);
@@ -1272,7 +1229,6 @@ namespace App
             tabControl1.TabPages.Insert(8, tabPozice);
             tabControl1.TabPages.Insert(9, tabTypyAkce);
             tabControl1.TabPages.Insert(10, tabSklad);
-            tabControl1.TabPages.Insert(11, tabStats);
 
         }
 
@@ -1488,8 +1444,23 @@ namespace App
 
             try
             {
-                AdresaUseDialog adresaUseDialog = new AdresaUseDialog(_adresaRepo,(int)selectedItem.Tag);
+                AdresaUseDialog adresaUseDialog = new AdresaUseDialog(_adresaRepo, (int)selectedItem.Tag);
                 if (adresaUseDialog.ShowDialog() == DialogResult.OK)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnStats_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ObjednavkyStatsDialog statsDialog = new ObjednavkyStatsDialog(_objednavkaRepo);
+                if (statsDialog.ShowDialog() == DialogResult.OK)
                 {
                 }
             }
