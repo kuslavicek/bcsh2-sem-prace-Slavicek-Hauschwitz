@@ -33,6 +33,7 @@
             tabObjZbozi = new TabPage();
             label10 = new Label();
             panel14 = new Panel();
+            btnObjZboziShowObj = new Button();
             lvObjZbozi = new ListView();
             tabAkce = new TabPage();
             label9 = new Label();
@@ -137,7 +138,10 @@
             label1 = new Label();
             lvPiva = new ListView();
             tabControl1 = new TabControl();
-            btnObjZboziShowObj = new Button();
+            tabUsers = new TabPage();
+            listView1 = new ListView();
+            panel15 = new Panel();
+            label11 = new Label();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             panel14.SuspendLayout();
@@ -169,6 +173,7 @@
             tabZbozi.SuspendLayout();
             panel1.SuspendLayout();
             tabControl1.SuspendLayout();
+            tabUsers.SuspendLayout();
             SuspendLayout();
             // 
             // oracleCommand1
@@ -212,6 +217,16 @@
             panel14.Name = "panel14";
             panel14.Size = new Size(380, 607);
             panel14.TabIndex = 1;
+            // 
+            // btnObjZboziShowObj
+            // 
+            btnObjZboziShowObj.Location = new Point(3, 3);
+            btnObjZboziShowObj.Name = "btnObjZboziShowObj";
+            btnObjZboziShowObj.Size = new Size(188, 23);
+            btnObjZboziShowObj.TabIndex = 0;
+            btnObjZboziShowObj.Text = "Zobrazit objednávku";
+            btnObjZboziShowObj.UseVisualStyleBackColor = true;
+            btnObjZboziShowObj.Click += btnObjZboziShowObj_Click;
             // 
             // lvObjZbozi
             // 
@@ -1303,21 +1318,51 @@
             tabControl1.Controls.Add(tabFaktura);
             tabControl1.Controls.Add(tabAkce);
             tabControl1.Controls.Add(tabObjZbozi);
+            tabControl1.Controls.Add(tabUsers);
             tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(1296, 785);
             tabControl1.TabIndex = 0;
             // 
-            // btnObjZboziShowObj
+            // tabUsers
             // 
-            btnObjZboziShowObj.Location = new Point(3, 3);
-            btnObjZboziShowObj.Name = "btnObjZboziShowObj";
-            btnObjZboziShowObj.Size = new Size(188, 23);
-            btnObjZboziShowObj.TabIndex = 0;
-            btnObjZboziShowObj.Text = "Zobrazit objednávku";
-            btnObjZboziShowObj.UseVisualStyleBackColor = true;
-            btnObjZboziShowObj.Click += btnObjZboziShowObj_Click;
+            tabUsers.Controls.Add(label11);
+            tabUsers.Controls.Add(panel15);
+            tabUsers.Controls.Add(listView1);
+            tabUsers.Location = new Point(4, 24);
+            tabUsers.Name = "tabUsers";
+            tabUsers.Padding = new Padding(3);
+            tabUsers.Size = new Size(1288, 757);
+            tabUsers.TabIndex = 16;
+            tabUsers.Text = "Users";
+            tabUsers.UseVisualStyleBackColor = true;
+            // 
+            // listView1
+            // 
+            listView1.Location = new Point(18, 55);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(878, 607);
+            listView1.TabIndex = 0;
+            listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // panel15
+            // 
+            panel15.BackColor = Color.Silver;
+            panel15.Location = new Point(902, 55);
+            panel15.Name = "panel15";
+            panel15.Size = new Size(380, 607);
+            panel15.TabIndex = 1;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI", 12F);
+            label11.Location = new Point(18, 19);
+            label11.Name = "label11";
+            label11.Size = new Size(49, 21);
+            label11.TabIndex = 2;
+            label11.Text = "Users";
             // 
             // Form1
             // 
@@ -1374,6 +1419,8 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             tabControl1.ResumeLayout(false);
+            tabUsers.ResumeLayout(false);
+            tabUsers.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1543,5 +1590,9 @@
         private Label label10;
         private Button btnAkceShowObjednavka;
         private Button btnObjZboziShowObj;
+        private TabPage tabUsers;
+        private Label label11;
+        private Panel panel15;
+        private ListView listView1;
     }
 }
