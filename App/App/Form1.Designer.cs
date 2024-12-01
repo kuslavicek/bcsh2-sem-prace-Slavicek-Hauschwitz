@@ -139,9 +139,12 @@
             lvPiva = new ListView();
             tabControl1 = new TabControl();
             tabUsers = new TabPage();
-            listView1 = new ListView();
-            panel15 = new Panel();
             label11 = new Label();
+            panel15 = new Panel();
+            lvUsers = new ListView();
+            btnAddUser = new Button();
+            btnEditUser = new Button();
+            btnDeleteUser = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             panel14.SuspendLayout();
@@ -174,6 +177,7 @@
             panel1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabUsers.SuspendLayout();
+            panel15.SuspendLayout();
             SuspendLayout();
             // 
             // oracleCommand1
@@ -1329,7 +1333,7 @@
             // 
             tabUsers.Controls.Add(label11);
             tabUsers.Controls.Add(panel15);
-            tabUsers.Controls.Add(listView1);
+            tabUsers.Controls.Add(lvUsers);
             tabUsers.Location = new Point(4, 24);
             tabUsers.Name = "tabUsers";
             tabUsers.Padding = new Padding(3);
@@ -1337,22 +1341,6 @@
             tabUsers.TabIndex = 16;
             tabUsers.Text = "Users";
             tabUsers.UseVisualStyleBackColor = true;
-            // 
-            // listView1
-            // 
-            listView1.Location = new Point(18, 55);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(878, 607);
-            listView1.TabIndex = 0;
-            listView1.UseCompatibleStateImageBehavior = false;
-            // 
-            // panel15
-            // 
-            panel15.BackColor = Color.Silver;
-            panel15.Location = new Point(902, 55);
-            panel15.Name = "panel15";
-            panel15.Size = new Size(380, 607);
-            panel15.TabIndex = 1;
             // 
             // label11
             // 
@@ -1363,6 +1351,55 @@
             label11.Size = new Size(49, 21);
             label11.TabIndex = 2;
             label11.Text = "Users";
+            // 
+            // panel15
+            // 
+            panel15.BackColor = Color.Silver;
+            panel15.Controls.Add(btnDeleteUser);
+            panel15.Controls.Add(btnEditUser);
+            panel15.Controls.Add(btnAddUser);
+            panel15.Location = new Point(902, 55);
+            panel15.Name = "panel15";
+            panel15.Size = new Size(380, 607);
+            panel15.TabIndex = 1;
+            // 
+            // lvUsers
+            // 
+            lvUsers.Location = new Point(18, 55);
+            lvUsers.Name = "lvUsers";
+            lvUsers.Size = new Size(878, 607);
+            lvUsers.TabIndex = 0;
+            lvUsers.UseCompatibleStateImageBehavior = false;
+            // 
+            // btnAddUser
+            // 
+            btnAddUser.Location = new Point(5, 5);
+            btnAddUser.Name = "btnAddUser";
+            btnAddUser.Size = new Size(201, 23);
+            btnAddUser.TabIndex = 0;
+            btnAddUser.Text = "Vložit uživatele";
+            btnAddUser.UseVisualStyleBackColor = true;
+            btnAddUser.Click += btnAddUser_Click;
+            // 
+            // btnEditUser
+            // 
+            btnEditUser.Location = new Point(5, 55);
+            btnEditUser.Name = "btnEditUser";
+            btnEditUser.Size = new Size(201, 23);
+            btnEditUser.TabIndex = 1;
+            btnEditUser.Text = "Upravit uživatele";
+            btnEditUser.UseVisualStyleBackColor = true;
+            btnEditUser.Click += btnEditUser_Click;
+            // 
+            // btnDeleteUser
+            // 
+            btnDeleteUser.Location = new Point(5, 105);
+            btnDeleteUser.Name = "btnDeleteUser";
+            btnDeleteUser.Size = new Size(201, 23);
+            btnDeleteUser.TabIndex = 2;
+            btnDeleteUser.Text = "Odebrat uživatele";
+            btnDeleteUser.UseVisualStyleBackColor = true;
+            btnDeleteUser.Click += btnDeleteUser_Click;
             // 
             // Form1
             // 
@@ -1421,6 +1458,7 @@
             tabControl1.ResumeLayout(false);
             tabUsers.ResumeLayout(false);
             tabUsers.PerformLayout();
+            panel15.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1479,6 +1517,10 @@
             GlobalStyles.ApplyButtonStyle(this.btnAkceShowObjednavka, true);
 
             GlobalStyles.ApplyButtonStyle(this.btnObjZboziShowObj, true);
+
+            GlobalStyles.ApplyButtonStyle(this.btnAddUser, true);
+            GlobalStyles.ApplyButtonStyle(this.btnEditUser, true);
+            GlobalStyles.ApplyButtonStyle(this.btnDeleteUser, true);
         }
         private Oracle.ManagedDataAccess.Client.OracleCommand oracleCommand1;
         private FileSystemWatcher fileSystemWatcher1;
@@ -1593,6 +1635,9 @@
         private TabPage tabUsers;
         private Label label11;
         private Panel panel15;
-        private ListView listView1;
+        private ListView lvUsers;
+        private Button btnDeleteUser;
+        private Button btnEditUser;
+        private Button btnAddUser;
     }
 }

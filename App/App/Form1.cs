@@ -25,6 +25,7 @@ namespace App
         private SkladRepo _skladRepo;
         private AkceRepo _akceRepo;
         private FakturaRepo _fakturaRepo;
+        private UserRepo _usersRepo;
         private Dictionary<int, string> skladyDict;
         private readonly Database _database;
         private User? loggedUser = null;
@@ -74,6 +75,9 @@ namespace App
 
             _objednaneZboziRepo = new ObjednaneZboziRepo();
             LoadObjZbozi();
+
+            _usersRepo=new UserRepo();
+            LoadUsers();
         }
         #region Zbozi
 
@@ -110,6 +114,7 @@ namespace App
                 lvPiva.Items.Add(item);
             }
         }
+        #region zboží filtr
         private void btnCancelFiltrZbozi_Click(object sender, EventArgs e)
         {
             LoadZbozi();
@@ -230,6 +235,7 @@ namespace App
                 comboSkladFiltrZbozi.Enabled = false;
             }
         }
+        #endregion
 
         private void updateZboziBtn_Click(object sender, EventArgs e)
         {
@@ -1377,7 +1383,6 @@ namespace App
         #endregion
 
         #region Adresy
-
         private void LoadAdresy()
         {
             lvAdresy.Columns.Clear();
@@ -1499,7 +1504,6 @@ namespace App
                 MessageBox.Show(ex.Message);
             }
         }
-
         #endregion
 
 
@@ -1708,6 +1712,48 @@ namespace App
                 item.SubItems[0].Tag = zbozi.Value.Id;
                 lvObjZbozi.Items.Add(item);
             }
+        }
+        #endregion
+
+        #region Users
+        private void LoadUsers() {
+            lvUsers.Columns.Clear();
+            lvUsers.View = View.Details;
+            lvUsers.FullRowSelect = true;
+            lvUsers.Columns.Add("Jmeno", 150);
+            lvUsers.Columns.Add("Role", 250);
+            lvUsers.Columns.Add("Nezobrazovat OS", 250);
+
+            var users=_usersRepo.Load();
+            lvUsers.Items.Clear();
+
+            foreach (var user in users)
+            {
+                var item = new ListViewItem(new[]
+                {
+                    user.Jmeno,
+                    user.Role,
+                    user.boolean==1?"Ano":"Ne"
+
+                });
+
+                item.Tag = user.Id;
+                lvUsers.Items.Add(item);
+            }
+        }
+        private void btnAddUser_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEditUser_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDeleteUser_Click(object sender, EventArgs e)
+        {
+
         }
         #endregion
     }
