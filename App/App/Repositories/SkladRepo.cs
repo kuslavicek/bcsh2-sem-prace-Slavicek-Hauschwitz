@@ -52,6 +52,19 @@ namespace App.Repositories
             return sklady;
         }
 
+        public void Migrate(int old, int newS, int sur, int zbozi)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "p_old", old },
+                { "p_new", newS },
+                { "p_suroviny", sur },
+                { "p_zbozi", zbozi }
+            };
+
+            _database.ExecuteProcedure("update_inventory", parameters);
+        }
+
         public Dictionary<int, string> LoadSkladyForSelect()
         {
             string query = "SELECT id, nazev FROM v_sklad";

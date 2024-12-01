@@ -37,6 +37,9 @@
     <Compile Update="Dialogs\SkladDialogs\SkladDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Dialogs\SkladDialogs\SkladMigraceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Dialogs\SurovinaDialog.cs">
       <SubType>Form</SubType>
     </Compile>

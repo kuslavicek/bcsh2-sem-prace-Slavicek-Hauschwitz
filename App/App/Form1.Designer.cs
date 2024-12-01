@@ -141,10 +141,11 @@
             tabUsers = new TabPage();
             label11 = new Label();
             panel15 = new Panel();
-            lvUsers = new ListView();
-            btnAddUser = new Button();
-            btnEditUser = new Button();
             btnDeleteUser = new Button();
+            btnEditUser = new Button();
+            btnAddUser = new Button();
+            lvUsers = new ListView();
+            btnMigrateSklad = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             panel14.SuspendLayout();
@@ -451,6 +452,7 @@
             // 
             panel9.BackColor = Color.Silver;
             panel9.BorderStyle = BorderStyle.FixedSingle;
+            panel9.Controls.Add(btnMigrateSklad);
             panel9.Controls.Add(btnUpdateSklad);
             panel9.Controls.Add(btnDeleteSklad);
             panel9.Controls.Add(btnAddSklad);
@@ -1363,23 +1365,15 @@
             panel15.Size = new Size(380, 607);
             panel15.TabIndex = 1;
             // 
-            // lvUsers
+            // btnDeleteUser
             // 
-            lvUsers.Location = new Point(18, 55);
-            lvUsers.Name = "lvUsers";
-            lvUsers.Size = new Size(878, 607);
-            lvUsers.TabIndex = 0;
-            lvUsers.UseCompatibleStateImageBehavior = false;
-            // 
-            // btnAddUser
-            // 
-            btnAddUser.Location = new Point(5, 5);
-            btnAddUser.Name = "btnAddUser";
-            btnAddUser.Size = new Size(201, 23);
-            btnAddUser.TabIndex = 0;
-            btnAddUser.Text = "Vložit uživatele";
-            btnAddUser.UseVisualStyleBackColor = true;
-            btnAddUser.Click += btnAddUser_Click;
+            btnDeleteUser.Location = new Point(5, 105);
+            btnDeleteUser.Name = "btnDeleteUser";
+            btnDeleteUser.Size = new Size(201, 23);
+            btnDeleteUser.TabIndex = 2;
+            btnDeleteUser.Text = "Odebrat uživatele";
+            btnDeleteUser.UseVisualStyleBackColor = true;
+            btnDeleteUser.Click += btnDeleteUser_Click;
             // 
             // btnEditUser
             // 
@@ -1391,15 +1385,33 @@
             btnEditUser.UseVisualStyleBackColor = true;
             btnEditUser.Click += btnEditUser_Click;
             // 
-            // btnDeleteUser
+            // btnAddUser
             // 
-            btnDeleteUser.Location = new Point(5, 105);
-            btnDeleteUser.Name = "btnDeleteUser";
-            btnDeleteUser.Size = new Size(201, 23);
-            btnDeleteUser.TabIndex = 2;
-            btnDeleteUser.Text = "Odebrat uživatele";
-            btnDeleteUser.UseVisualStyleBackColor = true;
-            btnDeleteUser.Click += btnDeleteUser_Click;
+            btnAddUser.Location = new Point(5, 5);
+            btnAddUser.Name = "btnAddUser";
+            btnAddUser.Size = new Size(201, 23);
+            btnAddUser.TabIndex = 0;
+            btnAddUser.Text = "Vložit uživatele";
+            btnAddUser.UseVisualStyleBackColor = true;
+            btnAddUser.Click += btnAddUser_Click;
+            // 
+            // lvUsers
+            // 
+            lvUsers.Location = new Point(18, 55);
+            lvUsers.Name = "lvUsers";
+            lvUsers.Size = new Size(878, 607);
+            lvUsers.TabIndex = 0;
+            lvUsers.UseCompatibleStateImageBehavior = false;
+            // 
+            // btnMigrateSklad
+            // 
+            btnMigrateSklad.Location = new Point(5, 155);
+            btnMigrateSklad.Name = "btnMigrateSklad";
+            btnMigrateSklad.Size = new Size(204, 23);
+            btnMigrateSklad.TabIndex = 3;
+            btnMigrateSklad.Text = "Migrovat sklad";
+            btnMigrateSklad.UseVisualStyleBackColor = true;
+            btnMigrateSklad.Click += btnMigrateSklad_Click;
             // 
             // Form1
             // 
@@ -1639,5 +1651,6 @@
         private Button btnDeleteUser;
         private Button btnEditUser;
         private Button btnAddUser;
+        private Button btnMigrateSklad;
     }
 }

@@ -7,6 +7,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using App.Dialogs.ObjednavkaDialogs;
 using App.Dialogs.ZakaznikDialogs;
+using App.Dialogs.SkladDialogs;
 
 namespace App
 {
@@ -76,7 +77,7 @@ namespace App
             _objednaneZboziRepo = new ObjednaneZboziRepo();
             LoadObjZbozi();
 
-            _usersRepo=new UserRepo();
+            _usersRepo = new UserRepo();
             LoadUsers();
         }
         #region Zbozi
@@ -1716,7 +1717,8 @@ namespace App
         #endregion
 
         #region Users
-        private void LoadUsers() {
+        private void LoadUsers()
+        {
             lvUsers.Columns.Clear();
             lvUsers.View = View.Details;
             lvUsers.FullRowSelect = true;
@@ -1724,7 +1726,7 @@ namespace App
             lvUsers.Columns.Add("Role", 250);
             lvUsers.Columns.Add("Nezobrazovat OS", 250);
 
-            var users=_usersRepo.Load();
+            var users = _usersRepo.Load();
             lvUsers.Items.Clear();
 
             foreach (var user in users)
@@ -1756,6 +1758,23 @@ namespace App
 
         }
         #endregion
+
+        private void btnMigrateSklad_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SkladMigraceDialog migraceDialog = new SkladMigraceDialog(_skladRepo);
+                if (migraceDialog.ShowDialog() == DialogResult.OK)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            LoadSuroviny();
+            LoadZbozi();
+        }
     }
 }
 
