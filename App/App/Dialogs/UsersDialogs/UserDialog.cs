@@ -38,7 +38,7 @@ namespace App.Dialogs
 
             if (result == DialogResult.OK)
             {
-                this.User.Id = empDialog.id;
+                this.User.IdZamestnanec = empDialog.id;
                 this.txtZamestnanec.Text = empDialog.jmeno;
                 empDialog.Close();
             }
@@ -46,7 +46,28 @@ namespace App.Dialogs
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (!InputValidator.IsNotEmpty(txtJmeno,"Není vyplnění jméno.")||
+                !InputValidator.IsSelected(comboRole,"Není vybraná role.")) {
+                if (IsEditMode)
+                {
+                    if (!InputValidator.IsNotEmpty(txtHeslo, "Není vyplněné heslo")) {
+                        this.User.Jmeno = txtJmeno.Text;
+                        this.User.Role = comboRole.SelectedItem.ToString();
+                        this.User.Heslo = txtHeslo.Text;
+                        this.User.boolean = checkOs.Checked == true ? 1 : 0;
+                        _userRepo.UpdateUser(this.User);
+                    }
+                }
+                else
+                {
+                    this.User.Jmeno = txtJmeno.Text;
+                    this.User.Role = comboRole.SelectedItem.ToString();
+                    this.User.Heslo = txtHeslo.Text;
+                    this.User.boolean = checkOs.Checked == true ? 1 : 0;
 
+                    _userRepo.UpdateUser(this.User);
+                }
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -56,10 +77,11 @@ namespace App.Dialogs
 
         private void fill() {
             comboRole.DataSource = Enum.GetValues(typeof(RoleEnum));
-            if (IsEditMode) {
+            if (IsEditMode)
+            {
                 this.emp = this._empRepo.GetZamestnanecByID(this.User.IdZamestnanec);
-                this.txtJmeno.Text=this.User.Jmeno;
-                this.txtZamestnanec.Text = this.emp.Jmeno+" "+this.emp.Prijmeni;
+                this.txtJmeno.Text = this.User.Jmeno;
+                this.txtZamestnanec.Text = this.emp.Jmeno + " " + this.emp.Prijmeni;
                 if (Enum.TryParse(typeof(RoleEnum), this.User.Role, out var selectedRole))
                 {
                     comboRole.SelectedItem = (RoleEnum)selectedRole;
@@ -68,9 +90,13 @@ namespace App.Dialogs
                 {
                     this.checkOs.Checked = true;
                 }
-                else { 
-                    this.checkOs.Checked=false;
+                else
+                {
+                    this.checkOs.Checked = false;
                 }
+            }
+            else { 
+                this.User=new User();
             }
         }
     }
