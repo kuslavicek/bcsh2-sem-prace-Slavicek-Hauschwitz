@@ -1655,32 +1655,6 @@ namespace App
         #endregion
 
         #region Objednané zboží
-        private void LoadObjZbozi()
-        {
-            lvObjZbozi.Columns.Clear();
-            lvObjZbozi.View = View.Details;
-            lvObjZbozi.FullRowSelect = true;
-            lvObjZbozi.Columns.Add("Zboží", 150);
-            lvObjZbozi.Columns.Add("Množství", 150);
-            lvObjZbozi.Columns.Add("Cena", 250);
-
-            var zboziList = _objednaneZboziRepo.Load();
-            lvObjZbozi.Items.Clear();
-
-            foreach (var zbozi in zboziList)
-            {
-                var item = new ListViewItem(new[]
-                {
-                    zbozi.Value.Nazev,
-                    zbozi.Key.Mnozstvi.ToString(),
-                    zbozi.Value.Cena.ToString()
-                });
-
-                item.Tag = Tuple.Create(zbozi.Key.Id, zbozi.Key.IdObjednavka);
-                item.SubItems[0].Tag = zbozi.Value.Id;
-                lvObjZbozi.Items.Add(item);
-            }
-        }
 
         private void btnObjZboziShowObj_Click(object sender, EventArgs e)
         {
@@ -1708,6 +1682,32 @@ namespace App
             }
 
             LoadObjednavky();
+        }
+        private void LoadObjZbozi()
+        {
+            lvObjZbozi.Columns.Clear();
+            lvObjZbozi.View = View.Details;
+            lvObjZbozi.FullRowSelect = true;
+            lvObjZbozi.Columns.Add("Zboží", 150);
+            lvObjZbozi.Columns.Add("Množství", 150);
+            lvObjZbozi.Columns.Add("Cena", 250);
+
+            var zboziList = _objednaneZboziRepo.Load();
+            lvObjZbozi.Items.Clear();
+
+            foreach (var zbozi in zboziList)
+            {
+                var item = new ListViewItem(new[]
+                {
+                    zbozi.Value.Nazev,
+                    zbozi.Key.Mnozstvi.ToString(),
+                    zbozi.Value.Cena.ToString()
+                });
+
+                item.Tag = Tuple.Create(zbozi.Key.Id, zbozi.Key.IdObjednavka);
+                item.SubItems[0].Tag = zbozi.Value.Id;
+                lvObjZbozi.Items.Add(item);
+            }
         }
         #endregion
     }
