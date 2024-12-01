@@ -24,7 +24,7 @@ namespace App.Repositories
 
             foreach (var item in data)
             {
-                User akce = new User
+                User user = new User
                 {
                     Id = Convert.ToInt32(item["ID"]),
                     Jmeno = item["JMENO"].ToString(),
@@ -32,7 +32,7 @@ namespace App.Repositories
                     boolean = Convert.ToInt32(item["NEZOBRAZOVAT_OS"]),
                     IdZamestnanec = Convert.ToInt32(item["ID_ZAMESTNANEC"])
                 };
-                usersList.Add(akce);
+                usersList.Add(user);
             }
 
             return usersList;

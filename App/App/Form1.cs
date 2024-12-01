@@ -1091,6 +1091,23 @@ namespace App
             LoadSklady();
         }
 
+        private void btnMigrateSklad_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SkladMigraceDialog migraceDialog = new SkladMigraceDialog(_skladRepo);
+                if (migraceDialog.ShowDialog() == DialogResult.OK)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            LoadSuroviny();
+            LoadZbozi();
+        }
+
         private void btnUpdateSklad_Click(object sender, EventArgs e)
         {
             if (lvSklady.SelectedItems.Count == 0)
@@ -1739,18 +1756,55 @@ namespace App
 
                 });
 
-                item.Tag = user.Id;
+                item.Tag = Tuple.Create(user.Id,user.IdZamestnanec);
                 lvUsers.Items.Add(item);
             }
         }
         private void btnAddUser_Click(object sender, EventArgs e)
         {
+            UserDialog userDialog = new UserDialog(_usersRepo, null, false);
+            DialogResult result = userDialog.ShowDialog();
 
+            if (result == DialogResult.OK || result == DialogResult.Cancel)
+            {
+                this.LoadUsers();
+            }
         }
 
         private void btnEditUser_Click(object sender, EventArgs e)
         {
+            if (lvUsers.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
 
+            var selectedItem = lvUsers.SelectedItems[0];
+            var tag = (Tuple<int, int>)selectedItem.Tag;
+
+            var user = new User {
+                Id = (int)tag.Item1,
+                Jmeno = selectedItem.SubItems[0].Text,
+                Role=selectedItem.SubItems[1].Text,
+                boolean=selectedItem.SubItems[2].Text=="Ano"?1:0,
+                IdZamestnanec= (int)tag.Item2
+            };
+
+
+            try
+            {
+                UserDialog userDialog = new UserDialog(_usersRepo, user, true);
+                if (userDialog.ShowDialog() == DialogResult.OK)
+                {
+                    LoadUsers();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadUsers();
         }
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
@@ -1758,23 +1812,6 @@ namespace App
 
         }
         #endregion
-
-        private void btnMigrateSklad_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                SkladMigraceDialog migraceDialog = new SkladMigraceDialog(_skladRepo);
-                if (migraceDialog.ShowDialog() == DialogResult.OK)
-                {
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            LoadSuroviny();
-            LoadZbozi();
-        }
     }
 }
 

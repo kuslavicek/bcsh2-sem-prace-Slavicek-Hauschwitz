@@ -1514,6 +1514,7 @@
             GlobalStyles.ApplyButtonStyle(this.btnAddSklad, true);
             GlobalStyles.ApplyButtonStyle(this.btnDeleteSklad, true);
             GlobalStyles.ApplyButtonStyle(this.btnUpdateSklad, true);
+            GlobalStyles.ApplyButtonStyle(this.btnMigrateSklad, true);
 
             GlobalStyles.ApplyButtonStyle(this.registerBtn, true);
             GlobalStyles.ApplyButtonStyle(this.loginBtn, true);
