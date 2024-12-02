@@ -1259,16 +1259,7 @@ namespace App
         {
             loggedUser = null;
             emulUser = null;
-            tabControl1.TabPages.Remove(tabNadrizeni);
-            tabControl1.TabPages.Remove(tabNadrizeni);
-            tabControl1.TabPages.Remove(tabObjednávky);
-            tabControl1.TabPages.Remove(tabPozice);
-            tabControl1.TabPages.Remove(tabProvozovny);
-            tabControl1.TabPages.Remove(tabSklad);
-            tabControl1.TabPages.Remove(tabSuroviny);
-            tabControl1.TabPages.Remove(tabTypyAkce);
-            tabControl1.TabPages.Remove(tabZakaznici);
-            tabControl1.TabPages.Remove(tabZamìstnanci);
+            hideTabs();
             panel1.Hide();
             osUdajeCheck.Hide();
             loginBtn.Text = "Pøihlásit se";
@@ -1278,6 +1269,27 @@ namespace App
             labelRegisteredName.Text = "";
             labelRegisteredUsername.Text = "Nepøihlášený uživatel";
         }
+
+        private void hideTabs()
+        {
+            tabControl1.TabPages.Remove(tabNadrizeni);
+            tabControl1.TabPages.Remove(tabObjednávky);
+            tabControl1.TabPages.Remove(tabPozice);
+            tabControl1.TabPages.Remove(tabProvozovny);
+            tabControl1.TabPages.Remove(tabSklad);
+            tabControl1.TabPages.Remove(tabSuroviny);
+            tabControl1.TabPages.Remove(tabTypyAkce);
+            tabControl1.TabPages.Remove(tabZakaznici);
+            tabControl1.TabPages.Remove(tabZamìstnanci);
+            tabControl1.TabPages.Remove(tabAdresa);
+            tabControl1.TabPages.Remove(tabFaktura);
+            tabControl1.TabPages.Remove(tabAkce);
+            tabControl1.TabPages.Remove(tabObjZbozi);
+            tabControl1.TabPages.Remove(tabUsers);
+            tabControl1.TabPages.Remove(tabLogs);
+            tabControl1.TabPages.Remove(tabSysCat);
+        }
+
         private void panelySekretarka()
         {
             panel1.Show();
@@ -1313,6 +1325,13 @@ namespace App
             tabControl1.TabPages.Insert(8, tabPozice);
             tabControl1.TabPages.Insert(9, tabTypyAkce);
             tabControl1.TabPages.Insert(10, tabSklad);
+            tabControl1.TabPages.Insert(11, tabAdresa);
+            tabControl1.TabPages.Insert(12, tabFaktura);
+            tabControl1.TabPages.Insert(13, tabAkce);
+            tabControl1.TabPages.Insert(14, tabObjZbozi);
+            tabControl1.TabPages.Insert(15, tabUsers);
+            tabControl1.TabPages.Insert(16, tabLogs);
+            tabControl1.TabPages.Insert(17, tabSysCat);
 
         }
 
@@ -1321,8 +1340,18 @@ namespace App
         {
             if(emulUser != null)
             {
-                //todo ukonèit emulaci
                 registerBtn.Hide();
+                hideTabs();
+                panelyAdmin();
+                labelRegisteredUsername.Text = "Uživatelské jméno: " + loggedUser.Jmeno;
+                if (loggedUser.boolean == 1)
+                {
+                    osUdajeCheck.Checked = true;
+                }
+                else
+                {
+                    osUdajeCheck.Checked = false;
+                }
             }
             else
             {
@@ -1436,7 +1465,32 @@ namespace App
                 emulUser = newUser;
                 registerBtn.Enabled = true;
                 registerBtn.Text = "Ukonèit emulaci";
-                //todo zahájit emulaci
+                labelRegisteredUsername.Text = "Uživatelské jméno: " + emulUser.Jmeno;
+                if (emulUser.boolean == 1)
+                {
+                    osUdajeCheck.Checked = true;
+                }
+                else
+                {
+                    osUdajeCheck.Checked = false;
+                }
+                hideTabs();
+                switch (emulUser.Role)
+                {
+                    case "Admin":
+                        panelyAdmin();
+                        break;
+                    case "Vedoucí":
+                        panelySekretarka();
+                        buttonyVedouci();
+                        break;
+                    case "Sekretáøka":
+                        panelySekretarka();
+                        buttonySekretarka();
+                        break;
+                }
+
+                tabControl1.SelectedIndex = 1;
             }
         }
 
