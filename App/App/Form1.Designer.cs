@@ -56,6 +56,7 @@
             lvAdresy = new ListView();
             tabSklad = new TabPage();
             panel9 = new Panel();
+            btnMigrateSklad = new Button();
             btnUpdateSklad = new Button();
             btnDeleteSklad = new Button();
             btnAddSklad = new Button();
@@ -117,6 +118,7 @@
             lvObjednavky = new ListView();
             tabProfil = new TabPage();
             panel10 = new Panel();
+            PassChangeBtn = new Button();
             label16 = new Label();
             osUdajeCheck = new CheckBox();
             registerBtn = new Button();
@@ -141,11 +143,18 @@
             tabUsers = new TabPage();
             label11 = new Label();
             panel15 = new Panel();
+            emul_button = new Button();
             btnDeleteUser = new Button();
             btnEditUser = new Button();
             btnAddUser = new Button();
             lvUsers = new ListView();
-            btnMigrateSklad = new Button();
+            tabLogs = new TabPage();
+            logDelBtn = new Button();
+            logLoadBtn = new Button();
+            lvLogs = new ListView();
+            tabSysCat = new TabPage();
+            sysCatBtn = new Button();
+            lvSys = new ListView();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             panel14.SuspendLayout();
@@ -179,6 +188,8 @@
             tabControl1.SuspendLayout();
             tabUsers.SuspendLayout();
             panel15.SuspendLayout();
+            tabLogs.SuspendLayout();
+            tabSysCat.SuspendLayout();
             SuspendLayout();
             // 
             // oracleCommand1
@@ -460,6 +471,16 @@
             panel9.Name = "panel9";
             panel9.Size = new Size(380, 607);
             panel9.TabIndex = 2;
+            // 
+            // btnMigrateSklad
+            // 
+            btnMigrateSklad.Location = new Point(5, 155);
+            btnMigrateSklad.Name = "btnMigrateSklad";
+            btnMigrateSklad.Size = new Size(204, 23);
+            btnMigrateSklad.TabIndex = 3;
+            btnMigrateSklad.Text = "Migrovat sklad";
+            btnMigrateSklad.UseVisualStyleBackColor = true;
+            btnMigrateSklad.Click += btnMigrateSklad_Click;
             // 
             // btnUpdateSklad
             // 
@@ -1088,6 +1109,7 @@
             // 
             panel10.BackColor = Color.Silver;
             panel10.BorderStyle = BorderStyle.FixedSingle;
+            panel10.Controls.Add(PassChangeBtn);
             panel10.Controls.Add(label16);
             panel10.Controls.Add(osUdajeCheck);
             panel10.Controls.Add(registerBtn);
@@ -1098,6 +1120,16 @@
             panel10.Name = "panel10";
             panel10.Size = new Size(432, 682);
             panel10.TabIndex = 5;
+            // 
+            // PassChangeBtn
+            // 
+            PassChangeBtn.Location = new Point(35, 493);
+            PassChangeBtn.Name = "PassChangeBtn";
+            PassChangeBtn.Size = new Size(370, 44);
+            PassChangeBtn.TabIndex = 6;
+            PassChangeBtn.Text = "Změnit heslo";
+            PassChangeBtn.UseVisualStyleBackColor = true;
+            PassChangeBtn.Click += PassChangeBtn_Click;
             // 
             // label16
             // 
@@ -1325,6 +1357,8 @@
             tabControl1.Controls.Add(tabAkce);
             tabControl1.Controls.Add(tabObjZbozi);
             tabControl1.Controls.Add(tabUsers);
+            tabControl1.Controls.Add(tabLogs);
+            tabControl1.Controls.Add(tabSysCat);
             tabControl1.Location = new Point(12, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -1357,6 +1391,7 @@
             // panel15
             // 
             panel15.BackColor = Color.Silver;
+            panel15.Controls.Add(emul_button);
             panel15.Controls.Add(btnDeleteUser);
             panel15.Controls.Add(btnEditUser);
             panel15.Controls.Add(btnAddUser);
@@ -1364,6 +1399,16 @@
             panel15.Name = "panel15";
             panel15.Size = new Size(380, 607);
             panel15.TabIndex = 1;
+            // 
+            // emul_button
+            // 
+            emul_button.Location = new Point(3, 155);
+            emul_button.Name = "emul_button";
+            emul_button.Size = new Size(307, 23);
+            emul_button.TabIndex = 3;
+            emul_button.Text = "Emulovat Uživatele";
+            emul_button.UseVisualStyleBackColor = true;
+            emul_button.Click += emul_button_Click;
             // 
             // btnDeleteUser
             // 
@@ -1403,15 +1448,75 @@
             lvUsers.TabIndex = 0;
             lvUsers.UseCompatibleStateImageBehavior = false;
             // 
-            // btnMigrateSklad
+            // tabLogs
             // 
-            btnMigrateSklad.Location = new Point(5, 155);
-            btnMigrateSklad.Name = "btnMigrateSklad";
-            btnMigrateSklad.Size = new Size(204, 23);
-            btnMigrateSklad.TabIndex = 3;
-            btnMigrateSklad.Text = "Migrovat sklad";
-            btnMigrateSklad.UseVisualStyleBackColor = true;
-            btnMigrateSklad.Click += btnMigrateSklad_Click;
+            tabLogs.Controls.Add(logDelBtn);
+            tabLogs.Controls.Add(logLoadBtn);
+            tabLogs.Controls.Add(lvLogs);
+            tabLogs.Location = new Point(4, 24);
+            tabLogs.Name = "tabLogs";
+            tabLogs.Padding = new Padding(3);
+            tabLogs.Size = new Size(1288, 757);
+            tabLogs.TabIndex = 17;
+            tabLogs.Text = "Logy";
+            tabLogs.UseVisualStyleBackColor = true;
+            // 
+            // logDelBtn
+            // 
+            logDelBtn.Location = new Point(692, 724);
+            logDelBtn.Name = "logDelBtn";
+            logDelBtn.Size = new Size(156, 25);
+            logDelBtn.TabIndex = 3;
+            logDelBtn.Text = "Smazat staré logy";
+            logDelBtn.UseVisualStyleBackColor = true;
+            logDelBtn.Click += logDelBtn_Click;
+            // 
+            // logLoadBtn
+            // 
+            logLoadBtn.Location = new Point(307, 724);
+            logLoadBtn.Name = "logLoadBtn";
+            logLoadBtn.Size = new Size(215, 25);
+            logLoadBtn.TabIndex = 2;
+            logLoadBtn.Text = "Načíst Logy";
+            logLoadBtn.UseVisualStyleBackColor = true;
+            logLoadBtn.Click += logLoadBtn_Click;
+            // 
+            // lvLogs
+            // 
+            lvLogs.Location = new Point(6, 15);
+            lvLogs.Name = "lvLogs";
+            lvLogs.Size = new Size(1260, 690);
+            lvLogs.TabIndex = 0;
+            lvLogs.UseCompatibleStateImageBehavior = false;
+            // 
+            // tabSysCat
+            // 
+            tabSysCat.Controls.Add(sysCatBtn);
+            tabSysCat.Controls.Add(lvSys);
+            tabSysCat.Location = new Point(4, 24);
+            tabSysCat.Name = "tabSysCat";
+            tabSysCat.Size = new Size(1288, 757);
+            tabSysCat.TabIndex = 18;
+            tabSysCat.Text = "Systémový katalog";
+            tabSysCat.UseVisualStyleBackColor = true;
+            // 
+            // sysCatBtn
+            // 
+            sysCatBtn.Location = new Point(422, 700);
+            sysCatBtn.Name = "sysCatBtn";
+            sysCatBtn.Size = new Size(336, 23);
+            sysCatBtn.TabIndex = 1;
+            sysCatBtn.Text = "Načíst systémový katalog";
+            sysCatBtn.UseVisualStyleBackColor = true;
+            sysCatBtn.Click += sysCatBtn_Click;
+            // 
+            // lvSys
+            // 
+            lvSys.Location = new Point(23, 45);
+            lvSys.Name = "lvSys";
+            lvSys.Size = new Size(1238, 605);
+            lvSys.TabIndex = 0;
+            lvSys.UseCompatibleStateImageBehavior = false;
             // 
             // Form1
             // 
@@ -1471,6 +1576,8 @@
             tabUsers.ResumeLayout(false);
             tabUsers.PerformLayout();
             panel15.ResumeLayout(false);
+            tabLogs.ResumeLayout(false);
+            tabSysCat.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1653,5 +1760,14 @@
         private Button btnEditUser;
         private Button btnAddUser;
         private Button btnMigrateSklad;
+        private Button emul_button;
+        private Button PassChangeBtn;
+        private TabPage tabLogs;
+        private TabPage tabSysCat;
+        private ListView lvSys;
+        private Button sysCatBtn;
+        private Button logDelBtn;
+        private Button logLoadBtn;
+        private ListView lvLogs;
     }
 }

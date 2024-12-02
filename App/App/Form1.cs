@@ -1225,6 +1225,7 @@ namespace App
                     }
                     loginBtn.Text = "Odhlásit se";
                     registerBtn.Hide();
+                    PassChangeBtn.Show();
                     labelRegisteredName.Text = "";//Vzít jméno a pøíjmení z tabulky zamìstnanec
                     labelRegisteredUsername.Text = "Uživatelské jméno: " + loggedUser.Jmeno;
                 }
@@ -1240,6 +1241,19 @@ namespace App
         private void osUdajeCheck_CheckedChanged(object sender, EventArgs e)
         {
             //todo volat proceduru zmìò nezobrazovat_os
+            var parameters = new Dictionary<string, object>();
+            if(emulUser != null)
+            {
+                parameters.Add("p_id", emulUser.Id);
+            }
+            else
+            {
+                parameters.Add("p_id", loggedUser.Id);
+            }
+            
+
+            _database.ExecuteProcedure("zmen_nezobrazovat_os", parameters);
+            LoadZamestnanec();
         }
         private void logout()
         {
@@ -1260,6 +1274,7 @@ namespace App
             loginBtn.Text = "Pøihlásit se";
             registerBtn.Text = "Registrovat se";
             registerBtn.Show();
+            PassChangeBtn.Hide();
             labelRegisteredName.Text = "";
             labelRegisteredUsername.Text = "Nepøihlášený uživatel";
         }
@@ -1304,99 +1319,153 @@ namespace App
 
         private void registerBtn_Click(object sender, EventArgs e)
         {
+            if(emulUser != null)
+            {
+                //todo ukonèit emulaci
+                registerBtn.Hide();
+            }
+            else
+            {
+
+            
             string email = Microsoft.VisualBasic.Interaction.InputBox("Vložte email pro registraci", "Email", "priklad@priklad.com");
 
 
             object result = _database.ExecuteFindEmailRegistered(email);
 
             string resultString = result?.ToString();
-            switch (result.ToString())
-            {
-                case "Invalid email format":
-                    MessageBox.Show("Špatný formát emailu");
-                    return;
-                case "Used in users":
-                    MessageBox.Show("Email je již použit");
-                    return;
+                switch (result.ToString())
+                {
+                    case "Invalid email format":
+                        MessageBox.Show("Špatný formát emailu");
+                        return;
+                    case "Used in users":
+                        MessageBox.Show("Email je již použit");
+                        return;
 
-                case "Used in zamestnanec only":
-                    RegisterDialog fastDialog = new RegisterDialog(false, email);
-                    if (fastDialog.ShowDialog() == DialogResult.OK && fastDialog.user != null)
-                    {
-                        loggedUser = fastDialog.user;
+                    case "Used in zamestnanec only":
+                        RegisterDialog fastDialog = new RegisterDialog(false, email);
+                        if (fastDialog.ShowDialog() == DialogResult.OK && fastDialog.user != null)
+                        {
+                            loggedUser = fastDialog.user;
 
-                        switch (loggedUser.Role)
-                        {
-                            case "Admin":
-                                panelyAdmin();
-                                break;
-                            case "Vedoucí":
-                                panelySekretarka();
-                                buttonyVedouci();
-                                break;
-                            case "Sekretáøka":
-                                panelySekretarka();
-                                buttonySekretarka();
-                                break;
+                            switch (loggedUser.Role)
+                            {
+                                case "Admin":
+                                    panelyAdmin();
+                                    break;
+                                case "Vedoucí":
+                                    panelySekretarka();
+                                    buttonyVedouci();
+                                    break;
+                                case "Sekretáøka":
+                                    panelySekretarka();
+                                    buttonySekretarka();
+                                    break;
+                            }
+                            osUdajeCheck.Show();
+                            if (loggedUser.boolean == 1)
+                            {
+                                osUdajeCheck.Checked = true;
+                            }
+                            else
+                            {
+                                osUdajeCheck.Checked = false;
+                            }
+                            loginBtn.Text = "Odhlásit se";
+                            registerBtn.Hide();
+                            labelRegisteredName.Text = "";//Vzít jméno a pøíjmení z tabulky zamìstnanec
+                            labelRegisteredUsername.Text = "Uživatelské jméno: " + loggedUser.Jmeno;
                         }
-                        osUdajeCheck.Show();
-                        if (loggedUser.boolean == 1)
-                        {
-                            osUdajeCheck.Checked = true;
-                        }
-                        else
-                        {
-                            osUdajeCheck.Checked = false;
-                        }
-                        loginBtn.Text = "Odhlásit se";
-                        registerBtn.Hide();
-                        labelRegisteredName.Text = "";//Vzít jméno a pøíjmení z tabulky zamìstnanec
-                        labelRegisteredUsername.Text = "Uživatelské jméno: " + loggedUser.Jmeno;
-                    }
-                    return;
+                        return;
 
-                case "Not used":
-                    RegisterDialog kompDialog = new RegisterDialog(true, email);
-                    if (kompDialog.ShowDialog() == DialogResult.OK && kompDialog.user != null)
-                    {
-                        loggedUser = kompDialog.user;
+                    case "Not used":
+                        RegisterDialog kompDialog = new RegisterDialog(true, email);
+                        if (kompDialog.ShowDialog() == DialogResult.OK && kompDialog.user != null)
+                        {
+                            loggedUser = kompDialog.user;
 
-                        switch (loggedUser.Role)
-                        {
-                            case "Admin":
-                                panelyAdmin();
-                                break;
-                            case "Vedoucí":
-                                panelySekretarka();
-                                buttonyVedouci();
-                                break;
-                            case "Sekretáøka":
-                                panelySekretarka();
-                                buttonySekretarka();
-                                break;
+                            switch (loggedUser.Role)
+                            {
+                                case "Admin":
+                                    panelyAdmin();
+                                    break;
+                                case "Vedoucí":
+                                    panelySekretarka();
+                                    buttonyVedouci();
+                                    break;
+                                case "Sekretáøka":
+                                    panelySekretarka();
+                                    buttonySekretarka();
+                                    break;
+                            }
+                            osUdajeCheck.Show();
+                            if (loggedUser.boolean == 1)
+                            {
+                                osUdajeCheck.Checked = true;
+                            }
+                            else
+                            {
+                                osUdajeCheck.Checked = false;
+                            }
+                            loginBtn.Text = "Odhlásit se";
+                            registerBtn.Hide();
+                            labelRegisteredName.Text = "";//Vzít jméno a pøíjmení z tabulky zamìstnanec
+                            labelRegisteredUsername.Text = "Uživatelské jméno: " + loggedUser.Jmeno;
+                            LoadZamestnanec();
                         }
-                        osUdajeCheck.Show();
-                        if (loggedUser.boolean == 1)
-                        {
-                            osUdajeCheck.Checked = true;
-                        }
-                        else
-                        {
-                            osUdajeCheck.Checked = false;
-                        }
-                        loginBtn.Text = "Odhlásit se";
-                        registerBtn.Hide();
-                        labelRegisteredName.Text = "";//Vzít jméno a pøíjmení z tabulky zamìstnanec
-                        labelRegisteredUsername.Text = "Uživatelské jméno: " + loggedUser.Jmeno;
-                        LoadZamestnanec();
-                    }
-                    return;
-                default:
-                    MessageBox.Show("Chyba pøi registraci");
-                    return;
+                        return;
+                    default:
+                        MessageBox.Show("Chyba pøi registraci");
+                        return;
+                }
             }
         }
 
+        private void emul_button_Click(object sender, EventArgs e)
+        {
+            if (lvUsers.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Zvolte uživatele");
+            }
+            else
+            {
+                var item = lvUsers.SelectedItems[0];
+                var id = (int)item.Tag;
+                User newUser = _usersRepo.Load().Find(user => user.Id == id);
+                emulUser = newUser;
+                registerBtn.Enabled = true;
+                registerBtn.Text = "Ukonèit emulaci";
+                //todo zahájit emulaci
+            }
+        }
+
+        private void PassChangeBtn_Click(object sender, EventArgs e)
+        {
+            string newPass = Microsoft.VisualBasic.Interaction.InputBox("Zvolte nové heslo", "Zmìna Hesla");
+
+            string newPassRepeat = Microsoft.VisualBasic.Interaction.InputBox("Opakujte nové heslo", "Zmìna Hesla");
+
+            if (newPass != newPassRepeat)
+            {
+                MessageBox.Show("Špatnì zadané heslo");
+            }
+            else
+            {
+                var parameters = new Dictionary<string, object>();
+                if (emulUser != null)
+                {
+                    parameters.Add("p_id", emulUser.Id);
+                }
+                else
+                {
+                    parameters.Add("p_id", loggedUser.Id);
+                }
+                parameters.Add("p_nove_heslo", newPass);
+                MessageBox.Show("Heslo zmìnìno");
+            }
+
+        }
 
         #endregion
 
@@ -1756,7 +1825,7 @@ namespace App
 
                 });
 
-                item.Tag = Tuple.Create(user.Id,user.IdZamestnanec);
+                item.Tag = Tuple.Create(user.Id, user.IdZamestnanec);
                 lvUsers.Items.Add(item);
             }
         }
@@ -1782,12 +1851,13 @@ namespace App
             var selectedItem = lvUsers.SelectedItems[0];
             var tag = (Tuple<int, int>)selectedItem.Tag;
 
-            var user = new User {
+            var user = new User
+            {
                 Id = (int)tag.Item1,
                 Jmeno = selectedItem.SubItems[0].Text,
-                Role=selectedItem.SubItems[1].Text,
-                boolean=selectedItem.SubItems[2].Text=="Ano"?1:0,
-                IdZamestnanec= (int)tag.Item2
+                Role = selectedItem.SubItems[1].Text,
+                boolean = selectedItem.SubItems[2].Text == "Ano" ? 1 : 0,
+                IdZamestnanec = (int)tag.Item2
             };
 
 
@@ -1810,6 +1880,78 @@ namespace App
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
 
+        }
+        #endregion
+
+
+        #region SysCatalog a Logs
+        private void sysCatBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lvSys.Columns.Clear();
+                lvSys.View = View.Details;
+                lvSys.FullRowSelect = true;
+                lvSys.Columns.Add("Object name", 220);
+                lvSys.Columns.Add("Object ID", 100);
+                lvSys.Columns.Add("Object type", 150);
+                lvSys.Columns.Add("Timestamp", 160);
+                lvSys.Items.Clear();
+                string querySys = "SELECT object_name, object_id, object_type, timestamp FROM v_sys_catalog";
+                var dataSys = _database.GetDataFromView(querySys);
+
+                foreach (var row in dataSys)
+                {
+                    var item = new ListViewItem(new[]
+                    {
+                        row["OBJECT_NAME"].ToString(),
+                        row["OBJECT_ID"].ToString(),
+                        row["OBJECT_TYPE"].ToString(),
+                        row["TIMESTAMP"].ToString()
+                    });
+                    lvSys.Items.Add(item);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+        }
+
+        private void logLoadBtn_Click(object sender, EventArgs e)
+            {
+                try
+                {
+                    lvLogs.Columns.Clear();
+                    lvLogs.View = View.Details;
+                    lvLogs.FullRowSelect = true;
+                    lvLogs.Columns.Add("Datum", 220);
+                    lvLogs.Columns.Add("Text", 600);
+                    string queryLogs = "SELECT datum, text FROM v_logs";
+                    var dataLogs = _database.GetDataFromView(queryLogs);
+                lvLogs.Items.Clear();
+                    foreach(var row in dataLogs)
+                {
+                    var item = new ListViewItem(new[]
+                    {
+                        row["DATUM"].ToString(),
+                        row["TEXT"].ToString()
+                    });
+                    lvLogs.Items.Add(item);
+                }
+
+
+            }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        private void logDelBtn_Click(object sender, EventArgs e)
+        {
+                //todo udìlat smazání statých logù
         }
         #endregion
     }

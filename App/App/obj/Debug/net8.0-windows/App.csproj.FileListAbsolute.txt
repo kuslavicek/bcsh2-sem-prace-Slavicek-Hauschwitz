@@ -49,3 +49,11 @@ C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\
 C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Properties.Resources.resources
 C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Dialogs.LoginDialog.resources
 C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Dialogs.RegisterDialog.resources
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Dialogs.AdresaDialogs.resources
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Dialogs.AdresaUseDialog.resources
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Dialogs.AkceCalendar.resources
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Dialogs.ObjednavkaDialogs.ObjednavkyStatsDialog.resources
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Dialogs.SkladDialogs.SkladMigraceDialog.resources
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Dialogs.UserDialog.resources
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Dialogs.UsersDialogs.ZamestnanecSelectDialog.resources
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Dialogs.ZakaznikDialogs.HladinaDialog.resources
