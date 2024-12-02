@@ -42,18 +42,6 @@ namespace App.Dialogs
 
         private void btnNadrizeny_Click(object sender, EventArgs e)
         {
-            if (!InputValidator.IsNotEmpty(txtJmeno,"Jméno není vyplněno")||
-                !InputValidator.IsNotEmpty(txtPrijmeni, "Přijmení není vyplněno")||
-                !InputValidator.IsNotEmpty(txtEmail, "E-mail není vyplněn")||
-                !InputValidator.IsNotEmpty(txtTelefon, "Telefom není vyplněn")) { 
-                return;
-            }
-            if (!InputValidator.IsTextOnly(txtJmeno, "Jméno nesmí obsahovat čísla.")||
-                !InputValidator.IsNotEmpty(txtPrijmeni, "Přijmení nesmí obsahovat čísla.")||
-                !InputValidator.IsEmail(txtEmail, "Email není validní")||
-                !InputValidator.IsPhoneNumber(txtTelefon, "Telefon není validní")) {
-                return;
-            }
             try
             {
                 NadrizenySelectDialog nadrizenyDialog = new NadrizenySelectDialog();
@@ -73,6 +61,20 @@ namespace App.Dialogs
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (!InputValidator.IsNotEmpty(txtJmeno, "Jméno není vyplněno") ||
+                !InputValidator.IsNotEmpty(txtPrijmeni, "Přijmení není vyplněno") ||
+                !InputValidator.IsNotEmpty(txtEmail, "E-mail není vyplněn") ||
+                !InputValidator.IsNotEmpty(txtTelefon, "Telefom není vyplněn"))
+            {
+                return;
+            }
+            if (!InputValidator.IsTextOnly(txtJmeno, "Jméno nesmí obsahovat čísla.") ||
+                !InputValidator.IsNotEmpty(txtPrijmeni, "Přijmení nesmí obsahovat čísla.") ||
+                !InputValidator.IsEmail(txtEmail, "Email není validní") ||
+                !InputValidator.IsPhoneNumber(txtTelefon, "Telefon není validní"))
+            {
+                return;
+            }
             try
             {
                 if (IsEditMode)
