@@ -81,7 +81,7 @@ namespace App.Repositories
 
         public void DeletePozice(int id) {
             var parameters = new Dictionary<string, object> { { "p_id", id } };
-            _database.ExecuteProcedure("delete_pracovni_pozice", parameters);
+            _database.ExecuteProcedure("delete_pkg.delete_pracovni_pozice", parameters);
         }
 
         public void UpdatePozice(PracovniPozice pozice) {
@@ -98,11 +98,11 @@ namespace App.Repositories
 
             if (pozice.Id == null)
             {
-                _database.ExecuteProcedure("insert_pracovni_pozice", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.insert_pracovni_pozice", parameters);
             }
             else
             {
-                _database.ExecuteProcedure("update_pracovni_pozice", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.update_pracovni_pozice", parameters);
             }
         }
     }

@@ -63,7 +63,7 @@ namespace App.Repositories
         public void DeleteZbozi(int zboziId)
         {
             var parameters = new Dictionary<string, object> { { "p_id", zboziId } };
-            _database.ExecuteProcedure("delete_zbozi", parameters);
+            _database.ExecuteProcedure("delete_pkg.delete_zbozi", parameters);
         }
 
         public void UpdateZbozi(Zbozi zbozi)
@@ -95,11 +95,11 @@ namespace App.Repositories
 
             if (zbozi.Id == null)
             {
-                _database.ExecuteProcedure("insert_zbozi", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.insert_zbozi", parameters);
             }
             else
             {
-                _database.ExecuteProcedure("update_zbozi", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.update_zbozi", parameters);
             }
         }
 

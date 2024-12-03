@@ -95,7 +95,7 @@ namespace App.Repositories
 
                 parameters.Add("p_akce", ConvertAkceSeznamToJson(akce));
 
-                _database.ExecuteProcedure("update_objednavka", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.update_objednavka", parameters);
             }
             else
             {
@@ -109,13 +109,13 @@ namespace App.Repositories
 
                 parameters.Add("p_akce", ConvertAkceSeznamToJson(akce));
 
-                _database.ExecuteProcedure("insert_objednavka", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.insert_objednavka", parameters);
             }
         }
 
         public void DeleteObjednavka(int id) {
             var parameters = new Dictionary<string, object> { { "p_id", id } };
-            _database.ExecuteProcedure("delete_objednavka", parameters);
+            _database.ExecuteProcedure("delete_pkg.delete_objednavka", parameters);
         }
 
         private string ConvertZboziSeznamToJson(List<KeyValuePair<ObjednaneZbozi, Zbozi>> zboziSeznam) {

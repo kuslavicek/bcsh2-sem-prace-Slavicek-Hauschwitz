@@ -41,7 +41,7 @@ namespace App.Repositories
         public void DeleteUser(int id)
         {
             var parameters = new Dictionary<string, object> { { "p_id", id } };
-            _database.ExecuteProcedure("delete_user", parameters);
+            _database.ExecuteProcedure("delete_pkg.delete_user", parameters);
         }
 
         public void UpdateUser(User user)
@@ -61,11 +61,11 @@ namespace App.Repositories
 
             if (user.Id == null)
             {
-                _database.ExecuteProcedure("insert_user", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.insert_user", parameters);
             }
             else
             {
-                _database.ExecuteProcedure("update_user", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.update_user", parameters);
             }
         }
     }

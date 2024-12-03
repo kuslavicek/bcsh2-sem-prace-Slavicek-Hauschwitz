@@ -128,7 +128,7 @@ namespace App.Repositories
 
         public void DeleteObjednaneZbozi(int id) {
             var parameters = new Dictionary<string, object> { { "p_id", id } };
-            _database.ExecuteProcedure("delete_objednane_zbozi", parameters);
+            _database.ExecuteProcedure("delete_pkg.delete_objednane_zbozi", parameters);
         }
 
 

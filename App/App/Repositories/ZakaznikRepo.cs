@@ -85,30 +85,30 @@ namespace App.Repositories
 
             if (zakaznik.Id == null)
             {
-                _database.ExecuteProcedure("insert_zakaznik", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.insert_zakaznik", parameters);
             }
             else
             {
-                _database.ExecuteProcedure("update_zakaznik", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.update_zakaznik", parameters);
             }
         }
 
         public void DeleteZakaznik(int zakaznikId)
         {
             var parameters = new Dictionary<string, object> { { "p_id", zakaznikId } };
-            _database.ExecuteProcedure("delete_zakaznik", parameters);
+            _database.ExecuteProcedure("delete_pkg.delete_zakaznik", parameters);
         }
 
         public void SetDiscount(int zakaznikId, double discount)
         {
             var parameters = new Dictionary<string, object> { { "p_customer_id", zakaznikId },{ "p_pricing_level",discount } };
-            _database.ExecuteProcedure("ApplyDiscountToOrders", parameters);
+            _database.ExecuteProcedure("other_pkg.ApplyDiscountToOrders", parameters);
         }
 
         public void CancelDiscount(int zakaznikId)
         {
             var parameters = new Dictionary<string, object> { { "p_customer_id", zakaznikId } };
-            _database.ExecuteProcedure("CancelPricingLevel", parameters);
+            _database.ExecuteProcedure("other_pkg.CancelPricingLevel", parameters);
         }
 
         public Zakaznik GetZakaznikById(int id)

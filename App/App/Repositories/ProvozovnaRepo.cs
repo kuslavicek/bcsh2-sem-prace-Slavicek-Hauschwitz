@@ -111,17 +111,17 @@ namespace App.Repositories
             parameters.Add("p_stat", provozovna.Adresa.Stat);
             if (provozovna.Id != null && provozovna.Adresa.Id != null)
             {
-                _database.ExecuteProcedure("update_provozovna", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.update_provozovna", parameters);
             }
             else {
-                _database.ExecuteProcedure("insert_provozovna",parameters);
+                _database.ExecuteProcedure("insert_update_pkg.insert_provozovna", parameters);
             }
         }
 
         public void DeleteProvozovna(int id)
         {
             var parameters = new Dictionary<string, object> { { "p_id", id } };
-            _database.ExecuteProcedure("delete_provozovna", parameters);
+            _database.ExecuteProcedure("delete_pkg.delete_provozovna", parameters);
         }
     }
 }

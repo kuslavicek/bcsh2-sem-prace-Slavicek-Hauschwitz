@@ -39,7 +39,7 @@ namespace App.Repositories
         public void DeleteSurovina(int surovinaId)
         {
             var parameters = new Dictionary<string, object> { { "p_id", surovinaId } };
-            _database.ExecuteProcedure("delete_surovina", parameters);
+            _database.ExecuteProcedure("delete_pkg.delete_surovina", parameters);
         }
 
         public void UpdateSurovina(Surovina surovina)
@@ -60,12 +60,12 @@ namespace App.Repositories
 
             if (surovina.Id == null)
             {
-                _database.ExecuteProcedure("insert_surovina", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.insert_surovina", parameters);
             }
             else
             {
                 // Update existující suroviny
-                _database.ExecuteProcedure("update_surovina", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.update_surovina", parameters);
             }
         }
 

@@ -1252,7 +1252,7 @@ namespace App
             }
             
 
-            _database.ExecuteProcedure("zmen_nezobrazovat_os", parameters);
+            _database.ExecuteProcedure("insert_update_pkg.zmen_nezobrazovat_os", parameters);
             LoadZamestnanec();
         }
         private void logout()

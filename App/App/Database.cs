@@ -200,7 +200,7 @@ namespace App
             var result = new List<string>();
 
             using (var connection = new OracleConnection(ConnectionString))
-            using (var command = new OracleCommand("get_hierarchical_employees", connection))
+            using (var command = new OracleCommand("other_pkg.get_hierarchical_employees", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
 
@@ -240,7 +240,7 @@ namespace App
         public string ExecuteLogin(string username, string password)
         {
             using (var connection = new OracleConnection(ConnectionString))
-            using (var command = new OracleCommand("login", connection))
+            using (var command = new OracleCommand("other_pkg.login", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
 
@@ -275,7 +275,7 @@ namespace App
         public string ExecuteFindEmailRegistered(string email)
         {
             using (var connection = new OracleConnection(ConnectionString))
-            using (var command = new OracleCommand("find_email_registered", connection))
+            using (var command = new OracleCommand("other_pkg.find_email_registered", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 var returnValueParam = new OracleParameter("RETURN_VALUE", OracleDbType.Varchar2, 4000) { Direction = ParameterDirection.ReturnValue };
@@ -308,7 +308,7 @@ namespace App
         public string ExecuteQuickRegistration(string username, string password, string email)
         {
             using (var connection = new OracleConnection(ConnectionString))
-            using (var command = new OracleCommand("quick_registration", connection))
+            using (var command = new OracleCommand("other_pkg.quick_registration", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
 
@@ -344,7 +344,7 @@ namespace App
         public string ExecuteCompleteRegistration(string jmeno, string prijmeni, string username, string email, string password, long telefon, long provozovna)
         {
             using (var connection = new OracleConnection(ConnectionString))
-            using (var command = new OracleCommand("complete_registration", connection))
+            using (var command = new OracleCommand("other_pkg.complete_registration", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 var returnValueParam = new OracleParameter("RETURN_VALUE", OracleDbType.Varchar2, 4000) { Direction = ParameterDirection.ReturnValue };

@@ -60,7 +60,7 @@ namespace App.Repositories
         public void DeleteTypAkce(int id)
         {
             var parameters = new Dictionary<string, object> { { "p_id", id } };
-            _database.ExecuteProcedure("delete_typ_akce", parameters);
+            _database.ExecuteProcedure("delete_pkg.delete_typ_akce", parameters);
         }
         public void UpdateTypAkce(TypAkce typ)
         {
@@ -72,11 +72,11 @@ namespace App.Repositories
             parameters.Add("p_nazev", typ.Nazev);
             if (typ.Id != null)
             {
-                _database.ExecuteProcedure("update_typ_akce", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.update_typ_akce", parameters);
             }
             else
             {
-                _database.ExecuteProcedure("insert_typ_akce", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.insert_typ_akce", parameters);
             }
 
         }

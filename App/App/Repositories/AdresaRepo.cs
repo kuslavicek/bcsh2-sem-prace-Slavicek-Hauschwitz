@@ -101,7 +101,7 @@ namespace App.Repositories
                 { "p_succes", null }
             };
 
-            _database.ExecuteProcedure("delete_adresa", parameters);
+            _database.ExecuteProcedure("delete_pkg.delete_adresa", parameters);
 
             var succesValue = parameters["p_succes"];
             int succes = succesValue != null
@@ -136,11 +136,11 @@ namespace App.Repositories
 
             if (adresa.Id == null)
             {
-                _database.ExecuteProcedure("insert_adresa", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.insert_adresa", parameters);
             }
             else
             {
-                _database.ExecuteProcedure("update_adresa", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.update_adresa", parameters);
             }
         }
     }

@@ -69,7 +69,7 @@ namespace App.Repositories
 
         public void DeleteAkce(int id) {
             var parameters = new Dictionary<string, object> { { "p_id", id } };
-            _database.ExecuteProcedure("delete_akce", parameters);
+            _database.ExecuteProcedure("delete_pkg.delete_akce", parameters);
         }
     }
 }

@@ -62,7 +62,7 @@ namespace App.Repositories
                 { "p_zbozi", zbozi }
             };
 
-            _database.ExecuteProcedure("update_inventory", parameters);
+            _database.ExecuteProcedure("insert_update_pkg.update_inventory", parameters);
         }
 
         public Dictionary<int, string> LoadSkladyForSelect()
@@ -92,7 +92,7 @@ namespace App.Repositories
                 { "p_empty", false }
             };
 
-            _database.ExecuteProcedure("delete_sklad", parameters);
+            _database.ExecuteProcedure("delete_pkg.delete_sklad", parameters);
 
             if (bool.Parse(parameters["p_empty"].ToString()) ==false)
             {
@@ -122,11 +122,11 @@ namespace App.Repositories
 
             if (sklad.Id != null && sklad.IdAdresa != null)
             {
-                _database.ExecuteProcedure("update_sklad", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.update_sklad", parameters);
             }
             else
             {
-                _database.ExecuteProcedure("insert_sklad", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.insert_sklad", parameters);
             }
         }
     }

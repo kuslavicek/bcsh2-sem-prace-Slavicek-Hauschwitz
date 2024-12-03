@@ -122,17 +122,17 @@ namespace App.Repositories
 
             if (emp.Id == null)
             {
-                _database.ExecuteProcedure("insert_zamestnanec", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.insert_zamestnanec", parameters);
             }
             else
             {
-                _database.ExecuteProcedure("update_zamestnanec", parameters);
+                _database.ExecuteProcedure("insert_update_pkg.update_zamestnanec", parameters);
             }
         }
 
         public void DeleteZamestnanec(int id) {
             var parameters = new Dictionary<string, object> { { "p_id", id } };
-            _database.ExecuteProcedure("delete_zamestnanec", parameters);
+            _database.ExecuteProcedure("delete_pkg.delete_zamestnanec", parameters);
         }
     }
 }
