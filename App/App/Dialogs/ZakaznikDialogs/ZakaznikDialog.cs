@@ -9,14 +9,16 @@ namespace App.Dialogs
         private ZakaznikRepo _zakaznikRepo;
         public bool IsEditMode { get; set; } = false;
         private Zakaznik zakaznik { get; set; }
+        private AdresaRepo adresaRepo{get;set;}
         public ZakaznikDialog(ZakaznikRepo zakaznikRepo, Zakaznik zakaznik, bool edit)
         {
             InitializeComponent();
-            this.FillComboBox();
+            this.adresaRepo = new AdresaRepo();
             this.IsEditMode = edit;
             this._zakaznikRepo = zakaznikRepo;
             this.zakaznik = zakaznik;
             this.FillData();
+            this.FillComboBox();
         }
 
         private async void SaveButton_Click(object sender, EventArgs e)
@@ -65,7 +67,7 @@ namespace App.Dialogs
 
                     zakaznik.Id = this.zakaznik.Id;
                     _zakaznikRepo.UpdateZakaznik(zakaznik);
-                    MessageBox.Show("Zakaznik byl úspěšně aktualizováa.");
+                    MessageBox.Show("Zakaznik byl úspěšně aktualizován.");
                 }
                 else
                 {
@@ -90,7 +92,7 @@ namespace App.Dialogs
                         null
                     );
                     _zakaznikRepo.UpdateZakaznik(zakaznik);
-                    MessageBox.Show("Zakaznik byl úspěšně přidán.");
+                    MessageBox.Show("Zákaznik byl úspěšně přidán.");
                 }
             }
             catch (Exception ex)
@@ -114,6 +116,7 @@ namespace App.Dialogs
                 textBoxTelefon.Text = this.zakaznik.Telefon.ToString();
                 textBoxEmail.Text = this.zakaznik.Email;
                 txtHladina.Text = this.zakaznik.CenovaHladina.ToString();
+                this.zakaznik.Adresa = this.adresaRepo.LoadAdresaById((int)this.zakaznik.IdAdresa);
 
                 if (this.zakaznik.Adresa != null)
                 {

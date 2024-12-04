@@ -24,6 +24,10 @@ namespace App.Model
             Psc = psc;
             Stat = stat;
         }
+
+        public Adresa()
+        {
+        }
     }
 
 }
