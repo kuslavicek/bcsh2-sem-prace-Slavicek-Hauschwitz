@@ -103,6 +103,8 @@
             label3 = new Label();
             tabSuroviny = new TabPage();
             panel3 = new Panel();
+            KontrolaSurovinBtn = new Button();
+            PresunSurovinuBtn = new Button();
             InsertSurovinaBtn = new Button();
             DeleteSurovinaBtn = new Button();
             UpdateSurovinaBtn = new Button();
@@ -155,6 +157,7 @@
             tabSysCat = new TabPage();
             sysCatBtn = new Button();
             lvSys = new ListView();
+            PovysitBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             panel14.SuspendLayout();
@@ -797,6 +800,7 @@
             // 
             panel5.BackColor = Color.Silver;
             panel5.BorderStyle = BorderStyle.FixedSingle;
+            panel5.Controls.Add(PovysitBtn);
             panel5.Controls.Add(btnAddZamestnanec);
             panel5.Controls.Add(btnEditZamestnanec);
             panel5.Controls.Add(btnDeleteZamestnanec);
@@ -954,6 +958,8 @@
             // 
             panel3.BackColor = Color.Silver;
             panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(KontrolaSurovinBtn);
+            panel3.Controls.Add(PresunSurovinuBtn);
             panel3.Controls.Add(InsertSurovinaBtn);
             panel3.Controls.Add(DeleteSurovinaBtn);
             panel3.Controls.Add(UpdateSurovinaBtn);
@@ -961,6 +967,26 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(380, 607);
             panel3.TabIndex = 5;
+            // 
+            // KontrolaSurovinBtn
+            // 
+            KontrolaSurovinBtn.Location = new Point(5, 219);
+            KontrolaSurovinBtn.Name = "KontrolaSurovinBtn";
+            KontrolaSurovinBtn.Size = new Size(227, 23);
+            KontrolaSurovinBtn.TabIndex = 6;
+            KontrolaSurovinBtn.Text = "Zkontrolovat suroviny";
+            KontrolaSurovinBtn.UseVisualStyleBackColor = true;
+            KontrolaSurovinBtn.Click += KontrolaSurovinBtn_Click;
+            // 
+            // PresunSurovinuBtn
+            // 
+            PresunSurovinuBtn.Location = new Point(5, 163);
+            PresunSurovinuBtn.Name = "PresunSurovinuBtn";
+            PresunSurovinuBtn.Size = new Size(227, 23);
+            PresunSurovinuBtn.TabIndex = 5;
+            PresunSurovinuBtn.Text = "Přesunout Surovinu";
+            PresunSurovinuBtn.UseVisualStyleBackColor = true;
+            PresunSurovinuBtn.Click += PresunSurovinuBtn_Click;
             // 
             // InsertSurovinaBtn
             // 
@@ -1518,6 +1544,16 @@
             lvSys.TabIndex = 0;
             lvSys.UseCompatibleStateImageBehavior = false;
             // 
+            // PovysitBtn
+            // 
+            PovysitBtn.Location = new Point(5, 150);
+            PovysitBtn.Name = "PovysitBtn";
+            PovysitBtn.Size = new Size(225, 23);
+            PovysitBtn.TabIndex = 3;
+            PovysitBtn.Text = "Povýšit zaměstnance";
+            PovysitBtn.UseVisualStyleBackColor = true;
+            PovysitBtn.Click += PovysitBtn_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1769,5 +1805,8 @@
         private Button logDelBtn;
         private Button logLoadBtn;
         private ListView lvLogs;
+        private Button PresunSurovinuBtn;
+        private Button KontrolaSurovinBtn;
+        private Button PovysitBtn;
     }
 }

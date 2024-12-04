@@ -524,6 +524,39 @@ namespace App
             LoadSuroviny();
         }
 
+        private void PresunSurovinuBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                PresunSurovinDialog dialog = new PresunSurovinDialog();
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            LoadSuroviny();
+        }
+
+        private void KontrolaSurovinBtn_Click(object sender, EventArgs e)
+        {
+            string minimum = Microsoft.VisualBasic.Interaction.InputBox("Zadejte minimální množství surovin", "Minimální množství surovin");
+            try
+            {
+                int min = Convert.ToInt32(minimum);
+            }catch(Exception f)
+            {
+                MessageBox.Show("Musíte zadat èíslo");
+                return;
+            }
+            int min2 = Convert.ToInt32(minimum);
+            _database.KontrolaMinima(min2);
+           
+
+        }
+
         #endregion
 
         #region Zakazník
@@ -675,7 +708,7 @@ namespace App
 
             var empList = _zamestnanecRepo.Load();
             lvZamestnanci.Items.Clear();
-
+            //todo ukázat nezobrazená data adminovi
             foreach (var emp in empList)
             {
                 var nadrizeny = _zamestnanecRepo.GetNadrizeny(emp.IdNadrizeny);
@@ -759,6 +792,28 @@ namespace App
             var tag = (Tuple<int, string, string>)selectedItem.Tag;
             this._zamestnanecRepo.DeleteZamestnanec(Convert.ToInt32(tag.Item1));
             LoadZamestnanec();
+        }
+
+        private void PovysitBtn_Click(object sender, EventArgs e)
+        {
+            var selectedItem = lvZamestnanci.SelectedItems[0];
+            var tag = (Tuple<int, string, string>)selectedItem.Tag;
+            
+            var parameters = new Dictionary<string, object>
+            {
+                { "p_id_zamestnance", tag.Item1 }
+            };
+
+            try
+            {
+                _database.ExecuteProcedure("other_pkg.PosunZamestnance", parameters);
+                MessageBox.Show("Posun zamìstnance probìhl úspìšnì.");
+                LoadZamestnanec();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Chyba pøi posunu zamìstnance: " + ex.Message);
+            }
         }
         #endregion
 
@@ -1242,7 +1297,7 @@ namespace App
         {
             //todo volat proceduru zmìò nezobrazovat_os
             var parameters = new Dictionary<string, object>();
-            if(emulUser != null)
+            if (emulUser != null)
             {
                 parameters.Add("p_id", emulUser.Id);
             }
@@ -1250,7 +1305,7 @@ namespace App
             {
                 parameters.Add("p_id", loggedUser.Id);
             }
-            
+
 
             _database.ExecuteProcedure("insert_update_pkg.zmen_nezobrazovat_os", parameters);
             LoadZamestnanec();
@@ -1338,7 +1393,7 @@ namespace App
 
         private void registerBtn_Click(object sender, EventArgs e)
         {
-            if(emulUser != null)
+            if (emulUser != null)
             {
                 registerBtn.Hide();
                 hideTabs();
@@ -1356,13 +1411,13 @@ namespace App
             else
             {
 
-            
-            string email = Microsoft.VisualBasic.Interaction.InputBox("Vložte email pro registraci", "Email", "priklad@priklad.com");
+
+                string email = Microsoft.VisualBasic.Interaction.InputBox("Vložte email pro registraci", "Email", "priklad@priklad.com");
 
 
-            object result = _database.ExecuteFindEmailRegistered(email);
+                object result = _database.ExecuteFindEmailRegistered(email);
 
-            string resultString = result?.ToString();
+                string resultString = result?.ToString();
                 switch (result.ToString())
                 {
                     case "Invalid email format":
@@ -1975,18 +2030,18 @@ namespace App
         }
 
         private void logLoadBtn_Click(object sender, EventArgs e)
+        {
+            try
             {
-                try
-                {
-                    lvLogs.Columns.Clear();
-                    lvLogs.View = View.Details;
-                    lvLogs.FullRowSelect = true;
-                    lvLogs.Columns.Add("Datum", 220);
-                    lvLogs.Columns.Add("Text", 600);
-                    string queryLogs = "SELECT datum, text FROM v_logs";
-                    var dataLogs = _database.GetDataFromView(queryLogs);
+                lvLogs.Columns.Clear();
+                lvLogs.View = View.Details;
+                lvLogs.FullRowSelect = true;
+                lvLogs.Columns.Add("Datum", 220);
+                lvLogs.Columns.Add("Text", 600);
+                string queryLogs = "SELECT datum, text FROM v_logs";
+                var dataLogs = _database.GetDataFromView(queryLogs);
                 lvLogs.Items.Clear();
-                    foreach(var row in dataLogs)
+                foreach (var row in dataLogs)
                 {
                     var item = new ListViewItem(new[]
                     {
@@ -1998,16 +2053,20 @@ namespace App
 
 
             }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred: " + ex.Message);
-                }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
             }
+        }
         private void logDelBtn_Click(object sender, EventArgs e)
         {
-                //todo udìlat smazání statých logù
+            //todo udìlat smazání statých logù
         }
         #endregion
+
+
+
+        
     }
 }
 

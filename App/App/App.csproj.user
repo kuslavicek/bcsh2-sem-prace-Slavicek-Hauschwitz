@@ -28,6 +28,9 @@
     <Compile Update="Dialogs\PracovniPoziceDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Dialogs\PresunSurovinDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Dialogs\ProvozovnaDialog.cs">
       <SubType>Form</SubType>
     </Compile>

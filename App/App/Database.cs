@@ -380,6 +380,43 @@ namespace App
                 }
             }
         }
+        public void KontrolaMinima(int minimum)
+        {
+            string result = string.Empty;
+            using (var connection = new OracleConnection(ConnectionString))
+            using (var command = new OracleCommand("other_pkg.kontrola_minimalniho_mnozstvi", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                // Parametry
+                command.Parameters.Add("p_minimum", OracleDbType.Double).Value = minimum;
+                var outputParam = new OracleParameter("p_result", OracleDbType.Varchar2, 4000)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(outputParam);
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+                    // Načtení výsledku
+                    result = outputParam.Value.ToString();
+                    MessageBox.Show(result);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            
+        }
+
 
 
 
