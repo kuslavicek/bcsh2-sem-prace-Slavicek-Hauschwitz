@@ -104,16 +104,19 @@ namespace App.Dialogs
         private double UpdateOrderPrice()
         {
             double cena = 0;
-            double sleva = (double)this.Zakaznik.CenovaHladina;
 
             foreach (var zbozi in this.ZboziSeznam)
             {
                 cena += zbozi.Value.Cena * zbozi.Key.Mnozstvi;
             }
 
-            if (sleva > 0)
+            if (this.Zakaznik.CenovaHladina != null)
             {
-                cena -= cena * (sleva / 100);
+                double sleva = (double)this.Zakaznik.CenovaHladina;
+                if (sleva > 0)
+                {
+                    cena -= cena * (sleva / 100);
+                }
             }
 
             this.textBoxCena.Text = cena.ToString();

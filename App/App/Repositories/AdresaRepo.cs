@@ -40,6 +40,33 @@ namespace App.Repositories
             return adresaList;
         }
 
+        public Adresa LoadAdresaById(int id)
+        {
+            string queryAdresa = "SELECT id, ulice, mesto, psc, cislo_popisne, stat FROM v_adresa WHERE id = :id";
+            var parameters = new Dictionary<string, object>
+            {
+                { "adresaId", id }
+            };
+            var dataAdresa = _database.GetDataFromView(queryAdresa, parameters);
+
+            var adresa = new Adresa();
+
+            foreach (var row in dataAdresa)
+            {
+                adresa = new Adresa(
+                    id: Convert.ToInt32(row["ID"]),
+                    mesto: row["MESTO"].ToString(),
+                    psc: Convert.ToInt32(row["PSC"]),
+                    ulice: row["ULICE"].ToString(),
+                    cisloPopisne: Convert.ToInt32(row["CISLO_POPISNE"]),
+                    stat: row["STAT"].ToString()
+                );
+
+            }
+
+            return adresa;
+        }
+
         public List<ListViewItem> LoadAdresaEntities(int adresaId)
         {
             string queryAdresaEntities = "SELECT entity_type, id_adresa, jmeno, telefon, email, nazev_skladu, pocet_zamestnancu, nazev_provozovna FROM adresa_entities WHERE id_adresa = :adresaId";
