@@ -34,7 +34,7 @@ namespace App
         public Form1()
         {
             InitializeComponent();
-            //logout(); //todo odkomentovat
+            logout(); //todo odkomentovat
             _database = new Database();
             this.initBtns();
             _skladRepo = new SkladRepo();
@@ -1515,10 +1515,11 @@ namespace App
             else
             {
                 var item = lvUsers.SelectedItems[0];
-                var id = (int)item.Tag;
+                var tag = (Tuple<int, int>)item.Tag;
+                var id = tag.Item1;
                 User newUser = _usersRepo.Load().Find(user => user.Id == id);
                 emulUser = newUser;
-                registerBtn.Enabled = true;
+                registerBtn.Show();
                 registerBtn.Text = "Ukonèit emulaci";
                 labelRegisteredUsername.Text = "Uživatelské jméno: " + emulUser.Jmeno;
                 if (emulUser.boolean == 1)

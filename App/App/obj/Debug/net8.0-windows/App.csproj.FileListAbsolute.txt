@@ -57,3 +57,4 @@ C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\
 C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Dialogs.UserDialog.resources
 C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Dialogs.UsersDialogs.ZamestnanecSelectDialog.resources
 C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Dialogs.ZakaznikDialogs.HladinaDialog.resources
+C:\Users\HP\source\repos\BCSH2-SemPrace\bcsh2-sem-prace-Slavicek-Hauschwitz\App\App\obj\Debug\net8.0-windows\App.Dialogs.PresunSurovinDialog.resources
