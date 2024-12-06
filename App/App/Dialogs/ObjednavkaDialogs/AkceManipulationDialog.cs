@@ -43,7 +43,7 @@ namespace App.Dialogs.ObjednavkaDialogs
                 Id = null,
                 PocetOsob = Convert.ToInt32(this.textBox1.Text),
                 Datum = dateTimePicker1.Value,
-                IdTypAkce = comboBox1.SelectedIndex + 1,
+                IdTypAkce = (int)comboBox1.SelectedValue,
                 IdObjednavka = null,
             };
 
