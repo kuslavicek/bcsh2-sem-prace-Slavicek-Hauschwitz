@@ -166,6 +166,7 @@ namespace App.Dialogs
             // 
             // buttonAddZbozi
             // 
+            buttonAddZbozi.Enabled = false;
             buttonAddZbozi.Location = new Point(9, 240);
             buttonAddZbozi.Margin = new Padding(4, 3, 4, 3);
             buttonAddZbozi.Name = "buttonAddZbozi";
@@ -198,6 +199,7 @@ namespace App.Dialogs
             // 
             // buttonAddAkce
             // 
+            buttonAddAkce.Enabled = false;
             buttonAddAkce.Location = new Point(9, 282);
             buttonAddAkce.Name = "buttonAddAkce";
             buttonAddAkce.Size = new Size(153, 34);
@@ -294,7 +296,7 @@ namespace App.Dialogs
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1105, 577);
+            ClientSize = new Size(1100, 577);
             Controls.Add(comboStatus);
             Controls.Add(label1);
             Controls.Add(labelZbozi);

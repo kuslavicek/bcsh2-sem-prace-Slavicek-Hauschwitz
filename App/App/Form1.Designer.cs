@@ -1677,6 +1677,9 @@
             GlobalStyles.ApplyButtonStyle(this.btnAddUser, true);
             GlobalStyles.ApplyButtonStyle(this.btnEditUser, true);
             GlobalStyles.ApplyButtonStyle(this.btnDeleteUser, true);
+
+            GlobalStyles.ApplyButtonStyle(this.KontrolaSurovinBtn, true);
+            GlobalStyles.ApplyButtonStyle(this.PresunSurovinuBtn, true);
         }
         private Oracle.ManagedDataAccess.Client.OracleCommand oracleCommand1;
         private FileSystemWatcher fileSystemWatcher1;

@@ -56,6 +56,10 @@ namespace App.Dialogs
             }
             this.fillData();
             this.LoadStyles();
+            if (this.textBoxZakaznik.Text != "") {
+                this.buttonAddAkce.Enabled = true;
+                this.buttonAddZbozi.Enabled = true;
+            }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -201,6 +205,11 @@ namespace App.Dialogs
                         this.textBoxZakaznik.Text = this.Zakaznik.Jmeno;
                         zakaznikDialog.Close();
                         this.buttonGenerateFaktura.Enabled = true;
+                    }
+                    if (this.textBoxZakaznik.Text != "")
+                    {
+                        this.buttonAddAkce.Enabled = true;
+                        this.buttonAddZbozi.Enabled = true;
                     }
                 }
                 catch (Exception ex)
