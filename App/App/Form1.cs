@@ -66,6 +66,7 @@ namespace App
 
             _zamestnanecRepo = new ZamestnanecRepo();
             LoadZamestnanec();
+            LoadZamestnanecFiltr();
 
             _typAkceRepo = new TypAkceRepo();
             LoadTypyAkce();
@@ -924,7 +925,7 @@ namespace App
             lvZamestnanci.Columns.Add("Jméno", 100);
             lvZamestnanci.Columns.Add("Pøijmení", 100);
             lvZamestnanci.Columns.Add("E-mail", 150);
-            lvZamestnanci.Columns.Add("Telefonl", 130);
+            lvZamestnanci.Columns.Add("Telefon", 130);
             lvZamestnanci.Columns.Add("Provozovna", 150);
             lvZamestnanci.Columns.Add("Pozice", 150);
             lvZamestnanci.Columns.Add("Nadøízený", 150);
@@ -2287,6 +2288,78 @@ namespace App
             //todo udìlat smazání statých logù
         }
         #endregion
+
+        private void LoadZamestnanecFiltr()
+        {
+            comboFiltrZamestnanec.Items.Clear();
+            comboFiltrZamestnanec.Items.Add("Jméno");
+            comboFiltrZamestnanec.Items.Add("Pøijmení");
+            comboFiltrZamestnanec.Items.Add("Telefon");
+            comboFiltrZamestnanec.Items.Add("E-mail");
+
+            comboFiltrZamestnanec.SelectedIndex = 0;
+        }
+        private void btnFiltrZamestnanec_Click(object sender, EventArgs e)
+        {
+            string selectedColumn = comboFiltrZamestnanec.SelectedItem.ToString();
+            string filterValue = textFiltrValueZamestnanec.Text.ToLower();
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvZamestnanci.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = -1;
+
+                switch (selectedColumn)
+                {
+                    case "Jméno":
+                        columnIndex = 0;
+                        break;
+                    case "Pøijmení":
+                        columnIndex = 1;
+                        break;
+                    case "E-mail":
+                        columnIndex = 2;
+                        break;
+                    case "Telefon":
+                        columnIndex = 3;
+                        break;
+                }
+
+                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvZamestnanci.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvZamestnanci.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvZamestnanci.Items.Add(item);
+            }
+
+            if (lvZamestnanci.Items.Count > 0 && filteredItems.Count > 0)
+            {
+                lvZamestnanci.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void btnCancelFiltrZamestnanec_Click(object sender, EventArgs e)
+        {
+            LoadZamestnanec();
+        }
     }
 }
 
