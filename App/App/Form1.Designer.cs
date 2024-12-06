@@ -48,6 +48,9 @@
             lvFaktury = new ListView();
             tabAdresa = new TabPage();
             panel11 = new Panel();
+            txtFiltrAdresa = new TextBox();
+            comboFiltrAdresa = new ComboBox();
+            label21 = new Label();
             btnAdresaUse = new Button();
             btnDeleteAdresa = new Button();
             btnEditAdresa = new Button();
@@ -179,6 +182,8 @@
             tabSysCat = new TabPage();
             sysCatBtn = new Button();
             lvSys = new ListView();
+            btnFiltrAdresa = new Button();
+            btnCancelFiltrAdresa = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             panel14.SuspendLayout();
@@ -403,6 +408,11 @@
             // panel11
             // 
             panel11.BackColor = Color.Silver;
+            panel11.Controls.Add(btnCancelFiltrAdresa);
+            panel11.Controls.Add(btnFiltrAdresa);
+            panel11.Controls.Add(txtFiltrAdresa);
+            panel11.Controls.Add(comboFiltrAdresa);
+            panel11.Controls.Add(label21);
             panel11.Controls.Add(btnAdresaUse);
             panel11.Controls.Add(btnDeleteAdresa);
             panel11.Controls.Add(btnEditAdresa);
@@ -411,6 +421,31 @@
             panel11.Name = "panel11";
             panel11.Size = new Size(380, 607);
             panel11.TabIndex = 2;
+            // 
+            // txtFiltrAdresa
+            // 
+            txtFiltrAdresa.Location = new Point(118, 316);
+            txtFiltrAdresa.Name = "txtFiltrAdresa";
+            txtFiltrAdresa.Size = new Size(149, 23);
+            txtFiltrAdresa.TabIndex = 6;
+            // 
+            // comboFiltrAdresa
+            // 
+            comboFiltrAdresa.FormattingEnabled = true;
+            comboFiltrAdresa.Location = new Point(118, 287);
+            comboFiltrAdresa.Name = "comboFiltrAdresa";
+            comboFiltrAdresa.Size = new Size(149, 23);
+            comboFiltrAdresa.TabIndex = 5;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 16F);
+            label21.Location = new Point(166, 254);
+            label21.Name = "label21";
+            label21.Size = new Size(49, 30);
+            label21.TabIndex = 4;
+            label21.Text = "Filtr";
             // 
             // btnAdresaUse
             // 
@@ -1782,6 +1817,26 @@
             lvSys.TabIndex = 0;
             lvSys.UseCompatibleStateImageBehavior = false;
             // 
+            // btnFiltrAdresa
+            // 
+            btnFiltrAdresa.Location = new Point(118, 345);
+            btnFiltrAdresa.Name = "btnFiltrAdresa";
+            btnFiltrAdresa.Size = new Size(149, 23);
+            btnFiltrAdresa.TabIndex = 7;
+            btnFiltrAdresa.Text = "Filtrovat";
+            btnFiltrAdresa.UseVisualStyleBackColor = true;
+            btnFiltrAdresa.Click += btnFiltrAdresa_Click;
+            // 
+            // btnCancelFiltrAdresa
+            // 
+            btnCancelFiltrAdresa.Location = new Point(118, 374);
+            btnCancelFiltrAdresa.Name = "btnCancelFiltrAdresa";
+            btnCancelFiltrAdresa.Size = new Size(149, 23);
+            btnCancelFiltrAdresa.TabIndex = 8;
+            btnCancelFiltrAdresa.Text = "Zrušit filtr";
+            btnCancelFiltrAdresa.UseVisualStyleBackColor = true;
+            btnCancelFiltrAdresa.Click += btnCancelFiltrAdresa_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1803,6 +1858,7 @@
             tabAdresa.ResumeLayout(false);
             tabAdresa.PerformLayout();
             panel11.ResumeLayout(false);
+            panel11.PerformLayout();
             tabSklad.ResumeLayout(false);
             tabSklad.PerformLayout();
             panel9.ResumeLayout(false);
@@ -1913,6 +1969,7 @@
             GlobalStyles.ApplyButtonStyle(this.PresunSurovinuBtn, true);
 
             GlobalStyles.ApplyButtonStyle(this.PovysitBtn, true);
+            GlobalStyles.ApplyButtonStyle(this.emul_button, true);
         }
         private Oracle.ManagedDataAccess.Client.OracleCommand oracleCommand1;
         private FileSystemWatcher fileSystemWatcher1;
@@ -2065,5 +2122,10 @@
         private TextBox textFiltrValueZamestnanec;
         private ComboBox comboFiltrZamestnanec;
         private Label label20;
+        private TextBox txtFiltrAdresa;
+        private ComboBox comboFiltrAdresa;
+        private Label label21;
+        private Button btnCancelFiltrAdresa;
+        private Button btnFiltrAdresa;
     }
 }

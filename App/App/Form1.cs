@@ -34,7 +34,7 @@ namespace App
         public Form1()
         {
             InitializeComponent();
-            logout(); //todo odkomentovat
+            /*logout();*/ //todo odkomentovat
             _database = new Database();
             this.initBtns();
             _skladRepo = new SkladRepo();
@@ -55,6 +55,8 @@ namespace App
 
             _adresaRepo = new AdresaRepo();
             LoadAdresy();
+            LoadAdresaFiltr();
+
             _objednavkaRepo = new ObjednavkaRepo();
             LoadObjednavky();
 
@@ -917,6 +919,81 @@ namespace App
         #endregion
 
         #region Zamìstnanec
+
+        #region Zamestnanec filtr
+        private void LoadZamestnanecFiltr()
+        {
+            comboFiltrZamestnanec.Items.Clear();
+            comboFiltrZamestnanec.Items.Add("Jméno");
+            comboFiltrZamestnanec.Items.Add("Pøijmení");
+            comboFiltrZamestnanec.Items.Add("Telefon");
+            comboFiltrZamestnanec.Items.Add("E-mail");
+
+            comboFiltrZamestnanec.SelectedIndex = 0;
+        }
+        private void btnFiltrZamestnanec_Click(object sender, EventArgs e)
+        {
+            string selectedColumn = comboFiltrZamestnanec.SelectedItem.ToString();
+            string filterValue = textFiltrValueZamestnanec.Text.ToLower();
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvZamestnanci.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = -1;
+
+                switch (selectedColumn)
+                {
+                    case "Jméno":
+                        columnIndex = 0;
+                        break;
+                    case "Pøijmení":
+                        columnIndex = 1;
+                        break;
+                    case "E-mail":
+                        columnIndex = 2;
+                        break;
+                    case "Telefon":
+                        columnIndex = 3;
+                        break;
+                }
+
+                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvZamestnanci.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvZamestnanci.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvZamestnanci.Items.Add(item);
+            }
+
+            if (lvZamestnanci.Items.Count > 0 && filteredItems.Count > 0)
+            {
+                lvZamestnanci.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void btnCancelFiltrZamestnanec_Click(object sender, EventArgs e)
+        {
+            LoadZamestnanec();
+        }
+        #endregion
+
         private void LoadZamestnanec()
         {
             lvZamestnanci.Columns.Clear();
@@ -1804,13 +1881,87 @@ namespace App
         #endregion
 
         #region Adresy
+        #region Adresa filtr
+        private void LoadAdresaFiltr()
+        {
+            comboFiltrAdresa.Items.Clear();
+            comboFiltrAdresa.Items.Add("Mìsto");
+            comboFiltrAdresa.Items.Add("Ulice");
+            comboFiltrAdresa.Items.Add("PSÈ");
+            comboFiltrAdresa.Items.Add("Èíslo popisné");
+
+            comboFiltrAdresa.SelectedIndex = 0;
+        }
+
+        private void btnFiltrAdresa_Click(object sender, EventArgs e)
+        {
+            string selectedColumn = comboFiltrAdresa.SelectedItem.ToString();
+            string filterValue = txtFiltrAdresa.Text.ToLower();
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvAdresy.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = -1;
+
+                switch (selectedColumn)
+                {
+                    case "Mìsto":
+                        columnIndex = 0;
+                        break;
+                    case "Ulice":
+                        columnIndex = 1;
+                        break;
+                    case "PSÈ":
+                        columnIndex = 2;
+                        break;
+                    case "Èíslo popisné":
+                        columnIndex = 3;
+                        break;
+                }
+
+                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvAdresy.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvAdresy.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvAdresy.Items.Add(item);
+            }
+
+            if (lvAdresy.Items.Count > 0 && filteredItems.Count > 0)
+            {
+                lvAdresy.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void btnCancelFiltrAdresa_Click(object sender, EventArgs e)
+        {
+            LoadAdresy();
+        }
+        #endregion
         private void LoadAdresy()
         {
             lvAdresy.Columns.Clear();
             lvAdresy.View = View.Details;
             lvAdresy.FullRowSelect = true;
-            lvAdresy.Columns.Add("Ulice", 220);
             lvAdresy.Columns.Add("Mìsto", 100);
+            lvAdresy.Columns.Add("Ulice", 220);
             lvAdresy.Columns.Add("PSÈ", 150);
             lvAdresy.Columns.Add("Èíslo popisné", 100);
             lvAdresy.Columns.Add("Stát", 200);
@@ -2289,77 +2440,6 @@ namespace App
         }
         #endregion
 
-        private void LoadZamestnanecFiltr()
-        {
-            comboFiltrZamestnanec.Items.Clear();
-            comboFiltrZamestnanec.Items.Add("Jméno");
-            comboFiltrZamestnanec.Items.Add("Pøijmení");
-            comboFiltrZamestnanec.Items.Add("Telefon");
-            comboFiltrZamestnanec.Items.Add("E-mail");
-
-            comboFiltrZamestnanec.SelectedIndex = 0;
-        }
-        private void btnFiltrZamestnanec_Click(object sender, EventArgs e)
-        {
-            string selectedColumn = comboFiltrZamestnanec.SelectedItem.ToString();
-            string filterValue = textFiltrValueZamestnanec.Text.ToLower();
-
-            List<ListViewItem> filteredItems = new List<ListViewItem>();
-            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
-
-            foreach (ListViewItem item in lvZamestnanci.Items)
-            {
-                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
-
-                int columnIndex = -1;
-
-                switch (selectedColumn)
-                {
-                    case "Jméno":
-                        columnIndex = 0;
-                        break;
-                    case "Pøijmení":
-                        columnIndex = 1;
-                        break;
-                    case "E-mail":
-                        columnIndex = 2;
-                        break;
-                    case "Telefon":
-                        columnIndex = 3;
-                        break;
-                }
-
-                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
-                {
-                    filteredItems.Add(item);
-                }
-                else
-                {
-                    nonFilteredItems.Add(item);
-                }
-            }
-            lvZamestnanci.Items.Clear();
-
-            foreach (var item in filteredItems)
-            {
-                lvZamestnanci.Items.Add(item);
-            }
-
-            foreach (var item in nonFilteredItems)
-            {
-                lvZamestnanci.Items.Add(item);
-            }
-
-            if (lvZamestnanci.Items.Count > 0 && filteredItems.Count > 0)
-            {
-                lvZamestnanci.Items[0].BackColor = Color.LightYellow;
-            }
-        }
-
-        private void btnCancelFiltrZamestnanec_Click(object sender, EventArgs e)
-        {
-            LoadZamestnanec();
-        }
     }
 }
 
