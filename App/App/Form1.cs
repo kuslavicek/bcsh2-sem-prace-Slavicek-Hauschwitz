@@ -47,6 +47,7 @@ namespace App
 
             _surovinaRepo = new SurovinaRepo();
             LoadSuroviny();
+            LoadSurovinaFiltr();
 
             _zakaznikRepo = new ZakaznikRepo();
             LoadZakaznici();
@@ -546,14 +547,14 @@ namespace App
             try
             {
                 int min = Convert.ToInt32(minimum);
-            }catch(Exception f)
+            }
+            catch (Exception f)
             {
                 MessageBox.Show("Musíte zadat èíslo");
                 return;
             }
             int min2 = Convert.ToInt32(minimum);
             _database.KontrolaMinima(min2);
-           
 
         }
 
@@ -798,7 +799,7 @@ namespace App
         {
             var selectedItem = lvZamestnanci.SelectedItems[0];
             var tag = (Tuple<int, string, string>)selectedItem.Tag;
-            
+
             var parameters = new Dictionary<string, object>
             {
                 { "p_id_zamestnance", tag.Item1 }
@@ -2067,7 +2068,152 @@ namespace App
 
 
 
-        
+
+        private void btnFiltrSurovina_Click(object sender, EventArgs e)
+        {
+            string selectedColumn = comboFiltrSurovina.SelectedItem.ToString();
+            string filterValue = txtFiltrSurovinaNazev.Text.ToLower();
+            if (comboFiltrSurovina.SelectedIndex == 1)
+            {
+                filterValue = txtFiltrSurovinaCount.Text.ToLower();
+            }
+            else if (comboFiltrSurovina.SelectedIndex == 2)
+            {
+                filterValue = comboFiltrSurovinaSklad.Text.ToLower();
+            }
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvSuroviny.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = -1;
+
+                switch (selectedColumn)
+                {
+                    case "Název":
+                        columnIndex = 0;
+                        break;
+                    case "Množství":
+                        columnIndex = 1;
+                        break;
+                    case "Sklad":
+                        columnIndex = 2;
+                        break;
+                }
+                if (columnIndex==1) {
+                    if (comboFiltrSurovinaCount.SelectedIndex == 0)
+                    {
+                        if (itemValues[columnIndex].Contains(filterValue))
+                        {
+                            filteredItems.Add(item);
+                        }
+                        else {
+                            nonFilteredItems.Add(item);
+                        }
+                    }
+                    else if (comboFiltrSurovinaCount.SelectedIndex == 1)
+                    {
+                        if (double.TryParse(itemValues[columnIndex], out double value) && double.TryParse(filterValue, out double filter))
+                        {
+                            if (value < filter)
+                            {
+                                filteredItems.Add(item);
+                            }
+                        }
+                    }
+                    else if (comboFiltrSurovinaCount.SelectedIndex == 2)
+                    {
+                        if (double.TryParse(itemValues[columnIndex], out double value) && double.TryParse(filterValue, out double filter))
+                        {
+                            if (value > filter)
+                            {
+                                filteredItems.Add(item);
+                            }
+                        }
+                    }
+                }
+                else if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvSuroviny.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvSuroviny.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvSuroviny.Items.Add(item);
+            }
+
+            if (lvSuroviny.Items.Count > 0 && filteredItems.Count > 0)
+            {
+                lvSuroviny.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void LoadSurovinaFiltr()
+        {
+            comboFiltrSurovina.Items.Clear();
+            comboFiltrSurovina.Items.Add("Název");
+            comboFiltrSurovina.Items.Add("Množství");
+            comboFiltrSurovina.Items.Add("Sklad");
+
+            comboFiltrSurovina.SelectedIndex = 0;
+
+            comboFiltrSurovinaSklad.DataSource = new BindingSource(this.skladyDict, null);
+            comboFiltrSurovinaSklad.DisplayMember = "Value";
+            comboFiltrSurovinaSklad.ValueMember = "Key";
+
+            comboFiltrSurovinaCount.Items.Add("=");
+            comboFiltrSurovinaCount.Items.Add(">");
+            comboFiltrSurovinaCount.Items.Add("<");
+
+            comboFiltrSurovinaCount.SelectedIndex = 0;
+            comboFiltrSurovinaCount.Enabled = false;
+            txtFiltrSurovinaCount.Enabled = false;
+            comboFiltrSurovinaSklad.Enabled = false;
+        }
+
+        private void btnFiltrSurovinaCancel_Click(object sender, EventArgs e)
+        {
+            LoadSuroviny();
+        }
+
+        private void comboFiltrSurovina_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboFiltrSurovina.SelectedIndex == 0)
+            {
+                txtFiltrSurovinaNazev.Enabled = true;
+                comboFiltrSurovinaCount.Enabled = false;
+                txtFiltrSurovinaCount.Enabled = false;
+                comboFiltrSurovinaSklad.Enabled = false;
+            }
+            else if (comboFiltrSurovina.SelectedIndex == 1)
+            {
+                txtFiltrSurovinaNazev.Enabled = false;
+                comboFiltrSurovinaCount.Enabled = true;
+                txtFiltrSurovinaCount.Enabled = true;
+                comboFiltrSurovinaSklad.Enabled = false;
+            }
+            else
+            {
+                txtFiltrSurovinaNazev.Enabled = false;
+                comboFiltrSurovinaCount.Enabled = false;
+                txtFiltrSurovinaCount.Enabled = false;
+                comboFiltrSurovinaSklad.Enabled = true;
+            }
+        }
     }
 }
 
