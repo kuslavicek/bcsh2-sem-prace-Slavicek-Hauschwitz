@@ -789,7 +789,7 @@ namespace App
             }
 
             var selectedItem = lvZamestnanci.SelectedItems[0];
-            var tag = (Tuple<int, string, string>)selectedItem.Tag;
+            var tag = (Tuple<int?, double, string>)selectedItem.Tag;
             this._zamestnanecRepo.DeleteZamestnanec(Convert.ToInt32(tag.Item1));
             LoadZamestnanec();
         }
