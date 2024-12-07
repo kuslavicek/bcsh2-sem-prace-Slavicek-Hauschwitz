@@ -62,7 +62,7 @@ namespace App.Dialogs
                 {
                     this.User.Jmeno = txtJmeno.Text;
                     this.User.Role = comboRole.SelectedItem.ToString();
-                    this.User.Heslo = txtHeslo.Text;//todo heslo
+                    this.User.Heslo = txtHeslo.Text;
                     this.User.boolean = checkOs.Checked == true ? 1 : 0;
 
                     _userRepo.UpdateUser(this.User);
