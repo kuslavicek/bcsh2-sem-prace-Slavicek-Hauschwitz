@@ -88,6 +88,7 @@
             hierarchyBtn = new Button();
             tabZaměstnanci = new TabPage();
             panel5 = new Panel();
+            PovysitBtn = new Button();
             btnAddZamestnanec = new Button();
             btnEditZamestnanec = new Button();
             btnDeleteZamestnanec = new Button();
@@ -151,13 +152,11 @@
             btnAddUser = new Button();
             lvUsers = new ListView();
             tabLogs = new TabPage();
-            logDelBtn = new Button();
             logLoadBtn = new Button();
             lvLogs = new ListView();
             tabSysCat = new TabPage();
             sysCatBtn = new Button();
             lvSys = new ListView();
-            PovysitBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             panel14.SuspendLayout();
@@ -808,6 +807,16 @@
             panel5.Name = "panel5";
             panel5.Size = new Size(380, 607);
             panel5.TabIndex = 2;
+            // 
+            // PovysitBtn
+            // 
+            PovysitBtn.Location = new Point(5, 150);
+            PovysitBtn.Name = "PovysitBtn";
+            PovysitBtn.Size = new Size(225, 23);
+            PovysitBtn.TabIndex = 3;
+            PovysitBtn.Text = "Povýšit zaměstnance";
+            PovysitBtn.UseVisualStyleBackColor = true;
+            PovysitBtn.Click += PovysitBtn_Click;
             // 
             // btnAddZamestnanec
             // 
@@ -1476,7 +1485,6 @@
             // 
             // tabLogs
             // 
-            tabLogs.Controls.Add(logDelBtn);
             tabLogs.Controls.Add(logLoadBtn);
             tabLogs.Controls.Add(lvLogs);
             tabLogs.Location = new Point(4, 24);
@@ -1487,21 +1495,11 @@
             tabLogs.Text = "Logy";
             tabLogs.UseVisualStyleBackColor = true;
             // 
-            // logDelBtn
-            // 
-            logDelBtn.Location = new Point(692, 724);
-            logDelBtn.Name = "logDelBtn";
-            logDelBtn.Size = new Size(156, 25);
-            logDelBtn.TabIndex = 3;
-            logDelBtn.Text = "Smazat staré logy";
-            logDelBtn.UseVisualStyleBackColor = true;
-            logDelBtn.Click += logDelBtn_Click;
-            // 
             // logLoadBtn
             // 
             logLoadBtn.Location = new Point(307, 724);
             logLoadBtn.Name = "logLoadBtn";
-            logLoadBtn.Size = new Size(215, 25);
+            logLoadBtn.Size = new Size(684, 25);
             logLoadBtn.TabIndex = 2;
             logLoadBtn.Text = "Načíst Logy";
             logLoadBtn.UseVisualStyleBackColor = true;
@@ -1543,16 +1541,6 @@
             lvSys.Size = new Size(1238, 605);
             lvSys.TabIndex = 0;
             lvSys.UseCompatibleStateImageBehavior = false;
-            // 
-            // PovysitBtn
-            // 
-            PovysitBtn.Location = new Point(5, 150);
-            PovysitBtn.Name = "PovysitBtn";
-            PovysitBtn.Size = new Size(225, 23);
-            PovysitBtn.TabIndex = 3;
-            PovysitBtn.Text = "Povýšit zaměstnance";
-            PovysitBtn.UseVisualStyleBackColor = true;
-            PovysitBtn.Click += PovysitBtn_Click;
             // 
             // Form1
             // 
@@ -1802,7 +1790,6 @@
         private TabPage tabSysCat;
         private ListView lvSys;
         private Button sysCatBtn;
-        private Button logDelBtn;
         private Button logLoadBtn;
         private ListView lvLogs;
         private Button PresunSurovinuBtn;

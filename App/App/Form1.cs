@@ -709,13 +709,40 @@ namespace App
             var empList = _zamestnanecRepo.Load();
             lvZamestnanci.Items.Clear();
             //todo ukázat nezobrazená data adminovi
-            foreach (var emp in empList)
+            if(emulUser.Role == "Admin" || (loggedUser.Role == "Admin" && emulUser == null))
             {
-                var nadrizeny = _zamestnanecRepo.GetNadrizeny(emp.IdNadrizeny);
-                var pozice = _poziceRepo.GetPoziceByID(emp.IdPracovniPozice);
-                var provozovna = _provozovnaRepo.GetProvoznaById(emp.IdProvozovna);
-                var item = new ListViewItem(new[]
+                foreach (var emp in empList)
                 {
+                    var nadrizeny = _zamestnanecRepo.GetNadrizeny(emp.IdNadrizeny);
+                    var pozice = _poziceRepo.GetPoziceByID(emp.IdPracovniPozice);
+                    var provozovna = _provozovnaRepo.GetProvoznaById(emp.IdProvozovna);
+                    var item = new ListViewItem(new[]
+                    {
+                    emp.Jmeno,
+                    emp.Prijmeni,
+                    emp.Email,
+                emp.Telefon.ToString(),
+                provozovna !=null?provozovna.Nazev:"",
+                    pozice!=null?pozice.Nazev:null,
+                    nadrizeny!=null?nadrizeny.Jmeno+" "+nadrizeny.Prijmeni:"",
+                });
+
+                    item.Tag = new Tuple<int?, double, string>(emp.Id, emp.Telefon, emp.Email);
+                    item.SubItems[4].Tag = provozovna != null ? provozovna.Id : null;
+                    item.SubItems[5].Tag = pozice != null ? pozice.Id : null;
+                    item.SubItems[6].Tag = nadrizeny != null ? nadrizeny.Id : null;
+                    lvZamestnanci.Items.Add(item);
+                }
+            }
+            else
+            {
+                foreach (var emp in empList)
+                {
+                    var nadrizeny = _zamestnanecRepo.GetNadrizeny(emp.IdNadrizeny);
+                    var pozice = _poziceRepo.GetPoziceByID(emp.IdPracovniPozice);
+                    var provozovna = _provozovnaRepo.GetProvoznaById(emp.IdProvozovna);
+                    var item = new ListViewItem(new[]
+                    {
                     emp.Jmeno,
                     emp.Prijmeni,
                     emp.Nezobrazovat == 1 ? "*********" : emp.Email,
@@ -725,12 +752,14 @@ namespace App
                     nadrizeny!=null?nadrizeny.Jmeno+" "+nadrizeny.Prijmeni:"",
                 });
 
-                item.Tag = new Tuple<int?, double, string>(emp.Id, emp.Telefon, emp.Email);
-                item.SubItems[4].Tag = provozovna != null ? provozovna.Id : null;
-                item.SubItems[5].Tag = pozice != null ? pozice.Id : null;
-                item.SubItems[6].Tag = nadrizeny != null ? nadrizeny.Id : null;
-                lvZamestnanci.Items.Add(item);
+                    item.Tag = new Tuple<int?, double, string>(emp.Id, emp.Telefon, emp.Email);
+                    item.SubItems[4].Tag = provozovna != null ? provozovna.Id : null;
+                    item.SubItems[5].Tag = pozice != null ? pozice.Id : null;
+                    item.SubItems[6].Tag = nadrizeny != null ? nadrizeny.Id : null;
+                    lvZamestnanci.Items.Add(item);
+                }
             }
+            
         }
         private void btnAddZamestnanec_Click(object sender, EventArgs e)
         {
@@ -1283,6 +1312,7 @@ namespace App
                     PassChangeBtn.Show();
                     labelRegisteredName.Text = "";//Vzít jméno a pøíjmení z tabulky zamìstnanec
                     labelRegisteredUsername.Text = "Uživatelské jméno: " + loggedUser.Jmeno;
+                    LoadZamestnanec();
                 }
             }
             else
@@ -1295,7 +1325,7 @@ namespace App
 
         private void osUdajeCheck_CheckedChanged(object sender, EventArgs e)
         {
-            //todo volat proceduru zmìò nezobrazovat_os
+            
             var parameters = new Dictionary<string, object>();
             if (emulUser != null)
             {
@@ -1547,6 +1577,7 @@ namespace App
                 }
 
                 tabControl1.SelectedIndex = 1;
+                LoadZamestnanec();
             }
         }
 
@@ -2059,10 +2090,7 @@ namespace App
                 MessageBox.Show("An error occurred: " + ex.Message);
             }
         }
-        private void logDelBtn_Click(object sender, EventArgs e)
-        {
-            //todo udìlat smazání statých logù
-        }
+        
         #endregion
 
 
