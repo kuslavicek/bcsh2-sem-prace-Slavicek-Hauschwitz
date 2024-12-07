@@ -34,7 +34,7 @@ namespace App
         public Form1()
         {
             InitializeComponent();
-            /*logout();*/ //todo odkomentovat
+            /*logout(); *///todo odkomentovat
             _database = new Database();
             this.initBtns();
             _skladRepo = new SkladRepo();
@@ -918,6 +918,7 @@ namespace App
             }
 
             LoadZakaznici();
+            LoadObjednavky();
         }
         #endregion
 
@@ -1013,7 +1014,7 @@ namespace App
             var empList = _zamestnanecRepo.Load();
             lvZamestnanci.Items.Clear();
             //todo ukázat nezobrazená data adminovi
-            if(emulUser.Role == "Admin" || (loggedUser.Role == "Admin" && emulUser == null))
+            if (emulUser.Role == "Admin" || (loggedUser.Role == "Admin" && emulUser == null))
             {
                 foreach (var emp in empList)
                 {
@@ -1129,6 +1130,12 @@ namespace App
 
         private void PovysitBtn_Click(object sender, EventArgs e)
         {
+            if (lvZamestnanci.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to update.");
+                return;
+            }
+
             var selectedItem = lvZamestnanci.SelectedItems[0];
             var tag = (Tuple<int, string, string>)selectedItem.Tag;
 
