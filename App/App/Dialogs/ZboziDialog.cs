@@ -43,14 +43,14 @@ namespace App.Dialogs
                 return;
             }
 
-            var selectedSklad = comboSklad.SelectedIndex;
+            var selectedSklad = (int)comboSklad.SelectedValue;
 
             var zbozi = new Zbozi(
                 nazev: txtNazev.Text,
                 obsahAlkoholu: double.Parse(txtObsahAlkoholu.Text),
                 cena: double.Parse(txtCena.Text),
                 typ: comboTyp.SelectedItem.ToString()[0],
-                skladId: selectedSklad+1,
+                skladId: selectedSklad,
                 odrudaJablek: comboTyp.SelectedItem.ToString() == "c" ? txtSpecificValue.Text : "",
                 stupnovitost: comboTyp.SelectedItem.ToString() == "p" ? double.Parse(txtSpecificValue.Text) : 0
             );

@@ -349,10 +349,7 @@ namespace App
                 ObjednavkaDialog objednavkaDialog = new ObjednavkaDialog(_objednavkaRepo, null, false);
                 if (objednavkaDialog.ShowDialog() == DialogResult.OK)
                 {
-                    this.LoadObjednavky();
-                    this.LoadAkce();
-                    this.LoadObjZbozi();
-                    this.LoadFaktury();
+
                 }
             }
             catch (Exception ex)
@@ -361,6 +358,9 @@ namespace App
             }
 
             this.LoadObjednavky();
+            this.LoadAkce();
+            this.LoadObjZbozi();
+            this.LoadFaktury();
         }
 
         private void UpdateObjednavkaBtn_Click(object sender, EventArgs e)
@@ -2181,13 +2181,14 @@ namespace App
                 {
                     _typAkceRepo.GetTypAkceByAkce((int)akce.IdTypAkce).Nazev,
                     akce.PocetOsob.ToString(),
-                    akce.Datum.ToString()
+                    akce.Datum.ToString("yy.MM.dd")
                 });
 
                 item.Tag = Tuple.Create(akce.Id, akce.IdObjednavka);
                 lvAkce.Items.Add(item);
             }
         }
+
 
         private void btnAkceShowObjednavka_Click(object sender, EventArgs e)
         {
