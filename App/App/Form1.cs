@@ -350,6 +350,8 @@ namespace App
                 if (objednavkaDialog.ShowDialog() == DialogResult.OK)
                 {
                     this.LoadObjednavky();
+                    this.LoadAkce();
+                    this.LoadObjZbozi();
                 }
             }
             catch (Exception ex)
