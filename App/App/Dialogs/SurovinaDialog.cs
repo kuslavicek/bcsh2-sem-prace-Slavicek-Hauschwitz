@@ -32,12 +32,12 @@ namespace App.Dialogs
                 return;
             }
 
-            var selectedSklad = comboSklad.SelectedIndex;
+            var selectedSklad = (int)comboSklad.SelectedValue;
 
             var surovina = new Surovina(
                 nazev: textBoxNazev.Text,
                 mnozstvi: double.Parse(textBoxMnozstvi.Text),
-                idSklad: selectedSklad+1
+                idSklad: selectedSklad
             );
 
             try

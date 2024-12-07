@@ -34,7 +34,7 @@ namespace App
         public Form1()
         {
             InitializeComponent();
-            logout(); //todo odkomentovat
+            /*logout();*/ //todo odkomentovat
             _database = new Database();
             this.initBtns();
             _skladRepo = new SkladRepo();
@@ -47,12 +47,16 @@ namespace App
 
             _surovinaRepo = new SurovinaRepo();
             LoadSuroviny();
+            LoadSurovinaFiltr();
 
             _zakaznikRepo = new ZakaznikRepo();
             LoadZakaznici();
+            LoadZakaznikFiltr();
 
             _adresaRepo = new AdresaRepo();
             LoadAdresy();
+            LoadAdresaFiltr();
+
             _objednavkaRepo = new ObjednavkaRepo();
             LoadObjednavky();
 
@@ -64,6 +68,7 @@ namespace App
 
             _zamestnanecRepo = new ZamestnanecRepo();
             LoadZamestnanec();
+            LoadZamestnanecFiltr();
 
             _typAkceRepo = new TypAkceRepo();
             LoadTypyAkce();
@@ -344,7 +349,7 @@ namespace App
                 ObjednavkaDialog objednavkaDialog = new ObjednavkaDialog(_objednavkaRepo, null, false);
                 if (objednavkaDialog.ShowDialog() == DialogResult.OK)
                 {
-                    this.LoadObjednavky();
+
                 }
             }
             catch (Exception ex)
@@ -353,6 +358,9 @@ namespace App
             }
 
             this.LoadObjednavky();
+            this.LoadAkce();
+            this.LoadObjZbozi();
+            this.LoadFaktury();
         }
 
         private void UpdateObjednavkaBtn_Click(object sender, EventArgs e)
@@ -424,6 +432,156 @@ namespace App
         #endregion
 
         #region Surovina
+
+        #region Filtr surovina
+        private void btnFiltrSurovina_Click(object sender, EventArgs e)
+        {
+            string selectedColumn = comboFiltrSurovina.SelectedItem.ToString();
+            string filterValue = txtFiltrSurovinaNazev.Text.ToLower();
+            if (comboFiltrSurovina.SelectedIndex == 1)
+            {
+                filterValue = txtFiltrSurovinaCount.Text.ToLower();
+            }
+            else if (comboFiltrSurovina.SelectedIndex == 2)
+            {
+                filterValue = comboFiltrSurovinaSklad.Text.ToLower();
+            }
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvSuroviny.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = -1;
+
+                switch (selectedColumn)
+                {
+                    case "Název":
+                        columnIndex = 0;
+                        break;
+                    case "Množství":
+                        columnIndex = 1;
+                        break;
+                    case "Sklad":
+                        columnIndex = 2;
+                        break;
+                }
+                if (columnIndex == 1)
+                {
+                    if (comboFiltrSurovinaCount.SelectedIndex == 0)
+                    {
+                        if (itemValues[columnIndex].Contains(filterValue))
+                        {
+                            filteredItems.Add(item);
+                        }
+                        else
+                        {
+                            nonFilteredItems.Add(item);
+                        }
+                    }
+                    else if (comboFiltrSurovinaCount.SelectedIndex == 1)
+                    {
+                        if (double.TryParse(itemValues[columnIndex], out double value) && double.TryParse(filterValue, out double filter))
+                        {
+                            if (value < filter)
+                            {
+                                filteredItems.Add(item);
+                            }
+                        }
+                    }
+                    else if (comboFiltrSurovinaCount.SelectedIndex == 2)
+                    {
+                        if (double.TryParse(itemValues[columnIndex], out double value) && double.TryParse(filterValue, out double filter))
+                        {
+                            if (value > filter)
+                            {
+                                filteredItems.Add(item);
+                            }
+                        }
+                    }
+                }
+                else if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvSuroviny.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvSuroviny.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvSuroviny.Items.Add(item);
+            }
+
+            if (lvSuroviny.Items.Count > 0 && filteredItems.Count > 0)
+            {
+                lvSuroviny.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void LoadSurovinaFiltr()
+        {
+            comboFiltrSurovina.Items.Clear();
+            comboFiltrSurovina.Items.Add("Název");
+            comboFiltrSurovina.Items.Add("Množství");
+            comboFiltrSurovina.Items.Add("Sklad");
+
+            comboFiltrSurovina.SelectedIndex = 0;
+
+            comboFiltrSurovinaSklad.DataSource = new BindingSource(this.skladyDict, null);
+            comboFiltrSurovinaSklad.DisplayMember = "Value";
+            comboFiltrSurovinaSklad.ValueMember = "Key";
+
+            comboFiltrSurovinaCount.Items.Add("=");
+            comboFiltrSurovinaCount.Items.Add(">");
+            comboFiltrSurovinaCount.Items.Add("<");
+
+            comboFiltrSurovinaCount.SelectedIndex = 0;
+            comboFiltrSurovinaCount.Enabled = false;
+            txtFiltrSurovinaCount.Enabled = false;
+            comboFiltrSurovinaSklad.Enabled = false;
+        }
+
+        private void btnFiltrSurovinaCancel_Click(object sender, EventArgs e)
+        {
+            LoadSuroviny();
+        }
+
+        private void comboFiltrSurovina_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboFiltrSurovina.SelectedIndex == 0)
+            {
+                txtFiltrSurovinaNazev.Enabled = true;
+                comboFiltrSurovinaCount.Enabled = false;
+                txtFiltrSurovinaCount.Enabled = false;
+                comboFiltrSurovinaSklad.Enabled = false;
+            }
+            else if (comboFiltrSurovina.SelectedIndex == 1)
+            {
+                txtFiltrSurovinaNazev.Enabled = false;
+                comboFiltrSurovinaCount.Enabled = true;
+                txtFiltrSurovinaCount.Enabled = true;
+                comboFiltrSurovinaSklad.Enabled = false;
+            }
+            else
+            {
+                txtFiltrSurovinaNazev.Enabled = false;
+                comboFiltrSurovinaCount.Enabled = false;
+                txtFiltrSurovinaCount.Enabled = false;
+                comboFiltrSurovinaSklad.Enabled = true;
+            }
+        }
+        #endregion
 
         private void LoadSuroviny()
         {
@@ -546,20 +704,91 @@ namespace App
             try
             {
                 int min = Convert.ToInt32(minimum);
-            }catch(Exception f)
+            }
+            catch (Exception f)
             {
                 MessageBox.Show("Musíte zadat èíslo");
                 return;
             }
             int min2 = Convert.ToInt32(minimum);
             _database.KontrolaMinima(min2);
-           
 
         }
 
         #endregion
 
         #region Zakazník
+
+        #region Zákazník filtr
+        private void LoadZakaznikFiltr()
+        {
+            comboFiltrZakaznik.Items.Clear();
+            comboFiltrZakaznik.Items.Add("Jméno");
+            comboFiltrZakaznik.Items.Add("Telefon");
+            comboFiltrZakaznik.Items.Add("E-mail");
+
+            comboFiltrZakaznik.SelectedIndex = 0;
+        }
+
+        private void btnFiltrZakaznik_Click(object sender, EventArgs e)
+        {
+            string selectedColumn = comboFiltrZakaznik.SelectedItem.ToString();
+            string filterValue = txtFiltrValueZakaznik.Text.ToLower();
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvZakaznici.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = -1;
+
+                switch (selectedColumn)
+                {
+                    case "Jméno":
+                        columnIndex = 0;
+                        break;
+                    case "Telefon":
+                        columnIndex = 1;
+                        break;
+                    case "E-mail":
+                        columnIndex = 2;
+                        break;
+                }
+
+                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvZakaznici.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvZakaznici.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvZakaznici.Items.Add(item);
+            }
+
+            if (lvZakaznici.Items.Count > 0 && filteredItems.Count > 0)
+            {
+                lvZakaznici.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void btnCancelFiltrZakaznik_Click(object sender, EventArgs e)
+        {
+            LoadZakaznici();
+        }
+        #endregion
         private void LoadZakaznici()
         {
             lvZakaznici.Columns.Clear();
@@ -693,6 +922,81 @@ namespace App
         #endregion
 
         #region Zamìstnanec
+
+        #region Zamestnanec filtr
+        private void LoadZamestnanecFiltr()
+        {
+            comboFiltrZamestnanec.Items.Clear();
+            comboFiltrZamestnanec.Items.Add("Jméno");
+            comboFiltrZamestnanec.Items.Add("Pøijmení");
+            comboFiltrZamestnanec.Items.Add("Telefon");
+            comboFiltrZamestnanec.Items.Add("E-mail");
+
+            comboFiltrZamestnanec.SelectedIndex = 0;
+        }
+        private void btnFiltrZamestnanec_Click(object sender, EventArgs e)
+        {
+            string selectedColumn = comboFiltrZamestnanec.SelectedItem.ToString();
+            string filterValue = textFiltrValueZamestnanec.Text.ToLower();
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvZamestnanci.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = -1;
+
+                switch (selectedColumn)
+                {
+                    case "Jméno":
+                        columnIndex = 0;
+                        break;
+                    case "Pøijmení":
+                        columnIndex = 1;
+                        break;
+                    case "E-mail":
+                        columnIndex = 2;
+                        break;
+                    case "Telefon":
+                        columnIndex = 3;
+                        break;
+                }
+
+                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvZamestnanci.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvZamestnanci.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvZamestnanci.Items.Add(item);
+            }
+
+            if (lvZamestnanci.Items.Count > 0 && filteredItems.Count > 0)
+            {
+                lvZamestnanci.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void btnCancelFiltrZamestnanec_Click(object sender, EventArgs e)
+        {
+            LoadZamestnanec();
+        }
+        #endregion
+
         private void LoadZamestnanec()
         {
             lvZamestnanci.Columns.Clear();
@@ -701,7 +1005,7 @@ namespace App
             lvZamestnanci.Columns.Add("Jméno", 100);
             lvZamestnanci.Columns.Add("Pøijmení", 100);
             lvZamestnanci.Columns.Add("E-mail", 150);
-            lvZamestnanci.Columns.Add("Telefonl", 130);
+            lvZamestnanci.Columns.Add("Telefon", 130);
             lvZamestnanci.Columns.Add("Provozovna", 150);
             lvZamestnanci.Columns.Add("Pozice", 150);
             lvZamestnanci.Columns.Add("Nadøízený", 150);
@@ -818,7 +1122,7 @@ namespace App
             }
 
             var selectedItem = lvZamestnanci.SelectedItems[0];
-            var tag = (Tuple<int, string, string>)selectedItem.Tag;
+            var tag = (Tuple<int?, double, string>)selectedItem.Tag;
             this._zamestnanecRepo.DeleteZamestnanec(Convert.ToInt32(tag.Item1));
             LoadZamestnanec();
         }
@@ -827,7 +1131,7 @@ namespace App
         {
             var selectedItem = lvZamestnanci.SelectedItems[0];
             var tag = (Tuple<int, string, string>)selectedItem.Tag;
-            
+
             var parameters = new Dictionary<string, object>
             {
                 { "p_id_zamestnance", tag.Item1 }
@@ -1611,13 +1915,87 @@ namespace App
         #endregion
 
         #region Adresy
+        #region Adresa filtr
+        private void LoadAdresaFiltr()
+        {
+            comboFiltrAdresa.Items.Clear();
+            comboFiltrAdresa.Items.Add("Mìsto");
+            comboFiltrAdresa.Items.Add("Ulice");
+            comboFiltrAdresa.Items.Add("PSÈ");
+            comboFiltrAdresa.Items.Add("Èíslo popisné");
+
+            comboFiltrAdresa.SelectedIndex = 0;
+        }
+
+        private void btnFiltrAdresa_Click(object sender, EventArgs e)
+        {
+            string selectedColumn = comboFiltrAdresa.SelectedItem.ToString();
+            string filterValue = txtFiltrAdresa.Text.ToLower();
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvAdresy.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = -1;
+
+                switch (selectedColumn)
+                {
+                    case "Mìsto":
+                        columnIndex = 0;
+                        break;
+                    case "Ulice":
+                        columnIndex = 1;
+                        break;
+                    case "PSÈ":
+                        columnIndex = 2;
+                        break;
+                    case "Èíslo popisné":
+                        columnIndex = 3;
+                        break;
+                }
+
+                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvAdresy.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvAdresy.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvAdresy.Items.Add(item);
+            }
+
+            if (lvAdresy.Items.Count > 0 && filteredItems.Count > 0)
+            {
+                lvAdresy.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void btnCancelFiltrAdresa_Click(object sender, EventArgs e)
+        {
+            LoadAdresy();
+        }
+        #endregion
         private void LoadAdresy()
         {
             lvAdresy.Columns.Clear();
             lvAdresy.View = View.Details;
             lvAdresy.FullRowSelect = true;
-            lvAdresy.Columns.Add("Ulice", 220);
             lvAdresy.Columns.Add("Mìsto", 100);
+            lvAdresy.Columns.Add("Ulice", 220);
             lvAdresy.Columns.Add("PSÈ", 150);
             lvAdresy.Columns.Add("Èíslo popisné", 100);
             lvAdresy.Columns.Add("Stát", 200);
@@ -1834,13 +2212,14 @@ namespace App
                 {
                     _typAkceRepo.GetTypAkceByAkce((int)akce.IdTypAkce).Nazev,
                     akce.PocetOsob.ToString(),
-                    akce.Datum.ToString()
+                    akce.Datum.ToString("yy.MM.dd")
                 });
 
                 item.Tag = Tuple.Create(akce.Id, akce.IdObjednavka);
                 lvAkce.Items.Add(item);
             }
         }
+
 
         private void btnAkceShowObjednavka_Click(object sender, EventArgs e)
         {
@@ -2093,9 +2472,6 @@ namespace App
         
         #endregion
 
-
-
-        
     }
 }
 
