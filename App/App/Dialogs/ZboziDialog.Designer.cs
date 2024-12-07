@@ -147,7 +147,7 @@ namespace App.Dialogs
             lblSpecificValue.Name = "lblSpecificValue";
             lblSpecificValue.Size = new Size(132, 23);
             lblSpecificValue.TabIndex = 5;
-            lblSpecificValue.Text = "Stupòovitost/odrùda:";
+            lblSpecificValue.Text = "Stupňovitost/odrůda:";
             // 
             // txtSpecificValue
             // 
