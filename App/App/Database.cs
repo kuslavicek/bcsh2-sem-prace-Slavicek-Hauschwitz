@@ -128,6 +128,17 @@ namespace App
                         }
                     }
                 }
+                catch (OracleException ex)
+                {
+                    if (ex.Number == 20227)
+                    {
+                        MessageBox.Show("Chyba: Nemůže být vytvořeno více akcí na jeden den.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occurred while executing procedure: " + ex.Message);
+                    }
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show("An error occurred while executing procedure: " + ex.Message);

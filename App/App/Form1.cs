@@ -352,6 +352,7 @@ namespace App
                     this.LoadObjednavky();
                     this.LoadAkce();
                     this.LoadObjZbozi();
+                    this.LoadFaktury();
                 }
             }
             catch (Exception ex)
