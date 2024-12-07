@@ -25,6 +25,7 @@ namespace App.Dialogs
         public void LoadData()
         {
             var sklady = skladRepo.GetSklady();
+            var sklady2 = skladRepo.GetSklady();
             var suroviny = surovinaRepo.Load();
 
             cbSkladZdroj.DataSource = sklady;
@@ -32,7 +33,7 @@ namespace App.Dialogs
             cbSkladZdroj.ValueMember = "Id";
             cbSkladZdroj.SelectedIndex = 0;
 
-            cbSkladCil.DataSource = sklady;
+            cbSkladCil.DataSource = sklady2;
             cbSkladCil.DisplayMember = "Nazev";
             cbSkladCil.ValueMember = "Id";
             cbSkladCil.SelectedIndex = 0;
