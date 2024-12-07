@@ -116,7 +116,9 @@ namespace App.Dialogs
                 textBoxTelefon.Text = this.zakaznik.Telefon.ToString();
                 textBoxEmail.Text = this.zakaznik.Email;
                 txtHladina.Text = this.zakaznik.CenovaHladina.ToString();
-                this.zakaznik.Adresa = this.adresaRepo.LoadAdresaById((int)this.zakaznik.IdAdresa);
+                if (this.zakaznik.IdAdresa!=null) {
+                    this.zakaznik.Adresa = this.adresaRepo.LoadAdresaById((int)this.zakaznik.IdAdresa);
+                }
 
                 if (this.zakaznik.Adresa != null)
                 {
