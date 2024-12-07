@@ -33,7 +33,6 @@ namespace App.Dialogs
             }
 
             if (!InputValidator.IsNumber(txtCena, "Hodnota v poli cena musí být číslo")||
-                !InputValidator.IsTextOnly(txtNazev, "Název musí být tvořen znaky")||
                 !InputValidator.IsNumber(txtObsahAlkoholu, "Hodnota v poli Obsah alkoholu musí být číslo.")) {
                 return;
             }
