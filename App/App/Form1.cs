@@ -34,7 +34,7 @@ namespace App
         public Form1()
         {
             InitializeComponent();
-            /*logout(); *///todo odkomentovat
+            logout(); //todo odkomentovat
             _database = new Database();
             this.initBtns();
             _skladRepo = new SkladRepo();
@@ -1014,7 +1014,7 @@ namespace App
             var empList = _zamestnanecRepo.Load();
             lvZamestnanci.Items.Clear();
             //todo ukázat nezobrazená data adminovi
-            if (emulUser.Role == "Admin" || (loggedUser.Role == "Admin" && emulUser == null))
+            if (emulUser?.Role == "Admin" || (loggedUser?.Role == "Admin" && emulUser == null))
             {
                 foreach (var emp in empList)
                 {
