@@ -81,7 +81,7 @@ namespace App.Dialogs
                     );
 
                     _adresaRepo.UpdateAdresa(adresa);
-                    MessageBox.Show("Zakaznik byl úspěšně přidán.");
+                    MessageBox.Show("Adresa byla úspěšně přidána.");
                 }
             }
             catch (Exception ex)
