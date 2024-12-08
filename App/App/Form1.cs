@@ -2219,7 +2219,7 @@ namespace App
                 {
                     _typAkceRepo.GetTypAkceByAkce((int)akce.IdTypAkce).Nazev,
                     akce.PocetOsob.ToString(),
-                    akce.Datum.ToString("yy.MM.dd")
+                    akce.Datum.ToString("dd.MM.yy")
                 });
 
                 item.Tag = Tuple.Create(akce.Id, akce.IdObjednavka);

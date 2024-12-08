@@ -366,6 +366,7 @@ namespace App.Dialogs
             }
             else
             {
+                akce.Datum = DateTime.ParseExact(akce.Datum.ToString("dd.MM.yyyy"), "dd.MM.yyyy", null);
                 this.AkceSeznam.Add(akce);
             }
 

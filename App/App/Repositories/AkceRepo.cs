@@ -28,7 +28,7 @@ namespace App.Repositories
                 {
                     Id = Convert.ToInt32(item["ID"]),
                     PocetOsob = Convert.ToInt32(item["POCET_OSOB"]),
-                    Datum = Convert.ToDateTime(item["DATUM"]),
+                    Datum = DateTime.Parse(item["DATUM"].ToString()),
                     IdTypAkce = Convert.ToInt32(item["ID_TYP_AKCE"]),
                     IdObjednavka = Convert.ToInt32(item["ID_OBJEDNAVKA"])
                 };
@@ -57,7 +57,7 @@ namespace App.Repositories
                 {
                     Id = Convert.ToInt32(item["ID"]),
                     PocetOsob = Convert.ToInt32(item["POCET_OSOB"]),
-                    Datum = Convert.ToDateTime(item["DATUM"]),
+                    Datum = DateTime.Parse(item["DATUM"].ToString()),
                     IdTypAkce = Convert.ToInt32(item["ID_TYP_AKCE"]),
                     IdObjednavka = Convert.ToInt32(item["ID_OBJEDNAVKA"])
                 };

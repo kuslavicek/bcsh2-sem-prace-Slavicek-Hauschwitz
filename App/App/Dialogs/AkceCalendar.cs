@@ -29,11 +29,12 @@ namespace App.Dialogs
 
             foreach (var akce in akces)
             {
-                kalendar.AddBoldedDate(akce.Datum);
+                kalendar.AddBoldedDate(akce.Datum.Date);
             }
 
             kalendar.UpdateBoldedDates();
         }
+
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
