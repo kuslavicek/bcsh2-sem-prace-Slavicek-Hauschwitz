@@ -35,8 +35,11 @@ namespace App
         private User? emulUser = null;
         public Form1()
         {
+            //Naèíst komponent
             InitializeComponent();
-            logout(); //todo odkomentovat
+            //odhlásit se pro vstup do stavu pro nepøihlášené
+            logout();
+            //nastavení databáze a naètení všech dat
             _database = new Database();
             this.initBtns();
             _skladRepo = new SkladRepo();
@@ -96,6 +99,7 @@ namespace App
         }
         #region Zbozi
 
+        //naèíst zboží do LV
         private void LoadZbozi()
         {
             lvPiva.Columns.Clear();
@@ -1124,7 +1128,7 @@ namespace App
 
             var empList = _zamestnanecRepo.Load();
             lvZamestnanci.Items.Clear();
-            //todo ukázat nezobrazená data adminovi
+            //ukázat nezobrazovaná data adminovi
             if (emulUser?.Role == "Admin" || (loggedUser?.Role == "Admin" && emulUser == null))
             {
                 foreach (var emp in empList)
@@ -1814,12 +1818,12 @@ namespace App
         {
             try
             {
-                // Fetch the hierarchical data from the database
+                // Naèíst hierarchii
                 var hierarchy = _database.GetEmployeeHierarchy();
 
 
 
-                // Display in ListView
+                // Zobrazit Hierarchii
                 tbNadrizeni.Clear();
                 foreach (var line in hierarchy)
                 {
@@ -1837,6 +1841,7 @@ namespace App
 
         private void loginBtn_Click(object sender, EventArgs e)
         {
+            //pøihlášení
             if (loggedUser == null)
             {
                 LoginDialog dialog = new LoginDialog(false);
@@ -1889,7 +1894,7 @@ namespace App
 
         private void osUdajeCheck_CheckedChanged(object sender, EventArgs e)
         {
-
+            //kontrola zmìny hodnoty nezobrazovat osobní údaje
             var parameters = new Dictionary<string, object>();
             if (emulUser != null)
             {
@@ -1921,6 +1926,7 @@ namespace App
 
         private void hideTabs()
         {
+            //schování všech záložek
             tabControl1.TabPages.Remove(tabNadrizeni);
             tabControl1.TabPages.Remove(tabObjednávky);
             tabControl1.TabPages.Remove(tabPozice);
@@ -1941,6 +1947,7 @@ namespace App
 
         private void panelySekretarka()
         {
+            //zobrazení panelù, které mùže používat Sekretáøka
             panel1.Show();
             tabControl1.TabPages.Insert(2, tabObjednávky);
             tabControl1.TabPages.Insert(3, tabSuroviny);
@@ -1952,6 +1959,7 @@ namespace App
 
         private void buttonySekretarka()
         {
+            //Skrytí buttonù, které mùže používat Sekretáøka
             UpdateObjednavkaBtn.Hide();
             DeleteObjednavkaBtn.Hide();
             DeleteZakaznikBtn.Hide();
@@ -1968,6 +1976,7 @@ namespace App
 
         private void panelyAdmin()
         {
+            //Zobrazení panelù pro admina
             panelySekretarka();
             buttonyVedouci();
             tabControl1.TabPages.Insert(7, tabProvozovny);
@@ -1989,6 +1998,7 @@ namespace App
         {
             if (emulUser != null)
             {
+                //ukonèení emulace
                 registerBtn.Hide();
                 hideTabs();
                 panelyAdmin();
@@ -2005,7 +2015,7 @@ namespace App
             else
             {
 
-
+                //kontrola použití emailù
                 string email = Microsoft.VisualBasic.Interaction.InputBox("Vložte email pro registraci", "Email", "priklad@priklad.com");
 
 
@@ -2022,6 +2032,7 @@ namespace App
                         return;
 
                     case "Used in zamestnanec only":
+                        //rychlá registrace
                         RegisterDialog fastDialog = new RegisterDialog(false, email);
                         if (fastDialog.ShowDialog() == DialogResult.OK && fastDialog.user != null)
                         {
@@ -2058,6 +2069,7 @@ namespace App
                         return;
 
                     case "Not used":
+                        //kompletní registrace
                         RegisterDialog kompDialog = new RegisterDialog(true, email);
                         if (kompDialog.ShowDialog() == DialogResult.OK && kompDialog.user != null)
                         {
@@ -2102,6 +2114,7 @@ namespace App
 
         private void emul_button_Click(object sender, EventArgs e)
         {
+            //zaèátek emulace
             if (lvUsers.SelectedItems.Count == 0)
             {
                 MessageBox.Show("Zvolte uživatele");
@@ -2147,6 +2160,7 @@ namespace App
 
         private void PassChangeBtn_Click(object sender, EventArgs e)
         {
+            //zmìna hesla uživatele
             string newPass = Microsoft.VisualBasic.Interaction.InputBox("Zvolte nové heslo", "Zmìna Hesla");
 
             string newPassRepeat = Microsoft.VisualBasic.Interaction.InputBox("Opakujte nové heslo", "Zmìna Hesla");
@@ -2936,6 +2950,7 @@ namespace App
         #region SysCatalog a Logs
         private void sysCatBtn_Click(object sender, EventArgs e)
         {
+            //naètení systémového katalogu
             try
             {
                 lvSys.Columns.Clear();
@@ -2971,6 +2986,7 @@ namespace App
 
         private void logLoadBtn_Click(object sender, EventArgs e)
         {
+            //naètení logù
             try
             {
                 lvLogs.Columns.Clear();
