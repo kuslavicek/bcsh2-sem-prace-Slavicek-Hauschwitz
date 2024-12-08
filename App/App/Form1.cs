@@ -85,6 +85,7 @@ namespace App
 
             _objednaneZboziRepo = new ObjednaneZboziRepo();
             LoadObjZbozi();
+            LoadObjZboziFiltr();
 
             _usersRepo = new UserRepo();
             LoadUsers();
@@ -2518,7 +2519,75 @@ namespace App
         #endregion
 
         #region Objednané zboží
+        #region Objednané zboží filtr
+        private void LoadObjZboziFiltr()
+        {
+            comboFiltrObjZbozi.Items.Clear();
+            comboFiltrObjZbozi.Items.Add("Název");
+            comboFiltrObjZbozi.Items.Add("Množství");
+            comboFiltrObjZbozi.Items.Add("Cena");
 
+            comboFiltrObjZbozi.SelectedIndex = 0;
+        }
+        private void btnFiltrObjZbozi_Click(object sender, EventArgs e)
+        {
+            string selectedColumn = comboFiltrObjZbozi.SelectedItem.ToString();
+            string filterValue = txtFiltrValueObjZbozi.Text.ToLower();
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvObjZbozi.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = -1;
+
+                switch (selectedColumn)
+                {
+                    case "Název":
+                        columnIndex = 0;
+                        break;
+                    case "Množství":
+                        columnIndex = 1;
+                        break;
+                    case "Cena":
+                        columnIndex = 2;
+                        break;
+                }
+
+                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvObjZbozi.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvObjZbozi.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvObjZbozi.Items.Add(item);
+            }
+
+            if (lvObjZbozi.Items.Count > 0 && filteredItems.Count > 0)
+            {
+                lvObjZbozi.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void btnCancelFiltrobjZbozi_Click(object sender, EventArgs e)
+        {
+            LoadObjZbozi();
+        }
+        #endregion
         private void btnObjZboziShowObj_Click(object sender, EventArgs e)
         {
             if (lvObjZbozi.SelectedItems.Count == 0)

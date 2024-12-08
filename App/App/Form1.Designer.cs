@@ -206,6 +206,11 @@
             tabSysCat = new TabPage();
             sysCatBtn = new Button();
             lvSys = new ListView();
+            label26 = new Label();
+            comboFiltrObjZbozi = new ComboBox();
+            txtFiltrValueObjZbozi = new TextBox();
+            btnFiltrObjZbozi = new Button();
+            btnCancelFiltrobjZbozi = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             panel14.SuspendLayout();
@@ -279,6 +284,11 @@
             // 
             panel14.BackColor = Color.Silver;
             panel14.BorderStyle = BorderStyle.FixedSingle;
+            panel14.Controls.Add(btnCancelFiltrobjZbozi);
+            panel14.Controls.Add(btnFiltrObjZbozi);
+            panel14.Controls.Add(txtFiltrValueObjZbozi);
+            panel14.Controls.Add(comboFiltrObjZbozi);
+            panel14.Controls.Add(label26);
             panel14.Controls.Add(btnObjZboziShowObj);
             panel14.Location = new Point(902, 55);
             panel14.Name = "panel14";
@@ -2076,6 +2086,51 @@
             lvSys.TabIndex = 0;
             lvSys.UseCompatibleStateImageBehavior = false;
             // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Font = new Font("Segoe UI", 16F);
+            label26.Location = new Point(137, 151);
+            label26.Name = "label26";
+            label26.Size = new Size(49, 30);
+            label26.TabIndex = 1;
+            label26.Text = "Filtr";
+            // 
+            // comboFiltrObjZbozi
+            // 
+            comboFiltrObjZbozi.FormattingEnabled = true;
+            comboFiltrObjZbozi.Location = new Point(107, 184);
+            comboFiltrObjZbozi.Name = "comboFiltrObjZbozi";
+            comboFiltrObjZbozi.Size = new Size(121, 23);
+            comboFiltrObjZbozi.TabIndex = 2;
+            // 
+            // txtFiltrValueObjZbozi
+            // 
+            txtFiltrValueObjZbozi.Location = new Point(107, 213);
+            txtFiltrValueObjZbozi.Name = "txtFiltrValueObjZbozi";
+            txtFiltrValueObjZbozi.Size = new Size(121, 23);
+            txtFiltrValueObjZbozi.TabIndex = 3;
+            // 
+            // btnFiltrObjZbozi
+            // 
+            btnFiltrObjZbozi.Location = new Point(107, 242);
+            btnFiltrObjZbozi.Name = "btnFiltrObjZbozi";
+            btnFiltrObjZbozi.Size = new Size(121, 23);
+            btnFiltrObjZbozi.TabIndex = 4;
+            btnFiltrObjZbozi.Text = "Filtrovat";
+            btnFiltrObjZbozi.UseVisualStyleBackColor = true;
+            btnFiltrObjZbozi.Click += btnFiltrObjZbozi_Click;
+            // 
+            // btnCancelFiltrobjZbozi
+            // 
+            btnCancelFiltrobjZbozi.Location = new Point(107, 271);
+            btnCancelFiltrobjZbozi.Name = "btnCancelFiltrobjZbozi";
+            btnCancelFiltrobjZbozi.Size = new Size(121, 23);
+            btnCancelFiltrobjZbozi.TabIndex = 5;
+            btnCancelFiltrobjZbozi.Text = "Zrušit filtr";
+            btnCancelFiltrobjZbozi.UseVisualStyleBackColor = true;
+            btnCancelFiltrobjZbozi.Click += btnCancelFiltrobjZbozi_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -2088,6 +2143,7 @@
             tabObjZbozi.ResumeLayout(false);
             tabObjZbozi.PerformLayout();
             panel14.ResumeLayout(false);
+            panel14.PerformLayout();
             tabAkce.ResumeLayout(false);
             tabAkce.PerformLayout();
             panel13.ResumeLayout(false);
@@ -2392,5 +2448,10 @@
         private TextBox txtFiltrValueUser;
         private ComboBox comboFiltrUser;
         private Label label25;
+        private Label label26;
+        private Button btnCancelFiltrobjZbozi;
+        private Button btnFiltrObjZbozi;
+        private TextBox txtFiltrValueObjZbozi;
+        private ComboBox comboFiltrObjZbozi;
     }
 }
