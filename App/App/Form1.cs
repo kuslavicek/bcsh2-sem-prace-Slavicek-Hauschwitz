@@ -36,7 +36,7 @@ namespace App
         public Form1()
         {
             InitializeComponent();
-            /*logout();*/ //todo odkomentovat
+            logout(); //todo odkomentovat
             _database = new Database();
             this.initBtns();
             _skladRepo = new SkladRepo();
@@ -2463,8 +2463,6 @@ namespace App
             comboFiltrAkceType.DataSource = new BindingSource(provozovnyDict, null);
             comboFiltrAkceType.DisplayMember = "Value";
             comboFiltrAkceType.ValueMember = "Key";
-
-            comboFiltrAkceType.SelectedIndex = 0;
         }
 
         private void btnFiltrAkce_Click(object sender, EventArgs e)
@@ -2752,7 +2750,6 @@ namespace App
             comboFiltrUser.SelectedIndex = 0;
 
             comboFiltrRoleUser.DataSource = Enum.GetValues(typeof(RoleEnum));
-            comboFiltrRoleUser.SelectedIndex = 0;
 
             comboFiltrOsUser.Items.Add("Ano");
             comboFiltrOsUser.Items.Add("Ne");

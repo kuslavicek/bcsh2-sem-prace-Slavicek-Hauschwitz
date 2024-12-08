@@ -55,6 +55,11 @@
             tabFaktura = new TabPage();
             label8 = new Label();
             panel12 = new Panel();
+            btnFiltrCancelFaktura = new Button();
+            btnFiltrFaktura = new Button();
+            label29 = new Label();
+            txtFiltrFakturaValue = new TextBox();
+            label28 = new Label();
             btnSaveFaktura = new Button();
             lvFaktury = new ListView();
             tabAdresa = new TabPage();
@@ -217,11 +222,6 @@
             tabSysCat = new TabPage();
             sysCatBtn = new Button();
             lvSys = new ListView();
-            label28 = new Label();
-            txtFiltrFakturaValue = new TextBox();
-            label29 = new Label();
-            btnFiltrFaktura = new Button();
-            btnFiltrCancelFaktura = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             panel14.SuspendLayout();
@@ -310,7 +310,7 @@
             // 
             btnCancelFiltrobjZbozi.Location = new Point(107, 271);
             btnCancelFiltrobjZbozi.Name = "btnCancelFiltrobjZbozi";
-            btnCancelFiltrobjZbozi.Size = new Size(121, 23);
+            btnCancelFiltrobjZbozi.Size = new Size(186, 23);
             btnCancelFiltrobjZbozi.TabIndex = 5;
             btnCancelFiltrobjZbozi.Text = "Zrušit filtr";
             btnCancelFiltrobjZbozi.UseVisualStyleBackColor = true;
@@ -320,7 +320,7 @@
             // 
             btnFiltrObjZbozi.Location = new Point(107, 242);
             btnFiltrObjZbozi.Name = "btnFiltrObjZbozi";
-            btnFiltrObjZbozi.Size = new Size(121, 23);
+            btnFiltrObjZbozi.Size = new Size(186, 23);
             btnFiltrObjZbozi.TabIndex = 4;
             btnFiltrObjZbozi.Text = "Filtrovat";
             btnFiltrObjZbozi.UseVisualStyleBackColor = true;
@@ -330,7 +330,7 @@
             // 
             txtFiltrValueObjZbozi.Location = new Point(107, 213);
             txtFiltrValueObjZbozi.Name = "txtFiltrValueObjZbozi";
-            txtFiltrValueObjZbozi.Size = new Size(121, 23);
+            txtFiltrValueObjZbozi.Size = new Size(186, 23);
             txtFiltrValueObjZbozi.TabIndex = 3;
             // 
             // comboFiltrObjZbozi
@@ -338,14 +338,14 @@
             comboFiltrObjZbozi.FormattingEnabled = true;
             comboFiltrObjZbozi.Location = new Point(107, 184);
             comboFiltrObjZbozi.Name = "comboFiltrObjZbozi";
-            comboFiltrObjZbozi.Size = new Size(121, 23);
+            comboFiltrObjZbozi.Size = new Size(186, 23);
             comboFiltrObjZbozi.TabIndex = 2;
             // 
             // label26
             // 
             label26.AutoSize = true;
             label26.Font = new Font("Segoe UI", 16F);
-            label26.Location = new Point(137, 151);
+            label26.Location = new Point(167, 151);
             label26.Name = "label26";
             label26.Size = new Size(49, 30);
             label26.TabIndex = 1;
@@ -411,16 +411,16 @@
             // comboFiltrAkceType
             // 
             comboFiltrAkceType.FormattingEnabled = true;
-            comboFiltrAkceType.Location = new Point(138, 204);
+            comboFiltrAkceType.Location = new Point(107, 204);
             comboFiltrAkceType.Name = "comboFiltrAkceType";
-            comboFiltrAkceType.Size = new Size(121, 23);
+            comboFiltrAkceType.Size = new Size(186, 23);
             comboFiltrAkceType.TabIndex = 9;
             // 
             // btnCancelFiltrAkce
             // 
-            btnCancelFiltrAkce.Location = new Point(138, 291);
+            btnCancelFiltrAkce.Location = new Point(107, 291);
             btnCancelFiltrAkce.Name = "btnCancelFiltrAkce";
-            btnCancelFiltrAkce.Size = new Size(121, 23);
+            btnCancelFiltrAkce.Size = new Size(186, 23);
             btnCancelFiltrAkce.TabIndex = 8;
             btnCancelFiltrAkce.Text = "Zrušit filtr";
             btnCancelFiltrAkce.UseVisualStyleBackColor = true;
@@ -428,9 +428,9 @@
             // 
             // btnFiltrAkce
             // 
-            btnFiltrAkce.Location = new Point(138, 262);
+            btnFiltrAkce.Location = new Point(107, 262);
             btnFiltrAkce.Name = "btnFiltrAkce";
-            btnFiltrAkce.Size = new Size(121, 23);
+            btnFiltrAkce.Size = new Size(186, 23);
             btnFiltrAkce.TabIndex = 7;
             btnFiltrAkce.Text = "Filtrovat";
             btnFiltrAkce.UseVisualStyleBackColor = true;
@@ -438,17 +438,17 @@
             // 
             // txtFiltrValueAkce
             // 
-            txtFiltrValueAkce.Location = new Point(138, 233);
+            txtFiltrValueAkce.Location = new Point(107, 233);
             txtFiltrValueAkce.Name = "txtFiltrValueAkce";
-            txtFiltrValueAkce.Size = new Size(121, 23);
+            txtFiltrValueAkce.Size = new Size(186, 23);
             txtFiltrValueAkce.TabIndex = 6;
             // 
             // comboFiltrAkce
             // 
             comboFiltrAkce.FormattingEnabled = true;
-            comboFiltrAkce.Location = new Point(138, 175);
+            comboFiltrAkce.Location = new Point(107, 175);
             comboFiltrAkce.Name = "comboFiltrAkce";
-            comboFiltrAkce.Size = new Size(121, 23);
+            comboFiltrAkce.Size = new Size(186, 23);
             comboFiltrAkce.TabIndex = 5;
             comboFiltrAkce.SelectedIndexChanged += comboFiltrAkce_SelectedIndexChanged;
             // 
@@ -527,6 +527,53 @@
             panel12.Size = new Size(380, 607);
             panel12.TabIndex = 1;
             // 
+            // btnFiltrCancelFaktura
+            // 
+            btnFiltrCancelFaktura.Location = new Point(109, 169);
+            btnFiltrCancelFaktura.Name = "btnFiltrCancelFaktura";
+            btnFiltrCancelFaktura.Size = new Size(186, 23);
+            btnFiltrCancelFaktura.TabIndex = 5;
+            btnFiltrCancelFaktura.Text = "Zrušit filtr";
+            btnFiltrCancelFaktura.UseVisualStyleBackColor = true;
+            btnFiltrCancelFaktura.Click += btnFiltrCancelFaktura_Click;
+            // 
+            // btnFiltrFaktura
+            // 
+            btnFiltrFaktura.Location = new Point(109, 140);
+            btnFiltrFaktura.Name = "btnFiltrFaktura";
+            btnFiltrFaktura.Size = new Size(186, 23);
+            btnFiltrFaktura.TabIndex = 4;
+            btnFiltrFaktura.Text = "Filtrovat";
+            btnFiltrFaktura.UseVisualStyleBackColor = true;
+            btnFiltrFaktura.Click += btnFiltrFaktura_Click;
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Location = new Point(59, 114);
+            label29.Name = "label29";
+            label29.Size = new Size(42, 15);
+            label29.TabIndex = 3;
+            label29.Text = "Název:";
+            label29.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // txtFiltrFakturaValue
+            // 
+            txtFiltrFakturaValue.Location = new Point(109, 111);
+            txtFiltrFakturaValue.Name = "txtFiltrFakturaValue";
+            txtFiltrFakturaValue.Size = new Size(186, 23);
+            txtFiltrFakturaValue.TabIndex = 2;
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Font = new Font("Segoe UI", 16F);
+            label28.Location = new Point(161, 78);
+            label28.Name = "label28";
+            label28.Size = new Size(49, 30);
+            label28.TabIndex = 1;
+            label28.Text = "Filtr";
+            // 
             // btnSaveFaktura
             // 
             btnSaveFaktura.Location = new Point(5, 5);
@@ -577,9 +624,9 @@
             // 
             // btnCancelFiltrAdresa
             // 
-            btnCancelFiltrAdresa.Location = new Point(118, 374);
+            btnCancelFiltrAdresa.Location = new Point(103, 374);
             btnCancelFiltrAdresa.Name = "btnCancelFiltrAdresa";
-            btnCancelFiltrAdresa.Size = new Size(149, 23);
+            btnCancelFiltrAdresa.Size = new Size(186, 23);
             btnCancelFiltrAdresa.TabIndex = 8;
             btnCancelFiltrAdresa.Text = "Zrušit filtr";
             btnCancelFiltrAdresa.UseVisualStyleBackColor = true;
@@ -587,9 +634,9 @@
             // 
             // btnFiltrAdresa
             // 
-            btnFiltrAdresa.Location = new Point(118, 345);
+            btnFiltrAdresa.Location = new Point(103, 345);
             btnFiltrAdresa.Name = "btnFiltrAdresa";
-            btnFiltrAdresa.Size = new Size(149, 23);
+            btnFiltrAdresa.Size = new Size(186, 23);
             btnFiltrAdresa.TabIndex = 7;
             btnFiltrAdresa.Text = "Filtrovat";
             btnFiltrAdresa.UseVisualStyleBackColor = true;
@@ -597,17 +644,17 @@
             // 
             // txtFiltrAdresa
             // 
-            txtFiltrAdresa.Location = new Point(118, 316);
+            txtFiltrAdresa.Location = new Point(103, 316);
             txtFiltrAdresa.Name = "txtFiltrAdresa";
-            txtFiltrAdresa.Size = new Size(149, 23);
+            txtFiltrAdresa.Size = new Size(186, 23);
             txtFiltrAdresa.TabIndex = 6;
             // 
             // comboFiltrAdresa
             // 
             comboFiltrAdresa.FormattingEnabled = true;
-            comboFiltrAdresa.Location = new Point(118, 287);
+            comboFiltrAdresa.Location = new Point(103, 287);
             comboFiltrAdresa.Name = "comboFiltrAdresa";
-            comboFiltrAdresa.Size = new Size(149, 23);
+            comboFiltrAdresa.Size = new Size(186, 23);
             comboFiltrAdresa.TabIndex = 5;
             // 
             // label21
@@ -711,9 +758,9 @@
             // 
             // btnCancelFiltrSklad
             // 
-            btnCancelFiltrSklad.Location = new Point(130, 382);
+            btnCancelFiltrSklad.Location = new Point(102, 383);
             btnCancelFiltrSklad.Name = "btnCancelFiltrSklad";
-            btnCancelFiltrSklad.Size = new Size(121, 23);
+            btnCancelFiltrSklad.Size = new Size(186, 23);
             btnCancelFiltrSklad.TabIndex = 8;
             btnCancelFiltrSklad.Text = "Zrušit filtr";
             btnCancelFiltrSklad.UseVisualStyleBackColor = true;
@@ -721,9 +768,9 @@
             // 
             // btnFiltrSklad
             // 
-            btnFiltrSklad.Location = new Point(130, 353);
+            btnFiltrSklad.Location = new Point(102, 354);
             btnFiltrSklad.Name = "btnFiltrSklad";
-            btnFiltrSklad.Size = new Size(121, 23);
+            btnFiltrSklad.Size = new Size(186, 23);
             btnFiltrSklad.TabIndex = 7;
             btnFiltrSklad.Text = "Filtrovat";
             btnFiltrSklad.UseVisualStyleBackColor = true;
@@ -731,17 +778,17 @@
             // 
             // txtFiltrValueSklad
             // 
-            txtFiltrValueSklad.Location = new Point(130, 324);
+            txtFiltrValueSklad.Location = new Point(102, 325);
             txtFiltrValueSklad.Name = "txtFiltrValueSklad";
-            txtFiltrValueSklad.Size = new Size(121, 23);
+            txtFiltrValueSklad.Size = new Size(186, 23);
             txtFiltrValueSklad.TabIndex = 6;
             // 
             // comboFiltrSklad
             // 
             comboFiltrSklad.FormattingEnabled = true;
-            comboFiltrSklad.Location = new Point(130, 295);
+            comboFiltrSklad.Location = new Point(102, 296);
             comboFiltrSklad.Name = "comboFiltrSklad";
-            comboFiltrSklad.Size = new Size(121, 23);
+            comboFiltrSklad.Size = new Size(186, 23);
             comboFiltrSklad.TabIndex = 5;
             // 
             // label24
@@ -992,7 +1039,7 @@
             // 
             btnCancelFiltrProvozovna.Location = new Point(98, 313);
             btnCancelFiltrProvozovna.Name = "btnCancelFiltrProvozovna";
-            btnCancelFiltrProvozovna.Size = new Size(121, 23);
+            btnCancelFiltrProvozovna.Size = new Size(186, 23);
             btnCancelFiltrProvozovna.TabIndex = 7;
             btnCancelFiltrProvozovna.Text = "Zrušit filtr";
             btnCancelFiltrProvozovna.UseVisualStyleBackColor = true;
@@ -1002,7 +1049,7 @@
             // 
             btnFiltrProvozovna.Location = new Point(98, 284);
             btnFiltrProvozovna.Name = "btnFiltrProvozovna";
-            btnFiltrProvozovna.Size = new Size(121, 23);
+            btnFiltrProvozovna.Size = new Size(186, 23);
             btnFiltrProvozovna.TabIndex = 6;
             btnFiltrProvozovna.Text = "Filtrovat";
             btnFiltrProvozovna.UseVisualStyleBackColor = true;
@@ -1012,14 +1059,14 @@
             // 
             txtFiltrValueProvozovna.Location = new Point(98, 255);
             txtFiltrValueProvozovna.Name = "txtFiltrValueProvozovna";
-            txtFiltrValueProvozovna.Size = new Size(121, 23);
+            txtFiltrValueProvozovna.Size = new Size(186, 23);
             txtFiltrValueProvozovna.TabIndex = 5;
             // 
             // label23
             // 
             label23.AutoSize = true;
             label23.Font = new Font("Segoe UI", 16F);
-            label23.Location = new Point(132, 193);
+            label23.Location = new Point(168, 193);
             label23.Name = "label23";
             label23.Size = new Size(49, 30);
             label23.TabIndex = 4;
@@ -1030,7 +1077,7 @@
             comboFiltrProvozovna.FormattingEnabled = true;
             comboFiltrProvozovna.Location = new Point(98, 226);
             comboFiltrProvozovna.Name = "comboFiltrProvozovna";
-            comboFiltrProvozovna.Size = new Size(121, 23);
+            comboFiltrProvozovna.Size = new Size(186, 23);
             comboFiltrProvozovna.TabIndex = 3;
             // 
             // btnDeleteProvozovna
@@ -1145,9 +1192,9 @@
             // 
             // btnCancelFiltrZamestnanec
             // 
-            btnCancelFiltrZamestnanec.Location = new Point(122, 335);
+            btnCancelFiltrZamestnanec.Location = new Point(97, 337);
             btnCancelFiltrZamestnanec.Name = "btnCancelFiltrZamestnanec";
-            btnCancelFiltrZamestnanec.Size = new Size(121, 23);
+            btnCancelFiltrZamestnanec.Size = new Size(186, 23);
             btnCancelFiltrZamestnanec.TabIndex = 8;
             btnCancelFiltrZamestnanec.Text = "Zrušit filtr";
             btnCancelFiltrZamestnanec.UseVisualStyleBackColor = true;
@@ -1155,9 +1202,9 @@
             // 
             // btnFiltrZamestnanec
             // 
-            btnFiltrZamestnanec.Location = new Point(122, 306);
+            btnFiltrZamestnanec.Location = new Point(97, 308);
             btnFiltrZamestnanec.Name = "btnFiltrZamestnanec";
-            btnFiltrZamestnanec.Size = new Size(121, 23);
+            btnFiltrZamestnanec.Size = new Size(186, 23);
             btnFiltrZamestnanec.TabIndex = 7;
             btnFiltrZamestnanec.Text = "Filtrovat";
             btnFiltrZamestnanec.UseVisualStyleBackColor = true;
@@ -1165,17 +1212,17 @@
             // 
             // textFiltrValueZamestnanec
             // 
-            textFiltrValueZamestnanec.Location = new Point(122, 277);
+            textFiltrValueZamestnanec.Location = new Point(97, 279);
             textFiltrValueZamestnanec.Name = "textFiltrValueZamestnanec";
-            textFiltrValueZamestnanec.Size = new Size(121, 23);
+            textFiltrValueZamestnanec.Size = new Size(186, 23);
             textFiltrValueZamestnanec.TabIndex = 6;
             // 
             // comboFiltrZamestnanec
             // 
             comboFiltrZamestnanec.FormattingEnabled = true;
-            comboFiltrZamestnanec.Location = new Point(122, 248);
+            comboFiltrZamestnanec.Location = new Point(97, 250);
             comboFiltrZamestnanec.Name = "comboFiltrZamestnanec";
-            comboFiltrZamestnanec.Size = new Size(121, 23);
+            comboFiltrZamestnanec.Size = new Size(186, 23);
             comboFiltrZamestnanec.TabIndex = 5;
             // 
             // label20
@@ -1279,9 +1326,9 @@
             // 
             // btnCancelFiltrZakaznik
             // 
-            btnCancelFiltrZakaznik.Location = new Point(127, 374);
+            btnCancelFiltrZakaznik.Location = new Point(94, 376);
             btnCancelFiltrZakaznik.Name = "btnCancelFiltrZakaznik";
-            btnCancelFiltrZakaznik.Size = new Size(75, 23);
+            btnCancelFiltrZakaznik.Size = new Size(186, 23);
             btnCancelFiltrZakaznik.TabIndex = 10;
             btnCancelFiltrZakaznik.Text = "Zrušit filtr";
             btnCancelFiltrZakaznik.UseVisualStyleBackColor = true;
@@ -1289,9 +1336,9 @@
             // 
             // btnFiltrZakaznik
             // 
-            btnFiltrZakaznik.Location = new Point(127, 345);
+            btnFiltrZakaznik.Location = new Point(94, 347);
             btnFiltrZakaznik.Name = "btnFiltrZakaznik";
-            btnFiltrZakaznik.Size = new Size(75, 23);
+            btnFiltrZakaznik.Size = new Size(186, 23);
             btnFiltrZakaznik.TabIndex = 9;
             btnFiltrZakaznik.Text = "Filtrovat";
             btnFiltrZakaznik.UseVisualStyleBackColor = true;
@@ -1300,14 +1347,14 @@
             // comboFiltrZakaznik
             // 
             comboFiltrZakaznik.FormattingEnabled = true;
-            comboFiltrZakaznik.Location = new Point(78, 287);
+            comboFiltrZakaznik.Location = new Point(94, 289);
             comboFiltrZakaznik.Name = "comboFiltrZakaznik";
             comboFiltrZakaznik.Size = new Size(186, 23);
             comboFiltrZakaznik.TabIndex = 8;
             // 
             // txtFiltrValueZakaznik
             // 
-            txtFiltrValueZakaznik.Location = new Point(78, 316);
+            txtFiltrValueZakaznik.Location = new Point(94, 318);
             txtFiltrValueZakaznik.Name = "txtFiltrValueZakaznik";
             txtFiltrValueZakaznik.Size = new Size(186, 23);
             txtFiltrValueZakaznik.TabIndex = 7;
@@ -1316,7 +1363,7 @@
             // 
             label19.AutoSize = true;
             label19.Font = new Font("Segoe UI", 16F);
-            label19.Location = new Point(140, 254);
+            label19.Location = new Point(162, 256);
             label19.Name = "label19";
             label19.Size = new Size(49, 30);
             label19.TabIndex = 6;
@@ -1616,9 +1663,9 @@
             // 
             // btnCancelFiltrObjednavka
             // 
-            btnCancelFiltrObjednavka.Location = new Point(129, 404);
+            btnCancelFiltrObjednavka.Location = new Point(103, 406);
             btnCancelFiltrObjednavka.Name = "btnCancelFiltrObjednavka";
-            btnCancelFiltrObjednavka.Size = new Size(121, 23);
+            btnCancelFiltrObjednavka.Size = new Size(186, 23);
             btnCancelFiltrObjednavka.TabIndex = 13;
             btnCancelFiltrObjednavka.Text = "Zrušit filtr";
             btnCancelFiltrObjednavka.UseVisualStyleBackColor = true;
@@ -1626,9 +1673,9 @@
             // 
             // btnFiltrObjednavka
             // 
-            btnFiltrObjednavka.Location = new Point(129, 375);
+            btnFiltrObjednavka.Location = new Point(103, 377);
             btnFiltrObjednavka.Name = "btnFiltrObjednavka";
-            btnFiltrObjednavka.Size = new Size(121, 23);
+            btnFiltrObjednavka.Size = new Size(186, 23);
             btnFiltrObjednavka.TabIndex = 12;
             btnFiltrObjednavka.Text = "Filtrovat";
             btnFiltrObjednavka.UseVisualStyleBackColor = true;
@@ -1637,33 +1684,34 @@
             // comboFiltrStatusObjednavka
             // 
             comboFiltrStatusObjednavka.FormattingEnabled = true;
-            comboFiltrStatusObjednavka.Location = new Point(129, 346);
+            comboFiltrStatusObjednavka.Location = new Point(103, 348);
             comboFiltrStatusObjednavka.Name = "comboFiltrStatusObjednavka";
-            comboFiltrStatusObjednavka.Size = new Size(121, 23);
+            comboFiltrStatusObjednavka.Size = new Size(186, 23);
             comboFiltrStatusObjednavka.TabIndex = 11;
             // 
             // txtFiltrObjednavkaValue
             // 
-            txtFiltrObjednavkaValue.Location = new Point(129, 317);
+            txtFiltrObjednavkaValue.Location = new Point(103, 319);
             txtFiltrObjednavkaValue.Name = "txtFiltrObjednavkaValue";
-            txtFiltrObjednavkaValue.Size = new Size(121, 23);
+            txtFiltrObjednavkaValue.Size = new Size(186, 23);
             txtFiltrObjednavkaValue.TabIndex = 10;
             // 
             // comboFiltrObjednavka
             // 
             comboFiltrObjednavka.FormattingEnabled = true;
-            comboFiltrObjednavka.Location = new Point(129, 288);
+            comboFiltrObjednavka.Location = new Point(103, 290);
             comboFiltrObjednavka.Name = "comboFiltrObjednavka";
-            comboFiltrObjednavka.Size = new Size(121, 23);
+            comboFiltrObjednavka.Size = new Size(186, 23);
             comboFiltrObjednavka.TabIndex = 9;
             comboFiltrObjednavka.SelectedIndexChanged += comboFiltrObjednavka_SelectedIndexChanged;
             // 
             // label22
             // 
             label22.AutoSize = true;
-            label22.Location = new Point(163, 270);
+            label22.Font = new Font("Segoe UI", 16F);
+            label22.Location = new Point(165, 255);
             label22.Name = "label22";
-            label22.Size = new Size(27, 15);
+            label22.Size = new Size(49, 30);
             label22.TabIndex = 8;
             label22.Text = "Filtr";
             // 
@@ -2040,9 +2088,9 @@
             // 
             // btnCancelFiltrUser
             // 
-            btnCancelFiltrUser.Location = new Point(128, 428);
+            btnCancelFiltrUser.Location = new Point(107, 428);
             btnCancelFiltrUser.Name = "btnCancelFiltrUser";
-            btnCancelFiltrUser.Size = new Size(121, 23);
+            btnCancelFiltrUser.Size = new Size(186, 23);
             btnCancelFiltrUser.TabIndex = 10;
             btnCancelFiltrUser.Text = "Zrušit filtr";
             btnCancelFiltrUser.UseVisualStyleBackColor = true;
@@ -2050,9 +2098,9 @@
             // 
             // btnFilterUser
             // 
-            btnFilterUser.Location = new Point(128, 399);
+            btnFilterUser.Location = new Point(107, 399);
             btnFilterUser.Name = "btnFilterUser";
-            btnFilterUser.Size = new Size(121, 23);
+            btnFilterUser.Size = new Size(186, 23);
             btnFilterUser.TabIndex = 9;
             btnFilterUser.Text = "Filtrovat";
             btnFilterUser.UseVisualStyleBackColor = true;
@@ -2061,32 +2109,32 @@
             // comboFiltrOsUser
             // 
             comboFiltrOsUser.FormattingEnabled = true;
-            comboFiltrOsUser.Location = new Point(128, 370);
+            comboFiltrOsUser.Location = new Point(107, 370);
             comboFiltrOsUser.Name = "comboFiltrOsUser";
-            comboFiltrOsUser.Size = new Size(121, 23);
+            comboFiltrOsUser.Size = new Size(186, 23);
             comboFiltrOsUser.TabIndex = 8;
             // 
             // comboFiltrRoleUser
             // 
             comboFiltrRoleUser.FormattingEnabled = true;
-            comboFiltrRoleUser.Location = new Point(128, 341);
+            comboFiltrRoleUser.Location = new Point(107, 341);
             comboFiltrRoleUser.Name = "comboFiltrRoleUser";
-            comboFiltrRoleUser.Size = new Size(121, 23);
+            comboFiltrRoleUser.Size = new Size(186, 23);
             comboFiltrRoleUser.TabIndex = 7;
             // 
             // txtFiltrValueUser
             // 
-            txtFiltrValueUser.Location = new Point(128, 312);
+            txtFiltrValueUser.Location = new Point(107, 312);
             txtFiltrValueUser.Name = "txtFiltrValueUser";
-            txtFiltrValueUser.Size = new Size(121, 23);
+            txtFiltrValueUser.Size = new Size(186, 23);
             txtFiltrValueUser.TabIndex = 6;
             // 
             // comboFiltrUser
             // 
             comboFiltrUser.FormattingEnabled = true;
-            comboFiltrUser.Location = new Point(128, 283);
+            comboFiltrUser.Location = new Point(107, 283);
             comboFiltrUser.Name = "comboFiltrUser";
-            comboFiltrUser.Size = new Size(121, 23);
+            comboFiltrUser.Size = new Size(186, 23);
             comboFiltrUser.TabIndex = 5;
             comboFiltrUser.SelectedIndexChanged += comboFiltrUser_SelectedIndexChanged;
             // 
@@ -2206,53 +2254,6 @@
             lvSys.Size = new Size(1238, 605);
             lvSys.TabIndex = 0;
             lvSys.UseCompatibleStateImageBehavior = false;
-            // 
-            // label28
-            // 
-            label28.AutoSize = true;
-            label28.Font = new Font("Segoe UI", 16F);
-            label28.Location = new Point(161, 78);
-            label28.Name = "label28";
-            label28.Size = new Size(49, 30);
-            label28.TabIndex = 1;
-            label28.Text = "Filtr";
-            // 
-            // txtFiltrFakturaValue
-            // 
-            txtFiltrFakturaValue.Location = new Point(139, 111);
-            txtFiltrFakturaValue.Name = "txtFiltrFakturaValue";
-            txtFiltrFakturaValue.Size = new Size(100, 23);
-            txtFiltrFakturaValue.TabIndex = 2;
-            // 
-            // label29
-            // 
-            label29.AutoSize = true;
-            label29.Location = new Point(89, 114);
-            label29.Name = "label29";
-            label29.Size = new Size(42, 15);
-            label29.TabIndex = 3;
-            label29.Text = "Název:";
-            label29.TextAlign = ContentAlignment.TopCenter;
-            // 
-            // btnFiltrFaktura
-            // 
-            btnFiltrFaktura.Location = new Point(139, 140);
-            btnFiltrFaktura.Name = "btnFiltrFaktura";
-            btnFiltrFaktura.Size = new Size(100, 23);
-            btnFiltrFaktura.TabIndex = 4;
-            btnFiltrFaktura.Text = "Filtrovat";
-            btnFiltrFaktura.UseVisualStyleBackColor = true;
-            btnFiltrFaktura.Click += btnFiltrFaktura_Click;
-            // 
-            // btnFiltrCancelFaktura
-            // 
-            btnFiltrCancelFaktura.Location = new Point(139, 169);
-            btnFiltrCancelFaktura.Name = "btnFiltrCancelFaktura";
-            btnFiltrCancelFaktura.Size = new Size(100, 23);
-            btnFiltrCancelFaktura.TabIndex = 5;
-            btnFiltrCancelFaktura.Text = "Zrušit filtr";
-            btnFiltrCancelFaktura.UseVisualStyleBackColor = true;
-            btnFiltrCancelFaktura.Click += btnFiltrCancelFaktura_Click;
             // 
             // Form1
             // 

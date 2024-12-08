@@ -48,7 +48,7 @@ namespace App.Repositories
         {
             var parameters = new Dictionary<string, object>();
 
-            if (user.Id != null)
+            if (user.Id != 0)
             {
                 parameters.Add("p_id", user.Id);
             }
@@ -57,10 +57,10 @@ namespace App.Repositories
             parameters.Add("p_heslo", user.Heslo);
             parameters.Add("p_role", user.Role);
             parameters.Add("p_nezobrazovat_os", user.boolean);
-            parameters.Add("p_id_zamestnanec", user.IdZamestnanec);
 
-            if (user.Id == null)
+            if (user.Id == 0)
             {
+                parameters.Add("p_id_zamestnanec", user.IdZamestnanec);
                 _database.ExecuteProcedure("insert_update_pkg.insert_user", parameters);
             }
             else

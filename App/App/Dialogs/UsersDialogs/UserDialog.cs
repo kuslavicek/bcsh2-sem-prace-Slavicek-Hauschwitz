@@ -47,16 +47,14 @@ namespace App.Dialogs
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (!InputValidator.IsNotEmpty(txtJmeno,"Není vyplnění jméno.")||
-                !InputValidator.IsSelected(comboRole,"Není vybraná role.")) {
+                InputValidator.IsSelected(comboRole,"Není vybraná role.")) {
                 if (IsEditMode)
                 {
-                    if (!InputValidator.IsNotEmpty(txtHeslo, "Není vyplněné heslo")) {
                         this.User.Jmeno = txtJmeno.Text;
                         this.User.Role = comboRole.SelectedItem.ToString();
                         this.User.Heslo = txtHeslo.Text;
                         this.User.boolean = checkOs.Checked == true ? 1 : 0;
                         _userRepo.UpdateUser(this.User);
-                    }
                 }
                 else
                 {
@@ -82,6 +80,7 @@ namespace App.Dialogs
                 this.emp = this._empRepo.GetZamestnanecByID(this.User.IdZamestnanec);
                 this.txtJmeno.Text = this.User.Jmeno;
                 this.txtZamestnanec.Text = this.emp.Jmeno + " " + this.emp.Prijmeni;
+                this.btnChooseEmpl.Enabled = false;
                 if (Enum.TryParse(typeof(RoleEnum), this.User.Role, out var selectedRole))
                 {
                     comboRole.SelectedItem = (RoleEnum)selectedRole;
