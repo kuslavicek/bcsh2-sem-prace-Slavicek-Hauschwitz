@@ -114,6 +114,11 @@ namespace App.Dialogs
                 cena += zbozi.Value.Cena * zbozi.Key.Mnozstvi;
             }
 
+            foreach (var akce in this.AkceSeznam)
+            {
+                cena += 500;
+            }
+
             if (this.Zakaznik.CenovaHladina != null)
             {
                 double sleva = (double)this.Zakaznik.CenovaHladina;
@@ -371,6 +376,7 @@ namespace App.Dialogs
             }
 
             this.LoadAkceListView();
+            this.UpdateOrderPrice();
         }
 
         private void LoadStyles()

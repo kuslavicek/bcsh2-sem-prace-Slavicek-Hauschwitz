@@ -60,7 +60,8 @@ namespace App.Utils
                 {
                     table2.AddCell(item.Description);
                     table2.AddCell(item.Quantity.ToString());
-                    table2.AddCell("0 Kc");
+                    table2.AddCell("500 Kc");
+                    total += 500;
                 }
 
                 document.Add(table2);
