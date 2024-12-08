@@ -61,6 +61,11 @@
             lvAdresy = new ListView();
             tabSklad = new TabPage();
             panel9 = new Panel();
+            btnCancelFiltrSklad = new Button();
+            btnFiltrSklad = new Button();
+            txtFiltrValueSklad = new TextBox();
+            comboFiltrSklad = new ComboBox();
+            label24 = new Label();
             btnMigrateSklad = new Button();
             btnUpdateSklad = new Button();
             btnDeleteSklad = new Button();
@@ -183,6 +188,13 @@
             tabUsers = new TabPage();
             label11 = new Label();
             panel15 = new Panel();
+            btnCancelFiltrUser = new Button();
+            btnFilterUser = new Button();
+            comboFiltrOsUser = new ComboBox();
+            comboFiltrRoleUser = new ComboBox();
+            txtFiltrValueUser = new TextBox();
+            comboFiltrUser = new ComboBox();
+            label25 = new Label();
             emul_button = new Button();
             btnDeleteUser = new Button();
             btnEditUser = new Button();
@@ -194,11 +206,6 @@
             tabSysCat = new TabPage();
             sysCatBtn = new Button();
             lvSys = new ListView();
-            label24 = new Label();
-            comboFiltrSklad = new ComboBox();
-            txtFiltrValueSklad = new TextBox();
-            btnFiltrSklad = new Button();
-            btnCancelFiltrSklad = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             panel14.SuspendLayout();
@@ -570,6 +577,51 @@
             panel9.Name = "panel9";
             panel9.Size = new Size(380, 607);
             panel9.TabIndex = 2;
+            // 
+            // btnCancelFiltrSklad
+            // 
+            btnCancelFiltrSklad.Location = new Point(130, 382);
+            btnCancelFiltrSklad.Name = "btnCancelFiltrSklad";
+            btnCancelFiltrSklad.Size = new Size(121, 23);
+            btnCancelFiltrSklad.TabIndex = 8;
+            btnCancelFiltrSklad.Text = "Zrušit filtr";
+            btnCancelFiltrSklad.UseVisualStyleBackColor = true;
+            btnCancelFiltrSklad.Click += btnCancelFiltrSklad_Click;
+            // 
+            // btnFiltrSklad
+            // 
+            btnFiltrSklad.Location = new Point(130, 353);
+            btnFiltrSklad.Name = "btnFiltrSklad";
+            btnFiltrSklad.Size = new Size(121, 23);
+            btnFiltrSklad.TabIndex = 7;
+            btnFiltrSklad.Text = "Filtrovat";
+            btnFiltrSklad.UseVisualStyleBackColor = true;
+            btnFiltrSklad.Click += btnFiltrSklad_Click;
+            // 
+            // txtFiltrValueSklad
+            // 
+            txtFiltrValueSklad.Location = new Point(130, 324);
+            txtFiltrValueSklad.Name = "txtFiltrValueSklad";
+            txtFiltrValueSklad.Size = new Size(121, 23);
+            txtFiltrValueSklad.TabIndex = 6;
+            // 
+            // comboFiltrSklad
+            // 
+            comboFiltrSklad.FormattingEnabled = true;
+            comboFiltrSklad.Location = new Point(130, 295);
+            comboFiltrSklad.Name = "comboFiltrSklad";
+            comboFiltrSklad.Size = new Size(121, 23);
+            comboFiltrSklad.TabIndex = 5;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 16F);
+            label24.Location = new Point(165, 262);
+            label24.Name = "label24";
+            label24.Size = new Size(49, 30);
+            label24.TabIndex = 4;
+            label24.Text = "Filtr";
             // 
             // btnMigrateSklad
             // 
@@ -1839,6 +1891,13 @@
             // panel15
             // 
             panel15.BackColor = Color.Silver;
+            panel15.Controls.Add(btnCancelFiltrUser);
+            panel15.Controls.Add(btnFilterUser);
+            panel15.Controls.Add(comboFiltrOsUser);
+            panel15.Controls.Add(comboFiltrRoleUser);
+            panel15.Controls.Add(txtFiltrValueUser);
+            panel15.Controls.Add(comboFiltrUser);
+            panel15.Controls.Add(label25);
             panel15.Controls.Add(emul_button);
             panel15.Controls.Add(btnDeleteUser);
             panel15.Controls.Add(btnEditUser);
@@ -1847,6 +1906,68 @@
             panel15.Name = "panel15";
             panel15.Size = new Size(380, 607);
             panel15.TabIndex = 1;
+            // 
+            // btnCancelFiltrUser
+            // 
+            btnCancelFiltrUser.Location = new Point(128, 428);
+            btnCancelFiltrUser.Name = "btnCancelFiltrUser";
+            btnCancelFiltrUser.Size = new Size(121, 23);
+            btnCancelFiltrUser.TabIndex = 10;
+            btnCancelFiltrUser.Text = "Zrušit filtr";
+            btnCancelFiltrUser.UseVisualStyleBackColor = true;
+            btnCancelFiltrUser.Click += btnCancelFiltrUser_Click;
+            // 
+            // btnFilterUser
+            // 
+            btnFilterUser.Location = new Point(128, 399);
+            btnFilterUser.Name = "btnFilterUser";
+            btnFilterUser.Size = new Size(121, 23);
+            btnFilterUser.TabIndex = 9;
+            btnFilterUser.Text = "Filtrovat";
+            btnFilterUser.UseVisualStyleBackColor = true;
+            btnFilterUser.Click += btnFilterUser_Click;
+            // 
+            // comboFiltrOsUser
+            // 
+            comboFiltrOsUser.FormattingEnabled = true;
+            comboFiltrOsUser.Location = new Point(128, 370);
+            comboFiltrOsUser.Name = "comboFiltrOsUser";
+            comboFiltrOsUser.Size = new Size(121, 23);
+            comboFiltrOsUser.TabIndex = 8;
+            // 
+            // comboFiltrRoleUser
+            // 
+            comboFiltrRoleUser.FormattingEnabled = true;
+            comboFiltrRoleUser.Location = new Point(128, 341);
+            comboFiltrRoleUser.Name = "comboFiltrRoleUser";
+            comboFiltrRoleUser.Size = new Size(121, 23);
+            comboFiltrRoleUser.TabIndex = 7;
+            // 
+            // txtFiltrValueUser
+            // 
+            txtFiltrValueUser.Location = new Point(128, 312);
+            txtFiltrValueUser.Name = "txtFiltrValueUser";
+            txtFiltrValueUser.Size = new Size(121, 23);
+            txtFiltrValueUser.TabIndex = 6;
+            // 
+            // comboFiltrUser
+            // 
+            comboFiltrUser.FormattingEnabled = true;
+            comboFiltrUser.Location = new Point(128, 283);
+            comboFiltrUser.Name = "comboFiltrUser";
+            comboFiltrUser.Size = new Size(121, 23);
+            comboFiltrUser.TabIndex = 5;
+            comboFiltrUser.SelectedIndexChanged += comboFiltrUser_SelectedIndexChanged;
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Font = new Font("Segoe UI", 16F);
+            label25.Location = new Point(162, 250);
+            label25.Name = "label25";
+            label25.Size = new Size(49, 30);
+            label25.TabIndex = 4;
+            label25.Text = "Filtr";
             // 
             // emul_button
             // 
@@ -1955,51 +2076,6 @@
             lvSys.TabIndex = 0;
             lvSys.UseCompatibleStateImageBehavior = false;
             // 
-            // label24
-            // 
-            label24.AutoSize = true;
-            label24.Font = new Font("Segoe UI", 16F);
-            label24.Location = new Point(165, 262);
-            label24.Name = "label24";
-            label24.Size = new Size(49, 30);
-            label24.TabIndex = 4;
-            label24.Text = "Filtr";
-            // 
-            // comboFiltrSklad
-            // 
-            comboFiltrSklad.FormattingEnabled = true;
-            comboFiltrSklad.Location = new Point(130, 295);
-            comboFiltrSklad.Name = "comboFiltrSklad";
-            comboFiltrSklad.Size = new Size(121, 23);
-            comboFiltrSklad.TabIndex = 5;
-            // 
-            // txtFiltrValueSklad
-            // 
-            txtFiltrValueSklad.Location = new Point(130, 324);
-            txtFiltrValueSklad.Name = "txtFiltrValueSklad";
-            txtFiltrValueSklad.Size = new Size(121, 23);
-            txtFiltrValueSklad.TabIndex = 6;
-            // 
-            // btnFiltrSklad
-            // 
-            btnFiltrSklad.Location = new Point(130, 353);
-            btnFiltrSklad.Name = "btnFiltrSklad";
-            btnFiltrSklad.Size = new Size(121, 23);
-            btnFiltrSklad.TabIndex = 7;
-            btnFiltrSklad.Text = "Filtrovat";
-            btnFiltrSklad.UseVisualStyleBackColor = true;
-            btnFiltrSklad.Click += btnFiltrSklad_Click;
-            // 
-            // btnCancelFiltrSklad
-            // 
-            btnCancelFiltrSklad.Location = new Point(130, 382);
-            btnCancelFiltrSklad.Name = "btnCancelFiltrSklad";
-            btnCancelFiltrSklad.Size = new Size(121, 23);
-            btnCancelFiltrSklad.TabIndex = 8;
-            btnCancelFiltrSklad.Text = "Zrušit filtr";
-            btnCancelFiltrSklad.UseVisualStyleBackColor = true;
-            btnCancelFiltrSklad.Click += btnCancelFiltrSklad_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -2065,6 +2141,7 @@
             tabUsers.ResumeLayout(false);
             tabUsers.PerformLayout();
             panel15.ResumeLayout(false);
+            panel15.PerformLayout();
             tabLogs.ResumeLayout(false);
             tabSysCat.ResumeLayout(false);
             ResumeLayout(false);
@@ -2308,5 +2385,12 @@
         private Button btnFiltrSklad;
         private TextBox txtFiltrValueSklad;
         private ComboBox comboFiltrSklad;
+        private Button btnCancelFiltrUser;
+        private Button btnFilterUser;
+        private ComboBox comboFiltrOsUser;
+        private ComboBox comboFiltrRoleUser;
+        private TextBox txtFiltrValueUser;
+        private ComboBox comboFiltrUser;
+        private Label label25;
     }
 }

@@ -8,6 +8,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using App.Dialogs.ObjednavkaDialogs;
 using App.Dialogs.ZakaznikDialogs;
 using App.Dialogs.SkladDialogs;
+using App.Model.Enums;
 
 namespace App
 {
@@ -87,6 +88,7 @@ namespace App
 
             _usersRepo = new UserRepo();
             LoadUsers();
+            LoadUserFiltr();
         }
         #region Zbozi
 
@@ -1615,6 +1617,75 @@ namespace App
         #endregion
 
         #region Sklad
+        #region sklad filtr
+        private void LoadSkladFiltr()
+        {
+            comboFiltrSklad.Items.Clear();
+            comboFiltrSklad.Items.Add("Název");
+            comboFiltrSklad.Items.Add("Užitná plocha");
+            comboFiltrSklad.Items.Add("Adresa");
+
+            comboFiltrSklad.SelectedIndex = 0;
+        }
+        private void btnFiltrSklad_Click(object sender, EventArgs e)
+        {
+            string selectedColumn = comboFiltrSklad.SelectedItem.ToString();
+            string filterValue = txtFiltrValueSklad.Text.ToLower();
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvSklady.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = -1;
+
+                switch (selectedColumn)
+                {
+                    case "Název":
+                        columnIndex = 0;
+                        break;
+                    case "Užitná plocha":
+                        columnIndex = 1;
+                        break;
+                    case "Adresa":
+                        columnIndex = 2;
+                        break;
+                }
+
+                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvSklady.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvSklady.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvSklady.Items.Add(item);
+            }
+
+            if (lvSklady.Items.Count > 0 && filteredItems.Count > 0)
+            {
+                lvSklady.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void btnCancelFiltrSklad_Click(object sender, EventArgs e)
+        {
+            LoadSklady();
+        }
+        #endregion
         private void LoadSklady()
         {
             lvSklady.Columns.Clear();
@@ -2504,6 +2575,116 @@ namespace App
         #endregion
 
         #region Users
+        #region User filtr
+        private void LoadUserFiltr()
+        {
+            comboFiltrUser.Items.Clear();
+            comboFiltrUser.Items.Add("Jméno");
+            comboFiltrUser.Items.Add("Role");
+            comboFiltrUser.Items.Add("OS");
+
+            comboFiltrUser.SelectedIndex = 0;
+
+            comboFiltrRoleUser.DataSource = Enum.GetValues(typeof(RoleEnum));
+            comboFiltrRoleUser.SelectedIndex = 0;
+
+            comboFiltrOsUser.Items.Add("Ano");
+            comboFiltrOsUser.Items.Add("Ne");
+            comboFiltrOsUser.SelectedIndex = 0;
+
+            comboFiltrOsUser.Enabled = false;
+            comboFiltrRoleUser.Enabled = false;
+        }
+
+        private void btnFilterUser_Click(object sender, EventArgs e)
+        {
+            string selectedColumn = comboFiltrUser.SelectedItem.ToString();
+            string filterValue = txtFiltrValueUser.Text.ToLower();
+            if (comboFiltrUser.SelectedIndex == 1)
+            {
+                filterValue = comboFiltrRoleUser.Text.ToLower();
+            }
+            else if (comboFiltrUser.SelectedIndex == 2)
+            {
+                filterValue = comboFiltrOsUser.Text.ToLower();
+            }
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvUsers.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = -1;
+
+                switch (selectedColumn)
+                {
+                    case "Jméno":
+                        columnIndex = 0;
+                        break;
+                    case "Role":
+                        columnIndex = 1;
+                        break;
+                    case "OS":
+                        columnIndex = 2;
+                        break;
+                }
+
+                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvUsers.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvUsers.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvUsers.Items.Add(item);
+            }
+
+            if (lvUsers.Items.Count > 0 && filteredItems.Count > 0)
+            {
+                lvUsers.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void btnCancelFiltrUser_Click(object sender, EventArgs e)
+        {
+            LoadUsers();
+        }
+
+        private void comboFiltrUser_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboFiltrUser.SelectedIndex == 0)
+            {
+                txtFiltrValueUser.Enabled = true;
+                comboFiltrRoleUser.Enabled = false;
+                comboFiltrOsUser.Enabled = false;
+            }
+            else if (comboFiltrUser.SelectedIndex == 1)
+            {
+                txtFiltrValueUser.Enabled = false;
+                comboFiltrRoleUser.Enabled = true;
+                comboFiltrOsUser.Enabled = false;
+            }
+            else
+            {
+                txtFiltrValueUser.Enabled = false;
+                comboFiltrRoleUser.Enabled = false;
+                comboFiltrOsUser.Enabled = true;
+            }
+        }
+        #endregion
         private void LoadUsers()
         {
             lvUsers.Columns.Clear();
@@ -2652,74 +2833,6 @@ namespace App
         }
 
         #endregion
-
-        private void LoadSkladFiltr()
-        {
-            comboFiltrSklad.Items.Clear();
-            comboFiltrSklad.Items.Add("Název");
-            comboFiltrSklad.Items.Add("Užitná plocha");
-            comboFiltrSklad.Items.Add("Adresa");
-
-            comboFiltrSklad.SelectedIndex = 0;
-        }
-        private void btnFiltrSklad_Click(object sender, EventArgs e)
-        {
-            string selectedColumn = comboFiltrSklad.SelectedItem.ToString();
-            string filterValue = txtFiltrValueSklad.Text.ToLower();
-
-            List<ListViewItem> filteredItems = new List<ListViewItem>();
-            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
-
-            foreach (ListViewItem item in lvSklady.Items)
-            {
-                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
-
-                int columnIndex = -1;
-
-                switch (selectedColumn)
-                {
-                    case "Název":
-                        columnIndex = 0;
-                        break;
-                    case "Užitná plocha":
-                        columnIndex = 1;
-                        break;
-                    case "Adresa":
-                        columnIndex = 2;
-                        break;
-                }
-
-                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
-                {
-                    filteredItems.Add(item);
-                }
-                else
-                {
-                    nonFilteredItems.Add(item);
-                }
-            }
-            lvSklady.Items.Clear();
-
-            foreach (var item in filteredItems)
-            {
-                lvSklady.Items.Add(item);
-            }
-
-            foreach (var item in nonFilteredItems)
-            {
-                lvSklady.Items.Add(item);
-            }
-
-            if (lvSklady.Items.Count > 0 && filteredItems.Count > 0)
-            {
-                lvSklady.Items[0].BackColor = Color.LightYellow;
-            }
-        }
-
-        private void btnCancelFiltrSklad_Click(object sender, EventArgs e)
-        {
-            LoadSklady();
-        }
     }
 }
 
