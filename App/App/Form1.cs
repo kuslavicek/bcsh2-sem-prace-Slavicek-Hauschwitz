@@ -2942,7 +2942,26 @@ namespace App
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
+            if (lvUsers.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select a row to delete.");
+                return;
+            }
 
+            var selectedItem = lvUsers.SelectedItems[0];
+            var id=(Tuple<int, int>)selectedItem.Tag;
+
+            try
+            {
+                _usersRepo.DeleteUser(id.Item1);
+                MessageBox.Show("User byl úspìšnì smazán.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            LoadUsers();
         }
         #endregion
 
