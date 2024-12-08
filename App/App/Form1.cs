@@ -63,6 +63,7 @@ namespace App
 
             _provozovnaRepo = new ProvozovnaRepo();
             LoadProvozovna();
+            LoadProvozovnaFiltr();
 
             _poziceRepo = new PracovniPoziceRepo();
             LoadPozice();
@@ -413,7 +414,7 @@ namespace App
 
         private void comboFiltrObjednavka_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboFiltrObjednavka.SelectedIndex == 0|| comboFiltrObjednavka.SelectedIndex == 2|| comboFiltrObjednavka.SelectedIndex == 3)
+            if (comboFiltrObjednavka.SelectedIndex == 0 || comboFiltrObjednavka.SelectedIndex == 2 || comboFiltrObjednavka.SelectedIndex == 3)
             {
                 txtFiltrObjednavkaValue.Enabled = true;
                 comboFiltrStatusObjednavka.Enabled = false;
@@ -1261,6 +1262,75 @@ namespace App
         #endregion
 
         #region Provozovna
+        #region Provozovna filtr
+        private void LoadProvozovnaFiltr()
+        {
+            comboFiltrProvozovna.Items.Clear();
+            comboFiltrProvozovna.Items.Add("Název");
+            comboFiltrProvozovna.Items.Add("Poèet zamìstnancù");
+            comboFiltrProvozovna.Items.Add("Adresa");
+
+            comboFiltrProvozovna.SelectedIndex = 0;
+        }
+        private void btnFiltrProvozovna_Click(object sender, EventArgs e)
+        {
+            string selectedColumn = comboFiltrProvozovna.SelectedItem.ToString();
+            string filterValue = txtFiltrValueProvozovna.Text.ToLower();
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvProvozovny.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = -1;
+
+                switch (selectedColumn)
+                {
+                    case "Název":
+                        columnIndex = 0;
+                        break;
+                    case "Poèet zamìstnancù":
+                        columnIndex = 1;
+                        break;
+                    case "Adresa":
+                        columnIndex = 2;
+                        break;
+                }
+
+                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvProvozovny.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvProvozovny.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvProvozovny.Items.Add(item);
+            }
+
+            if (lvProvozovny.Items.Count > 0 && filteredItems.Count > 0)
+            {
+                lvProvozovny.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void btnCancelFiltrProvozovna_Click(object sender, EventArgs e)
+        {
+            LoadProvozovna();
+        }
+        #endregion
         private void LoadProvozovna()
         {
             lvProvozovny.Columns.Clear();
@@ -2581,6 +2651,7 @@ namespace App
         }
 
         #endregion
+
     }
 }
 
