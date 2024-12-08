@@ -59,6 +59,7 @@ namespace App
 
             _objednavkaRepo = new ObjednavkaRepo();
             LoadObjednavky();
+            LoadObjednavkyFiltr();
 
             _provozovnaRepo = new ProvozovnaRepo();
             LoadProvozovna();
@@ -322,6 +323,108 @@ namespace App
         #endregion
 
         #region Objednávka
+        #region objednavka filtr
+        private void btnFiltrObjednavka_Click(object sender, EventArgs e)
+        {
+            string selectedColumn = comboFiltrObjednavka.SelectedItem.ToString();
+            string filterValue = txtFiltrObjednavkaValue.Text.ToLower();
+            if (comboFiltrObjednavka.SelectedIndex == 1)
+            {
+                filterValue = comboFiltrStatusObjednavka.SelectedItem.ToString();
+            }
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvObjednavky.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = -1;
+
+                switch (selectedColumn)
+                {
+                    case "Datum":
+                        columnIndex = 0;
+                        break;
+                    case "Cena":
+                        columnIndex = 1;
+                        break;
+                    case "Status":
+                        columnIndex = 4;
+                        break;
+                    case "Zákazník":
+                        columnIndex = 2;
+                        break;
+                    case "Faktura":
+                        columnIndex = 3;
+                        break;
+                }
+
+                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvObjednavky.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvObjednavky.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvObjednavky.Items.Add(item);
+            }
+
+            if (lvObjednavky.Items.Count > 0 && filteredItems.Count > 0)
+            {
+                lvObjednavky.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void LoadObjednavkyFiltr()
+        {
+            comboFiltrObjednavka.Items.Clear();
+            comboFiltrObjednavka.Items.Add("Cena");
+            comboFiltrObjednavka.Items.Add("Status");
+            comboFiltrObjednavka.Items.Add("Zákazník");
+            comboFiltrObjednavka.Items.Add("Faktura");
+            comboFiltrObjednavka.Items.Add("Datum");
+
+            comboFiltrObjednavka.SelectedIndex = 0;
+
+            comboFiltrStatusObjednavka.Items.Add("zpracovává se");
+            comboFiltrStatusObjednavka.Items.Add("vyøízená");
+
+            comboFiltrStatusObjednavka.SelectedIndex = 0;
+            comboFiltrStatusObjednavka.Enabled = false;
+        }
+
+        private void btnCancelFiltrObjednavka_Click(object sender, EventArgs e)
+        {
+            LoadObjednavky();
+        }
+
+        private void comboFiltrObjednavka_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboFiltrObjednavka.SelectedIndex == 0|| comboFiltrObjednavka.SelectedIndex == 2|| comboFiltrObjednavka.SelectedIndex == 3)
+            {
+                txtFiltrObjednavkaValue.Enabled = true;
+                comboFiltrStatusObjednavka.Enabled = false;
+            }
+            else if (comboFiltrObjednavka.SelectedIndex == 1)
+            {
+                txtFiltrObjednavkaValue.Enabled = false;
+                comboFiltrStatusObjednavka.Enabled = true;
+            }
+        }
+        #endregion
 
         private void LoadObjednavky()
         {
@@ -1064,7 +1167,7 @@ namespace App
                     lvZamestnanci.Items.Add(item);
                 }
             }
-            
+
         }
         private void btnAddZamestnanec_Click(object sender, EventArgs e)
         {
@@ -1636,7 +1739,7 @@ namespace App
 
         private void osUdajeCheck_CheckedChanged(object sender, EventArgs e)
         {
-            
+
             var parameters = new Dictionary<string, object>();
             if (emulUser != null)
             {
@@ -2476,9 +2579,8 @@ namespace App
                 MessageBox.Show("An error occurred: " + ex.Message);
             }
         }
-        
-        #endregion
 
+        #endregion
     }
 }
 
