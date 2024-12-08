@@ -1861,11 +1861,15 @@ namespace App
                     osUdajeCheck.Show();
                     if (loggedUser.boolean == 1)
                     {
-                        osUdajeCheck.Checked = true;
+                        osUdajeCheck.CheckedChanged -= osUdajeCheck_CheckedChanged;
+                        osUdajeCheck.Checked = loggedUser.boolean == 1;
+                        osUdajeCheck.CheckedChanged += osUdajeCheck_CheckedChanged;
                     }
                     else
                     {
-                        osUdajeCheck.Checked = false;
+                        osUdajeCheck.CheckedChanged -= osUdajeCheck_CheckedChanged;
+                        osUdajeCheck.Checked = loggedUser.boolean == 0;
+                        osUdajeCheck.CheckedChanged += osUdajeCheck_CheckedChanged;
                     }
                     loginBtn.Text = "Odhlásit se";
                     registerBtn.Hide();
