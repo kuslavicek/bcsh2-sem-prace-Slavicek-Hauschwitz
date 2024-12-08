@@ -29,6 +29,7 @@ namespace App
         private FakturaRepo _fakturaRepo;
         private UserRepo _usersRepo;
         private Dictionary<int, string> skladyDict;
+        private Dictionary<int, string> provozovnyDict;
         private readonly Database _database;
         private User? loggedUser = null;
         private User? emulUser = null;
@@ -39,7 +40,9 @@ namespace App
             _database = new Database();
             this.initBtns();
             _skladRepo = new SkladRepo();
+            _typAkceRepo = new TypAkceRepo();
             this.skladyDict = _skladRepo.LoadSkladyForSelect();
+            this.provozovnyDict = this._typAkceRepo.LoadTypyAkceForSelect();
             LoadSklady();
             LoadSkladFiltr();
 
@@ -74,7 +77,6 @@ namespace App
             LoadZamestnanec();
             LoadZamestnanecFiltr();
 
-            _typAkceRepo = new TypAkceRepo();
             LoadTypyAkce();
 
             _fakturaRepo = new FakturaRepo();
@@ -82,6 +84,7 @@ namespace App
 
             _akceRepo = new AkceRepo();
             LoadAkce();
+            LoadAkceFiltr();
 
             _objednaneZboziRepo = new ObjednaneZboziRepo();
             LoadObjZbozi();
@@ -2447,6 +2450,100 @@ namespace App
         #endregion
 
         #region Akce
+        #region Akce filtr
+        private void LoadAkceFiltr()
+        {
+            comboFiltrAkce.Items.Clear();
+            comboFiltrAkce.Items.Add("Typ");
+            comboFiltrAkce.Items.Add("Poèet osob");
+            comboFiltrAkce.Items.Add("Datum");
+
+            comboFiltrAkce.SelectedIndex = 0;
+
+            comboFiltrAkceType.DataSource = new BindingSource(provozovnyDict, null);
+            comboFiltrAkceType.DisplayMember = "Value";
+            comboFiltrAkceType.ValueMember = "Key";
+
+            comboFiltrAkceType.SelectedIndex = 0;
+        }
+
+        private void btnFiltrAkce_Click(object sender, EventArgs e)
+        {
+            string selectedColumn = comboFiltrAkce.SelectedItem.ToString();
+            string filterValue = txtFiltrValueAkce.Text.ToLower();
+            if (comboFiltrAkce.SelectedIndex == 0)
+            {
+                filterValue = comboFiltrAkceType.Text.ToLower();
+            }
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvAkce.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = -1;
+
+                switch (selectedColumn)
+                {
+                    case "Typ":
+                        columnIndex = 0;
+                        break;
+                    case "Poèet osob":
+                        columnIndex = 1;
+                        break;
+                    case "Datum":
+                        columnIndex = 2;
+                        break;
+                }
+
+                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvAkce.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvAkce.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvAkce.Items.Add(item);
+            }
+
+            if (lvAkce.Items.Count > 0 && filteredItems.Count > 0)
+            {
+                lvAkce.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void btnCancelFiltrAkce_Click(object sender, EventArgs e)
+        {
+            LoadAkce();
+        }
+
+        private void comboFiltrAkce_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboFiltrAkce.SelectedIndex == 0)
+            {
+                txtFiltrValueAkce.Enabled = false;
+                comboFiltrAkceType.Enabled = true;
+            }
+            else
+            {
+                txtFiltrValueAkce.Enabled = true;
+                comboFiltrAkceType.Enabled = false;
+            }
+        }
+        #endregion
         private void LoadAkce()
         {
             lvAkce.Columns.Clear();
