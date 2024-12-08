@@ -115,7 +115,7 @@ namespace App.Repositories
             parameters.Add("p_nazev", sklad.Nazev);
             parameters.Add("p_uzitna_plocha", sklad.UzitnaPlocha);
             parameters.Add("p_ulice", sklad.Adresa.Ulice);
-            parameters.Add("p_mesto", sklad.Adresa.Ulice);
+            parameters.Add("p_mesto", sklad.Adresa.Mesto);
             parameters.Add("p_psc", sklad.Adresa.Psc);
             parameters.Add("p_cislo_popisne", sklad.Adresa.CisloPopisne);
             parameters.Add("p_stat", sklad.Adresa.Stat);

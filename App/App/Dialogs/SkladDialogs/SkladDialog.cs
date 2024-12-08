@@ -50,7 +50,7 @@ namespace App.Dialogs
                 return;
             }
 
-            bool isPostalCodeValid = await InputValidator.ValidatePostalCode(selectedState.Code, txtPsc.Text);
+            bool isPostalCodeValid = await InputValidator.ValidatePostalCode(selectedState.Code, txtPsc.Text.Replace(" ", ""));
             if (!isPostalCodeValid)
             {
                 MessageBox.Show("Nevalidní PSČ pro zvolenou zemi.", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
