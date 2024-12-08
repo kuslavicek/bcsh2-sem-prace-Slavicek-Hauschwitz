@@ -2999,6 +2999,51 @@ namespace App
         }
 
         #endregion
+
+        private void btnFiltrFaktura_Click(object sender, EventArgs e)
+        {
+            string filterValue = txtFiltrFakturaValue.Text.ToLower();
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvFaktury.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = 0;
+
+                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvFaktury.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvFaktury.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvFaktury.Items.Add(item);
+            }
+
+            if (lvFaktury.Items.Count > 0 && filteredItems.Count > 0)
+            {
+                lvFaktury.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void btnFiltrCancelFaktura_Click(object sender, EventArgs e)
+        {
+            LoadFaktury();
+        }
     }
 }
 

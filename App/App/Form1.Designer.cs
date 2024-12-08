@@ -43,6 +43,7 @@
             tabAkce = new TabPage();
             label9 = new Label();
             panel13 = new Panel();
+            comboFiltrAkceType = new ComboBox();
             btnCancelFiltrAkce = new Button();
             btnFiltrAkce = new Button();
             txtFiltrValueAkce = new TextBox();
@@ -216,7 +217,11 @@
             tabSysCat = new TabPage();
             sysCatBtn = new Button();
             lvSys = new ListView();
-            comboFiltrAkceType = new ComboBox();
+            label28 = new Label();
+            txtFiltrFakturaValue = new TextBox();
+            label29 = new Label();
+            btnFiltrFaktura = new Button();
+            btnFiltrCancelFaktura = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             panel14.SuspendLayout();
@@ -403,6 +408,14 @@
             panel13.Size = new Size(380, 607);
             panel13.TabIndex = 1;
             // 
+            // comboFiltrAkceType
+            // 
+            comboFiltrAkceType.FormattingEnabled = true;
+            comboFiltrAkceType.Location = new Point(138, 204);
+            comboFiltrAkceType.Name = "comboFiltrAkceType";
+            comboFiltrAkceType.Size = new Size(121, 23);
+            comboFiltrAkceType.TabIndex = 9;
+            // 
             // btnCancelFiltrAkce
             // 
             btnCancelFiltrAkce.Location = new Point(138, 291);
@@ -503,6 +516,11 @@
             // panel12
             // 
             panel12.BackColor = Color.Silver;
+            panel12.Controls.Add(btnFiltrCancelFaktura);
+            panel12.Controls.Add(btnFiltrFaktura);
+            panel12.Controls.Add(label29);
+            panel12.Controls.Add(txtFiltrFakturaValue);
+            panel12.Controls.Add(label28);
             panel12.Controls.Add(btnSaveFaktura);
             panel12.Location = new Point(902, 55);
             panel12.Name = "panel12";
@@ -2189,13 +2207,52 @@
             lvSys.TabIndex = 0;
             lvSys.UseCompatibleStateImageBehavior = false;
             // 
-            // comboFiltrAkceType
+            // label28
             // 
-            comboFiltrAkceType.FormattingEnabled = true;
-            comboFiltrAkceType.Location = new Point(138, 204);
-            comboFiltrAkceType.Name = "comboFiltrAkceType";
-            comboFiltrAkceType.Size = new Size(121, 23);
-            comboFiltrAkceType.TabIndex = 9;
+            label28.AutoSize = true;
+            label28.Font = new Font("Segoe UI", 16F);
+            label28.Location = new Point(161, 78);
+            label28.Name = "label28";
+            label28.Size = new Size(49, 30);
+            label28.TabIndex = 1;
+            label28.Text = "Filtr";
+            // 
+            // txtFiltrFakturaValue
+            // 
+            txtFiltrFakturaValue.Location = new Point(139, 111);
+            txtFiltrFakturaValue.Name = "txtFiltrFakturaValue";
+            txtFiltrFakturaValue.Size = new Size(100, 23);
+            txtFiltrFakturaValue.TabIndex = 2;
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Location = new Point(89, 114);
+            label29.Name = "label29";
+            label29.Size = new Size(42, 15);
+            label29.TabIndex = 3;
+            label29.Text = "Název:";
+            label29.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // btnFiltrFaktura
+            // 
+            btnFiltrFaktura.Location = new Point(139, 140);
+            btnFiltrFaktura.Name = "btnFiltrFaktura";
+            btnFiltrFaktura.Size = new Size(100, 23);
+            btnFiltrFaktura.TabIndex = 4;
+            btnFiltrFaktura.Text = "Filtrovat";
+            btnFiltrFaktura.UseVisualStyleBackColor = true;
+            btnFiltrFaktura.Click += btnFiltrFaktura_Click;
+            // 
+            // btnFiltrCancelFaktura
+            // 
+            btnFiltrCancelFaktura.Location = new Point(139, 169);
+            btnFiltrCancelFaktura.Name = "btnFiltrCancelFaktura";
+            btnFiltrCancelFaktura.Size = new Size(100, 23);
+            btnFiltrCancelFaktura.TabIndex = 5;
+            btnFiltrCancelFaktura.Text = "Zrušit filtr";
+            btnFiltrCancelFaktura.UseVisualStyleBackColor = true;
+            btnFiltrCancelFaktura.Click += btnFiltrCancelFaktura_Click;
             // 
             // Form1
             // 
@@ -2217,6 +2274,7 @@
             tabFaktura.ResumeLayout(false);
             tabFaktura.PerformLayout();
             panel12.ResumeLayout(false);
+            panel12.PerformLayout();
             tabAdresa.ResumeLayout(false);
             tabAdresa.PerformLayout();
             panel11.ResumeLayout(false);
@@ -2526,5 +2584,10 @@
         private ComboBox comboFiltrAkce;
         private Label label27;
         private ComboBox comboFiltrAkceType;
+        private Label label28;
+        private Button btnFiltrCancelFaktura;
+        private Button btnFiltrFaktura;
+        private Label label29;
+        private TextBox txtFiltrFakturaValue;
     }
 }
