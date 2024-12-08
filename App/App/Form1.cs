@@ -34,12 +34,13 @@ namespace App
         public Form1()
         {
             InitializeComponent();
-            logout(); //todo odkomentovat
+            /*logout();*/ //todo odkomentovat
             _database = new Database();
             this.initBtns();
             _skladRepo = new SkladRepo();
             this.skladyDict = _skladRepo.LoadSkladyForSelect();
             LoadSklady();
+            LoadSkladFiltr();
 
             _zboziData = new ZboziData();
             LoadZbozi();
@@ -2652,6 +2653,73 @@ namespace App
 
         #endregion
 
+        private void LoadSkladFiltr()
+        {
+            comboFiltrSklad.Items.Clear();
+            comboFiltrSklad.Items.Add("Název");
+            comboFiltrSklad.Items.Add("Užitná plocha");
+            comboFiltrSklad.Items.Add("Adresa");
+
+            comboFiltrSklad.SelectedIndex = 0;
+        }
+        private void btnFiltrSklad_Click(object sender, EventArgs e)
+        {
+            string selectedColumn = comboFiltrSklad.SelectedItem.ToString();
+            string filterValue = txtFiltrValueSklad.Text.ToLower();
+
+            List<ListViewItem> filteredItems = new List<ListViewItem>();
+            List<ListViewItem> nonFilteredItems = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvSklady.Items)
+            {
+                string[] itemValues = item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subItem => subItem.Text.ToLower()).ToArray();
+
+                int columnIndex = -1;
+
+                switch (selectedColumn)
+                {
+                    case "Název":
+                        columnIndex = 0;
+                        break;
+                    case "Užitná plocha":
+                        columnIndex = 1;
+                        break;
+                    case "Adresa":
+                        columnIndex = 2;
+                        break;
+                }
+
+                if (columnIndex != -1 && itemValues[columnIndex].Contains(filterValue))
+                {
+                    filteredItems.Add(item);
+                }
+                else
+                {
+                    nonFilteredItems.Add(item);
+                }
+            }
+            lvSklady.Items.Clear();
+
+            foreach (var item in filteredItems)
+            {
+                lvSklady.Items.Add(item);
+            }
+
+            foreach (var item in nonFilteredItems)
+            {
+                lvSklady.Items.Add(item);
+            }
+
+            if (lvSklady.Items.Count > 0 && filteredItems.Count > 0)
+            {
+                lvSklady.Items[0].BackColor = Color.LightYellow;
+            }
+        }
+
+        private void btnCancelFiltrSklad_Click(object sender, EventArgs e)
+        {
+            LoadSklady();
+        }
     }
 }
 

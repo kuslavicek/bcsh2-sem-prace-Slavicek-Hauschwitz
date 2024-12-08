@@ -83,6 +83,11 @@
             lvPozice = new ListView();
             tabProvozovny = new TabPage();
             panel6 = new Panel();
+            btnCancelFiltrProvozovna = new Button();
+            btnFiltrProvozovna = new Button();
+            txtFiltrValueProvozovna = new TextBox();
+            label23 = new Label();
+            comboFiltrProvozovna = new ComboBox();
             btnDeleteProvozovna = new Button();
             btnEditProvozovna = new Button();
             btnAddProvozovna = new Button();
@@ -189,11 +194,11 @@
             tabSysCat = new TabPage();
             sysCatBtn = new Button();
             lvSys = new ListView();
-            comboFiltrProvozovna = new ComboBox();
-            label23 = new Label();
-            txtFiltrValueProvozovna = new TextBox();
-            btnFiltrProvozovna = new Button();
-            btnCancelFiltrProvozovna = new Button();
+            label24 = new Label();
+            comboFiltrSklad = new ComboBox();
+            txtFiltrValueSklad = new TextBox();
+            btnFiltrSklad = new Button();
+            btnCancelFiltrSklad = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             tabObjZbozi.SuspendLayout();
             panel14.SuspendLayout();
@@ -552,6 +557,11 @@
             // 
             panel9.BackColor = Color.Silver;
             panel9.BorderStyle = BorderStyle.FixedSingle;
+            panel9.Controls.Add(btnCancelFiltrSklad);
+            panel9.Controls.Add(btnFiltrSklad);
+            panel9.Controls.Add(txtFiltrValueSklad);
+            panel9.Controls.Add(comboFiltrSklad);
+            panel9.Controls.Add(label24);
             panel9.Controls.Add(btnMigrateSklad);
             panel9.Controls.Add(btnUpdateSklad);
             panel9.Controls.Add(btnDeleteSklad);
@@ -794,6 +804,51 @@
             panel6.Name = "panel6";
             panel6.Size = new Size(380, 607);
             panel6.TabIndex = 2;
+            // 
+            // btnCancelFiltrProvozovna
+            // 
+            btnCancelFiltrProvozovna.Location = new Point(98, 313);
+            btnCancelFiltrProvozovna.Name = "btnCancelFiltrProvozovna";
+            btnCancelFiltrProvozovna.Size = new Size(121, 23);
+            btnCancelFiltrProvozovna.TabIndex = 7;
+            btnCancelFiltrProvozovna.Text = "Zrušit filtr";
+            btnCancelFiltrProvozovna.UseVisualStyleBackColor = true;
+            btnCancelFiltrProvozovna.Click += btnCancelFiltrProvozovna_Click;
+            // 
+            // btnFiltrProvozovna
+            // 
+            btnFiltrProvozovna.Location = new Point(98, 284);
+            btnFiltrProvozovna.Name = "btnFiltrProvozovna";
+            btnFiltrProvozovna.Size = new Size(121, 23);
+            btnFiltrProvozovna.TabIndex = 6;
+            btnFiltrProvozovna.Text = "Filtrovat";
+            btnFiltrProvozovna.UseVisualStyleBackColor = true;
+            btnFiltrProvozovna.Click += btnFiltrProvozovna_Click;
+            // 
+            // txtFiltrValueProvozovna
+            // 
+            txtFiltrValueProvozovna.Location = new Point(98, 255);
+            txtFiltrValueProvozovna.Name = "txtFiltrValueProvozovna";
+            txtFiltrValueProvozovna.Size = new Size(121, 23);
+            txtFiltrValueProvozovna.TabIndex = 5;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 16F);
+            label23.Location = new Point(132, 193);
+            label23.Name = "label23";
+            label23.Size = new Size(49, 30);
+            label23.TabIndex = 4;
+            label23.Text = "Filtr";
+            // 
+            // comboFiltrProvozovna
+            // 
+            comboFiltrProvozovna.FormattingEnabled = true;
+            comboFiltrProvozovna.Location = new Point(98, 226);
+            comboFiltrProvozovna.Name = "comboFiltrProvozovna";
+            comboFiltrProvozovna.Size = new Size(121, 23);
+            comboFiltrProvozovna.TabIndex = 3;
             // 
             // btnDeleteProvozovna
             // 
@@ -1900,50 +1955,50 @@
             lvSys.TabIndex = 0;
             lvSys.UseCompatibleStateImageBehavior = false;
             // 
-            // comboFiltrProvozovna
+            // label24
             // 
-            comboFiltrProvozovna.FormattingEnabled = true;
-            comboFiltrProvozovna.Location = new Point(98, 226);
-            comboFiltrProvozovna.Name = "comboFiltrProvozovna";
-            comboFiltrProvozovna.Size = new Size(121, 23);
-            comboFiltrProvozovna.TabIndex = 3;
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 16F);
+            label24.Location = new Point(165, 262);
+            label24.Name = "label24";
+            label24.Size = new Size(49, 30);
+            label24.TabIndex = 4;
+            label24.Text = "Filtr";
             // 
-            // label23
+            // comboFiltrSklad
             // 
-            label23.AutoSize = true;
-            label23.Font = new Font("Segoe UI", 16F);
-            label23.Location = new Point(132, 193);
-            label23.Name = "label23";
-            label23.Size = new Size(49, 30);
-            label23.TabIndex = 4;
-            label23.Text = "Filtr";
+            comboFiltrSklad.FormattingEnabled = true;
+            comboFiltrSklad.Location = new Point(130, 295);
+            comboFiltrSklad.Name = "comboFiltrSklad";
+            comboFiltrSklad.Size = new Size(121, 23);
+            comboFiltrSklad.TabIndex = 5;
             // 
-            // txtFiltrValueProvozovna
+            // txtFiltrValueSklad
             // 
-            txtFiltrValueProvozovna.Location = new Point(98, 255);
-            txtFiltrValueProvozovna.Name = "txtFiltrValueProvozovna";
-            txtFiltrValueProvozovna.Size = new Size(121, 23);
-            txtFiltrValueProvozovna.TabIndex = 5;
+            txtFiltrValueSklad.Location = new Point(130, 324);
+            txtFiltrValueSklad.Name = "txtFiltrValueSklad";
+            txtFiltrValueSklad.Size = new Size(121, 23);
+            txtFiltrValueSklad.TabIndex = 6;
             // 
-            // btnFiltrProvozovna
+            // btnFiltrSklad
             // 
-            btnFiltrProvozovna.Location = new Point(98, 284);
-            btnFiltrProvozovna.Name = "btnFiltrProvozovna";
-            btnFiltrProvozovna.Size = new Size(121, 23);
-            btnFiltrProvozovna.TabIndex = 6;
-            btnFiltrProvozovna.Text = "Filtrovat";
-            btnFiltrProvozovna.UseVisualStyleBackColor = true;
-            btnFiltrProvozovna.Click += btnFiltrProvozovna_Click;
+            btnFiltrSklad.Location = new Point(130, 353);
+            btnFiltrSklad.Name = "btnFiltrSklad";
+            btnFiltrSklad.Size = new Size(121, 23);
+            btnFiltrSklad.TabIndex = 7;
+            btnFiltrSklad.Text = "Filtrovat";
+            btnFiltrSklad.UseVisualStyleBackColor = true;
+            btnFiltrSklad.Click += btnFiltrSklad_Click;
             // 
-            // btnCancelFiltrProvozovna
+            // btnCancelFiltrSklad
             // 
-            btnCancelFiltrProvozovna.Location = new Point(98, 313);
-            btnCancelFiltrProvozovna.Name = "btnCancelFiltrProvozovna";
-            btnCancelFiltrProvozovna.Size = new Size(121, 23);
-            btnCancelFiltrProvozovna.TabIndex = 7;
-            btnCancelFiltrProvozovna.Text = "Zrušit filtr";
-            btnCancelFiltrProvozovna.UseVisualStyleBackColor = true;
-            btnCancelFiltrProvozovna.Click += btnCancelFiltrProvozovna_Click;
+            btnCancelFiltrSklad.Location = new Point(130, 382);
+            btnCancelFiltrSklad.Name = "btnCancelFiltrSklad";
+            btnCancelFiltrSklad.Size = new Size(121, 23);
+            btnCancelFiltrSklad.TabIndex = 8;
+            btnCancelFiltrSklad.Text = "Zrušit filtr";
+            btnCancelFiltrSklad.UseVisualStyleBackColor = true;
+            btnCancelFiltrSklad.Click += btnCancelFiltrSklad_Click;
             // 
             // Form1
             // 
@@ -1970,6 +2025,7 @@
             tabSklad.ResumeLayout(false);
             tabSklad.PerformLayout();
             panel9.ResumeLayout(false);
+            panel9.PerformLayout();
             tabTypyAkce.ResumeLayout(false);
             tabTypyAkce.PerformLayout();
             panel8.ResumeLayout(false);
@@ -2247,5 +2303,10 @@
         private TextBox txtFiltrValueProvozovna;
         private Label label23;
         private ComboBox comboFiltrProvozovna;
+        private Label label24;
+        private Button btnCancelFiltrSklad;
+        private Button btnFiltrSklad;
+        private TextBox txtFiltrValueSklad;
+        private ComboBox comboFiltrSklad;
     }
 }
