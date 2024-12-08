@@ -272,6 +272,18 @@ namespace App
                     // Get the return value as a string
                     return returnValueParam.Value.ToString();
                 }
+                catch (OracleException ex)
+                {
+                    if (ex.Number == 20001)
+                    {
+                        MessageBox.Show("Chyba: Špatné údaje.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occurred while executing procedure: " + ex.Message);
+                    }
+                    return null;
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show("An error occurred while executing the login function: " + ex.Message);

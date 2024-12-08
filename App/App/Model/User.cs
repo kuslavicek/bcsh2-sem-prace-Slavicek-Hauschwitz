@@ -19,20 +19,24 @@ namespace App.Model
         {
             // Assuming result is a comma-separated string from the PL/SQL function
             // Example: "1,JohnDoe,hashedpassword,Sekretářka,0,5"
-            var data = result.ToString().Split(',');
+            if (result != null) {
+                var data = result.ToString().Split(',');
 
-            if (data.Length < 6)
-                throw new FormatException("Unexpected format for user data.");
+                if (data.Length < 6)
+                    throw new FormatException("Unexpected format for user data.");
 
-            return new User
-            {
-                Id = int.Parse(data[0]),
-                Jmeno = data[1],
-                Heslo = data[2],
-                Role = data[3],
-                boolean = int.Parse(data[4]),
-                IdZamestnanec = int.Parse(data[5])
-            };
+                return new User
+                {
+                    Id = int.Parse(data[0]),
+                    Jmeno = data[1],
+                    Heslo = data[2],
+                    Role = data[3],
+                    boolean = int.Parse(data[4]),
+                    IdZamestnanec = int.Parse(data[5])
+                };
+            }
+
+            return null;
         }
     }
 
